@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal</title>
+    <link rel="stylesheet" href="../Vista/principal_CSS.css">
+    <script src="../Controlador/principal.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Servicios</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Bienvenido a la Página Principal</h1>
+        <section>
+            <ul>
+                <li><a href="#" id="btnApoyoVocacional">Apoyo Vocacional</a></li>
+                <li><a href="#">Carreras Profesionales</a></li>
+                <li><a href="#">Entidades de Formación</a></li>
+                <li><a href="#">Financiamiento de Becas</a></li>
+            </ul>
+        </section>
+        <div id="contenidoAjax" class="modal" style="display: none;">
+            <div class="modal-content">
+                <nav class="tab-menu">
+                    <button class="tab-button" data-content="test">Test Psicológico</button>
+                    <button class="tab-button" data-content="consejos">Consejos</button>
+                    <button class="tab-button" data-content="orientacion">Orientación Vocacional</button>
+                </nav>
+                <div id="contenidoTab" class="tab-content">
+                    <p>Selecciona una opción para ver más información.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
