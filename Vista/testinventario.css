@@ -98,3 +98,8 @@ button {
 button:hover {
     background: #0056b3;
 }
+
+#tablaCuestionario th:nth-child(2),
+#tablaCuestionario td:nth-child(2) {
+    text-align: left;
+}

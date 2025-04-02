@@ -1,0 +1,36 @@
+{
+    "secciones": [
+        {
+            "titulo": "¿Cómo estudia usted?",
+            "preguntas": [
+                "Leo todo lo que tengo que estudiar subrayando los puntos más importantes",
+                "Subrayo las palabras cuyo significado no sé",
+                "Regreso a los puntos subrayados con el propósito de aclararlo",
+                "Busco de inmediato en el diccionario el significado de las palabras que no sé",
+                "Me hago preguntas y me respondo en mi propio lenguaje lo que he comprendido",
+                "Luego escribo en mi propio lenguaje lo que he comprendido",
+                "Doy una leída parte por parte y repito varias veces hasta recitarlo de memoria",
+                "Trato de memorizar todo lo que estudio",
+                "Repaso lo que he estudiado después de 4 a 8 horas",
+                "Me limito a dar una leída general a todo lo que tengo que estudiar",
+                "Trato de relacionar el tema que estoy estudiando con otros temas ya estudiados",
+                "Estudio sólo para los exámenes"
+            ]
+        },
+        {
+            "titulo": "Nueva sección",
+            "preguntas": [
+                "Ejemplo de pregunta 1",
+                "Ejemplo de pregunta 2",
+                "Ejemplo de pregunta 3",
+                "Ejemplo de pregunta 4",
+                "Ejemplo de pregunta 5",
+                "Ejemplo de pregunta 6",
+                "Ejemplo de pregunta 7",
+                "Ejemplo de pregunta 8",
+                "Ejemplo de pregunta 9",
+                "Ejemplo de pregunta 10"
+            ]
+        }
+    ]
+}

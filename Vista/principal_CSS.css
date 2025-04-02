@@ -42,39 +42,6 @@ main {
     padding: 20px;
 }
 
-section ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-}
-
-section ul li {
-    padding: 15px 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
-}
-
-section ul li:nth-child(1) { background: green; }
-section ul li:nth-child(2) { background: red; }
-section ul li:nth-child(3) { background: blue; }
-section ul li:nth-child(4) { background: yellow; }
-
-section ul li a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    display: block;
-    text-align: center;
-}
-
-section ul li:hover {
-    transform: scale(1.1);
-}
-
 /* Estilos para el AJAX */
 .modal {
     position: fixed;
@@ -130,3 +97,35 @@ section ul li:hover {
     border-radius: 10px;
     width: 80%;
 }
+
+.boton-container {
+    display: flex; /* Alinea los botones en fila */
+    gap: 15px; /* Espaciado entre los botones */
+    justify-content: center; /* Centra los botones horizontalmente */
+}
+
+.btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Colores personalizados para cada botón */
+.amarillo { background-color: #FFC107; } /* Amarillo */
+.rojo { background-color: #DC3545; } /* Rojo */
+.verde { background-color: #28A745; } /* Verde */
+.azul { background-color: #007BFF; } /* Azul */
+
+/* Cambia el color y aumenta el tamaño al pasar el mouse */
+.btn:hover {
+    transform: scale(1.1); /* Aumenta el tamaño en un 10% */
+}
+
+.amarillo:hover { background-color: #E0A800; }
+.rojo:hover { background-color: #C82333; }
+.verde:hover { background-color: #218838; }
+.azul:hover { background-color: #0056B3; }

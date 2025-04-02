@@ -36,51 +36,66 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function cargarCuestionario() {
-        let cuestionarioHTML = "";
-        const preguntas = [
-            "Leo todo lo que tengo que estudiar subrayando los puntos más importantes",
-            "Subrayo las palabras cuyo significado no sé",
-            "Regreso a los puntos subrayados con el propósito de aclararlo",
-            "Busco de inmediato en el diccionario el significado de las palabras que no sé",
-            "Me hago preguntas y me respondo en mi propio lenguaje lo que he comprendido",
-            "Luego escribo en mi propio lenguaje lo que he comprendido",
-            "Doy una leída parte por parte y repito varias veces hasta recitarlo de memoria",
-            "Trato de memorizar todo lo que estudio",
-            "Repaso lo que he estudiado después de 4 a 8 horas",
-            "Me limito a dar una leída general a todo lo que tengo que estudiar",
-            "Trato de relacionar el tema que estoy estudiando con otros temas ya estudiados",
-            "Estudio sólo para los exámenes"
-        ];
-
-        // Sección en romanos
-        let seccionRomano = "I";
-        
-        // Agregar la fila de encabezado
-        cuestionarioHTML += `
-            <tr>
-                <td>${seccionRomano}</td>
-                <td>¿Cómo estudia usted?</td>
-                <td>SIEMPRE</td>
-                <td>NUNCA</td>
-            </tr>
-        `;
-
-        // Generar preguntas dinámicamente
-        preguntas.forEach((pregunta, index) => {
-            cuestionarioHTML += `
-                <tr>
-                    <td>${index + 1}</td>
-                    <td>${pregunta}</td>
-                    <td><input type="radio" name="pregunta${index + 1}" value="siempre"></td>
-                    <td><input type="radio" name="pregunta${index + 1}" value="nunca"></td>
-                </tr>
-            `;
-        });
-
-        // Insertar las preguntas generadas en el cuerpo de la tabla
-        const tablaCuestionario = document.getElementById("tablaCuestionario").getElementsByTagName("tbody")[0];
-        tablaCuestionario.innerHTML = cuestionarioHTML;
+        fetch("../Controlador/preguntas.json") // Carga el archivo JSON
+            .then(response => response.json()) // Convierte la respuesta en JSON
+            .then(data => {
+                let cuestionarioHTML = "";
+                let tablaCuestionario = document.querySelector("#tablaCuestionario tbody");
+    
+                // Verificamos que el JSON tenga secciones
+                if (!data.secciones) {
+                    console.error("El JSON no tiene la estructura esperada");
+                    return;
+                }
+    
+                // Variable para mantener la numeración continua
+                let preguntaNumero = 1;
+    
+                // Función para convertir números a romanos
+                function toRoman(num) {
+                    const romanNumerals = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
+                    return romanNumerals[num - 1] || num;
+                }
+    
+                // Iterar sobre cada sección
+                data.secciones.forEach((seccion, sectionIndex) => {
+                    // Agregar la fila de título de la sección
+                    let numeroRomano = toRoman(sectionIndex + 1); // Convertir a número romano
+                    cuestionarioHTML += `
+                        <thead>
+                            <tr>
+                                <th>${numeroRomano}</th>
+                                <th>${seccion.titulo}</th>
+                                <th>SIEMPRE</th>
+                                <th>NUNCA</th>
+                            </tr>
+                        </thead>
+                    `;
+    
+                    // Agregar las preguntas de la sección
+                    cuestionarioHTML += `<tbody>`; // Abrimos el tbody para las preguntas
+    
+                    seccion.preguntas.forEach(() => {
+                        cuestionarioHTML += `
+                            <tr>
+                                <td>${preguntaNumero}</td>
+                                <td style="text-align: left;">Pregunta</td>
+                                <td><input type="radio" name="pregunta${preguntaNumero}" value="siempre"></td>
+                                <td><input type="radio" name="pregunta${preguntaNumero}" value="nunca"></td>
+                            </tr>
+                        `;
+                        preguntaNumero++; // Incrementar el número de la pregunta para que sea continuo
+                    });
+    
+                    cuestionarioHTML += `</tbody>`; // Cerramos el tbody después de las preguntas
+                });
+    
+                // Insertar en la tabla
+                tablaCuestionario.innerHTML = cuestionarioHTML;
+            })
+            .catch(error => console.error("Error al cargar las preguntas:", error));
     }
+     
 
     // Función para mostrar los resultados (aquí puedes procesar las respuestas del cuestionario)
     function mostrarResultados() {
