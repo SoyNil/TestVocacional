@@ -1,35 +1,81 @@
 {
     "secciones": [
         {
-            "titulo": "¿Cómo estudia usted?",
+            "titulo": "¿CÓMO ESTUDIA USTED?",
             "preguntas": [
-                "Leo todo lo que tengo que estudiar subrayando los puntos más importantes",
-                "Subrayo las palabras cuyo significado no sé",
-                "Regreso a los puntos subrayados con el propósito de aclararlo",
-                "Busco de inmediato en el diccionario el significado de las palabras que no sé",
-                "Me hago preguntas y me respondo en mi propio lenguaje lo que he comprendido",
-                "Luego escribo en mi propio lenguaje lo que he comprendido",
-                "Doy una leída parte por parte y repito varias veces hasta recitarlo de memoria",
-                "Trato de memorizar todo lo que estudio",
-                "Repaso lo que he estudiado después de 4 a 8 horas",
-                "Me limito a dar una leída general a todo lo que tengo que estudiar",
-                "Trato de relacionar el tema que estoy estudiando con otros temas ya estudiados",
-                "Estudio sólo para los exámenes"
+                { "texto": "Leo MArvin todo lo que tengo que estudiar subrayando los puntos más importantes", "regla": "normal" },
+                { "texto": "Subrayo las palabras cuyo significado no sé", "regla": "normal" },
+                { "texto": "Regreso a los puntos subrayados con el propósito de aclararlo", "regla": "normal" },
+                { "texto": "Busco de inmediato en el diccionario el significado de las palabras que no sé", "regla": "normal" },
+                { "texto": "Me hago preguntas y me respondo en mi propio lenguaje lo que he comprendido", "regla": "normal" },
+                { "texto": "Luego escribo en mi propio lenguaje lo que he comprendido", "regla": "normal" },
+                { "texto": "Doy una leída parte por parte y repito varias veces hasta recitarlo de memoria", "regla": "invertida" },
+                { "texto": "Trato de memorizar todo lo que estudio", "regla": "invertida" },
+                { "texto": "Repaso lo que he estudiado después de 4 a 8 horas", "regla": "normal" },
+                { "texto": "Me limito a dar una leída general a todo lo que tengo que estudiar", "regla": "invertida" },
+                { "texto": "Trato de relacionar el tema que estoy estudiando con otros temas ya estudiados", "regla": "normal" },
+                { "texto": "Estudio sólo para los exámenes", "regla": "invertida" }
             ]
         },
         {
-            "titulo": "Nueva sección",
+            "titulo": "¿CÓMO HACE UD. SUS TAREAS?",
             "preguntas": [
-                "Ejemplo de pregunta 1",
-                "Ejemplo de pregunta 2",
-                "Ejemplo de pregunta 3",
-                "Ejemplo de pregunta 4",
-                "Ejemplo de pregunta 5",
-                "Ejemplo de pregunta 6",
-                "Ejemplo de pregunta 7",
-                "Ejemplo de pregunta 8",
-                "Ejemplo de pregunta 9",
-                "Ejemplo de pregunta 10"
+                { "texto": "Leo la pregunta, busco en el libro y escribo la respuesta casi como dice el libro.", "regla": "invertida" },
+                { "texto": "Leo la pregunta, busco en el libro, leo todo y luego contesto según como he comprendido.", "regla": "normal" },
+                { "texto": "Las palabras que no entiendo, las escribo como están en el libro, sin averiguar su significado.", "regla": "invertida" },
+                { "texto": "Le doy más importancia al orden y presentación del trabajo que a la comprensión del tema.", "regla": "invertida" },
+                { "texto": "En mi casa me falta tiempo para terminar con mis tareas, las completo en el colegio preguntando a mis amigos.", "regla": "invertida" },
+                { "texto": "Pido ayuda a mis padres u otras personas y dejo que me resuelvan todo o gran parte de la tarea.", "regla": "invertida" },
+                { "texto": "Dejo para el último momento la ejecución de mis tareas por eso no las concluyo dentro del tiempo fijado.", "regla": "invertida" },
+                { "texto": "Empiezo a resolver una tarea, me canso y paso a otra.", "regla": "invertida" },
+                { "texto": "Cuando no puedo resolver una tarea me da rabia o mucha cólera y ya no lo hago.", "regla": "invertida" },
+                { "texto": "Cuando tengo varias tareas empiezo por la más difícil y luego voy pasando a las más fáciles.", "regla": "normal" }
+            ]
+        },
+        {
+            "titulo": "¿CÓMO PREPARA SUS EXÁMENES?",
+            "preguntas": [
+                { "texto": "Estudio por lo menos dos horas todos los días.", "regla": "normal" },
+                { "texto": "Espero que se fije fecha de un examen o paso para ponerme a estudiar.", "regla": "invertida" },
+                { "texto": "Cuando hay paso oral, recién en el salón de clases me pongo a revisar mis apuntes.", "regla": "invertida" },
+                { "texto": "Me pongo a estudiar el mismo día del examen.", "regla": "invertida" },
+                { "texto": "Repaso momentos antes del examen.", "regla": "invertida" },
+                { "texto": "Preparo un plagio por si acaso me olvido del tema.", "regla": "invertida" },
+                { "texto": "Confío en que mi compañero me 'sople' alguna respuesta en el momento del examen.", "regla": "invertida" },
+                { "texto": "Confío en mi buena suerte por eso solo estudio aquellos temas que supongo que el profesor preguntará.", "regla": "invertida" },
+                { "texto": "Cuando tengo dos o más exámenes el mismo día empiezo a estudiar por el tema más difícil y luego el más fácil.", "regla": "normal" },
+                { "texto": "Me presento a rendir mis exámenes sin haber concluido con el estudio de todo el tema.", "regla": "invertida" },
+                { "texto": "Durante el examen se me confunden los temas, se me olvida lo que he estudiado.", "regla": "invertida" }
+            ]
+        },
+        {
+            "titulo": "¿CÓMO ESCUCHA LAS CLASES?",
+            "preguntas": [
+                { "texto": "Trato de tomar apuntes de todo lo que dice el profesor.", "regla": "invertida" },
+                { "texto": "Solo tomo apuntes de las cosas más importantes.", "regla": "normal" },
+                { "texto": "Inmediatamente después de una clase ordeno mis apuntes.", "regla": "normal" },
+                { "texto": "Cuando el profesor utiliza alguna palabra que no sé, levanto la mano y pido su significado.", "regla": "normal" },
+                { "texto": "Estoy más atento a las bromas de mis compañeros que a la clase.", "regla": "invertida" },
+                { "texto": "Me canso rápidamente y me pongo a hacer otras cosas.", "regla": "invertida" },
+                { "texto": "Cuando me aburro me pongo a jugar o a conversar con mi amigo.", "regla": "invertida" },
+                { "texto": "Cuando no puedo tomar nota de lo que dice el profesor me aburro y lo dejo todo.", "regla": "invertida" },
+                { "texto": "Cuando no entiendo un tema mi mente se pone a pensar soñando despierto.", "regla": "invertida" },
+                { "texto": "Mis imaginaciones o fantasías me distraen durante las clases.", "regla": "invertida" },
+                { "texto": "Durante las clases me distraigo pensando lo que voy a hacer a la salida.", "regla": "invertida" },
+                { "texto": "Durante las clases me gustaría dormir o tal vez irme de clase.", "regla": "invertida" }
+            ]
+        },
+        {
+            "titulo": "¿QUÉ ACOMPAÑA SUS MOMENTOS DE ESTUDIO?",
+            "preguntas": [
+                { "texto": "Requiero de música sea del radio o equipo de audio (mp3, mp4)", "regla": "invertida" },
+                { "texto": "Requiero la compañía de la TV.", "regla": "invertida" },
+                { "texto": "Requiero de tranquilidad y silencio.", "regla": "normal" },
+                { "texto": "Requiero de algún alimento que como mientras estudio.", "regla": "invertida" },
+                { "texto": "Mi familia; que conversan, ven TV o escuchan música.", "regla": "invertida" },
+                { "texto": "Interrupciones por parte de mis padres pidiéndome algún favor.", "regla": "invertida" },
+                { "texto": "Interrupciones de visitas, amigos, que me quitan tiempo.", "regla": "invertida" },
+                { "texto": "Interrupciones sociales; fiestas, paseos, citas, etc.", "regla": "invertida" }
             ]
         }
     ]

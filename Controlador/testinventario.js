@@ -1,7 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector("form");
-    const cuestionarioContainer = document.getElementById("cuestionario"); // Cambié mainContainer a cuestionario
-    const formContainer = form.closest('.container'); // Para ocultar todo el contenedor del formulario
+    const cuestionarioContainer = document.getElementById("cuestionario");
+    const formContainer = form.closest('.container');
+    const resultadosContainer = document.getElementById("resultados");
+    const resultadosContenido = document.getElementById("resultadosContenido");
+    const resultadosBtn = document.getElementById("resultadosBtn");
 
     if (form) {
         form.addEventListener("submit", function (event) {
@@ -21,46 +24,91 @@ document.addEventListener("DOMContentLoaded", function () {
                 event.preventDefault();
             } else {
                 event.preventDefault();
-                if (cuestionarioContainer) { // Verifica que cuestionarioContainer exista
-                    // Ocultar el formulario de entrada
-                    formContainer.style.display = "none";
-
-                    // Mostrar el cuestionario
-                    cargarCuestionario();
-                    cuestionarioContainer.style.display = "block"; // Asegúrate de mostrar el cuestionario
-                } else {
-                    console.error("Elemento #cuestionario no encontrado");
-                }
+                formContainer.style.display = "none";
+                cargarCuestionario();
+                cuestionarioContainer.style.display = "block";
             }
         });
     }
 
+    if (resultadosBtn) {
+        resultadosBtn.addEventListener("click", function () {
+            calcularResultados();
+            cuestionarioContainer.style.display = "none";
+            resultadosContainer.style.display = "block";
+        });
+    }
+
+    function obtenerCategoriaSeccion(puntaje, seccion) {
+        switch (seccion) {
+            case 1:
+                if (puntaje >= 10) return "MUY POSITIVO";
+                if (puntaje >= 8) return "POSITIVO";
+                if (puntaje >= 5) return "TENDENCIA POSITIVA";
+                if (puntaje >= 3) return "TENDENCIA NEGATIVA";
+                if (puntaje >= 1) return "NEGATIVO";
+                return "MUY NEGATIVO";
+            case 2:
+                if (puntaje === 10) return "MUY POSITIVO";
+                if (puntaje >= 8) return "POSITIVO";
+                if (puntaje >= 6) return "TENDENCIA POSITIVA";
+                if (puntaje >= 3) return "TENDENCIA NEGATIVA";
+                if (puntaje >= 1) return "NEGATIVO";
+                return "MUY NEGATIVO";
+            case 3:
+                if (puntaje === 11) return "MUY POSITIVO";
+                if (puntaje >= 9) return "POSITIVO";
+                if (puntaje >= 7) return "TENDENCIA POSITIVA";
+                if (puntaje >= 4) return "TENDENCIA NEGATIVA";
+                if (puntaje >= 2) return "NEGATIVO";
+                return "MUY NEGATIVO";
+            case 4:
+                if (puntaje >= 10) return "MUY POSITIVO";
+                if (puntaje >= 8) return "POSITIVO";
+                if (puntaje >= 6) return "TENDENCIA POSITIVA";
+                if (puntaje >= 4) return "TENDENCIA NEGATIVA";
+                if (puntaje >= 2) return "NEGATIVO";
+                return "MUY NEGATIVO";
+            case 5:
+                if (puntaje >= 7) return "MUY POSITIVO";
+                if (puntaje === 6) return "POSITIVO";
+                if (puntaje === 5) return "TENDENCIA POSITIVA";
+                if (puntaje === 4) return "TENDENCIA NEGATIVA";
+                if (puntaje >= 1) return "NEGATIVO";
+                return "MUY NEGATIVO";
+            default:
+                return "SIN CATEGORÍA";
+        }
+    }
+
+    function obtenerCategoriaGlobal(puntajeTotal) {
+        if (puntajeTotal >= 44) return "MUY POSITIVO";
+        if (puntajeTotal >= 36) return "POSITIVO";
+        if (puntajeTotal >= 28) return "TENDENCIA POSITIVA";
+        if (puntajeTotal >= 18) return "TENDENCIA NEGATIVA";
+        if (puntajeTotal >= 9) return "NEGATIVO";
+        return "MUY NEGATIVO";
+    }
+
     function cargarCuestionario() {
-        fetch("../Controlador/preguntas.json") // Carga el archivo JSON
-            .then(response => response.json()) // Convierte la respuesta en JSON
+        fetch("../Controlador/preguntas.json")
+            .then(response => response.json())
             .then(data => {
                 let cuestionarioHTML = "";
                 let tablaCuestionario = document.querySelector("#tablaCuestionario tbody");
-    
-                // Verificamos que el JSON tenga secciones
                 if (!data.secciones) {
                     console.error("El JSON no tiene la estructura esperada");
                     return;
                 }
-    
-                // Variable para mantener la numeración continua
                 let preguntaNumero = 1;
-    
-                // Función para convertir números a romanos
+                
                 function toRoman(num) {
                     const romanNumerals = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
                     return romanNumerals[num - 1] || num;
                 }
-    
-                // Iterar sobre cada sección
+
                 data.secciones.forEach((seccion, sectionIndex) => {
-                    // Agregar la fila de título de la sección
-                    let numeroRomano = toRoman(sectionIndex + 1); // Convertir a número romano
+                    let numeroRomano = toRoman(sectionIndex + 1);
                     cuestionarioHTML += `
                         <thead>
                             <tr>
@@ -70,46 +118,145 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <th>NUNCA</th>
                             </tr>
                         </thead>
-                    `;
-    
-                    // Agregar las preguntas de la sección
-                    cuestionarioHTML += `<tbody>`; // Abrimos el tbody para las preguntas
-    
-                    seccion.preguntas.forEach(() => {
+                        <tbody>`;
+
+                    seccion.preguntas.forEach((pregunta) => {
+                        let textoPregunta = typeof pregunta === "object" ? pregunta.texto : pregunta;
+                        let regla = pregunta.regla || "normal";
+
                         cuestionarioHTML += `
                             <tr>
                                 <td>${preguntaNumero}</td>
-                                <td style="text-align: left;">Pregunta</td>
+                                <td style="text-align: left;">${textoPregunta}</td>
                                 <td><input type="radio" name="pregunta${preguntaNumero}" value="siempre"></td>
                                 <td><input type="radio" name="pregunta${preguntaNumero}" value="nunca"></td>
-                            </tr>
-                        `;
-                        preguntaNumero++; // Incrementar el número de la pregunta para que sea continuo
+                            </tr>`;
+                        preguntaNumero++;
                     });
-    
-                    cuestionarioHTML += `</tbody>`; // Cerramos el tbody después de las preguntas
+                    
+                    cuestionarioHTML += `</tbody>`;
                 });
-    
-                // Insertar en la tabla
+
                 tablaCuestionario.innerHTML = cuestionarioHTML;
             })
             .catch(error => console.error("Error al cargar las preguntas:", error));
     }
-     
 
-    // Función para mostrar los resultados (aquí puedes procesar las respuestas del cuestionario)
-    function mostrarResultados() {
-        let resultadosHTML = "<p>Estos son los resultados:</p>";
-        resultadosHTML += "<ul>";
+    function calcularResultados() {
+        fetch("../Controlador/preguntas.json")
+            .then(response => response.json())
+            .then(data => {
+                let puntajes = {};
+                let puntajeTotal = 0;
+                let preguntaNumero = 1;
+    
+                if (!data.secciones) {
+                    console.error("El JSON no tiene la estructura esperada");
+                    return;
+                }
+    
+                data.secciones.forEach(seccion => {
+                    let puntajeSeccion = 0;
+                    seccion.preguntas.forEach(pregunta => {
+                        let regla = pregunta.regla || "normal";
+                        let seleccion = document.querySelector(`input[name='pregunta${preguntaNumero}']:checked`);
+    
+                        // Si hay una respuesta seleccionada, se procesa
+                        if (seleccion) {
+                            if ((regla === "normal" && seleccion.value === "siempre") || 
+                                (regla === "invertida" && seleccion.value === "nunca")) {
+                                puntajeSeccion++;
+                                puntajeTotal++;
+                            }
+                        }
+                        // Si no hay selección, simplemente no se cuenta esa pregunta
+                        preguntaNumero++;
+                    });
+                    puntajes[seccion.titulo] = puntajeSeccion;
+                });
+    
+                // Ahora, mostramos los resultados, incluso si algunas respuestas están incompletas
+                mostrarResultados(puntajes, puntajeTotal);  // Mostramos los resultados, incluso si algunas respuestas están incompletas
+            })
+            .catch(error => console.error("Error al calcular los resultados:", error));
+    } 
 
-        const inputs = formCuestionario.querySelectorAll("input[type='text']");
-        inputs.forEach(input => {
-            resultadosHTML += `<li>Pregunta: ${input.placeholder} - Respuesta: ${input.value}</li>`;
+    function mostrarResultados(puntajes, puntajeTotal) {
+        const nombre = document.getElementById("nombre").value || "Sin nombre";
+        const edad = document.getElementById("edad").value || "Sin edad";
+        const sexo = document.getElementById("sexo").value || "Sin especificar";
+        const gradoEstudio = document.getElementById("gradoEstudio").value || "Sin especificar";
+        const fechaActual = new Date().toLocaleDateString();
+    
+        let puntajeTotalGlobal = 0;
+    
+        // Contenedor flexible para alinear los textos y tablas
+        let resultadosHTML = `
+            <h2>Resultados del Test</h2>
+            
+            <div style="display: flex; justify-content: space-between; gap: 40px; align-items: flex-start;">
+                
+                <!-- Columna izquierda: Datos personales -->
+                <div style="flex: 1;">
+                    <p><strong>Nombre:</strong> ${nombre}</p>
+                    <p><strong>Edad:</strong> ${edad}</p>
+                    <p><strong>Sexo:</strong> ${sexo}</p>
+                    <p><strong>Grado de Estudio:</strong> ${gradoEstudio}</p>
+                    <p><strong>Fecha:</strong> ${fechaActual}</p>
+                </div>
+    
+                <!-- Tabla de interpretación de categorías -->
+                <table>
+                    <tr><th>CATEGORÍA</th></tr>
+                    <tr><td>De 44-53 Muy Positivo</td></tr>
+                    <tr><td>De 36-43 Positivo</td></tr>
+                    <tr><td>De 28-35 Tendencia (+)</td></tr>
+                    <tr><td>De 18-27 Tendencia (-)</td></tr>
+                    <tr><td>De 09-17 Negativo</td></tr>
+                    <tr><td>De 0-08 Muy Negativo.</td></tr>
+                </table>
+    
+            </div>  <!-- Fin del contenedor flexible -->
+    
+            <!-- Tabla de resultados -->
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>ÁREAS DE EVALUACIÓN</th>
+                        <th>PUNTAJE</th>
+                        <th>CATEGORÍA</th>
+                    </tr>
+                </thead>
+                <tbody>`;
+    
+        // Agregar filas de evaluación
+        Object.keys(puntajes).forEach((seccion, index) => {
+            const puntajeSeccion = puntajes[seccion];
+            const categoria = obtenerCategoriaSeccion(puntajeSeccion, index + 1);
+    
+            resultadosHTML += `
+                <tr>
+                    <td>${seccion}</td>
+                    <td>${puntajeSeccion}</td>
+                    <td>${categoria}</td>
+                </tr>`;
+    
+            puntajeTotalGlobal += puntajeSeccion;
         });
-
-        resultadosHTML += "</ul>";
-
-        const resultadosContenido = document.querySelector("#resultadosContenido");
+    
+        // Agregar fila de puntaje total
+        const categoriaGlobal = obtenerCategoriaGlobal(puntajeTotalGlobal);
+    
+        resultadosHTML += `
+                <tr>
+                    <td><strong>PUNTAJE TOTAL</strong></td>
+                    <td><strong>${puntajeTotalGlobal}</strong></td>
+                    <td><strong>${categoriaGlobal}</strong></td>
+                </tr>
+            </tbody>
+        </table>`;
+    
+        // Insertar HTML en el contenedor
         resultadosContenido.innerHTML = resultadosHTML;
-    }
+    }         
 });
