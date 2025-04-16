@@ -3,7 +3,7 @@
         {
             "titulo": "¿CÓMO ESTUDIA USTED?",
             "preguntas": [
-                { "texto": "Leo MArvin todo lo que tengo que estudiar subrayando los puntos más importantes", "regla": "normal" },
+                { "texto": "Leo todo lo que tengo que estudiar subrayando los puntos más importantes", "regla": "normal" },
                 { "texto": "Subrayo las palabras cuyo significado no sé", "regla": "normal" },
                 { "texto": "Regreso a los puntos subrayados con el propósito de aclararlo", "regla": "normal" },
                 { "texto": "Busco de inmediato en el diccionario el significado de las palabras que no sé", "regla": "normal" },

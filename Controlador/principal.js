@@ -30,7 +30,15 @@ document.addEventListener("DOMContentLoaded", function () {
         let contenido = "";
         switch (tipo) {
             case "test":
-                contenido = "<h2>Test Psicológico</h2><button style=\"background-color: #007BFF; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; transition: background 0.3s;\" onmouseover=\"this.style.backgroundColor='#0056b3'\" onmouseout=\"this.style.backgroundColor='#007BFF'\" onclick=\"window.location.href='testinventario.html'\">INVENTARIO DE HÁBITOS DE ESTUDIO CASM-85-R 2005</button>";
+                contenido = `
+                    <h2>Test Psicológico</h2>
+                    <div class="botones-test">
+                        <button onclick="window.location.href='testCASM85.html'">INVENTARIO DE HÁBITOS DE ESTUDIO CASM-85-R 2005</button>
+                        <button onclick="window.location.href='testCASM83.html'">INVENTARIO DE  INTERESES  VOCACIONALES  Y  OCUPACIONALES CASM-83</button>
+                        <button onclick="window.location.href='otro_test2.html'">Otro Test 2</button>
+                        <!-- Agrega más botones aquí -->
+                    </div>
+                `;
                 break;
             case "consejos":
                 contenido = "<h2>Consejos</h2><p>Algunos consejos para elegir una carrera profesional adecuada.</p>";

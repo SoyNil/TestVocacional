@@ -1,0 +1,105 @@
+body {
+    background-color: #706f6f;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: auto; /* Permitir el desplazamiento en el body si es necesario */
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 500px; /* Aumentamos el ancho para que el formulario sea más amplio */
+    max-height: 90vh;
+    overflow: hidden; /* Evitar que el contenedor se desborde */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    margin: 20px 0;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333;
+    text-align: left;
+}
+
+input, select {
+    width: calc(100% - 16px);
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#cuestionario {
+    display: none; /* Ocultarlo inicialmente */
+    width: 80%;
+    max-width: 1000px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#tablaCuestionario {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#tablaCuestionario th, #tablaCuestionario td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+#tablaCuestionario th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+#tablaCuestionario td input {
+    margin-top: 5px;
+    width: 40px; /* Ajuste el tamaño de los botones de radio */
+}
+
+button {
+    background: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+#tablaCuestionario th:nth-child(2),
+#tablaCuestionario td:nth-child(2) {
+    text-align: left;
+}
