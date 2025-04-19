@@ -1,16 +1,62 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #706f6f;
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Poiret+One&display=swap');
+* {
+    font-family: "Figtree", sans-serif;
 }
 
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #171717;
+}
+
+/* INICIO DE ESTILOS HEADER */
+
 header {
-    background-color: #333;
-    padding: 15px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    text-align: center;
+    background-color: #171717;
+    padding: 15px 30px;
+    position: relative; /* Necesario para alinear el dropdown */
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+    width: 70%;
+    margin: 0 auto; /* Esto lo centra horizontalmente */
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-img {
+    height: 40px;
+    width: auto;
+}
+
+.logo-text {
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+}
+
+/* Estilo base del botón hamburguesa */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+nav {
+    position: relative; /* Necesario para alinear el dropdown */
 }
 
 nav ul {
@@ -18,53 +64,172 @@ nav ul {
     padding: 0;
     margin: 0;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
 nav ul li {
-    margin: 0 15px;
+    margin: 0;
 }
 
 nav ul li a {
     text-decoration: none;
-    color: white;
+    color: #bababa;
     font-size: 18px;
     padding: 10px;
 }
 
 nav ul li a:hover {
-    background-color: #555;
+    background-color: #232323;
+    color: white;
     border-radius: 5px;
 }
 
+.dropdown {
+    position: relative; /* Necesario para posicionar el menú */
+}
+
+.dropdown-menu {
+    position: absolute; /* Necesario para que se coloque debajo */
+    top: 100%; /* Coloca el dropdown justo debajo del contenedor principal */
+    left: 0;
+    right: 0; /* Ajusta para que ocupe todo el ancho disponible */
+    background-color: #2a2a2a;
+    padding: 10px 0;
+    display: none;
+    flex-direction: column;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 999; /* Asegura que esté por encima de otros elementos */
+    min-width: 160px;
+    margin-top: 5px; /* Ajusta la distancia del menú con el header */
+}
+
+.dropdown-menu.show {
+    display: flex; /* Muestra el menú cuando tiene la clase 'show' */
+}
+
+.dropdown-menu li a {
+    color: white;
+    padding: 8px 12px;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+.dropdown-menu li a:hover {
+    color: #3576ff;
+    background-color: transparent;
+}
+
+/* MEDIA QUERIES - Responsive */
+@media (max-width: 768px) {
+    .nav-container {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .logo-container {
+        order: 1;
+    }
+
+    .menu-toggle {
+        order: 2;
+    }
+
+    #main-nav {
+        order: 3;
+        width: 100%;
+    }
+
+    /* Botón hamburguesa visible solo en pantallas pequeñas */
+    .menu-toggle {
+        display: block;
+    }
+  
+    /* Ocultamos el nav en pantallas pequeñas por defecto */
+    nav {
+        width: 100%;
+        display: none;
+        margin-top: 10px;
+    }
+
+    /* Cuando el nav tiene la clase 'active', lo mostramos */
+    nav.active {
+        display: block;
+    }
+
+    /* Hacemos que los elementos de la lista se apilen en columna */
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    nav ul li {
+        width: 100%;
+    }
+
+    nav ul li a {
+        padding: 10px 0;
+        display: block;
+        width: 100%;
+    }
+
+    /* Estilo del dropdown para móviles */
+    .dropdown {
+        width: 100%;
+    }
+
+    .dropdown-menu {
+        position: relative;
+        top: 0;
+        left: 0;
+        box-shadow: none;
+        padding-left: 15px;
+        min-width: auto;
+        display: none;
+        background-color: #2a2a2a;
+    }
+
+    .dropdown-menu.show {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+/* FIN DE ESTILOS HEADER */
+
+/*INICIO ESTILOS MAIN*/
+
 main {
     text-align: center;
-    padding: 20px;
+    background-color: #171717;
+    padding: 15px 30px;
+    padding-top: 50px;
 }
 
 /* Estilos para el AJAX */
 .modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    width: 60%;
+    display: none;
     background: rgb(90, 90, 90);
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     padding: 20px;
+    margin-top: 20px;
     text-align: center;
     opacity: 0;
-    visibility: hidden;
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s;
+    transform: scale(0.95);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
+/* Mostrar modal */
 .modal.show {
-    transform: translate(-50%, -50%) scale(1);
+    display: block;
     opacity: 1;
-    visibility: visible;
+    transform: scale(1);
 }
 
+/* Estilos del contenido dentro del modal */
 .modal-content {
     display: flex;
     flex-direction: column;
@@ -98,12 +263,14 @@ main {
     width: 80%;
 }
 
+/* Estilos del contenedor de los botones */
 .boton-container {
-    display: flex; /* Alinea los botones en fila */
-    gap: 15px; /* Espaciado entre los botones */
-    justify-content: center; /* Centra los botones horizontalmente */
+    display: flex;
+    gap: 15px;
+    justify-content: center;
 }
 
+/* Botones */
 .btn {
     padding: 12px 20px;
     border: none;
@@ -114,21 +281,22 @@ main {
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
+
 /* Colores personalizados para cada botón */
-.amarillo { background-color: #FFC107; } /* Amarillo */
-.rojo { background-color: #DC3545; } /* Rojo */
-.verde { background-color: #28A745; } /* Verde */
-.azul { background-color: #007BFF; } /* Azul */
+.amarillo { background-color: #2944ff; } /* Amarillo */
+.rojo { background-color: #2944ff; } /* Rojo */
+.verde { background-color: #2944ff; } /* Verde */
+.azul { background-color: #2944ff; } /* Azul */
 
 /* Cambia el color y aumenta el tamaño al pasar el mouse */
 .btn:hover {
     transform: scale(1.1); /* Aumenta el tamaño en un 10% */
 }
 
-.amarillo:hover { background-color: #E0A800; }
-.rojo:hover { background-color: #C82333; }
-.verde:hover { background-color: #218838; }
-.azul:hover { background-color: #0056B3; }
+.amarillo:hover { background-color: #6679ff; }
+.rojo:hover { background-color: #6679ff; }
+.verde:hover { background-color: #6679ff; }
+.azul:hover { background-color: #6679ff; }
 
 .botones-test {
     display: flex;
@@ -150,3 +318,201 @@ main {
 .botones-test button:hover {
     background-color: #0056b3;
 }
+
+.main-layout {
+    padding-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Cambié flex-start a center para centrar verticalmente */
+    gap: 30px;
+    flex-wrap: wrap;
+    background-color: #171717;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.seccion-bienvenida {
+    background-color: #171717;
+    flex: 1;
+    min-width: 300px;
+}
+
+main .seccion-bienvenida h1 {
+    font-size: 100px;
+    text-align: left;
+    line-height: 1; /* Reduce espacio entre líneas (ajústalo si quieres aún más compacto) */
+    color: #ffffff;
+}
+
+.seccion-bienvenida,
+.seccion-botones {
+    flex: 1;
+    min-width: 300px;
+}
+
+.seccion-botones {
+    background-color: #171717;
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;     /* Centra verticalmente (opcional) */
+    flex-direction: column;  /* Asegura que los botones estén en columna */
+    gap: 15px;               /* Espaciado entre los botones */
+    padding: 20px;           /* Agrega algo de relleno para un mejor efecto */
+}
+
+.seccion-botones .boton-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center; /* Esto centra los botones dentro del contenedor */
+}
+
+@media (max-width: 768px) {
+    main .seccion-bienvenida h1 {
+        font-size: 50px;
+        text-align: left;
+    }
+}
+
+.carrusel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    margin: auto;
+}
+
+.slide-container {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    background-color: #171717;
+}
+
+.slide {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+    width: 100%;
+}
+
+.slide.activo {
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+    z-index: 1;
+}
+
+.descripcion {
+    color: #bababa;
+    font-size: 16px;
+    max-width: 90%;
+}
+
+/* Flechas laterales */
+.carrusel-arrow {
+    border-radius: 30px;
+    background-color: #2944ff;
+    position: absolute;
+    z-index: 4;
+    width: 48px;
+    height: 48px;
+    text-align: center;
+    border: 0;
+    cursor: pointer;
+    top: 50%;
+    transition: transform 0.25s ease, background-color 0.25s ease; /* Transición más natural */
+}
+
+.carrusel-arrow:hover {
+    transform: scale(1.15); /* Escala suave y mantiene centrado vertical */
+}
+
+.carrusel-prev {
+    left: -60px;
+}
+
+.carrusel-next {
+    right: -60px;
+}
+
+.carrusel-arrow svg {
+    width: 12px;
+    height: 100%;
+    color: white;
+}
+
+/* Sección general sin márgenes/padding */
+.seccion-carrusel-imagenes {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background: none;
+}
+
+/* Contenedor principal ahora se ajusta al contenido */
+.carrusel-imagenes-container {
+    overflow: hidden;
+    width: 100%;
+    height: 560px; /* ✅ Se adapta a la altura del contenido (imágenes) */
+    background: none;
+    padding: 0;
+    margin: 0 auto;
+    box-shadow: none;
+    border: none;
+    display: flex;
+    justify-content: flex-start; /* ⬅️ Esto hace que comience desde la izquierda */
+}
+
+/* Contenedor de imágenes (puede deslizar horizontalmente) */
+.carrusel-imagenes-slide {
+    display: flex;
+    gap: 40px;
+    will-change: transform; /* ✅ Mejora rendimiento para animaciones */
+    padding: 0;
+    margin: 0;
+    height: fit-content; /* ✅ También se adapta a la altura de las imágenes */
+}
+
+/* Imágenes con borde y forma */
+.carrusel-imagenes-slide img {
+    border-radius: 5%;
+    display: block;
+    height: auto;
+    width: auto;
+    max-height: auto;
+    object-fit: contain;
+    background: none;
+}
+
+/* Imagen más grande */
+.img-grande {
+    height: 640px;
+    width: 480px;
+}
+
+/* Imagen más pequeña */
+.img-chica {
+    height: 560px;
+    width: 560px;
+}
+
+.img-desplazada {
+    height: 640px;
+    width: 560px;
+    margin-top: 0;         /* Elimina cualquier margen superior */
+    padding-top: 0;        /* Asegura que no haya espacio adicional */
+    display: block;        /* Evita que los estilos inline generen espacio */
+    position: relative;    /* O absolute si necesitas sacarla del flujo */
+    top: 0;                /* Si usas position, asegura que esté arriba */
+}
+/*FIN ESTILOS MAIN*/
