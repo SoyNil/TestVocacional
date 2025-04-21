@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function cargarCuestionario() {
-        fetch("../Controlador/preguntasCASM85.json")
+        fetch("../Js/preguntasCASM85.json")
             .then(response => response.json())
             .then(data => {
                 let cuestionarioHTML = "";
@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function calcularResultados() {
-        fetch("../Controlador/preguntasCASM85.json")
+        fetch("../Js/preguntasCASM85.json")
             .then(response => response.json())
             .then(data => {
                 let puntajes = {};

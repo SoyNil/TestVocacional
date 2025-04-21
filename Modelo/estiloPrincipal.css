@@ -85,6 +85,37 @@ nav ul li a:hover {
     border-radius: 5px;
 }
 
+/*BOTONES LOGIN*/
+
+.auth-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-auth {
+    color: black;
+    background-color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-auth:hover {
+    background-color: #bababa;
+}
+
+.cerrar-sesion {
+    background-color: #c0392b;
+}
+
+.cerrar-sesion:hover {
+    background-color: #e74c3c;
+}
+
+/*FIN BOTONES LOGIN*/
+
 .dropdown {
     position: relative; /* Necesario para posicionar el menú */
 }
@@ -244,23 +275,36 @@ main {
 }
 
 .tab-button {
+    position: relative;
     padding: 10px 15px;
     border: 1px solid #454545;
     cursor: pointer;
     background: #171717;
     color: white;
-    border-color: #454545;
     border-radius: 5px;
     transition: background 0.3s;
 }
 
+.tab-button:focus::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 2px solid #2944ff;
+    border-radius: 8px;
+    z-index: 1;
+}
+
 .tab-button:hover {
-    background: #0056b3;
+    border-color: #747474;
 }
 
 .tab-content {
     background: #171717;
     padding: 15px;
+    color: white;
     border-radius: 10px;
     width: 80%;
 }
@@ -284,7 +328,7 @@ main {
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.btn_opc::before {
+.btn_opc:focus::before {
     content: '';
     position: absolute;
     top: -4px;
@@ -309,17 +353,17 @@ main {
 }
 
 .botones-test button {
-    background-color: #007BFF;
+    background-color: #171717;
+    border: 1px solid #454545;
     color: white;
     padding: 10px 15px;
-    border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s;
 }
 
 .botones-test button:hover {
-    background-color: #0056b3;
+    border-color: #747474;
 }
 
 .main-layout {
