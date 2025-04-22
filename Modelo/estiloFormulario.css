@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Poiret+One&display=swap');
+* {
+    font-family: "Figtree", sans-serif;
+}
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #121212;
+    background-color: #171717;
     color: #fff;
     display: flex;
     justify-content: center;
@@ -15,6 +18,8 @@ body {
     width: 100%;
     max-width: 400px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    margin: 50px auto; /* Espacio entre el formulario y el header */
+    margin-top: 80px; /* Añadimos un margen superior para que no se solape con el header */
 }
 
 h2 {
@@ -27,7 +32,7 @@ form label {
     margin-top: 15px;
 }
 
-form input {
+form input, form select {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
@@ -35,6 +40,7 @@ form input {
     border-radius: 5px;
     background-color: #2a2a2a;
     color: #fff;
+    font-size: 16px;
 }
 
 button {
@@ -61,4 +67,218 @@ p {
 a {
     color: #4CAF50;
     text-decoration: none;
+}
+
+/* Estilos específicos para el campo de "Sexo" */
+form select {
+    background-color: #2a2a2a;
+    color: #fff;
+    font-size: 16px;
+}
+
+/* Estilo para el mensaje de error */
+.error-message {
+    color: #ff0000;
+    background-color: #fdd;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* INICIO DE ESTILOS HEADER */
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #171717;
+    padding: 10px 20px;
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+    width: 70%;
+    margin: 0 auto; /* Esto lo centra horizontalmente */
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-img {
+    height: 40px;
+    width: auto;
+}
+
+.logo-text {
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+}
+
+/* Estilo base del botón hamburguesa */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+nav {
+    position: relative; /* Necesario para alinear el dropdown */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+nav ul li {
+    margin: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #bababa;
+    font-size: 18px;
+    padding: 10px;
+}
+
+nav ul li a:hover {
+    background-color: #232323;
+    color: white;
+    border-radius: 5px;
+}
+
+.dropdown {
+    position: relative; /* Necesario para posicionar el menú */
+}
+
+.dropdown-menu {
+    position: absolute; /* Necesario para que se coloque debajo */
+    top: 100%; /* Coloca el dropdown justo debajo del contenedor principal */
+    left: 0;
+    right: 0; /* Ajusta para que ocupe todo el ancho disponible */
+    background-color: #2a2a2a;
+    padding: 10px 0;
+    display: none;
+    flex-direction: column;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 999; /* Asegura que esté por encima de otros elementos */
+    min-width: 160px;
+    margin-top: 5px; /* Ajusta la distancia del menú con el header */
+}
+
+.dropdown-menu.show {
+    display: flex; /* Muestra el menú cuando tiene la clase 'show' */
+}
+
+.dropdown-menu li a {
+    color: white;
+    padding: 8px 12px;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+.dropdown-menu li a:hover {
+    color: #3576ff;
+    background-color: transparent;
+}
+
+/* MEDIA QUERIES - Responsive */
+/* MEDIA QUERIES - Responsive */
+@media (max-width: 768px) {
+    .nav-container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between; /* Distribuye los elementos entre los extremos */
+        align-items: center; /* Alinea verticalmente */
+    }
+
+    .logo-container {
+        order: 1;
+    }
+
+    .menu-toggle {
+        order: 3;
+        display: flex;
+        justify-content: flex-end; /* Lo coloca en el extremo derecho */
+    }
+
+    #main-nav {
+        order: 4;
+        width: 100%;
+    }
+
+    /* Botón hamburguesa visible solo en pantallas pequeñas */
+    .menu-toggle {
+        display: block;
+    }
+  
+    /* Ocultamos el nav en pantallas pequeñas por defecto */
+    nav {
+        width: 100%;
+        display: none;
+        margin-top: 10px;
+    }
+
+    /* Cuando el nav tiene la clase 'active', lo mostramos */
+    nav.active {
+        display: block;
+    }
+
+    /* Hacemos que los elementos de la lista se apilen en columna */
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    nav ul li {
+        width: 100%;
+    }
+
+    nav ul li a {
+        padding: 10px 0;
+        display: block;
+        width: 100%;
+    }
+
+    /* Estilo del dropdown para móviles */
+    .dropdown {
+        width: 100%;
+    }
+
+    .dropdown-menu {
+        position: relative;
+        top: 0;
+        left: 0;
+        box-shadow: none;
+        padding-left: 15px;
+        min-width: auto;
+        display: none;
+        background-color: #2a2a2a;
+    }
+
+    .dropdown-menu.show {
+        display: flex;
+        flex-direction: column;
+    }
 }

@@ -1,23 +1,56 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Iniciar Sesión</title>
-    <link rel="stylesheet" href="../Modelo/estiloFormulario.css">
+  <meta charset="UTF-8" />
+  <title>Iniciar Sesión</title>
+  <link rel="stylesheet" href="../Modelo/estiloFormulario.css" />
+  <script src="../Js/login.js" defer></script>
 </head>
 <body>
-    <div class="form-container">
+    <header>
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="../Modelo/img/logo2.png" alt="Logo" class="logo-img">
+                <span class="logo-text">IllaVocacional</span>
+            </div>
+    
+            <!-- Botón hamburguesa -->
+            <button class="menu-toggle" id="menu-toggle">
+                ☰
+            </button>
+    
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="principal.html">Inicio</a></li>
+                    <li class="dropdown">
+                        <a href="#" id="servicios-toggle">Servicios ⮟</a>                          
+                        <ul class="dropdown-menu" id="servicios-menu">
+                            <li><a href="https://psicoilla.com" target="_blank">IllaPsychology</a></li>
+                            <li><a href="https://illaeducatest.psicoilla.com/index.html" target="_blank">IllaEduca</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+        <div class="form-container">
         <h2>Iniciar Sesión</h2>
         <form action="../Controlador/login.php" method="POST">
-            <label for="nombre_usuario">Nombre de usuario:</label>
-            <input type="text" name="nombre_usuario" id="nombre_usuario" required>
+            <label for="usuario_o_correo">Nombre de usuario o Correo:</label>
+            <input type="text" name="usuario_o_correo" id="usuario_o_correo" required />
 
             <label for="contrasena">Contraseña:</label>
-            <input type="password" name="contrasena" id="contrasena" required>
+            <input type="password" name="contrasena" id="contrasena" required />
 
             <button type="submit">Ingresar</button>
         </form>
         <p>¿No tienes una cuenta? <a href="registro.html">Regístrate aquí</a></p>
-    </div>
+        <div id="error-message" class="error-message" style="display:none;"></div>
+        </div>
+    </main>
 </body>
 </html>
