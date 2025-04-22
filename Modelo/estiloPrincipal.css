@@ -156,19 +156,30 @@ nav ul li a:hover {
 @media (max-width: 768px) {
     .nav-container {
         width: 100%;
-        justify-content: space-between;
+        display: flex;
+        justify-content: space-between; /* Distribuye los elementos entre los extremos */
+        align-items: center; /* Alinea verticalmente */
     }
 
     .logo-container {
         order: 1;
     }
 
-    .menu-toggle {
+    .auth-buttons {
         order: 2;
+        display: flex;
+        justify-content: flex-start; /* Los botones se alinean a la izquierda */
+        margin-right: 10px; /* Ajusta el espacio entre los botones de autenticación y el menú */
+    }
+
+    .menu-toggle {
+        order: 3;
+        display: flex;
+        justify-content: flex-end; /* Lo coloca en el extremo derecho */
     }
 
     #main-nav {
-        order: 3;
+        order: 4;
         width: 100%;
     }
 
@@ -227,6 +238,7 @@ nav ul li a:hover {
         flex-direction: column;
     }
 }
+
 
 /* FIN DE ESTILOS HEADER */
 
@@ -412,6 +424,14 @@ main .seccion-bienvenida h1 {
     flex-direction: column;
     gap: 15px;
     align-items: center; /* Esto centra los botones dentro del contenedor */
+}
+
+.seccion-botones .titulo-bienvenida {
+    color: white;
+    width: 100%;
+    max-width: 800px; /* o el ancho de tus slides */
+    text-align: left;
+    padding-left: 20px; /* opcional para igualarlo al padding interno de los slides */
 }
 
 @media (max-width: 768px) {

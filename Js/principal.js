@@ -1,5 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
-    
+    //MENSAJE DE BIENVENIDA
+    fetch("../Controlador/mensajeBienvenida.php")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("mensaje-bienvenida").innerHTML = data;
+        })
+        .catch(error => console.error("Error al cargar el mensaje de bienvenida:", error));
+
+    //VERIFICAR SESIÓN
     fetch("../Controlador/verificarSesion.php")
         .then(response => response.text())
         .then(data => {
@@ -9,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Error al cargar botones de sesión:", error);
     });
 
+    //CARRUSEL DE BOTONES
     const carruselSlide = document.querySelector('.carrusel-imagenes-slide');
 
     let scrollX = 0;
@@ -117,26 +126,74 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     function cargarContenido(tipo) {
-        let contenido = "";
-        switch (tipo) {
-            case "test":
-                contenido = `
-                    <h2>Test Psicológico</h2>
-                    <div class="botones-test">
-                        <button onclick="window.location.href='testCASM85.html'">INVENTARIO DE HÁBITOS DE ESTUDIO CASM-85-R 2005</button>
-                        <button onclick="window.location.href='testCASM83.html'">INVENTARIO DE INTERESES VOCACIONALES Y OCUPACIONALES CASM-83</button>
-                        <button onclick="window.location.href='otro_test2.html'">Otro Test 2</button>
-                    </div>
-                `;
-                break;
-            case "consejos":
-                contenido = "<h2>Consejos</h2><p>Algunos consejos para elegir una carrera profesional adecuada.</p>";
-                break;
-            case "orientacion":
-                contenido = "<h2>Orientación Vocacional</h2><p>Información sobre orientación vocacional y cómo puede ayudarte.</p>";
-                break;
+        const contenidoTab = document.getElementById("contenidoTab");
+    
+        if (tipo === "test") {
+            // Mostrar siempre los botones, con función de verificación al hacer clic
+            contenidoTab.innerHTML = `
+                <h2>Test Psicológico</h2>
+                <div class="botones-test">
+                    <button onclick="verificarYRedirigir('../Vista/testCASM85.html')">INVENTARIO DE HÁBITOS DE ESTUDIO CASM-85-R 2005</button>
+                    <button onclick="verificarYRedirigir('testCASM83.html')">INVENTARIO DE INTERESES VOCACIONALES Y OCUPACIONALES CASM-83</button>
+                    <button onclick="verificarYRedirigir('otro_test2.html')">Otro Test 2</button>
+                </div>
+            `;
+        } else {
+            let contenido = "";
+            switch (tipo) {
+                case "consejos":
+                    contenido = "<h2>Consejos</h2><p>Algunos consejos para elegir una carrera profesional adecuada.</p>";
+                    break;
+                case "orientacion":
+                    contenido = "<h2>Orientación Vocacional</h2><p>Información sobre orientación vocacional y cómo puede ayudarte.</p>";
+                    break;
+            }
+            contenidoTab.innerHTML = contenido;
         }
-        contenidoTab.innerHTML = contenido;
     }
+    function verificarYRedirigir(urlTest) {
+        fetch("../Controlador/verificarSesionJSON.php")
+            .then(res => res.json())
+            .then(data => {
+                if (data.logueado) {
+                    window.location.href = urlTest;
+                } else {
+                    mostrarMensaje("Debes iniciar sesión para acceder a este test.", false);
+                }
+            })
+            .catch(error => {
+                console.error("Error al verificar la sesión:", error);
+                mostrarMensaje("Hubo un problema al verificar la sesión.", false);
+            });
+    }
+    
+    // Función auxiliar para mostrar el mensaje en la sección
+    function mostrarMensaje(mensaje, exito = true) {
+        let mensajeElemento = document.getElementById("mensaje-error");
+    
+        // Si no existe, lo creamos
+        if (!mensajeElemento) {
+            mensajeElemento = document.createElement("div");
+            mensajeElemento.id = "mensaje-error";
+            mensajeElemento.style.marginTop = "1em";
+            mensajeElemento.style.padding = "0.5em";
+            mensajeElemento.style.borderRadius = "5px";
+            mensajeElemento.style.fontWeight = "bold";
+    
+            const contenedor = document.querySelector(".botones-test");
+            if (contenedor) {
+                contenedor.appendChild(mensajeElemento);
+            }
+        }
+    
+        // Aplicamos estilo según el tipo de mensaje
+        mensajeElemento.textContent = mensaje;
+        mensajeElemento.style.color = exito ? "green" : "#a94442";
+        mensajeElemento.style.backgroundColor = exito ? "#dff0d8" : "#f2dede";
+        mensajeElemento.style.border = exito ? "1px solid #d6e9c6" : "1px solid green";
+    }
+    
+    window.verificarYRedirigir = verificarYRedirigir;
+    
 });
 
