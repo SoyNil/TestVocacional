@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data.fecha_nacimiento) {
                     const fechaNacimiento = new Date(data.fecha_nacimiento);
                     const hoy = new Date();
-
                     // Calcular la edad
                     let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
                     const mes = hoy.getMonth() - fechaNacimiento.getMonth();

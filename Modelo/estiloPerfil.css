@@ -43,17 +43,6 @@ header {
     font-weight: bold;
 }
 
-/* Estilo base del botón hamburguesa */
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 28px;
-    cursor: pointer;
-    margin-left: auto;
-}
-
 nav {
     position: relative; /* Necesario para alinear el dropdown */
 }
@@ -84,130 +73,43 @@ nav ul li a:hover {
     border-radius: 5px;
 }
 
-.dropdown {
-    position: relative; /* Necesario para posicionar el menú */
-}
-
-.dropdown-menu {
-    position: absolute; /* Necesario para que se coloque debajo */
-    top: 100%; /* Coloca el dropdown justo debajo del contenedor principal */
-    left: 0;
-    right: 0; /* Ajusta para que ocupe todo el ancho disponible */
-    background-color: #2a2a2a;
-    padding: 10px 0;
-    display: none;
-    flex-direction: column;
-    border-radius: 5px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    z-index: 999; /* Asegura que esté por encima de otros elementos */
-    min-width: 160px;
-    margin-top: 5px; /* Ajusta la distancia del menú con el header */
-}
-
-.dropdown-menu.show {
-    display: flex; /* Muestra el menú cuando tiene la clase 'show' */
-}
-
-.dropdown-menu li a {
-    color: white;
-    padding: 8px 12px;
-    display: inline-block;
-    transition: color 0.3s ease;
-}
-
-.dropdown-menu li a:hover {
-    color: #3576ff;
-    background-color: transparent;
-}
-
 /* MEDIA QUERIES - Responsive */
 @media (max-width: 768px) {
     .nav-container {
-        width: 100%;
-        display: flex;
-        justify-content: space-between; /* Distribuye los elementos entre los extremos */
-        align-items: center; /* Alinea verticalmente */
+        flex-direction: row;
+        justify-content: space-between;
     }
 
     .logo-container {
-        order: 1;
-    }
-
-    .auth-buttons {
-        order: 2;
-        display: flex;
-        justify-content: flex-start; /* Los botones se alinean a la izquierda */
-        margin-right: 10px; /* Ajusta el espacio entre los botones de autenticación y el menú */
-    }
-
-    .menu-toggle {
-        order: 3;
-        display: flex;
-        justify-content: flex-end; /* Lo coloca en el extremo derecho */
+        flex: 1;
+        justify-content: flex-start;
     }
 
     #main-nav {
-        order: 4;
-        width: 100%;
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
     }
 
-    /* Botón hamburguesa visible solo en pantallas pequeñas */
-    .menu-toggle {
-        display: block;
-    }
-  
-    /* Ocultamos el nav en pantallas pequeñas por defecto */
-    nav {
-        width: 100%;
-        display: none;
-        margin-top: 10px;
-    }
-
-    /* Cuando el nav tiene la clase 'active', lo mostramos */
-    nav.active {
-        display: block;
-    }
-
-    /* Hacemos que los elementos de la lista se apilen en columna */
     nav ul {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
+        display: flex;
+        margin: 0;
+        padding: 0;
+        list-style: none;
     }
 
     nav ul li {
-        width: 100%;
+        margin-left: 10px;
     }
 
     nav ul li a {
-        padding: 10px 0;
+        padding: 8px 12px;
         display: block;
-        width: 100%;
-    }
-
-    /* Estilo del dropdown para móviles */
-    .dropdown {
-        width: 100%;
-    }
-
-    .dropdown-menu {
-        position: relative;
-        top: 0;
-        left: 0;
-        box-shadow: none;
-        padding-left: 15px;
-        min-width: auto;
-        display: none;
-        background-color: #2a2a2a;
-    }
-
-    .dropdown-menu.show {
-        display: flex;
-        flex-direction: column;
     }
 }
 
 /* FIN DE ESTILOS HEADER */
+
 /* Contenedor principal de perfil */
 .perfil-container {
     display: flex;
@@ -220,16 +122,17 @@ nav ul li a:hover {
 /* Sección de opciones */
 .opciones {
     padding: 20px;
-    background-color: #fff;
+    background-color: #171717;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-right: 20px;
+    max-height: 200px;
 }
 
 .opciones h2 {
     text-align: center;
     font-size: 24px;
-    color: #333;
+    color: #ffff;
 }
 
 .opciones ul {
@@ -240,16 +143,17 @@ nav ul li a:hover {
 .opciones ul li {
     padding: 10px;
     text-align: center;
-    background-color: #f8f8f8;
+    background-color: #171717;
+    border: 1px solid #454545;
     margin: 5px 0;
+    color: white;
     cursor: pointer;
     transition: background-color 0.3s;
     border-radius: 5px;
 }
 
 .opciones ul li:hover {
-    background-color: #4CAF50;
-    color: white;
+    border-color: #747474;
 }
 
 /* Contenido */
@@ -260,7 +164,7 @@ nav ul li a:hover {
 .contenido-seccion {
     display: none;
     padding: 20px;
-    background-color: #fff;
+    background-color: #171717;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -268,7 +172,10 @@ nav ul li a:hover {
 #editarPerfil h3,
 #verResultados h3 {
     text-align: center;
-    color: #333;
+    color: white;
+}
+h2{
+    color: white;
 }
 
 form {
@@ -279,7 +186,7 @@ form {
 
 form label {
     font-size: 16px;
-    color: #555;
+    color: #bababa;
 }
 
 form input, form select {
@@ -287,11 +194,13 @@ form input, form select {
     font-size: 14px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    background-color: #171717;
+    color: white;
 }
 
 form button {
     padding: 10px;
-    background-color: #4CAF50;
+    background-color: #2944ff;
     color: white;
     border: none;
     border-radius: 5px;
@@ -300,7 +209,7 @@ form button {
 }
 
 form button:hover {
-    background-color: #45a049;
+    background-color: #6679ff;
 }
 
 /* Estilos para los resultados de los tests */
@@ -312,21 +221,21 @@ form button:hover {
 #subMenuResultados button {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
+    background-color: #171717;
     cursor: pointer;
+    color: white;
     border-radius: 5px;
+    border: 1px solid #454545;
     transition: background-color 0.3s;
 }
 
 #subMenuResultados button:hover {
-    background-color: #4CAF50;
-    color: white;
+    border-color: #747474;
 }
 
 #resultados {
     margin-top: 20px;
     font-size: 18px;
     text-align: center;
-    color: #555;
+    color: #bababa;
 }

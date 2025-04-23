@@ -2,9 +2,77 @@ let respuestas = {}; // Almacena las respuestas seleccionadas
 function toggleTachado(checkbox) {
     const span = checkbox.nextElementSibling;
     span.classList.toggle("tachado", checkbox.checked);
-    }
+}
 
-    document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
+// VERIFICAR SESIÓN
+fetch("../Controlador/verificarSesionJSON.php")
+.then(response => response.json())
+.then(data => {
+    if (!data.logueado) {
+        window.location.href = "../Vista/principal.html";
+    } else {
+        // Rellenar los campos de nombre y sexo
+        document.getElementById("nombre").value = data.nombre || '';
+        document.getElementById("sexo").value = data.sexo || '';
+
+        if (data.fecha_nacimiento) {
+            const fechaNacimiento = new Date(data.fecha_nacimiento);
+            const hoy = new Date();
+
+            // Calcular la edad
+            let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+            const mes = hoy.getMonth() - fechaNacimiento.getMonth();
+
+            if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
+                edad--;  // Si no ha cumplido años aún este año, restar un año
+            }
+
+            // Console log para verificar la edad calculada
+            console.log("Fecha de nacimiento:", data.fecha_nacimiento);
+            console.log("Edad calculada:", edad);
+
+            // Asignar la edad al campo input
+            const edadInput = document.getElementById("edad");
+            if (edadInput) {
+                edadInput.value = edad;
+            }
+        }
+        }
+    })
+    .catch(error => {
+        console.error("Error verificando sesión:", error);
+        window.location.href = "../Vista/principal.html";
+    });
+    const form = document.querySelector("form");
+    const formContainer = form.closest('.container');
+    const seccionCuestionario = document.getElementById("seccionCuestionario");
+
+    if (form) {
+        form.addEventListener("submit", function (event) {
+            let isValid = true;
+            const inputs = form.querySelectorAll("input, select");
+
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    input.style.border = "2px solid red";
+                    isValid = false;
+                } else {
+                    input.style.border = "1px solid #ccc";
+                }
+            });
+
+            if (!isValid) {
+                event.preventDefault();
+            } else {
+                event.preventDefault();
+                formContainer.style.display = "none";
+                cargarCuestionario();
+                seccionCuestionario.style.display = "block";
+            }
+        });
+    }
+    function cargarCuestionario(){
     const tabla = document.getElementById("tablaCuestionario");
 
     preguntasCASM83.forEach((pregunta, index) => {
@@ -67,13 +135,13 @@ function toggleTachado(checkbox) {
         tabla.appendChild(fila1);
         tabla.appendChild(fila2);
     });
-
+    }
     // Mostrar el cuestionario
     document.getElementById("cuestionario").style.display = "block";
-    });
+});
 
-    // 🔍 Verificar consistencia entre pares
-    function verResultados() {
+// 🔍 Verificar consistencia entre pares
+function verResultados() {
     // Ocultar el formulario de preguntas
     document.getElementById("cuestionario").style.display = "none";
     const resultados = document.getElementById("resultados");
@@ -82,7 +150,7 @@ function toggleTachado(checkbox) {
     const tabla = document.getElementById("tablaCuestionario");
     preguntasCASM83.forEach(pregunta => {
         const numero = pregunta.numero;
-        
+            
         // Encontrar las filas correspondientes usando dataset
         const filaA = tabla.querySelector(`tr[data-numero="${numero}"][data-opcion="A"]`);
         const filaB = tabla.querySelector(`tr[data-numero="${numero}"][data-opcion="B"]`);
@@ -269,4 +337,4 @@ function toggleTachado(checkbox) {
     }
     resultados.innerHTML += "</ul>";
 
-}
+    }

@@ -7,7 +7,35 @@
   <link rel="stylesheet" href="../Modelo/estiloCASM83.css">
 </head>
 <body>
-  <div class="container">
+  <!-- Sección de datos personales -->
+  <div id="datosPersonales" class="container">
+    <h1>Formulario de Test CASM-85</h1>
+    <form id="form">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="edad">Edad:</label>
+        <input type="number" id="edad" name="edad" required>
+
+        <label for="sexo">Sexo:</label>
+        <select id="sexo" name="sexo" required>
+            <option value="">Seleccione...</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+        </select>
+
+        <label for="gradoEstudio">Grado de Estudio:</label>
+        <select id="gradoEstudio" name="gradoEstudio" required>
+            <option value="">Seleccione...</option>
+            <option value="Primaria">Primaria</option>
+            <option value="Secundaria">Secundaria</option>
+            <option value="Universidad">Universidad</option>
+        </select>
+
+        <button type="submit" id="siguienteBtn">Siguiente</button>
+    </form>
+  </div>
+  <div id="seccionCuestionario" class="container" style="display: none;">
     <h2>Test CASM83</h2>
     <div id="cuestionario">
       <table id="tablaCuestionario">

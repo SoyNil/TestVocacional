@@ -13,30 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = "principal.html";  // Redirigir en caso de error
         });
 
-    const menuToggle = document.getElementById("menu-toggle");
-    const nav = document.getElementById("main-nav");
-    const toggle = document.getElementById("servicios-toggle");
-    const menu = document.getElementById("servicios-menu");
-
-    if (menuToggle && nav) {
-        menuToggle.addEventListener("click", function () {
-            nav.classList.toggle("active");
-        });
-    }
-
-    if (toggle && menu) {
-        toggle.addEventListener("click", function(e) {
-            e.preventDefault();
-            menu.classList.toggle("show");
-        });
-
-        document.addEventListener("click", function(e) {
-            if (!toggle.contains(e.target) && !menu.contains(e.target)) {
-                menu.classList.remove("show");
-            }
-        });
-    }
-
     const editarPerfilBtn = document.getElementById("editarPerfilBtn");
     const verResultadosBtn = document.getElementById("verResultadosBtn");
     const cerrarSesionBtn = document.getElementById("cerrarSesionBtn");
@@ -70,19 +46,19 @@ document.addEventListener("DOMContentLoaded", () => {
             <h2>Editar Perfil</h2>
             <form id="formEditarPerfil">
                 <label for="nombre_usuario">Nombre de Usuario:</label>
-                <input type="text" id="nombre_usuario" name="nombre_usuario"><br>
+                <input type="text" id="nombre_usuario" name="nombre_usuario">
     
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre"><br>
+                <input type="text" id="nombre" name="nombre">
     
                 <label for="apellido">Apellido:</label>
-                <input type="text" id="apellido" name="apellido"><br>
+                <input type="text" id="apellido" name="apellido">
     
                 <label for="correo">Correo:</label>
-                <input type="email" id="correo" name="correo"><br>
+                <input type="email" id="correo" name="correo">
     
                 <label for="contraseña">Contraseña:</label>
-                <input type="password" id="contraseña" name="contraseña"><br>
+                <input type="password" id="contraseña" name="contraseña">
     
                 <label for="sexo">Sexo:</label>
                 <select id="sexo" name="sexo">
@@ -90,10 +66,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     <option value="Masculino">Masculino</option>
                     <option value="Femenino">Femenino</option>
                     <option value="Otro">Otro</option>
-                </select><br>
+                </select>
     
                 <label for="fecha_nacimiento">Fecha de nacimiento:</label>
-                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento"><br>
+                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento">
     
                 <button type="submit">Guardar</button>
             </form>
@@ -228,7 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     // Mostrar cada grupo como una tabla
                     grupos.forEach((grupo, index) => {
                         let tabla = `
-                            <h4>Resultados ${index * 5 + 1} - ${index * 5 + grupo.length}</h4>
+                            <h4>Resultados Test ${index + 1}</h4>
                             <table border="1" cellpadding="5" cellspacing="0">
                                 <thead>
                                     <tr>
