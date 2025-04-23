@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $contrasena = $_POST['contrasena'];
 
     // Preparamos la consulta para verificar si es un nombre de usuario o correo electrónico
-    $sql = "SELECT id, nombre_usuario, correo, contraseña FROM usuario WHERE nombre_usuario = ? OR correo = ?";
+    $sql = "SELECT id, nombre_usuario, nombre, sexo, correo, fecha_nacimiento, contraseña,apellido FROM usuario WHERE nombre_usuario = ? OR correo = ?";
     $stmt = $conexion->prepare($sql);
     $stmt->bind_param("ss", $usuario_o_correo, $usuario_o_correo); // Bindeamos el mismo valor a ambos parámetros
     $stmt->execute();
@@ -21,6 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (password_verify($contrasena, $usuario['contraseña'])) {
             $_SESSION['usuario'] = $usuario['nombre_usuario'];
             $_SESSION['id_usuario'] = $usuario['id'];
+            $_SESSION['nombre'] = $usuario['nombre'];
+            $_SESSION['sexo'] = $usuario['sexo'];  
+            $_SESSION['fecha_nacimiento'] = $usuario['fecha_nacimiento']; 
+            $_SESSION['apellido'] = $usuario['apellido']; 
+            $_SESSION['correo'] = $usuario['correo']; 
 
             // Redirigimos a la página principal
             header("Location: ../Vista/principal.html");

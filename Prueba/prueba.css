@@ -1,88 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Poiret+One&display=swap');
-* {
-    font-family: "Figtree", sans-serif;
-}
-body {
-    margin: 0;
-    padding: 0;
-    background-color: #171717;
-}
-
-.form-container {
-    background-color: #1e1e1e;
-    padding: 30px;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 400px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    margin: 50px auto; /* Espacio entre el formulario y el header */
-    margin-top: 80px; /* Añadimos un margen superior para que no se solape con el header */
-}
-
-h2 {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-form label {
-    display: block;
-    margin-top: 15px;
-}
-
-form input, form select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: none;
-    border-radius: 5px;
-    background-color: #2a2a2a;
-    color: #fff;
-    font-size: 16px;
-}
-
-.button-form {
-    margin-top: 20px;
-    width: 100%;
-    padding: 12px;
-    border: none;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.button-form:hover {
-    background-color: #45a049;
-}
-
-p {
-    margin-top: 15px;
-    text-align: center;
-}
-
-a {
-    color: #4CAF50;
-    text-decoration: none;
-}
-
-/* Estilos específicos para el campo de "Sexo" */
-form select {
-    background-color: #2a2a2a;
-    color: #fff;
-    font-size: 16px;
-}
-
-/* Estilo para el mensaje de error */
-.error-message {
-    color: #ff0000;
-    background-color: #fdd;
-    padding: 10px;
-    margin-top: 15px;
-    border-radius: 5px;
-    text-align: center;
-}
-
 /* INICIO DE ESTILOS HEADER */
 
 header {
@@ -158,6 +73,37 @@ nav ul li a:hover {
     color: white;
     border-radius: 5px;
 }
+
+/*BOTONES LOGIN*/
+
+.auth-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-auth {
+    color: black;
+    background-color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-auth:hover {
+    background-color: #bababa;
+}
+
+.cerrar-sesion {
+    background-color: #c0392b;
+}
+
+.cerrar-sesion:hover {
+    background-color: #e74c3c;
+}
+
+/*FIN BOTONES LOGIN*/
 
 .dropdown {
     position: relative; /* Necesario para posicionar el menú */
@@ -282,4 +228,66 @@ nav ul li a:hover {
     }
 }
 
-/* FIN DE ESTILOS HEADER */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #171717;
+}
+.form-container {
+    background-color: #1e1e1e;
+    padding: 30px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    margin: 50px auto; /* Espacio entre el formulario y el header */
+    margin-top: 80px; /* Añadimos un margen superior para que no se solape con el header */
+}
+
+h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+form label {
+    display: block;
+    margin-top: 15px;
+}
+
+form input, form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2a2a2a;
+    color: #fff;
+    font-size: 16px;
+}
+
+p {
+    margin-top: 15px;
+    text-align: center;
+}
+
+a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+/* Estilos específicos para el campo de "Sexo" */
+form select {
+    background-color: #2a2a2a;
+    color: #fff;
+    font-size: 16px;
+}
+
+/* Estilo para el mensaje de error */
+.error-message {
+    color: #ff0000;
+    background-color: #fdd;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 5px;
+    text-align: center;
+}

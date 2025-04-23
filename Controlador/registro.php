@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $correo = trim($_POST['correo']);
     $contraseña = $_POST['contraseña'];
     $sexo = $_POST['sexo']; // Captura del sexo
+    $fecha_nacimiento = $_POST['fecha_nacimiento'];
 
     // Validaciones básicas
     if (empty($nombre_usuario) || empty($nombre) || empty($apellido) || empty($correo) || empty($contraseña) || empty($sexo)) {
@@ -30,9 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hash = password_hash($contraseña, PASSWORD_DEFAULT);
 
     // Insertar usuario en la base de datos
-    $insertar = "INSERT INTO usuario (nombre_usuario, nombre, apellido, correo, contraseña, sexo) VALUES (?, ?, ?, ?, ?, ?)";
+    $insertar = "INSERT INTO usuario (nombre_usuario, nombre, apellido, correo, contraseña, sexo, fecha_nacimiento) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conexion->prepare($insertar);
-    $stmt->bind_param("ssssss", $nombre_usuario, $nombre, $apellido, $correo, $hash, $sexo); // Agregar el sexo en la consulta
+    $stmt->bind_param("sssssss", $nombre_usuario, $nombre, $apellido, $correo, $hash, $sexo, $fecha_nacimiento); // Agregar el sexo en la consulta
 
     if ($stmt->execute()) {
         header("Location: ../Vista/login.html");

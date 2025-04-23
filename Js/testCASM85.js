@@ -1,4 +1,44 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // VERIFICAR SESIÓN
+    fetch("../Controlador/verificarSesionJSON.php")
+        .then(response => response.json())
+        .then(data => {
+            if (!data.logueado) {
+                window.location.href = "../Vista/principal.html";
+            } else {
+                // Rellenar los campos de nombre y sexo
+                document.getElementById("nombre").value = data.nombre || '';
+                document.getElementById("sexo").value = data.sexo || '';
+
+                if (data.fecha_nacimiento) {
+                    const fechaNacimiento = new Date(data.fecha_nacimiento);
+                    const hoy = new Date();
+
+                    // Calcular la edad
+                    let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+                    const mes = hoy.getMonth() - fechaNacimiento.getMonth();
+
+                    if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
+                        edad--;  // Si no ha cumplido años aún este año, restar un año
+                    }
+
+                    // Console log para verificar la edad calculada
+                    console.log("Fecha de nacimiento:", data.fecha_nacimiento);
+                    console.log("Edad calculada:", edad);
+
+                    // Asignar la edad al campo input
+                    const edadInput = document.getElementById("edad");
+                    if (edadInput) {
+                        edadInput.value = edad;
+                    }
+                }
+            }
+        })
+        .catch(error => {
+            console.error("Error verificando sesión:", error);
+            window.location.href = "../Vista/principal.html";
+        });
+
     const form = document.querySelector("form");
     const cuestionarioContainer = document.getElementById("cuestionario");
     const formContainer = form.closest('.container');
@@ -258,5 +298,33 @@ document.addEventListener("DOMContentLoaded", function () {
     
         // Insertar HTML en el contenedor
         resultadosContenido.innerHTML = resultadosHTML;
-    }         
+        // Convertir resultados a un array de objetos
+        const resultadosParaEnviar = [];
+
+        Object.keys(puntajes).forEach((seccion, index) => {
+            resultadosParaEnviar.push({
+                area: seccion,
+                puntaje: puntajes[seccion],
+                categoria: obtenerCategoriaSeccion(puntajes[seccion], index + 1)
+            });
+        });
+
+        // Enviar a PHP mediante fetch POST
+        fetch("../Controlador/guardar_resultados.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                resultados: resultadosParaEnviar
+            })
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log("Respuesta del servidor:", data);
+        })
+        .catch(error => {
+            console.error("Error al guardar los resultados:", error);
+        });
+    }   
 });

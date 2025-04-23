@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link rel="stylesheet" href="../Modelo/estiloPerfil.css">
+    <script src="../Js/perfil.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="../Modelo/img/logo2.png" alt="Logo" class="logo-img">
+                <span class="logo-text">IllaVocacional</span>
+            </div>
+    
+            <!-- Botón hamburguesa -->
+            <button class="menu-toggle" id="menu-toggle">
+                ☰
+            </button>
+    
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="principal.html">Inicio</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="perfil-container">
+            <!-- Menú lateral -->
+            <div class="opciones" style="width: 25%;">
+                <h2>Opciones</h2>
+                <ul>
+                    <li id="editarPerfilBtn">Editar Perfil</li>
+                    <li id="verResultadosBtn">Ver Resultados</li>
+                    <li id="cerrarSesionBtn">Cerrar sesión</li>
+                </ul>
+            </div>
+    
+            <!-- Contenido del perfil -->
+            <div class="contenido" style="width: 75%;">
+                <!-- Aquí irá el contenido dinámico como el formulario o resultados -->
+                <div id="perfil-content"></div>
+    
+                <!-- Sección de ver resultados -->
+                <div id="verResultados" class="contenido-seccion" style="display: none;">
+                    <h3>Ver Resultados</h3>
+                    <div id="subMenuResultados">
+                        <button id="testCASM85Btn">Test CASM85</button>
+                        <button id="testCASM83Btn">Test CASM83</button>
+                    </div>
+                    <div id="resultados">
+                        <p>Selecciona un test para ver los resultados.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+</body>
+</html>

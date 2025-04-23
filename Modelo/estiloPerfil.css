@@ -8,81 +8,6 @@ body {
     background-color: #171717;
 }
 
-.form-container {
-    background-color: #1e1e1e;
-    padding: 30px;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 400px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    margin: 50px auto; /* Espacio entre el formulario y el header */
-    margin-top: 80px; /* Añadimos un margen superior para que no se solape con el header */
-}
-
-h2 {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-form label {
-    display: block;
-    margin-top: 15px;
-}
-
-form input, form select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: none;
-    border-radius: 5px;
-    background-color: #2a2a2a;
-    color: #fff;
-    font-size: 16px;
-}
-
-.button-form {
-    margin-top: 20px;
-    width: 100%;
-    padding: 12px;
-    border: none;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.button-form:hover {
-    background-color: #45a049;
-}
-
-p {
-    margin-top: 15px;
-    text-align: center;
-}
-
-a {
-    color: #4CAF50;
-    text-decoration: none;
-}
-
-/* Estilos específicos para el campo de "Sexo" */
-form select {
-    background-color: #2a2a2a;
-    color: #fff;
-    font-size: 16px;
-}
-
-/* Estilo para el mensaje de error */
-.error-message {
-    color: #ff0000;
-    background-color: #fdd;
-    padding: 10px;
-    margin-top: 15px;
-    border-radius: 5px;
-    text-align: center;
-}
-
 /* INICIO DE ESTILOS HEADER */
 
 header {
@@ -283,3 +208,125 @@ nav ul li a:hover {
 }
 
 /* FIN DE ESTILOS HEADER */
+/* Contenedor principal de perfil */
+.perfil-container {
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Sección de opciones */
+.opciones {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+}
+
+.opciones h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+}
+
+.opciones ul {
+    list-style: none;
+    padding: 0;
+}
+
+.opciones ul li {
+    padding: 10px;
+    text-align: center;
+    background-color: #f8f8f8;
+    margin: 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+}
+
+.opciones ul li:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Contenido */
+.contenido {
+    flex-grow: 1;
+}
+
+.contenido-seccion {
+    display: none;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#editarPerfil h3,
+#verResultados h3 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form label {
+    font-size: 16px;
+    color: #555;
+}
+
+form input, form select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+/* Estilos para los resultados de los tests */
+#subMenuResultados {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#subMenuResultados button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#subMenuResultados button:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#resultados {
+    margin-top: 20px;
+    font-size: 18px;
+    text-align: center;
+    color: #555;
+}

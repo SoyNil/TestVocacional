@@ -5,36 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro - IllaVocacional</title>
     <link rel="stylesheet" href="../Modelo/estiloFormulario.css">
+    <script src="../Js/login.js" defer></script>
 </head>
 <body>
-    <div class="form-container">
-        <h2>Crear una cuenta</h2>
-        <form action="../Controlador/registro.php" method="POST">
-            <label for="nombre_usuario">Nombre de usuario</label>
-            <input type="text" id="nombre_usuario" name="nombre_usuario" required>
-        
-            <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" name="nombre" required>
-        
-            <label for="apellido">Apellido</label>
-            <input type="text" id="apellido" name="apellido" required>
-        
-            <label for="correo">Correo electrónico</label>
-            <input type="email" id="correo" name="correo" required>
-        
-            <label for="contraseña">Contraseña</label>
-            <input type="password" id="contraseña" name="contraseña" required>
-        
-            <label for="sexo">Sexo</label>
-            <select id="sexo" name="sexo" required>
-                <option value="Masculino">Masculino</option>
-                <option value="Femenino">Femenino</option>
-                <option value="Otro">Otro</option>
-            </select>
-        
-            <button type="submit">Registrarse</button>
-        </form>        
-        <p>¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
-    </div>
+    <header>
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="../Modelo/img/logo2.png" alt="Logo" class="logo-img">
+                <span class="logo-text">IllaVocacional</span>
+            </div>
+    
+            <!-- Botón hamburguesa -->
+            <button class="menu-toggle" id="menu-toggle">
+                ☰
+            </button>
+    
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="principal.html">Inicio</a></li>
+                    <li class="dropdown">
+                        <a href="#" id="servicios-toggle">Servicios ⮟</a>                          
+                        <ul class="dropdown-menu" id="servicios-menu">
+                            <li><a href="https://psicoilla.com" target="_blank">IllaPsychology</a></li>
+                            <li><a href="https://illaeducatest.psicoilla.com/index.html" target="_blank">IllaEduca</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="form-container">
+            <h2>Crear una cuenta</h2>
+            <form action="../Controlador/registro.php" method="POST">
+                <label for="nombre_usuario">Nombre de usuario</label>
+                <input type="text" id="nombre_usuario" name="nombre_usuario" required>
+            
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" required>
+            
+                <label for="apellido">Apellido</label>
+                <input type="text" id="apellido" name="apellido" required>
+            
+                <label for="correo">Correo electrónico</label>
+                <input type="email" id="correo" name="correo" required>
+            
+                <label for="contraseña">Contraseña</label>
+                <input type="password" id="contraseña" name="contraseña" required>
+            
+                <label for="sexo">Sexo</label>
+                <select id="sexo" name="sexo" required>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                    <option value="Otro">Otro</option>
+                </select>
+            
+                <label for="fecha_nacimiento">Fecha de nacimiento</label>
+                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+            
+                <button type="submit" class="button-form">Registrarse</button>
+            </form>                   
+            <p>¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
+        </div>
+    </main>
 </body>
 </html>
