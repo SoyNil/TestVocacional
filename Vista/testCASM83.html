@@ -35,6 +35,7 @@
         <button type="submit" id="siguienteBtn">Siguiente</button>
     </form>
   </div>
+  <!-- Sección del cuestionario -->
   <div id="seccionCuestionario" class="container" style="display: none;">
     <h2>Test CASM83</h2>
     <div id="cuestionario">
@@ -43,15 +44,23 @@
           <th colspan="3">Preguntas</th>
         </tr>
         <!-- Las preguntas se generan dinámicamente aquí -->
-      </table><button onclick="verResultados()">Ver Resultado</button>
+      </table>
+      <button id="resultadosBtn">Ver Resultados</button>
     </div>
-    
-    <div id="resultados"></div> <!-- Aquí se mostrarán los resultados -->
-    <p id="resultado"></p>
-    <div id="tablaResumen"></div> <!-- Tabla de resumen con puntajes por categoría -->
   </div>
 
-  <script src="../Js/preguntasCASM83.js"></script>
+  <!-- Sección de resultados -->
+  <div id="seccionResultados" class="container" style="display: none;">
+    <h2>Resultados del Cuestionario</h2>
+    <div id="resultados"></div>
+    <p id="resultado"></p>
+    <div id="tablaResumen" style="position: relative;">
+      <!-- Aquí se insertará la tabla dinámica -->
+      <canvas id="canvasPuntos" style="position: absolute; top: 0; left: 0; pointer-events: none;"></canvas>
+    </div>
+  </div>
+
+  <script src="../Js/preguntasCASM83.js" defer></script>
   <script src="../Js/testCASM83.js"></script>
 </body>
 </html>
