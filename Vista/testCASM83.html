@@ -49,16 +49,22 @@
     </div>
   </div>
 
-  <!-- Sección de resultados -->
-  <div id="seccionResultados" class="container" style="display: none;">
-    <h2>Resultados del Cuestionario</h2>
-    <div id="resultados"></div>
-    <p id="resultado"></p>
-    <div id="tablaResumen" style="position: relative;">
-      <!-- Aquí se insertará la tabla dinámica -->
-      <canvas id="canvasPuntos" style="position: absolute; top: 0; left: 0; pointer-events: none;"></canvas>
-    </div>
+<!-- Sección de resultados -->
+<div id="seccionResultados" class="container" style="display: none;">
+  <h2>Resultados del Cuestionario</h2>
+  <div id="resultados"></div>
+  <p id="resultado"></p>
+
+  <!-- Aquí irá la tabla que se genera dinámicamente -->
+  <div id="tablaResumen" style="position: relative;">
+    <!-- SVG se mueve junto con la tabla -->
+    <svg id="svg-lineas" 
+         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+                pointer-events: none; z-index: 1;"></svg>
+    
+    <!-- Aquí se insertará la tabla por JS -->
   </div>
+</div>
 
   <script src="../Js/preguntasCASM83.js" defer></script>
   <script src="../Js/testCASM83.js"></script>

@@ -146,37 +146,34 @@ fetch("../Controlador/verificarSesionJSON.php")
 
     // 🔍 Verificar consistencia entre pares
     function verResultados() {
-        // Ocultar la sección del cuestionario
-        document.getElementById("seccionCuestionario").style.display = "none"; // Ocultar cuestionario
-        
-        // Mostrar la sección de resultados
-        document.getElementById("seccionResultados").style.display = "block"; // Mostrar resultados
+        // =======================
+        // 1. Mostrar Resultados y Preparar Interfaz
+        // =======================
+        document.getElementById("seccionCuestionario").style.display = "none";
+        document.getElementById("seccionResultados").style.display = "block";
         const resultados = document.getElementById("resultados");
-        resultados.innerHTML = ""; // Limpiar resultados anteriores
-        // Mostrar respuestas seleccionadas
+        resultados.innerHTML = "";
+
         const tabla = document.getElementById("tablaCuestionario");
+
+        // =======================
+        // 2. Mostrar Respuestas Seleccionadas
+        // =======================
         preguntasCASM83.forEach(pregunta => {
             const numero = pregunta.numero;
-                
-            // Encontrar las filas correspondientes usando dataset
+
             const filaA = tabla.querySelector(`tr[data-numero="${numero}"][data-opcion="A"]`);
             const filaB = tabla.querySelector(`tr[data-numero="${numero}"][data-opcion="B"]`);
 
             const respuestaA = respuestas[numero]?.A ? "(a)" : "";
             const respuestaB = respuestas[numero]?.B ? "(b)" : "";
 
-            // Actualizar las celdas de respuestas con el valor correspondiente
-            if (filaA && filaA.querySelector('span')) {
-                filaA.querySelector('span').textContent = respuestaA;
-            }
-
-            if (filaB && filaB.querySelector('span')) {
-                filaB.querySelector('span').textContent = respuestaB;
-            }
+            if (filaA?.querySelector('span')) filaA.querySelector('span').textContent = respuestaA;
+            if (filaB?.querySelector('span')) filaB.querySelector('span').textContent = respuestaB;
         });
 
         // =======================
-        // Evaluación de Consistencia
+        // 3. Evaluación de Consistencia
         // =======================
         const paresConsistentes = [
             [13, 131], [26, 132], [39, 133], [52, 134], [65, 135],
@@ -184,16 +181,12 @@ fetch("../Controlador/verificarSesionJSON.php")
         ];
 
         let inconsistencias = 0;
-
         paresConsistentes.forEach(([num1, num2]) => {
-            const checkA1 = respuestas[num1]?.A ?? false;
-            const checkB1 = respuestas[num1]?.B ?? false;
-            const checkA2 = respuestas[num2]?.A ?? false;
-            const checkB2 = respuestas[num2]?.B ?? false;
-
-            if (checkA1 !== checkA2 || checkB1 !== checkB2) {
-                inconsistencias++;
-            }
+            const A1 = respuestas[num1]?.A ?? false;
+            const B1 = respuestas[num1]?.B ?? false;
+            const A2 = respuestas[num2]?.A ?? false;
+            const B2 = respuestas[num2]?.B ?? false;
+            if (A1 !== A2 || B1 !== B2) inconsistencias++;
         });
 
         resultados.innerHTML += `<p>🧪 Inconsistencias encontradas: <strong>${inconsistencias}</strong></p>`;
@@ -202,14 +195,13 @@ fetch("../Controlador/verificarSesionJSON.php")
         }
 
         // =======================
-        // Evaluación de Veracidad
+        // 4. Evaluación de Veracidad
         // =======================
         const preguntasVeracidad = [12, 25, 38, 51, 64, 77, 90, 103, 116, 129, 142];
         let conteoVeracidadA = 0;
 
         preguntasVeracidad.forEach(numero => {
-            const checkboxA = document.querySelector(`input[data-numero="${numero}"][data-opcion="A"]`);
-            if (checkboxA?.checked) {
+            if (document.querySelector(`input[data-numero="${numero}"][data-opcion="A"]`)?.checked) {
                 conteoVeracidadA++;
             }
         });
@@ -220,14 +212,13 @@ fetch("../Controlador/verificarSesionJSON.php")
         }
 
         // =======================
-        // Resultados finales
+        // 5. Tabla Cruzada de Preguntas
         // =======================
-
         const etiquetas = ["CCFM", "CCSS", "CCNA", "CCCO", "ARTE", "BURO", "CCEP", "HAA", "FINA", "LING", "JURI", "VERA", "CONS"];
-        const etiquetasVertical = etiquetas.slice(0, 11); // Solo 11 filas (sin VERA y CONS en la vertical)
+        const etiquetasVertical = etiquetas.slice(0, 11);
 
         const contenedorResumen = document.getElementById("tablaResumen");
-        contenedorResumen.innerHTML = ""; // Limpiar contenido anterior
+        contenedorResumen.innerHTML = "";
 
         const tablaCruce = document.createElement("table");
         tablaCruce.border = "1";
@@ -235,33 +226,29 @@ fetch("../Controlador/verificarSesionJSON.php")
         tablaCruce.style.marginTop = "30px";
         tablaCruce.style.textAlign = "center";
 
-        // Fila de encabezado
+        // Encabezado
         const encabezadoFila = document.createElement("tr");
-        encabezadoFila.appendChild(document.createElement("th")); // Celda vacía en la esquina
-
-        etiquetas.forEach(etiqueta => {
+        encabezadoFila.appendChild(document.createElement("th"));
+        etiquetas.forEach(et => {
             const th = document.createElement("th");
-            th.textContent = etiqueta;
+            th.textContent = et;
             th.style.padding = "6px";
             th.style.backgroundColor = "#eee";
             encabezadoFila.appendChild(th);
         });
         tablaCruce.appendChild(encabezadoFila);
 
-        // Rellenar filas
+        // Filas
         let preguntaNumero = 1;
-        etiquetasVertical.forEach((etiquetaFila) => {
+        etiquetasVertical.forEach(etFila => {
             const fila = document.createElement("tr");
-
             const th = document.createElement("th");
-            th.textContent = etiquetaFila;
+            th.textContent = etFila;
             th.style.backgroundColor = "#eee";
             fila.appendChild(th);
 
-            etiquetas.forEach((etiquetaColumna, colIndex) => {
-                const celda = document.createElement("td");
-
-                // Mostrar número de pregunta y tachado según selección
+            etiquetas.forEach(() => {
+                const td = document.createElement("td");
                 const checkA = document.querySelector(`input[data-numero="${preguntaNumero}"][data-opcion="A"]`)?.checked;
                 const checkB = document.querySelector(`input[data-numero="${preguntaNumero}"][data-opcion="B"]`)?.checked;
 
@@ -273,23 +260,20 @@ fetch("../Controlador/verificarSesionJSON.php")
                 spanB.textContent = "(b)";
                 if (checkB) spanB.classList.add("tachado");
 
-                celda.appendChild(spanA);
-                celda.appendChild(document.createTextNode(` ${preguntaNumero} `));
-                celda.appendChild(spanB);
-
-                fila.appendChild(celda);
+                td.appendChild(spanA);
+                td.appendChild(document.createTextNode(` ${preguntaNumero} `));
+                td.appendChild(spanB);
+                fila.appendChild(td);
                 preguntaNumero++;
             });
 
             tablaCruce.appendChild(fila);
         });
-
         contenedorResumen.appendChild(tablaCruce);
 
         // =======================
-        // Cálculo de puntajes por categoría
+        // 6. Cálculo de Puntajes por Categoría
         // =======================
-
         const categorias = {
             CCFM: { horizontal: [1, 13], vertical: [1, 131] },
             CCSS: { horizontal: [14, 26], vertical: [2, 132] },
@@ -302,18 +286,14 @@ fetch("../Controlador/verificarSesionJSON.php")
             FINA: { horizontal: [105, 117], vertical: [9, 139] },
             LING: { horizontal: [118, 130], vertical: [10, 140] },
             JURI: { horizontal: [131, 143], vertical: [11, 141] },
-            VERA: { horizontal: [], vertical: [12, 142] }, // Veracidad especial
-            CONS: { horizontal: [], vertical: [] }, // No se calcula aquí
+            VERA: { horizontal: [], vertical: [12, 142] },
+            CONS: { horizontal: [], vertical: [] }
         };
 
         const resultadosCategorias = {};
-
         for (const [categoria, rangos] of Object.entries(categorias)) {
-            let total = 0;
-            let countA = 0;
-            let countB = 0;
+            let total = 0, countA = 0, countB = 0;
 
-            // Sumar B (horizontal)
             for (let i = rangos.horizontal[0]; i <= rangos.horizontal[1]; i++) {
                 if (document.querySelector(`input[data-numero="${i}"][data-opcion="B"]`)?.checked) {
                     countB++;
@@ -321,7 +301,6 @@ fetch("../Controlador/verificarSesionJSON.php")
                 }
             }
 
-            // Sumar A (vertical)
             for (let i = rangos.vertical[0]; i <= rangos.vertical[1]; i += 13) {
                 if (document.querySelector(`input[data-numero="${i}"][data-opcion="A"]`)?.checked) {
                     countA++;
@@ -329,18 +308,13 @@ fetch("../Controlador/verificarSesionJSON.php")
                 }
             }
 
-            // Guardar resultados
             resultadosCategorias[categoria] = { total, A: countA, B: countB };
         }
 
         // Mostrar resultados por categoría
         resultados.innerHTML += "<h3>📊 Puntaje por categoría:</h3><ul>";
         for (const [cat, { total, A, B }] of Object.entries(resultadosCategorias)) {
-            resultados.innerHTML += `
-                <li>
-                    <strong>${cat}:</strong> Total: ${total} (A: ${A}, B: ${B})
-                </li>
-            `;
+            resultados.innerHTML += `<li><strong>${cat}:</strong> Total: ${total} (A: ${A}, B: ${B})</li>`;
         }
         resultados.innerHTML += "</ul>";
 
@@ -354,7 +328,7 @@ fetch("../Controlador/verificarSesionJSON.php")
             const encabezados = ["", "Desinterés", "Bajo", "Promedio Bajo", "Indecisión", "Promedio Alto", "Alto", "Muy Alto", ""];
             const categorias = [
                 ["CCFM", "0-4", "5-7", "8-9", "10-12", "14-15", "16-17", "18-22"],
-                ["CCSS", "1-3", "4-6", "7-8", "9-12", "13-14", "15-16", "17-22"],
+                ["CCSS", "0-3", "4-6", "7-8", "9-12", "13-14", "15-16", "17-22"],
                 ["CCNA", "0-4", "5-7", "8-9", "10-13", "14-15", "16-18", "19-22"],
                 ["CCCO", "0-2", "3-4", "5-6", "7-10", "11-13", "14-17", "18-22"],
                 ["ARTE", "0-2", "3-4", "5-6", "7-10", "11-14", "15-17", "18-22"],
@@ -378,14 +352,16 @@ fetch("../Controlador/verificarSesionJSON.php")
             encabezados.forEach(h => tablaHTML += `<th>${h}</th>`);
             tablaHTML += '</tr>';
 
-        // Filas por categoría
+            // Filas por categoría
             categorias.forEach(fila => {
-            tablaHTML += `<tr><td>${fila[0]}</td>`;
-            for (let i = 1; i <= 7; i++) {
-                tablaHTML += `<td>${fila[i]}</td>`;
-            }
-            tablaHTML += `<td>${fila[0]}</td></tr>`;
-            });
+                const categoria = fila[0];
+                tablaHTML += `<tr><td>${categoria}</td>`;
+                for (let i = 1; i <= 7; i++) {
+                    const rango = fila[i];
+                    tablaHTML += `<td class="celda-percentil" data-cat="${categoria}" data-rango="${rango}">${rango}</td>`;
+                }
+                tablaHTML += `<td>${categoria}</td></tr>`;
+            }); 
 
             // Fila percentiles
             tablaHTML += '<tr><td></td>';
@@ -399,96 +375,108 @@ fetch("../Controlador/verificarSesionJSON.php")
 
             resultados.innerHTML += tablaHTML;
         }  
-        // Espera un poco para asegurar que el DOM renderizó la tabla
-        if (!tabla) {
-            // Si la tabla aún no está, reintenta
-            setTimeout(() => dibujarPuntos(resultados), 50);
+        // Llamamos a dibujarPuntos solo una vez
+        setTimeout(() => {
+            dibujarPuntos(resultadosCategorias);
+        }, 100);        
+        
+        // Crear o verificar que el SVG esté dentro de tablaResumen antes de dibujar las líneas
+        const tablaResumen = document.getElementById("tablaResumen");
+
+        // Asegúrate de que el SVG esté dentro ANTES de dibujar
+        if (!document.getElementById("svg-lineas")) {
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("id", "svg-lineas");
+            svg.setAttribute("style", "position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;");
+            tablaResumen.appendChild(svg);
+        }       
+    }
+
+    function dibujarPuntos(resultadosCategorias) {
+        console.log("Dibujando puntos...");
+        
+        const posiciones = [];
+        
+        Object.entries(resultadosCategorias).forEach(([categoria, { total }]) => {
+            const celdas = document.querySelectorAll(`.celda-percentil[data-cat="${categoria}"]`);
+            let celdaMarcada = null;
+    
+            celdas.forEach(celda => {
+                const rangoTexto = celda.dataset.rango;
+                const [min, max] = rangoTexto.split("-").map(Number);
+    
+                if (total >= min && total <= max) {
+                    celda.classList.add("punto-marcado");
+                    celdaMarcada = celda;
+                }
+            });
+    
+            if (celdaMarcada) {
+                const punto = document.createElement("div");
+                punto.className = "punto";
+                celdaMarcada.style.position = "relative";
+                punto.style.position = "absolute";
+                punto.style.width = "10px";
+                punto.style.height = "10px";
+                punto.style.background = "red";
+                punto.style.borderRadius = "50%";
+                punto.style.left = "50%";
+                punto.style.top = "50%";
+                punto.style.transform = "translate(-50%, -50%)";
+                celdaMarcada.appendChild(punto);
+    
+                // 👇 Coordenadas absolutas relativas al contenedor SVG
+                const svgContenedor = document.getElementById("tablaResumen");
+                const celdaRect = celdaMarcada.getBoundingClientRect();
+                const contenedorRect = svgContenedor.getBoundingClientRect();
+    
+                // Ajustar la coordenada Y para evitar valores negativos
+                const ajustarCoordenadaY = (y) => {
+                    const offset = 400; // Ajusta este valor según el rango visible
+                    return y + offset;
+                };
+    
+                // Guardamos las posiciones con la Y ajustada
+                posiciones.push({
+                    x: celdaRect.left + celdaRect.width / 2 - contenedorRect.left,
+                    y: ajustarCoordenadaY(celdaRect.top + celdaRect.height / 2 - contenedorRect.top) // Aplicamos el ajuste
+                });
+            }
+        });
+    
+        dibujarLineasEntrePuntos(posiciones);
+    }
+    
+    function dibujarLineasEntrePuntos(posiciones) {
+        const svg = document.getElementById("svg-lineas");
+    
+        if (!svg) {
+            console.error("❌ No se encontró el elemento SVG.");
             return;
         }
-
-    }
-
-    function dibujarPuntos(resultados) {
-    console.log('Resultados recibidos:', resultados);
-
-    const canvas = document.getElementById('canvasPuntos');
-    const tabla = document.querySelector('#tablaResumen table');
-    const rect = tabla.getBoundingClientRect();
-
-    canvas.width = rect.width;
-    canvas.height = rect.height;
-    canvas.style.width = `${rect.width}px`;
-    canvas.style.height = `${rect.height}px`;
-
-    const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    const posiciones = [];
-
-    for (const [categoria, data] of Object.entries(resultados)) {
-        console.log(`Procesando categoría: ${categoria}, total: ${data.total}`);
-        if (data.total === 0) continue;
-
-        const fila = categorias.find(cat => cat[0] === categoria);
-        if (!fila) {
-            console.warn(`No se encontró fila para la categoría: ${categoria}`);
-            continue;
+    
+        svg.innerHTML = ""; // Limpiar líneas anteriores
+    
+        console.log("🔷 Dibujando líneas entre puntos...");
+        console.log("📌 Total de puntos:", posiciones.length);
+    
+        for (let i = 0; i < posiciones.length - 1; i++) {
+            const { x: x1, y: y1 } = posiciones[i];
+            const { x: x2, y: y2 } = posiciones[i + 1];
+    
+            console.log(`➡️ Línea ${i + 1}: (${x1}, ${y1}) -> (${x2}, ${y2})`);
+    
+            const linea = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            linea.setAttribute("x1", x1);
+            linea.setAttribute("y1", y1);
+            linea.setAttribute("x2", x2);
+            linea.setAttribute("y2", y2);
+            linea.setAttribute("stroke", "blue");
+            linea.setAttribute("stroke-width", "2");
+    
+            svg.appendChild(linea);
         }
-
-        let celdaIndex = -1;
-
-        for (let i = 1; i <= 7; i++) {
-            const texto = fila[i];
-            const [min, max] = texto.split('-').map(Number);
-            console.log(`Evaluando rango ${min}-${max} para total ${data.total}`);
-            if (data.total >= min && data.total <= max) {
-                celdaIndex = i;
-                break;
-            }
-        }
-
-        if (celdaIndex === -1) {
-            console.warn(`No se encontró celda correspondiente para categoría: ${categoria}, total: ${data.total}`);
-            continue;
-        }
-
-        const celdaId = `${categoria}-${celdaIndex}`;
-        const celda = document.getElementById(celdaId);
-        if (!celda) {
-            console.warn(`No se encontró la celda con ID: ${celdaId}`);
-            continue;
-        }
-
-        const celdaRect = celda.getBoundingClientRect();
-        const x = celdaRect.left + celdaRect.width / 2 - rect.left;
-        const y = celdaRect.top + celdaRect.height / 2 - rect.top;
-
-        posiciones.push({ x, y });
-
-        // Punto rojo
-        ctx.beginPath();
-        ctx.arc(x, y, 5, 0, 2 * Math.PI);
-        ctx.fillStyle = 'red';
-        ctx.fill();
-
-        // Log de verificación
-        console.log(`✅ Punto dibujado en categoría ${categoria}, celda ${celdaId}, posición x: ${x}, y: ${y}`);
-    }
-
-    // Si hay al menos 2 puntos, dibujar la línea azul
-    if (posiciones.length >= 2) {
-        ctx.beginPath();
-        ctx.strokeStyle = 'blue';
-        ctx.lineWidth = 2;
-        for (let i = 0; i < posiciones.length; i++) {
-            const { x, y } = posiciones[i];
-            if (i === 0) ctx.moveTo(x, y);
-            else ctx.lineTo(x, y);
-        }
-        ctx.stroke();
-        console.log('🔵 Línea azul dibujada conectando los puntos.');
-    } else {
-        console.log('⚠️ No se dibujó línea azul porque no hay suficientes puntos.');
-    }
-}
+    
+        console.log("✅ Líneas dibujadas.");
+    } 
 });
