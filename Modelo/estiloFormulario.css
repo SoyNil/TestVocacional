@@ -208,13 +208,6 @@ nav ul li a:hover {
         order: 1;
     }
 
-    .auth-buttons {
-        order: 2;
-        display: flex;
-        justify-content: flex-start; /* Los botones se alinean a la izquierda */
-        margin-right: 10px; /* Ajusta el espacio entre los botones de autenticación y el menú */
-    }
-
     .menu-toggle {
         order: 3;
         display: flex;

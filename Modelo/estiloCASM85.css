@@ -1,34 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Poiret+One&display=swap');
+* {
+    font-family: "Figtree", sans-serif;
+}
+/* Estilos generales */
 body {
-    background-color: #706f6f;
-    font-family: Arial, sans-serif;
-    display: flex;
+    background-color: #171717;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    padding: 0;
     overflow: auto; /* Permitir el desplazamiento en el body si es necesario */
 }
 
-.container {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 500px; /* Aumentamos el ancho para que el formulario sea más amplio */
-    max-height: 90vh;
-    overflow: hidden; /* Evitar que el contenedor se desborde */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* INICIO DE ESTILOS HEADER */
+header {
+    background-color: #171717;
+    padding: 15px 30px;
+    position: relative; /* Necesario para alinear el dropdown */
 }
 
-h1, h2, h3 {
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-img {
+    height: 40px;
+    width: auto;
+}
+
+.logo-text {
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+nav {
+    position: relative;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+nav ul li {
+    margin: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #bababa;
+    font-size: 18px;
+    padding: 10px;
+}
+
+nav ul li a:hover {
+    background-color: #232323;
+    color: white;
+    border-radius: 5px;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #2a2a2a;
+    padding: 10px 0;
+    display: none;
+    flex-direction: column;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 2; /* Por encima del container */
+    min-width: 160px;
+    margin-top: 5px;
+}
+
+.dropdown-menu.show {
+    display: flex;
+}
+
+.dropdown-menu li a {
+    color: white;
+    padding: 8px 12px;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+.dropdown-menu li a:hover {
+    color: #3576ff;
+    background-color: transparent;
+}
+
+/* Contenedor del formulario */
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+    display: flex; /* Corregido de display: absolute */
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 40px; /* Espacio para el header */
+}
+
+/* Cuestionario */
+#cuestionario {
+    display: none;
+    width: 80%;
+    max-width: 1000px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos del formulario */
+h2, h3 {
     color: #333;
 }
 
 h2 {
     font-size: 24px;
-    margin-bottom: 20px;
     margin: 20px 0;
 }
 
@@ -49,16 +182,20 @@ input, select {
     box-sizing: border-box;
 }
 
-#cuestionario {
-    display: none; /* Ocultarlo inicialmente */
-    width: 80%;
-    max-width: 1000px;
-    max-height: 90vh;
-    overflow-y: auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.button-form {
+    background: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.button-form:hover {
+    background: #0056b3;
 }
 
 #tablaCuestionario {
@@ -80,23 +217,7 @@ input, select {
 
 #tablaCuestionario td input {
     margin-top: 5px;
-    width: 40px; /* Ajuste el tamaño de los botones de radio */
-}
-
-button {
-    background: #007BFF;
-    color: white;
-    border: none;
-    padding: 10px;
-    width: 100%;
-    margin-top: 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-button:hover {
-    background: #0056b3;
+    width: 40px;
 }
 
 #tablaCuestionario th:nth-child(2),
@@ -118,7 +239,93 @@ button:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none; /* Para que no bloquee clics */
-    z-index: 5; /* Asegúrate de que sea mayor que el z-index de la tabla */
-  }
-  
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Media Queries - Responsive */
+@media (max-width: 768px) {
+    /* Contenedor del formulario */
+    .container {
+        z-index: 1; /* Por debajo del dropdown-menu */
+        position: relative;
+    }
+    .nav-container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo-container {
+        order: 1;
+    }
+
+    .menu-toggle {
+        order: 3;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    #main-nav {
+        order: 4;
+        width: 100%;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .menu-toggle:hover {
+        background-color: #232323;
+        border-radius: 5px;
+    }
+
+    nav {
+        width: 100%;
+        display: none;
+        margin-top: 10px;
+    }
+
+    nav.active {
+        display: block;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    nav ul li {
+        width: 100%;
+    }
+
+    nav ul li a {
+        padding: 10px 0;
+        display: block;
+        width: 100%;
+    }
+
+    .dropdown {
+        width: 100%;
+        z-index: 2; /* Por encima del container en móviles */
+    }
+
+    .dropdown-menu {
+        position: relative;
+        top: 0;
+        left: 0;
+        box-shadow: none;
+        padding-left: 15px;
+        min-width: auto;
+        background-color: #2a2a2a;
+        display: none;
+        z-index: 2; /* Por encima del container en móviles */
+    }
+
+    .dropdown-menu.show {
+        display: flex;
+        flex-direction: column;
+    }
+}
