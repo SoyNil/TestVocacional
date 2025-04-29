@@ -7,8 +7,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $usuario_o_correo = trim($_POST['usuario_o_correo']);
     $contrasena = $_POST['contrasena'];
 
-    // Preparamos la consulta para verificar si es un nombre de usuario o correo electrónico
-    $sql = "SELECT id, nombre_usuario, nombre, sexo, correo, fecha_nacimiento, contraseña,apellido FROM usuario WHERE nombre_usuario = ? OR correo = ?";
+    // Preparamos la consulta con BINARY para comparación case-sensitive
+    $sql = "SELECT id, nombre_usuario, nombre, sexo, correo, fecha_nacimiento, contraseña, apellido 
+            FROM usuario 
+            WHERE BINARY nombre_usuario = ? OR BINARY correo = ?";
     $stmt = $conexion->prepare($sql);
     $stmt->bind_param("ss", $usuario_o_correo, $usuario_o_correo); // Bindeamos el mismo valor a ambos parámetros
     $stmt->execute();
@@ -22,21 +24,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['usuario'] = $usuario['nombre_usuario'];
             $_SESSION['id_usuario'] = $usuario['id'];
             $_SESSION['nombre'] = $usuario['nombre'];
-            $_SESSION['sexo'] = $usuario['sexo'];  
-            $_SESSION['fecha_nacimiento'] = $usuario['fecha_nacimiento']; 
-            $_SESSION['apellido'] = $usuario['apellido']; 
-            $_SESSION['correo'] = $usuario['correo']; 
+            $_SESSION['sexo'] = $usuario['sexo'];
+            $_SESSION['fecha_nacimiento'] = $usuario['fecha_nacimiento'];
+            $_SESSION['apellido'] = $usuario['apellido'];
+            $_SESSION['correo'] = $usuario['correo'];
 
             // Redirigimos a la página principal
             header("Location: ../Vista/principal.html");
             exit();
         } else {
-            // Redirigir con el error "contraseña_incorrecta" en la URL
+            // Redirigir con el error "contraseña_incorrecta"
             header("Location: ../Vista/login.html?error=contraseña_incorrecta");
             exit();
         }
     } else {
-        // Redirigir con el error "usuario_no_existe" en la URL
+        // Redirigir con el error "usuario_no_existe"
         header("Location: ../Vista/login.html?error=usuario_no_existe");
         exit();
     }

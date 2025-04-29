@@ -62,7 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
     
                 <label for="sexo">Sexo:</label>
                 <select id="sexo" name="sexo">
-                    <option value="">Selecciona tu sexo</option>
                     <option value="Masculino">Masculino</option>
                     <option value="Femenino">Femenino</option>
                     <option value="Otro">Otro</option>

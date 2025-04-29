@@ -2,6 +2,7 @@
 * {
     font-family: "Figtree", sans-serif;
 }
+
 body {
     margin: 0;
     padding: 0;
@@ -9,6 +10,7 @@ body {
 }
 
 .form-container {
+    color: white;
     background-color: #1e1e1e;
     padding: 30px;
     border-radius: 10px;
@@ -29,7 +31,7 @@ form label {
     margin-top: 15px;
 }
 
-form input, form select {
+form input{
     width: 100%;
     padding: 10px;
     margin-top: 5px;
@@ -38,6 +40,29 @@ form input, form select {
     background-color: #2a2a2a;
     color: #fff;
     font-size: 16px;
+    width: 95%;
+    border: 1px solid #171717;
+}
+
+form input:hover{
+    border-color: #747474;
+}
+
+form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2a2a2a;
+    color: #fff;
+    font-size: 16px;
+    width: 100%;
+    border: 1px solid #171717;
+}
+
+form select:hover{
+    border-color: #747474;
 }
 
 .button-form {
@@ -45,15 +70,16 @@ form input, form select {
     width: 100%;
     padding: 12px;
     border: none;
-    background-color: #4CAF50;
+    background-color: #2944ff;
     color: white;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .button-form:hover {
-    background-color: #45a049;
+    background-color: #6679ff;
 }
 
 p {
@@ -62,15 +88,13 @@ p {
 }
 
 a {
-    color: #4CAF50;
+    color: #bababa;
     text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
-
-/* Estilos específicos para el campo de "Sexo" */
-form select {
-    background-color: #2a2a2a;
-    color: #fff;
-    font-size: 16px;
+a:hover {
+    color: white;
+    text-decoration: none;
 }
 
 /* Estilo para el mensaje de error */
@@ -272,6 +296,17 @@ nav ul li a:hover {
     .dropdown-menu.show {
         display: flex;
         flex-direction: column;
+    }
+    .form-container {
+        color: white;
+        background-color: #1e1e1e;
+        padding: 30px;
+        border-radius: 10px;
+        width: 750px;
+        max-width: 400px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        margin: 50px auto; /* Espacio entre el formulario y el header */
+        margin-top: 30px; /* Añadimos un margen superior para que no se solape con el header */
     }
 }
 
