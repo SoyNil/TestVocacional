@@ -5,6 +5,32 @@ function toggleTachado(checkbox) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.getElementById("menu-toggle");
+    const nav = document.getElementById("main-nav");
+    const toggle = document.getElementById("servicios-toggle");
+    const menu = document.getElementById("servicios-menu");
+
+    // Verificar si los elementos existen antes de agregar eventos
+    if (menuToggle && nav) {
+        menuToggle.addEventListener("click", function () {
+            nav.classList.toggle("active"); // Agrega o elimina la clase 'active' en cada clic
+        });
+    }
+
+    // Verificar si los elementos del dropdown existen
+    if (toggle && menu) {
+        toggle.addEventListener("click", function(e) {
+            e.preventDefault(); // Evita el comportamiento predeterminado
+            menu.classList.toggle("show");
+        });
+
+        // Ocultar submenú si se hace clic fuera
+        document.addEventListener("click", function(e) {
+            if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.remove("show");
+            }
+        });
+    }
 // VERIFICAR SESIÓN
 fetch("../Controlador/verificarSesionJSON.php")
 .then(response => response.json())
@@ -371,6 +397,42 @@ fetch("../Controlador/verificarSesionJSON.php")
         </div>
         `;
 
+        // Obtener el valor de sexo del formulario
+        const sexo = document.getElementById('sexo').value;
+        console.log('Valor de sexo:', sexo); // Depuración
+        if (!sexo || !['Masculino', 'Femenino'].includes(sexo)) {
+            alert('Por favor, selecciona un sexo válido (Masculino o Femenino) en el formulario');
+            return;
+        }
+
+        // Depuración: Mostrar los datos a enviar
+        console.log('Resultados a enviar:', resultadosCategorias);
+        const payload = { resultados: resultadosCategorias, sexo: sexo };
+        console.log('JSON a enviar:', JSON.stringify(payload));
+
+        // Enviar los resultados al servidor
+        fetch('../Controlador/guardar_resultado_CASM83.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        })
+        .then(response => {
+            console.log('Código de respuesta:', response.status); // Depuración
+            return response.json();
+        })
+        .then(data => {
+            console.log('Respuesta del servidor:', data);
+            if (data.message) {
+                alert('Resultados guardados correctamente');
+            } else {
+                alert('Error al guardar: ' + (data.error || 'Desconocido'));
+            }
+        })
+        .catch(error => {
+            console.error('Error al enviar los datos:', error);
+            alert('Error al guardar los resultados');
+        });
+
         // 6. Tabla Cruzada de Preguntas
         const etiquetas = ["CCFM", "CCSS", "CCNA", "CCCO", "ARTE", "BURO", "CCEP", "HAA", "FINA", "LING", "JURI", "VERA", "CONS"];
         const etiquetasVertical = etiquetas.slice(0, 11);
@@ -442,68 +504,135 @@ fetch("../Controlador/verificarSesionJSON.php")
 
         const sexoSeleccionado = document.getElementById("sexo").value;
 
-    if (sexoSeleccionado === "Masculino") {
-        const encabezados = ["", "Desinterés", "Bajo", "Promedio Bajo", "Indecisión", "Promedio Alto", "Alto", "Muy Alto", ""];
-        const categorias = [
-            ["CCFM", "0-4", "5-7", "8-9", "10-12", "14-15", "16-17", "18-22"],
-            ["CCSS", "0-3", "4-6", "7-8", "9-12", "13-14", "15-16", "17-22"],
-            ["CCNA", "0-4", "5-7", "8-9", "10-13", "14-15", "16-18", "19-22"],
-            ["CCCO", "0-2", "3-4", "5-6", "7-10", "11-13", "14-17", "18-22"],
-            ["ARTE", "0-2", "3-4", "5-6", "7-10", "11-14", "15-17", "18-22"],
-            ["BURO", "0-3", "4-5", "6-7", "8-11", "12-13", "14-16", "17-22"],
-            ["CCEP", "0-3", "4-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
-            ["HAA", "0-3", "4-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
-            ["FINA", "0-2", "3-4", "5-6", "7-10", "11-12", "13-16", "17-22"],
-            ["LING", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
-            ["JURI", "0-2", "3-4", "5-6", "7-10", "11-13", "14-16", "17-22"]
-        ];
-        const percentiles = ["1-14", "15-29", "30-39", "40-60", "61-74", "75-89", "90-99"];
+        if (sexoSeleccionado === "Masculino") {
+            const encabezados = ["", "Desinterés", "Bajo", "Promedio Bajo", "Indecisión", "Promedio Alto", "Alto", "Muy Alto", ""];
+            const categorias = [
+                ["CCFM", "0-4", "5-7", "8-9", "10-12", "14-15", "16-17", "18-22"],
+                ["CCSS", "0-3", "4-6", "7-8", "9-12", "13-14", "15-16", "17-22"],
+                ["CCNA", "0-4", "5-7", "8-9", "10-13", "14-15", "16-18", "19-22"],
+                ["CCCO", "0-2", "3-4", "5-6", "7-10", "11-13", "14-17", "18-22"],
+                ["ARTE", "0-2", "3-4", "5-6", "7-10", "11-14", "15-17", "18-22"],
+                ["BURO", "0-3", "4-5", "6-7", "8-11", "12-13", "14-16", "17-22"],
+                ["CCEP", "0-3", "4-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+                ["HAA", "0-3", "4-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+                ["FINA", "0-2", "3-4", "5-6", "7-10", "11-12", "13-16", "17-22"],
+                ["LING", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
+                ["JURI", "0-2", "3-4", "5-6", "7-10", "11-13", "14-16", "17-22"]
+            ];
+            const percentiles = ["1-14", "15-29", "30-39", "40-60", "61-74", "75-89", "90-99"];
 
-        let tablaHTML = `
-        <div class="card" style="margin: 0; padding: 0; border: none;">
-            <div class="card-body" style="padding: 0;">
-                <h3 class="card-title" style="margin: 10px 0;">📈 Tabla de Percentiles (Masculino)</h3>
-                <div class="contenedor-tabla" style="position: relative; overflow-x: auto; margin: 0; padding: 0;">
-                    <svg id="svg-lineas" style="position: absolute; top: 0; left: 0; pointer-events: none; z-index: 10;"></svg>
-                    <table border="1" cellspacing="0" cellpadding="5" style="border-collapse: collapse; text-align: center; width: 100%; margin: 0;">
-                        <tr><th colspan="9">Masculino</th></tr>
-                        <tr>${encabezados.map(h => `<th>${h}</th>`).join('')}</tr>
-                        ${categorias.map(fila => `
+            let tablaHTML = `
+            <div class="card" style="margin: 0; padding: 0; border: none;">
+                <div class="card-body" style="padding: 0;">
+                    <h3 class="card-title" style="margin: 10px 0;">📈 Tabla de Percentiles (Masculino)</h3>
+                    <div class="contenedor-tabla" style="position: relative; overflow-x: auto; margin: 0; padding: 0;">
+                        <svg id="svg-lineas" style="position: absolute; top: 0; left: 0; pointer-events: none; z-index: 10;"></svg>
+                        <table border="1" cellspacing="0" cellpadding="5" style="border-collapse: collapse; text-align: center; width: 100%; margin: 0;">
+                            <tr><th colspan="9">Masculino</th></tr>
+                            <tr>${encabezados.map(h => `<th>${h}</th>`).join('')}</tr>
+                            ${categorias.map(fila => `
+                                <tr>
+                                    <td>${fila[0]}</td>
+                                    ${fila.slice(1).map(rango => `<td class="celda-percentil" data-cat="${fila[0]}" data-rango="${rango}">${rango}</td>`).join('')}
+                                    <td>${fila[0]}</td>
+                                </tr>
+                            `).join('')}
                             <tr>
-                                <td>${fila[0]}</td>
-                                ${fila.slice(1).map(rango => `<td class="celda-percentil" data-cat="${fila[0]}" data-rango="${rango}">${rango}</td>`).join('')}
-                                <td>${fila[0]}</td>
+                                <td></td>
+                                ${percentiles.map(p => `<td>${p}</td>`).join('')}
+                                <td></td>
                             </tr>
-                        `).join('')}
-                        <tr>
-                            <td></td>
-                            ${percentiles.map(p => `<td>${p}</td>`).join('')}
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td colspan="9" style="text-align:center;"><strong>PERCENTILES</strong></td>
-                        </tr>
-                    </table>
+                            <tr>
+                                <td colspan="9" style="text-align:center;"><strong>PERCENTILES</strong></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-            </div>
-        </div>`;
+            </div>`;
 
-        const tablaResumen = document.getElementById("tablaResumen");
-        tablaResumen.innerHTML = tablaHTML;
+            const tablaResumen = document.getElementById("tablaResumen");
+            tablaResumen.innerHTML = tablaHTML;
 
-        // Dibujar puntos inicialmente usando requestAnimationFrame
-        requestAnimationFrame(() => dibujarPuntos(resultadosCategorias));
-
-        // Agregar listener para resize con debounce
-        const actualizarGrafico = debounce(() => {
-            console.log("🔄 Ventana redimensionada, actualizando gráfico...");
+            // Dibujar puntos inicialmente usando requestAnimationFrame
             requestAnimationFrame(() => dibujarPuntos(resultadosCategorias));
-        }, 100);
 
-        // Remover listeners anteriores para evitar duplicados
-        window.removeEventListener("resize", actualizarGrafico);
-        window.addEventListener("resize", actualizarGrafico);
-    }
+            // Agregar listener para resize con debounce
+            const actualizarGrafico = debounce(() => {
+                console.log("🔄 Ventana redimensionada, actualizando gráfico...");
+                requestAnimationFrame(() => dibujarPuntos(resultadosCategorias));
+            }, 100);
+
+            // Remover listeners anteriores para evitar duplicados
+            window.removeEventListener("resize", actualizarGrafico);
+            window.addEventListener("resize", actualizarGrafico);
+        }
+
+        // =======================
+        // Tabla de percentiles (Femeino)
+        // =======================
+
+        if (sexoSeleccionado === "Femenino") {
+            const encabezados = ["", "Desinterés", "Bajo", "Promedio Bajo", "Indecisión", "Promedio Alto", "Alto", "Muy Alto", ""];
+            const categorias = [
+                ["CCFM", "0-2", "3-4", "5-6", "7-11", "12-14", "15-17", "18-22"],
+                ["CCSS", "0-4", "5-7", "8-9", "10-14", "15-16", "17-19", "20-22"],
+                ["CCNA", "0-3", "4-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+                ["CCCO", "0-2", "3-4", "5-6", "7-11", "12-13", "14-16", "17-22"],
+                ["ARTE", "0-2", "3-4", "5-6", "7-11", "12-13", "14-16", "17-22"],
+                ["BURO", "0-4", "5-7", "8-9", "10-14", "15-16", "17-19", "20-22"],
+                ["CCEP", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+                ["HAA", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
+                ["FINA", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+                ["LING", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+                ["JURI", "0-2", "3-4", "5-6", "7-11", "12-13", "14-16", "17-22"]
+            ];
+            const percentiles = ["1-14", "15-29", "30-39", "40-60", "61-74", "75-89", "90-99"];
+
+            let tablaHTML = `
+            <div class="card" style="margin: 0; padding: 0; border: none;">
+                <div class="card-body" style="padding: 0;">
+                    <h3 class="card-title" style="margin: 10px 0;">📈 Tabla de Percentiles (Femenino)</h3>
+                    <div class="contenedor-tabla" style="position: relative; overflow-x: auto; margin: 0; padding: 0;">
+                        <svg id="svg-lineas" style="position: absolute; top: 0; left: 0; pointer-events: none; z-index: 10;"></svg>
+                        <table border="1" cellspacing="0" cellpadding="5" style="border-collapse: collapse; text-align: center; width: 100%; margin: 0;">
+                            <tr><th colspan="9">Femenino</th></tr>
+                            <tr>${encabezados.map(h => `<th>${h}</th>`).join('')}</tr>
+                            ${categorias.map(fila => `
+                                <tr>
+                                    <td>${fila[0]}</td>
+                                    ${fila.slice(1).map(rango => `<td class="celda-percentil" data-cat="${fila[0]}" data-rango="${rango}">${rango}</td>`).join('')}
+                                    <td>${fila[0]}</td>
+                                </tr>
+                            `).join('')}
+                            <tr>
+                                <td></td>
+                                ${percentiles.map(p => `<td>${p}</td>`).join('')}
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="9" style="text-align:center;"><strong>PERCENTILES</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>`;
+
+            const tablaResumen = document.getElementById("tablaResumen");
+            tablaResumen.innerHTML = tablaHTML;
+
+            // Dibujar puntos inicialmente usando requestAnimationFrame
+            requestAnimationFrame(() => dibujarPuntos(resultadosCategorias));
+
+            // Agregar listener para resize con debounce
+            const actualizarGrafico = debounce(() => {
+                console.log("🔄 Ventana redimensionada, actualizando gráfico...");
+                requestAnimationFrame(() => dibujarPuntos(resultadosCategorias));
+            }, 100);
+
+            // Remover listeners anteriores para evitar duplicados
+            window.removeEventListener("resize", actualizarGrafico);
+            window.addEventListener("resize", actualizarGrafico);
+        }
 
         // Asegúrate de que el SVG esté dentro ANTES de dibujar
         if (!document.getElementById("svg-lineas")) {
