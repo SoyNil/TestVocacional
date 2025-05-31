@@ -38,9 +38,7 @@ $rangos = $sexo === "Masculino" ? [
     "HAA" => ["0-2" => "Desinterés", "3-5" => "Bajo", "6-7" => "Promedio Bajo", "8-9" => "Indecisión", "10-12" => "Promedio Alto", "13-14" => "Alto", "15-18" => "Muy Alto"],
     "FINA" => ["0-2" => "Desinterés", "3-4" => "Bajo", "5-7" => "Promedio Bajo", "8-10" => "Indecisión", "11-13" => "Promedio Alto", "14-15" => "Alto", "16-20" => "Muy Alto"],
     "LING" => ["0-3" => "Desinterés", "4-5" => "Bajo", "6-7" => "Promedio Bajo", "8-9" => "Indecisión", "10-12" => "Promedio Alto", "13-14" => "Alto", "15-20" => "Muy Alto"],
-    "JURI" => ["0-2" => "Desinterés", "3-4" => "Bajo", "5-7" => "Promedio Bajo", "8-10" => "Indecisión", "11-13" => "Promedio Alto", "14-15" => "Alto", "16-20" => "Muy Alto"],
-    "VERA" => ["0-2" => "Desinterés", "3-4" => "Bajo", "5-6" => "Promedio Bajo", "7-9" => "Indecisión", "10-12" => "Promedio Alto", "13-15" => "Alto", "16-30" => "Muy Alto"],
-    "CONS" => ["0-2" => "Desinterés", "3-4" => "Bajo", "5-6" => "Promedio Bajo", "7-9" => "Indecisión", "10-12" => "Promedio Alto", "13-15" => "Alto", "18-22" => "Muy Alto"]
+    "JURI" => ["0-2" => "Desinterés", "3-4" => "Bajo", "5-7" => "Promedio Bajo", "8-10" => "Indecisión", "11-13" => "Promedio Alto", "14-15" => "Alto", "16-20" => "Muy Alto"]
 ] : [
     "CCFM" => ["0-2" => "Desinterés", "3-4" => "Bajo", "5-6" => "Promedio Bajo", "7-11" => "Indecisión", "12-14" => "Promedio Alto", "15-17" => "Alto", "18-22" => "Muy Alto"],
     "CCSS" => ["0-4" => "Desinterés", "5-7" => "Bajo", "8-9" => "Promedio Bajo", "10-14" => "Indecisión", "15-16" => "Promedio Alto", "17-19" => "Alto", "20-22" => "Muy Alto"],
@@ -52,9 +50,7 @@ $rangos = $sexo === "Masculino" ? [
     "HAA" => ["0-2" => "Desinterés", "3-4" => "Bajo", "5-6" => "Promedio Bajo", "7-9" => "Indecisión", "10-12" => "Promedio Alto", "13-15" => "Alto", "16-22" => "Muy Alto"],
     "FINA" => ["0-2" => "Desinterés", "3-5" => "Bajo", "6-7" => "Promedio Bajo", "8-12" => "Indecisión", "13-14" => "Promedio Alto", "15-17" => "Alto", "18-22" => "Muy Alto"],
     "LING" => ["0-2" => "Desinterés", "3-5" => "Bajo", "6-7" => "Promedio Bajo", "8-12" => "Indecisión", "13-14" => "Promedio Alto", "15-17" => "Alto", "18-22" => "Muy Alto"],
-    "JURI" => ["0-2" => "Desinterés", "3-4" => "Bajo", "5-6" => "Promedio Bajo", "7-11" => "Indecisión", "12-13" => "Promedio Alto", "14-16" => "Alto", "17-22" => "Muy Alto"],
-    "VERA" => ["0-2" => "Desinterés", "3-4" => "Bajo", "5-6" => "Promedio Bajo", "7-9" => "Indecisión", "10-12" => "Promedio", "13-15" => "Alto", "16-22" => "Muy Alto"],
-    "CONS" => ["0-2" => "Desinterés", "3-4" => "Bajo", "5-6" => "Promedio Bajo", "7-9" => "Indecisión", "10-12" => "Promedio Alto", "13-15" => "Alto", "16-22" => "Muy Alto"]
+    "JURI" => ["0-2" => "Desinterés", "3-4" => "Bajo", "5-6" => "Promedio Bajo", "7-11" => "Indecisión", "12-13" => "Promedio Alto", "14-16" => "Alto", "17-22" => "Muy Alto"]
 ];
 
 // Crear tabla de datos para el prompt
