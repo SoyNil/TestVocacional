@@ -43,6 +43,7 @@
         <h2>Iniciar Sesión</h2>
         <form action="../Controlador/login.php" method="POST">
             <label for="usuario_o_correo">Nombre de usuario o Correo:</label>
+            <p><strong>Análisis de resultados:</strong> <span id="analisis-${index}" class="loading">Cargando análisis... <span class="spinner-border spinner-border-sm" role="status"></span></span></p>
             <input type="text" name="usuario_o_correo" id="usuario_o_correo" required />
 
             <label for="contrasena">Contraseña:</label>

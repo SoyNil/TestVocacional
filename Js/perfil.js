@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (data.exito) {
                     const resultados = data.resultados;
                     const contenedor = document.getElementById("resultados");
-                    contenedor.innerHTML = "<h3>Resultados del Test CASM85:</h3>";
+                    contenedor.innerHTML = "<h3>Resultados del Test CASM-85:</h3>";
 
                     if (resultados.length === 0) {
                         contenedor.innerHTML += "<p>No se encontraron resultados.</p>";
@@ -199,6 +199,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         grupos.push(resultados.slice(i, i + 5));
                     }
 
+                    // Array para almacenar el HTML de cada prueba
+                    const pruebasHTML = [];
+                    // Variable para rastrear la prueba seleccionada
+                    let pruebaActual = 0;
+
                     const enviarSolicitudConReintentos = async (grupo, index, intentos = 3, esperaInicial = 1000) => {
                         try {
                             const response = await fetch("../Controlador/analizarResultados.php", {
@@ -209,60 +214,111 @@ document.addEventListener("DOMContentLoaded", () => {
                                 body: JSON.stringify({ resultados: grupo })
                             });
                             const data = await response.json();
+                            const analisisSpan = document.getElementById(`analisis-${index}`);
+                            if (!analisisSpan) {
+                                console.error(`No se encontró el elemento analisis-${index} en el DOM`);
+                                return;
+                            }
                             if (data.exito) {
-                                document.getElementById(`analisis-${index}`).innerHTML = data.analisis;
+                                analisisSpan.innerHTML = data.analisis;
                             } else if (data.mensaje.includes("Límite de solicitudes alcanzado") && intentos > 0) {
                                 await new Promise(resolve => setTimeout(resolve, esperaInicial));
                                 return enviarSolicitudConReintentos(grupo, index, intentos - 1, esperaInicial * 2);
                             } else {
-                                document.getElementById(`analisis-${index}`).innerHTML = `Error: ${data.mensaje}`;
+                                analisisSpan.innerHTML = `Error: ${data.mensaje}`;
                             }
                         } catch (error) {
                             console.error(`Error al obtener análisis para el grupo ${index + 1}:`, error);
-                            document.getElementById(`analisis-${index}`).innerHTML = `Error al obtener el análisis: ${error.message}`;
+                            const analisisSpan = document.getElementById(`analisis-${index}`);
+                            if (analisisSpan) {
+                                analisisSpan.innerHTML = `Error al obtener el análisis: ${error.message}`;
+                            }
                         }
+                    };
+
+                    const generarHTMLPrueba = (grupo, index) => {
+                        let tabla = `
+                            <div class="card" style="margin: 0; padding: 0; border: none;">
+                                <div class="card-body" style="padding: 0;">
+                                    <h3>📈 Resultados del test N° ${index + 1}</h4>
+                                    <table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse; width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Área</th>
+                                                <th>Puntaje</th>
+                                                <th>Categoría</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                        `;
+                        grupo.forEach(fila => {
+                            tabla += `
+                                <tr>
+                                    <td>${fila.area}</td>
+                                    <td>${fila.puntaje}</td>
+                                    <td>${fila.categoria}</td>
+                                </tr>
+                            `;
+                        });
+                        tabla += `
+                                        </tbody>
+                                    </table>
+                                    <p><strong>Análisis de resultados:</strong> <span id="analisis-${index}" class="loading">Cargando análisis</span></p>
+                                </div>
+                            </div>
+                        `;
+                        return tabla;
                     };
 
                     const procesarGrupos = async () => {
                         for (let index = 0; index < grupos.length; index++) {
                             const grupo = grupos[index];
-                            let tabla = `
-                                <h4>Resultados Test ${index + 1}</h4>
-                                <table border="1" cellpadding="5" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Área</th>
-                                            <th>Puntaje</th>
-                                            <th>Categoría</th>
-                                            <th>Fecha</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                            `;
-                            grupo.forEach(fila => {
-                                tabla += `
-                                    <tr>
-                                        <td>${fila.area}</td>
-                                        <td>${fila.puntaje}</td>
-                                        <td>${fila.categoria}</td>
-                                        <td>${fila.fecha}</td>
-                                    </tr>
-                                `;
-                            });
-                            tabla += `
-                                    </tbody>
-                                </table>
-                                <p><strong>Análisis de resultados:</strong> <span id="analisis-${index}" class="loading">Cargando análisis...</span></p>
-                                <br/>
-                            `;
-                            contenedor.innerHTML += tabla;
+                            // Generar y almacenar el HTML para cada prueba
+                            const tablaHTML = generarHTMLPrueba(grupo, index);
+                            pruebasHTML[index] = tablaHTML;
+                        }
 
-                            await enviarSolicitudConReintentos(grupo, index);
+                        // Crear el selector de pruebas
+                        if (pruebasHTML.length > 0) {
+                            const selectorHTML = `
+                                <select id="selector-pruebas" style="margin-bottom: 10px;">
+                                    ${pruebasHTML.map((_, i) => `<option value="${i}">Prueba ${i + 1} (${grupos[i][0].fecha})</option>`).join('')}
+                                </select>
+                            `;
+                            contenedor.innerHTML += selectorHTML;
+
+                            // Mostrar la primera prueba por defecto
+                            contenedor.innerHTML += `<div id="prueba-contenido-casm85"></div>`;
+                            const pruebaContenido = document.getElementById("prueba-contenido-casm85");
+                            pruebaContenido.innerHTML = pruebasHTML[0];
+
+                            // Solicitar análisis para la primera prueba
+                            setTimeout(() => {
+                                if (grupos[0]) {
+                                    enviarSolicitudConReintentos(grupos[0], 0);
+                                }
+                            }, 0);
+
+                            // Añadir evento al selector para cambiar la prueba
+                            const selector = document.getElementById("selector-pruebas");
+                            selector.addEventListener("change", async () => {
+                                pruebaActual = parseInt(selector.value);
+                                pruebaContenido.innerHTML = pruebasHTML[pruebaActual];
+                                // Solicitar análisis para la prueba seleccionada
+                                setTimeout(() => {
+                                    if (grupos[pruebaActual]) {
+                                        enviarSolicitudConReintentos(grupos[pruebaActual], pruebaActual);
+                                    }
+                                }, 0);
+                            });
+                        } else {
+                            contenedor.innerHTML += "<p>No hay pruebas válidas para mostrar.</p>";
                         }
                     };
 
                     procesarGrupos().catch(error => {
                         console.error("Error en el procesamiento de grupos:", error);
+                        contenedor.innerHTML += `<p>Error en el procesamiento de grupos: ${error.message}</p>`;
                     });
                 } else {
                     document.getElementById("resultados").innerHTML = "<p>Error: " + data.mensaje + "</p>";
@@ -273,7 +329,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("resultados").innerHTML = "<p>Ocurrió un error al obtener los resultados: " + error.message + "</p>";
             });
     });
-    // Función de debounce
+
+    // Función de debounce (sin cambios)
     function debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {
@@ -286,16 +343,26 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     }
 
-    // Función para dibujar puntos
+    // Función para dibujar puntos (modificada para depuración)
     function dibujarPuntos(resultadosCategorias, index) {
         console.log(`Dibujando puntos para grupo ${index + 1}...`);
 
-        const tablaActual = document.querySelector(`#resultados .card:nth-child(${index + 2})`);
+        // Buscar la tabla dentro de #prueba-contenido
+        const tablaActual = document.querySelector(`#prueba-contenido .card`);
         if (!tablaActual) {
-            console.error(`No se encontró la tabla para el grupo ${index + 1}`);
+            console.error(`No se encontró la tabla (.card) para el grupo ${index + 1} en #prueba-contenido`);
             return;
         }
 
+        // Verificar si .contenedor-tabla existe
+        const contenedorTabla = tablaActual.querySelector('.contenedor-tabla');
+        if (!contenedorTabla) {
+            console.error(`No se encontró .contenedor-tabla dentro de .card para el grupo ${index + 1}`);
+            console.log('Contenido de #prueba-contenido:', document.getElementById('prueba-contenido').innerHTML);
+            return;
+        }
+
+        // Limpiar puntos y clases previas
         tablaActual.querySelectorAll(".punto").forEach(punto => punto.remove());
         tablaActual.querySelectorAll(".punto-marcado").forEach(celda => celda.classList.remove("punto-marcado"));
 
@@ -329,12 +396,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 punto.style.transform = "translate(-50%, -50%)";
                 celdaMarcada.appendChild(punto);
 
-                const contenedorTabla = tablaActual.querySelector(".contenedor-tabla");
-                if (!contenedorTabla) {
-                    console.error(`No se encontró .contenedor-tabla en el grupo ${index + 1}`);
-                    return;
-                }
-
                 const celdaRect = celdaMarcada.getBoundingClientRect();
                 const contenedorRect = contenedorTabla.getBoundingClientRect();
 
@@ -352,18 +413,19 @@ document.addEventListener("DOMContentLoaded", () => {
         dibujarLineasEntrePuntos(posiciones, index);
     }
 
-    // Función para dibujar líneas
+    // Función para dibujar líneas (modificada para depuración y selector robusto)
     function dibujarLineasEntrePuntos(posiciones, index) {
         const svg = document.getElementById(`svg-lineas-${index}`);
-
         if (!svg) {
             console.error(`❌ No se encontró el elemento SVG con ID svg-lineas-${index}`);
             return;
         }
 
-        const contenedorTabla = document.querySelector(`#resultados .card:nth-child(${index + 2}) .contenedor-tabla`);
+        // Buscar .contenedor-tabla dentro de #prueba-contenido
+        const contenedorTabla = document.querySelector(`#prueba-contenido .contenedor-tabla`);
         if (!contenedorTabla) {
             console.error(`No se encontró .contenedor-tabla en el grupo ${index + 1}`);
+            console.log('Contenido de #prueba-contenido:', document.getElementById('prueba-contenido').innerHTML);
             return;
         }
 
@@ -396,7 +458,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(`✅ Líneas dibujadas para grupo ${index + 1}.`);
     }
 
-    // Función para enviar solicitud de análisis con reintentos
+    // Función para enviar solicitud de análisis con reintentos (modificada)
     async function enviarSolicitudConReintentos(resultadosCategorias, sexo, index, intentos = 3, esperaInicial = 1000) {
         try {
             const response = await fetch("../Controlador/analizarResultadosCASM83.php", {
@@ -406,6 +468,10 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             const data = await response.json();
             const analisisSpan = document.getElementById(`analisis-${index}`);
+            if (!analisisSpan) {
+                console.error(`No se encontró el elemento analisis-${index} en el DOM`);
+                return;
+            }
             if (data.exito) {
                 analisisSpan.innerHTML = data.analisis;
             } else if (data.mensaje.includes("Límite de solicitudes alcanzado") && intentos > 0) {
@@ -416,10 +482,14 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         } catch (error) {
             console.error(`Error al obtener análisis para el grupo ${index + 1}:`, error);
-            document.getElementById(`analisis-${index}`).innerHTML = `Error al obtener el análisis: ${error.message}`;
+            const analisisSpan = document.getElementById(`analisis-${index}`);
+            if (analisisSpan) {
+                analisisSpan.innerHTML = `Error al obtener el análisis: ${error.message}`;
+            }
         }
     }
 
+    // Evento para el botón testCASM83Btn (modificado para asegurar renderizado antes de dibujar)
     document.getElementById("testCASM83Btn").addEventListener("click", () => {
         fetch("../Controlador/obtenerResultadosCASM83.php")
             .then(response => response.json())
@@ -439,11 +509,157 @@ document.addEventListener("DOMContentLoaded", () => {
                         grupos.push(resultados.slice(i, i + 13));
                     }
 
+                    // Array para almacenar el HTML de cada prueba
+                    const pruebasHTML = [];
+                    // Array para almacenar los datos de cada prueba
+                    const pruebasDatos = [];
+                    // Variable para rastrear la prueba seleccionada
+                    let pruebaActual = 0;
+
+                    const generarHTMLPrueba = (grupo, index, sexo, resultadosCategorias) => {
+                        // Evaluación de veracidad
+                        const preguntasVeracidadCategorias = [
+                            { categoria: "CCSS", pregunta: 25 },
+                            { categoria: "CCNA", pregunta: 38 },
+                            { categoria: "CCCO", pregunta: 51 },
+                            { categoria: "ARTE", pregunta: 64 },
+                            { categoria: "BURO", pregunta: 77 },
+                            { categoria: "CCEP", pregunta: 90 },
+                            { categoria: "HAA", pregunta: 103 },
+                            { categoria: "FINA", pregunta: 116 },
+                            { categoria: "LING", pregunta: 129 },
+                            { categoria: "VERA", preguntas: [12, 142] }
+                        ];
+
+                        let conteoVeracidadA = 0;
+                        preguntasVeracidadCategorias.forEach(item => {
+                            if (item.pregunta) {
+                                if (resultadosCategorias[item.categoria]?.A > 0) {
+                                    conteoVeracidadA++;
+                                }
+                            } else if (item.preguntas) {
+                                conteoVeracidadA += resultadosCategorias["VERA"]?.A || 0;
+                            }
+                        });
+
+                        const veracidadMessage = `
+                            <p><strong>${conteoVeracidadA > 5 ? '❌ No se cumple la veracidad' : '✅ Se cumple la veracidad'}:</strong> 
+                            ${conteoVeracidadA > 5 
+                                ? `Se marcaron ${conteoVeracidadA} opciones "A" en las preguntas de veracidad. Respuestas poco relevantes.` 
+                                : `Se marcaron ${conteoVeracidadA} opciones "A" en las preguntas de veracidad. Las respuestas son coherentes.`}</p>
+                        `;
+
+                        // Evaluación de consistencia
+                        const paresConsistentes = [
+                            { p1: { num: 13, cat: "CCFM" }, p2: { num: 131, cat: "JURI" } },
+                            { p1: { num: 26, cat: "CCSS" }, p2: { num: 132, cat: "CCSS" } },
+                            { p1: { num: 39, cat: "CCNA" }, p2: { num: 133, cat: "CCNA" } },
+                            { p1: { num: 52, cat: "CCCO" }, p2: { num: 134, cat: "CCCO" } },
+                            { p1: { num: 65, cat: "ARTE" }, p2: { num: 135, cat: "ARTE" } },
+                            { p1: { num: 78, cat: "BURO" }, p2: { num: 136, cat: "BURO" } },
+                            { p1: { num: 91, cat: "CCEP" }, p2: { num: 137, cat: "CCEP" } },
+                            { p1: { num: 104, cat: "HAA" }, p2: { num: 138, cat: "HAA" } },
+                            { p1: { num: 117, cat: "FINA" }, p2: { num: 139, cat: "FINA" } },
+                            { p1: { num: 130, cat: "LING" }, p2: { num: 140, cat: "LING" } },
+                            { p1: { num: 143, cat: "JURI" }, p2: { num: 18, cat: "CCFM" } }
+                        ];
+
+                        let inconsistencias = 0;
+                        paresConsistentes.forEach(({ p1, p2 }) => {
+                            const A1 = resultadosCategorias[p1.cat]?.A || 0;
+                            const B1 = resultadosCategorias[p1.cat]?.B || 0;
+                            const A2 = resultadosCategorias[p2.cat]?.A || 0;
+                            const B2 = resultadosCategorias[p2.cat]?.B || 0;
+                            if (A1 !== A2 || B1 !== B2) {
+                                inconsistencias++;
+                            }
+                        });
+
+                        const consistenciaMessage = `
+                            <p><strong>${inconsistencias > 5 ? '❌ No se cumple la consistencia' : '✅ Se cumple la consistencia'}:</strong> 
+                            ${inconsistencias > 5 
+                                ? `Se detectaron ${inconsistencias} inconsistencias. Revisa las respuestas.` 
+                                : `Se detectaron ${inconsistencias} inconsistencias. Las respuestas son consistentes.`}</p>
+                        `;
+
+                        // Determinar si mostrar análisis
+                        const mostrarAnalisis = conteoVeracidadA <= 5 && inconsistencias <= 5;
+                        const analisisMessage = mostrarAnalisis
+                            ? `<p><strong>Análisis de resultados:</strong> <span id="analisis-${index}" class="loading">Cargando análisis...</span></p>`
+                            : `<p><strong>⚠️ Análisis no disponible:</strong> Los resultados no cumplen los criterios de veracidad o consistencia.</p>`;
+
+                        const encabezados = ["", "Desinterés", "Bajo", "Promedio Bajo", "Indecisión", "Promedio Alto", "Alto", "Muy Alto", ""];
+                        const percentiles = ["1-14", "15-29", "30-39", "40-60", "61-74", "75-89", "90-99"];
+                        const categorias = sexo === "Masculino" ? [
+                            ["CCFM", "0-4", "5-7", "8-9", "10-12", "14-15", "16-17", "18-22"],
+                            ["CCSS", "0-3", "4-6", "7-8", "9-12", "13-14", "15-16", "17-22"],
+                            ["CCNA", "0-4", "5-7", "8-9", "10-13", "14-15", "16-18", "19-22"],
+                            ["CCCO", "0-2", "3-4", "5-6", "7-10", "11-13", "14-17", "18-22"],
+                            ["ARTE", "0-2", "3-4", "5-6", "7-10", "11-14", "15-17", "18-22"],
+                            ["BURO", "0-3", "4-5", "6-7", "8-11", "12-13", "14-16", "17-22"],
+                            ["CCEP", "0-3", "4-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+                            ["HAA", "0-3", "4-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+                            ["FINA", "0-2", "3-4", "5-6", "7-10", "11-12", "13-16", "17-22"],
+                            ["LING", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
+                            ["JURI", "0-2", "3-4", "5-6", "7-10", "11-13", "14-16", "17-22"],
+                            ["VERA", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
+                            ["CONS", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"]
+                        ] : [
+                            ["CCFM", "0-2", "3-4", "5-6", "7-11", "12-14", "15-17", "18-22"],
+                            ["CCSS", "0-4", "5-7", "8-9", "10-14", "15-16", "17-19", "20-22"],
+                            ["CCNA", "0-3", "4-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+                            ["CCCO", "0-2", "3-4", "5-6", "7-11", "12-13", "14-16", "17-22"],
+                            ["ARTE", "0-2", "3-4", "5-6", "7-11", "12-13", "14-16", "17-22"],
+                            ["BURO", "0-4", "5-7", "8-9", "10-14", "15-16", "17-19", "20-22"],
+                            ["CCEP", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+                            ["HAA", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
+                            ["FINA", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+                            ["LING", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+                            ["JURI", "0-2", "3-4", "5-6", "7-11", "12-13", "14-16", "17-22"],
+                            ["VERA", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
+                            ["CONS", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"]
+                        ];
+
+                        return `
+                            <div class="card" style="margin: 0; padding: 0; border: none;">
+                                <div class="card-body" style="padding: 0;">
+                                    <h3 class="card-title" style="margin: 10px 0;">📈 Resultados del test N° ${index + 1} (${sexo})</h3>
+                                    <div class="contenedor-tabla" style="position: relative; overflow-x: auto; margin: 0; padding: 0;">
+                                        <svg id="svg-lineas-${index}" style="position: absolute; top: 0; left: 0; pointer-events: none; z-index: 10;"></svg>
+                                        <table border="1" cellspacing="0" cellpadding="5" style="border-collapse: collapse; text-align: center; width: 100%; margin: 0;">
+                                            <tr><th colspan="9">${sexo}</th></tr>
+                                            <tr>${encabezados.map(h => `<th>${h}</th>`).join('')}</tr>
+                                            ${categorias.map(fila => `
+                                                <tr>
+                                                    <td>${fila[0]}</td>
+                                                    ${fila.slice(1).map(rango => `<td class="celda-percentil" data-cat="${fila[0]}" data-rango="${rango}">${rango}</td>`).join('')}
+                                                    <td>${fila[0]}</td>
+                                                </tr>
+                                            `).join('')}
+                                            <tr>
+                                                <td></td>
+                                                ${percentiles.map(p => `<td>${p}</td>`).join('')}
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="9" style="text-align:center;"><strong>PERCENTILES</strong></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    ${veracidadMessage}
+                                    ${consistenciaMessage}
+                                    ${analisisMessage}
+                                </div>
+                            </div>
+                        `;
+                    };
+
                     const procesarGrupos = async () => {
                         for (let index = 0; index < grupos.length; index++) {
                             const grupo = grupos[index];
                             if (grupo.length !== 13) {
-                                contenedor.innerHTML += `<p>Grupo ${index + 1} incompleto (${grupo.length} categorías en lugar de 13).</p>`;
+                                pruebasHTML.push(`<p>Grupo ${index + 1} incompleto (${grupo.length} categorías en lugar de 13).</p>`);
+                                pruebasDatos.push(null);
                                 continue;
                             }
 
@@ -457,155 +673,63 @@ document.addEventListener("DOMContentLoaded", () => {
                                 };
                             });
 
-                            // Evaluación de veracidad
-                            const preguntasVeracidadCategorias = [
-                                { categoria: "CCSS", pregunta: 25 },
-                                { categoria: "CCNA", pregunta: 38 },
-                                { categoria: "CCCO", pregunta: 51 },
-                                { categoria: "ARTE", pregunta: 64 },
-                                { categoria: "BURO", pregunta: 77 },
-                                { categoria: "CCEP", pregunta: 90 },
-                                { categoria: "HAA", pregunta: 103 },
-                                { categoria: "FINA", pregunta: 116 },
-                                { categoria: "LING", pregunta: 129 },
-                                { categoria: "VERA", preguntas: [12, 142] }
-                            ];
+                            // Generar y almacenar el HTML
+                            const tablaHTML = generarHTMLPrueba(grupo, index, sexo, resultadosCategorias);
+                            pruebasHTML[index] = tablaHTML;
+                            pruebasDatos[index] = { sexo, resultadosCategorias };
+                        }
 
-                            let conteoVeracidadA = 0;
-                            preguntasVeracidadCategorias.forEach(item => {
-                                if (item.pregunta) {
-                                    if (resultadosCategorias[item.categoria]?.A > 0) {
-                                        conteoVeracidadA++;
+                        // Crear el selector de pruebas
+                        if (pruebasHTML.length > 0) {
+                            const selectorHTML = `
+                                <select id="selector-pruebas" style="margin-bottom: 10px;">
+                                    ${pruebasHTML.map((_, i) => `<option value="${i}">Prueba ${i + 1} (${grupos[i][0].fecha})</option>`).join('')}
+                                </select>
+                            `;
+                            contenedor.innerHTML += selectorHTML;
+
+                            // Mostrar la primera prueba por defecto
+                            contenedor.innerHTML += `<div id="prueba-contenido"></div>`;
+                            const pruebaContenido = document.getElementById("prueba-contenido");
+                            pruebaContenido.innerHTML = pruebasHTML[0];
+
+                            // Esperar a que el DOM se actualice antes de dibujar
+                            setTimeout(() => {
+                                if (pruebasDatos[0]) {
+                                    requestAnimationFrame(() => dibujarPuntos(pruebasDatos[0].resultadosCategorias, 0));
+                                    if (pruebasHTML[0].includes("Cargando análisis")) {
+                                        enviarSolicitudConReintentos(pruebasDatos[0].resultadosCategorias, pruebasDatos[0].sexo, 0);
                                     }
-                                } else if (item.preguntas) {
-                                    conteoVeracidadA += resultadosCategorias["VERA"]?.A || 0;
                                 }
-                            });
-
-                            const veracidadMessage = `
-                                <p><strong>${conteoVeracidadA > 5 ? '❌ No se cumple la veracidad' : '✅ Se cumple la veracidad'}:</strong> 
-                                ${conteoVeracidadA > 5 
-                                    ? `Se marcaron ${conteoVeracidadA} opciones "A" en las preguntas de nivel de veracidad. Respuestas poco relevantes.` 
-                                    : `Se marcaron ${conteoVeracidadA} opciones "A" en las preguntas de veracidad. Las respuestas son coherentes.`}</p>
-                            `;
-
-                            // Evaluación de consistencia
-                            const paresConsistentes = [
-                                { p1: { num: 13, cat: "CCFM" }, p2: { num: 131, cat: "JURI" } },
-                                { p1: { num: 26, cat: "CCSS" }, p2: { num: 132, cat: "CCSS" } },
-                                { p1: { num: 39, cat: "CCNA" }, p2: { num: 133, cat: "CCNA" } },
-                                { p1: { num: 52, cat: "CCCO" }, p2: { num: 134, cat: "CCCO" } },
-                                { p1: { num: 65, cat: "ARTE" }, p2: { num: 135, cat: "ARTE" } },
-                                { p1: { num: 78, cat: "BURO" }, p2: { num: 136, cat: "BURO" } },
-                                { p1: { num: 91, cat: "CCEP" }, p2: { num: 137, cat: "CCEP" } },
-                                { p1: { num: 104, cat: "HAA" }, p2: { num: 138, cat: "HAA" } },
-                                { p1: { num: 117, cat: "FINA" }, p2: { num: 139, cat: "FINA" } },
-                                { p1: { num: 130, cat: "LING" }, p2: { num: 140, cat: "LING" } },
-                                { p1: { num: 143, cat: "JURI" }, p2: { num: 18, cat: "CCFM" } }
-                            ];
-
-                            let inconsistencias = 0;
-                            paresConsistentes.forEach(({ p1, p2 }) => {
-                                const A1 = resultadosCategorias[p1.cat]?.A || 0;
-                                const B1 = resultadosCategorias[p1.cat]?.B || 0;
-                                const A2 = resultadosCategorias[p2.cat]?.A || 0;
-                                const B2 = resultadosCategorias[p2.cat]?.B || 0;
-                                if (A1 !== A2 || B1 !== B2) {
-                                    inconsistencias++;
-                                }
-                            });
-
-                            const consistenciaMessage = `
-                                <p><strong>${inconsistencias > 5 ? '❌ No se cumple la consistencia' : '✅ Se cumple la consistencia'}:</strong> 
-                                ${inconsistencias > 5 
-                                    ? `Se detectaron ${inconsistencias} inconsistencias. Revisa las respuestas.` 
-                                    : `Se detectaron ${inconsistencias} inconsistencias. Las respuestas son consistentes.`}</p>
-                            `;
-
-                            // Determinar si mostrar análisis
-                            const mostrarAnalisis = conteoVeracidadA <= 5 && inconsistencias <= 5;
-                            const analisisMessage = mostrarAnalisis
-                                ? `<p><strong>Análisis de resultados:</strong> <span id="analisis-${index}" class="loading">Cargando análisis...</span></p>`
-                                : `<p><strong>⚠️ Análisis no disponible:</strong> Los resultados no cumplen los criterios de veracidad o consistencia.</p>`;
-
-                            const encabezados = ["", "Desinterés", "Bajo", "Promedio Bajo", "Indecisión", "Promedio Alto", "Alto", "Muy Alto", ""];
-                            const percentiles = ["1-14", "15-29", "30-39", "40-60", "61-74", "75-89", "90-99"];
-                            const categorias = sexo === "Masculino" ? [
-                                ["CCFM", "0-4", "5-7", "8-9", "10-12", "14-15", "16-17", "18-22"],
-                                ["CCSS", "0-3", "4-6", "7-8", "9-12", "13-14", "15-16", "17-22"],
-                                ["CCNA", "0-4", "5-7", "8-9", "10-13", "14-15", "16-18", "19-22"],
-                                ["CCCO", "0-2", "3-4", "5-6", "7-10", "11-13", "14-17", "18-22"],
-                                ["ARTE", "0-2", "3-4", "5-6", "7-10", "11-14", "15-17", "18-22"],
-                                ["BURO", "0-3", "4-5", "6-7", "8-11", "12-13", "14-16", "17-22"],
-                                ["CCEP", "0-3", "4-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
-                                ["HAA", "0-3", "4-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
-                                ["FINA", "0-2", "3-4", "5-6", "7-10", "11-12", "13-16", "17-22"],
-                                ["LING", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
-                                ["JURI", "0-2", "3-4", "5-6", "7-10", "11-13", "14-16", "17-22"]
-                            ] : [
-                                ["CCFM", "0-2", "3-4", "5-6", "7-11", "12-14", "15-17", "18-22"],
-                                ["CCSS", "0-4", "5-7", "8-9", "10-14", "15-16", "17-19", "20-22"],
-                                ["CCNA", "0-3", "4-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
-                                ["CCCO", "0-2", "3-4", "5-6", "7-11", "12-13", "14-16", "17-22"],
-                                ["ARTE", "0-2", "3-4", "5-6", "7-11", "12-13", "14-16", "17-22"],
-                                ["BURO", "0-4", "5-7", "8-9", "10-14", "15-16", "17-19", "20-22"],
-                                ["CCEP", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
-                                ["HAA", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
-                                ["FINA", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
-                                ["LING", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
-                                ["JURI", "0-2", "3-4", "5-6", "7-11", "12-13", "14-16", "17-22"]
-                            ];
-
-                            let tablaHTML = `
-                                <div class="card" style="margin: 0; padding: 0; border: none;">
-                                    <div class="card-body" style="padding: 0;">
-                                        <h3 class="card-title" style="margin: 10px 0;">📈 Resultados Test ${index + 1} (${sexo})</h3>
-                                        <div class="contenedor-tabla" style="position: relative; overflow-x: auto; margin: 0; padding: 0;">
-                                            <svg id="svg-lineas-${index}" style="position: absolute; top: 0; left: 0; pointer-events: none; z-index: 10;"></svg>
-                                            <table border="1" cellspacing="0" cellpadding="5" style="border-collapse: collapse; text-align: center; width: 100%; margin: 0;">
-                                                <tr><th colspan="9">${sexo}</th></tr>
-                                                <tr>${encabezados.map(h => `<th>${h}</th>`).join('')}</tr>
-                                                ${categorias.map(fila => `
-                                                    <tr>
-                                                        <td>${fila[0]}</td>
-                                                        ${fila.slice(1).map(rango => `<td class="celda-percentil" data-cat="${fila[0]}" data-rango="${rango}">${rango}</td>`).join('')}
-                                                        <td>${fila[0]}</td>
-                                                    </tr>
-                                                `).join('')}
-                                                <tr>
-                                                    <td></td>
-                                                    ${percentiles.map(p => `<td>${p}</td>`).join('')}
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="9" style="text-align:center;"><strong>PERCENTILES</strong></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        ${veracidadMessage}
-                                        ${consistenciaMessage}
-                                        ${analisisMessage}
-                                    </div>
-                                </div>
-                            `;
-
-                            contenedor.innerHTML += tablaHTML;
-
-                            // Dibujar puntos
-                            requestAnimationFrame(() => dibujarPuntos(resultadosCategorias, index));
-
-                            // Enviar solicitud de análisis si se cumplen las condiciones
-                            if (mostrarAnalisis) {
-                                await enviarSolicitudConReintentos(resultadosCategorias, sexo, index);
-                            }
+                            }, 0);
 
                             // Agregar listener para resize con debounce
                             const actualizarGrafico = debounce(() => {
-                                console.log("🔄 Ventana redimensionada, actualizando gráfico para grupo", index + 1);
-                                requestAnimationFrame(() => dibujarPuntos(resultadosCategorias, index));
+                                console.log("🔄 Ventana redimensionada, actualizando gráfico para prueba", pruebaActual + 1);
+                                if (pruebasDatos[pruebaActual]) {
+                                    requestAnimationFrame(() => dibujarPuntos(pruebasDatos[pruebaActual].resultadosCategorias, pruebaActual));
+                                }
                             }, 100);
 
-                            window.addEventListener("resize", actualizarGrafico);
+                            window.addEventListener('resize', actualizarGrafico);
+
+                            // Añadir evento al selector para cambiar la prueba
+                            const selector = document.getElementById("selector-pruebas");
+                            selector.addEventListener("change", async () => {
+                                pruebaActual = parseInt(selector.value);
+                                pruebaContenido.innerHTML = pruebasHTML[pruebaActual];
+                                // Esperar a que el DOM se actualice
+                                setTimeout(() => {
+                                    if (pruebasDatos[pruebaActual]) {
+                                        requestAnimationFrame(() => dibujarPuntos(pruebasDatos[pruebaActual].resultadosCategorias, pruebaActual));
+                                        if (pruebasHTML[pruebaActual].includes("Cargando análisis")) {
+                                            enviarSolicitudConReintentos(pruebasDatos[pruebaActual].resultadosCategorias, pruebasDatos[pruebaActual].sexo, pruebaActual);
+                                        }
+                                    }
+                                }, 0);
+                            });
+                        } else {
+                            contenedor.innerHTML += "<p>No hay pruebas válidas para mostrar.</p>";
                         }
                     };
 
