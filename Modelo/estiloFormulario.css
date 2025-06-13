@@ -22,14 +22,27 @@ body {
 h2 {
     margin-bottom: 20px;
     text-align: center;
+    color: white;
 }
 
 form label {
     display: block;
     margin-top: 15px;
+    color: white;
 }
 
-form input, form select {
+form input {
+    width: 95%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2a2a2a;
+    color: #fff;
+    font-size: 16px;
+}
+
+form select {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
@@ -45,25 +58,31 @@ form input, form select {
     width: 100%;
     padding: 12px;
     border: none;
-    background-color: #4CAF50;
+    background-color: #2944ff;
     color: white;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .button-form:hover {
-    background-color: #45a049;
+    background-color: #6679ff;
 }
 
 p {
     margin-top: 15px;
     text-align: center;
+    color: white;
 }
 
 a {
-    color: #4CAF50;
     text-decoration: none;
+    color: #2944ff;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    &:hover{
+        color: #6679ff;
+    }  
 }
 
 /* Estilos específicos para el campo de "Sexo" */

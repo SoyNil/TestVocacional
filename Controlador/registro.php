@@ -7,18 +7,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $apellido = trim($_POST['apellido']);
     $correo = trim($_POST['correo']);
     $contraseña = $_POST['contraseña'];
-    $sexo = $_POST['sexo']; // Captura del sexo
+    $sexo = $_POST['sexo'];
     $fecha_nacimiento = $_POST['fecha_nacimiento'];
 
-    // Validaciones básicas
     if (empty($nombre_usuario) || empty($nombre) || empty($apellido) || empty($correo) || empty($contraseña) || empty($sexo)) {
         die('Por favor, complete todos los campos.');
     }
 
-    // Verificar si el usuario o correo ya existen
-    $consulta = "SELECT * FROM usuario WHERE nombre_usuario = ? OR correo = ?";
+    // Verificar duplicado en ambas tablas
+    $consulta = "
+        SELECT 'usuario' AS origen FROM usuario WHERE nombre_usuario = ? OR correo = ?
+        UNION
+        SELECT 'psicologo' AS origen FROM psicologos WHERE nombre_usuario = ? OR correo = ?
+    ";
     $stmt = $conexion->prepare($consulta);
-    $stmt->bind_param("ss", $nombre_usuario, $correo);
+    $stmt->bind_param("ssss", $nombre_usuario, $correo, $nombre_usuario, $correo);
     $stmt->execute();
     $resultado = $stmt->get_result();
 
@@ -27,13 +30,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Hash de la contraseña
     $hash = password_hash($contraseña, PASSWORD_DEFAULT);
 
-    // Insertar usuario en la base de datos
     $insertar = "INSERT INTO usuario (nombre_usuario, nombre, apellido, correo, contraseña, sexo, fecha_nacimiento) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conexion->prepare($insertar);
-    $stmt->bind_param("sssssss", $nombre_usuario, $nombre, $apellido, $correo, $hash, $sexo, $fecha_nacimiento); // Agregar el sexo en la consulta
+    $stmt->bind_param("sssssss", $nombre_usuario, $nombre, $apellido, $correo, $hash, $sexo, $fecha_nacimiento);
 
     if ($stmt->execute()) {
         header("Location: ../Vista/login.html");

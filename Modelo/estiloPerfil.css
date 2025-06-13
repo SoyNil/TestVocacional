@@ -255,6 +255,27 @@ form button:hover {
     border-color: #007bff;
 }
 
+select,
+::picker(select){
+    appearance: base-select;
+    color: white;
+}
+
+option{
+    background: #171717;
+    &:hover{
+        background: #454545;
+    }
+    &:checked{
+        background: #2944ff;
+    }
+}
+
+::picker(select){
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
 #prueba-contenido {
     margin-top: 10px;
 }

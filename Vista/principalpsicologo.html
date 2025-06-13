@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de control</title>
+    <link rel="stylesheet" href="../Modelo/estiloPsicologo.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <script src="../Js/psicologo.js" defer></script>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+        <img src="../Modelo/img/logo2.png" alt="Logo" class="logo-img" />
+        <span class="logo-text">IllaVocacional</span>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+        <div class="profile-section">
+            <div class="profile-img" id="profile-img">
+                <img id="foto-perfil" src="../Modelo/img/sin-perfil.png" alt="Foto de perfil" />
+                <label for="input-foto" class="edit-icon">
+                    <i class="fas fa-pen"></i>
+                </label>
+                <input type="file" id="input-foto" accept="image/*" style="display: none" />
+            </div>
+            <div class="profile-name" id="profile-name"></div>
+            <div class="icon-buttons">
+            <button title="Perfil"><i class="fas fa-user"></i></button>
+            <button title="Mensajería"><i class="fas fa-envelope"></i></button>
+            <button title="Cerrar sesión" id="cerrarSesionBtn"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </div>
+
+        <nav class="nav-options">
+            <button class="nav-btn">Inicio</button>
+            <button class="nav-btn">Pacientes</button>
+        </nav>
+        </aside>
+
+        <section class="content">
+        <!-- Aquí se mostrará el contenido de cada opción -->
+        </section>
+    </div>
+</body>
+</html>
