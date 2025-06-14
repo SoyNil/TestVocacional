@@ -1,10 +1,10 @@
 <?php
-// ACTIVAR ERRORES (solo para desarrollo)
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
 error_reporting(E_ALL);
 
 session_start();
+header('Content-Type: application/json');
 
 if (isset($_SESSION['usuario'])) {
     $tipo = $_SESSION['tipo_usuario'] ?? 'usuario';
@@ -19,7 +19,7 @@ if (isset($_SESSION['usuario'])) {
         "correo" => $_SESSION['correo'] ?? '',
         "sexo" => $_SESSION['sexo'] ?? '',
         "fecha_nacimiento" => $_SESSION['fecha_nacimiento'] ?? '',
-        "jerarquia" => $_SESSION['jerarquia'] ?? '',
+        "jerarquia" => $_SESSION['jerarquia'] ?? '', // Incluye jerarquia para psicólogos
         "foto_perfil" => $_SESSION['foto_perfil'] ?? ''
     ]);
 } else {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-06-2025 a las 07:42:06
+-- Tiempo de generación: 13-06-2025 a las 23:42:37
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -74,6 +74,32 @@ INSERT INTO `analisis_casm85` (`id`, `grupo_hash`, `analisis_texto`, `fecha_crea
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `codigos_invitacion`
+--
+
+CREATE TABLE `codigos_invitacion` (
+  `id` int(11) NOT NULL,
+  `codigo_hash` varchar(255) NOT NULL,
+  `codigo_visible` varchar(12) NOT NULL,
+  `id_creador` int(11) NOT NULL,
+  `usado` tinyint(1) DEFAULT 0,
+  `id_usuario_usado` int(11) DEFAULT NULL,
+  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
+  `fecha_uso` timestamp NULL DEFAULT NULL,
+  `fecha_expiracion` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `codigos_invitacion`
+--
+
+INSERT INTO `codigos_invitacion` (`id`, `codigo_hash`, `codigo_visible`, `id_creador`, `usado`, `id_usuario_usado`, `fecha_creacion`, `fecha_uso`, `fecha_expiracion`) VALUES
+(1, '$2y$10$ipNHssDiOBd5aYylhw1uw.AnzkTNnX7bFeinO2E/N0gD5PsQFAR8q', 'NL6X8P87XC9Y', 2, 0, NULL, '2025-06-13 21:03:32', NULL, '2025-06-21 04:03:32'),
+(2, '$2y$10$QOz08opBOIg63LZvmZB7m.zObLH7mSajZNAhjVkDfK.Pkg0lgjzG.', 'S3VLRTDR94DC', 2, 0, NULL, '2025-06-13 21:07:27', NULL, '2025-06-21 04:07:27');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `psicologos`
 --
 
@@ -87,15 +113,17 @@ CREATE TABLE `psicologos` (
   `correo` varchar(100) NOT NULL,
   `contraseña` varchar(255) NOT NULL,
   `jerarquia` enum('admin','psicologo') NOT NULL DEFAULT 'psicologo',
-  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp()
+  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
+  `foto_perfil` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `psicologos`
 --
 
-INSERT INTO `psicologos` (`id`, `nombre_usuario`, `nombre`, `apellido`, `sexo`, `fecha_nacimiento`, `correo`, `contraseña`, `jerarquia`, `fecha_creacion`) VALUES
-(1, 'admin_illa', 'Admin', 'General', 'Otro', '1985-01-01', 'admin@psicoilla.com', '$2y$10$EvWWfZurw42DEVw1s4gqeeliT4GV.q1Lmulzy0Q8WSE8hhbn3OL8m', 'psicologo', '2025-06-13 04:41:20');
+INSERT INTO `psicologos` (`id`, `nombre_usuario`, `nombre`, `apellido`, `sexo`, `fecha_nacimiento`, `correo`, `contraseña`, `jerarquia`, `fecha_creacion`, `foto_perfil`) VALUES
+(1, 'admin_illa', 'Admin', 'General', 'Otro', '1985-01-01', 'admin@psicoilla.com', '$2y$10$EvWWfZurw42DEVw1s4gqeeliT4GV.q1Lmulzy0Q8WSE8hhbn3OL8m', 'psicologo', '2025-06-13 04:41:20', '/TestVocacional/Modelo/img/perfiles/perfil_684bcd59c805a.png'),
+(2, 'admin_jefe', 'Nilton', 'Rojas', 'Masculino', '1999-05-20', 'admin@centropsico.com', '$2y$10$TUpk9aDnNKbTdhzadDuWYeVPXsZWm1qzNuRwAyrbcUEEXdGb1ii/S', 'admin', '2025-06-13 19:26:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -268,7 +296,7 @@ CREATE TABLE `usuario` (
   `correo` varchar(100) NOT NULL,
   `contraseña` varchar(255) NOT NULL,
   `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
-  `codigo_invitacion_usado` varchar(100) DEFAULT NULL
+  `tipo_cuenta` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -297,6 +325,15 @@ ALTER TABLE `analisis_casm85`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `grupo_hash` (`grupo_hash`),
   ADD KEY `idx_grupo_hash` (`grupo_hash`);
+
+--
+-- Indices de la tabla `codigos_invitacion`
+--
+ALTER TABLE `codigos_invitacion`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `codigo_hash` (`codigo_hash`),
+  ADD KEY `id_creador` (`id_creador`),
+  ADD KEY `id_usuario_usado` (`id_usuario_usado`);
 
 --
 -- Indices de la tabla `psicologos`
@@ -345,10 +382,16 @@ ALTER TABLE `analisis_casm85`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de la tabla `codigos_invitacion`
+--
+ALTER TABLE `codigos_invitacion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `psicologos`
 --
 ALTER TABLE `psicologos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `test_casm83`
@@ -371,6 +414,13 @@ ALTER TABLE `usuario`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `codigos_invitacion`
+--
+ALTER TABLE `codigos_invitacion`
+  ADD CONSTRAINT `codigos_invitacion_ibfk_1` FOREIGN KEY (`id_creador`) REFERENCES `psicologos` (`id`),
+  ADD CONSTRAINT `codigos_invitacion_ibfk_2` FOREIGN KEY (`id_usuario_usado`) REFERENCES `usuario` (`id`);
 
 --
 -- Filtros para la tabla `test_casm83`

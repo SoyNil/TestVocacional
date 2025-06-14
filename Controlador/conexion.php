@@ -9,9 +9,13 @@ $conexion = new mysqli($servidor, $usuario, $contrasena, $basededatos);
 
 // Verificar conexión
 if ($conexion->connect_error) {
-    die("Conexión fallida: " . $conexion->connect_error);
+    header('Content-Type: application/json');
+    echo json_encode([
+        "exito" => false,
+        "error" => "Conexión fallida: " . $conexion->connect_error
+    ]);
+    exit;
 }
 
 // Opcional: configurar codificación de caracteres
 $conexion->set_charset("utf8");
-?>
