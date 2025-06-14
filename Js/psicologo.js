@@ -342,34 +342,83 @@ document.addEventListener("DOMContentLoaded", function () {
                     return;
                 }
 
-                let html = `<div class="cards-codigos">`;
-                data.codigos.forEach(c => {
-                    let estado = c.expirado
-                        ? "Expirado"
-                        : c.usado
-                            ? "Usado"
-                            : "Disponible";
+                // Elementos de búsqueda
+                let html = `
+                    <div class="filtros-codigos">
+                        <label for="busqueda-codigo"><strong>Buscar código:</strong></label>
+                        <input type="text" id="busqueda-codigo" placeholder="Nombre o código...">
 
-                    let clase = c.expirado
-                        ? "expirado"
-                        : c.usado
-                            ? "usado"
-                            : "disponible";
-
-                    html += `
-                        <div class="card-codigo ${clase}">
-                            <h3>${c.codigo}</h3>
-                            <p><strong>Estado:</strong> ${estado}</p>
-                            <p><strong>Fecha de creación:</strong> ${c.fecha_creacion}</p>
-                            <p><strong>Vence:</strong> ${c.fecha_expiracion}</p>
-                            ${c.usuario_asignado ? `<p><strong>Usuario:</strong> ${c.usuario_asignado}</p>` : ""}
-                            <button onclick="eliminarCodigo(${c.id})" class="btn-eliminar">Eliminar</button>
-                        </div>
-                    `;
-                });
-                html += `</div>`;
+                        <label for="filtro-estado"><strong>Filtrar por estado:</strong></label>
+                        <select id="filtro-estado">
+                            <option value="">Todos</option>
+                            <option value="Disponible">Disponible</option>
+                            <option value="Usado">Usado</option>
+                            <option value="Expirado">Expirado</option>
+                        </select>
+                    </div>
+                    <div class="cards-codigos" id="lista-codigos"></div>
+                `;
 
                 codigosContainer.innerHTML = html;
+
+                const lista = document.getElementById("lista-codigos");
+
+                function renderizarCodigos(filtroTexto = "", filtroEstado = "") {
+                    lista.innerHTML = "";
+                    data.codigos.forEach(c => {
+                        let estado = c.expirado
+                            ? "Expirado"
+                            : c.usado
+                                ? "Usado"
+                                : "Disponible";
+
+                        if (
+                            (filtroEstado && estado !== filtroEstado) ||
+                            (filtroTexto &&
+                                !c.codigo.toLowerCase().includes(filtroTexto) &&
+                                (!c.usuario_asignado || !c.usuario_asignado.toLowerCase().includes(filtroTexto)))
+                        ) {
+                            return; // Saltar este código si no coincide
+                        }
+
+                        let clase = c.expirado
+                            ? "expirado"
+                            : c.usado
+                                ? "usado"
+                                : "disponible";
+
+                        lista.innerHTML += `
+                            <div class="card-codigo ${clase}">
+                                <h3>${c.codigo}</h3>
+                                <p><strong>Estado:</strong> ${estado}</p>
+                                <p><strong>Fecha de creación:</strong> ${c.fecha_creacion}</p>
+                                <p><strong>Vence:</strong> ${c.fecha_expiracion}</p>
+                                ${c.usuario_asignado ? `<p><strong>Usuario:</strong> ${c.usuario_asignado}</p>` : ""}
+                                <button onclick="eliminarCodigo(${c.id})" class="btn-eliminar">Eliminar</button>
+                            </div>
+                        `;
+                    });
+
+                    if (lista.innerHTML === "") {
+                        lista.innerHTML = "<p>No hay códigos que coincidan con la búsqueda.</p>";
+                    }
+                }
+
+                // Inicial
+                renderizarCodigos();
+
+                // Eventos de filtro
+                const inputBusqueda = document.getElementById("busqueda-codigo");
+                const selectEstado = document.getElementById("filtro-estado");
+
+                inputBusqueda.addEventListener("input", () => {
+                    renderizarCodigos(inputBusqueda.value.trim().toLowerCase(), selectEstado.value);
+                });
+
+                selectEstado.addEventListener("change", () => {
+                    renderizarCodigos(inputBusqueda.value.trim().toLowerCase(), selectEstado.value);
+                });
+
             } catch (e) {
                 console.error("Error al analizar JSON:", e, "Respuesta:", text);
                 codigosContainer.innerHTML = "<p>Error al cargar los códigos generados.</p>";

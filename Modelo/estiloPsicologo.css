@@ -343,3 +343,18 @@ body {
 .btn-eliminar:hover {
     background-color: #c9302c;
 }
+
+.filtros-codigos {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+}
+
+.filtros-codigos input,
+.filtros-codigos select {
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}

@@ -1,0 +1,40 @@
+[14-Jun-2025 07:23:46 Europe/Berlin] PHP Warning:  Undefined array key "nombre_usuario" in C:\xampp\htdocs\TestVocacional\Controlador\registro.php on line 77
+[14-Jun-2025 07:23:46 Europe/Berlin] PHP Warning:  Undefined array key "correo" in C:\xampp\htdocs\TestVocacional\Controlador\registro.php on line 80
+[14-Jun-2025 07:26:09 Europe/Berlin] PHP Warning:  Undefined array key "nombre_usuario" in C:\xampp\htdocs\TestVocacional\Controlador\registro.php on line 77
+[14-Jun-2025 07:26:09 Europe/Berlin] PHP Warning:  Undefined array key "correo" in C:\xampp\htdocs\TestVocacional\Controlador\registro.php on line 80
+[14-Jun-2025 07:26:12 Europe/Berlin] PHP Warning:  Undefined array key "nombre_usuario" in C:\xampp\htdocs\TestVocacional\Controlador\registro.php on line 77
+[14-Jun-2025 07:26:12 Europe/Berlin] PHP Warning:  Undefined array key "correo" in C:\xampp\htdocs\TestVocacional\Controlador\registro.php on line 80
+[14-Jun-2025 07:31:00 Europe/Berlin] Filas encontradas: 1, Nombre usuario: Nil_14, Correo: juan@gmail.com
+[14-Jun-2025 07:31:00 Europe/Berlin] Fila: Array
+(
+    [origen] => usuario
+    [nombre_usuario] => Nil_14
+    [correo] => nilton@gmail.com
+)
+
+[14-Jun-2025 07:31:00 Europe/Berlin] Filas encontradas: 1, Nombre usuario: Nil_14, Correo: juan@gmail.com
+[14-Jun-2025 07:31:00 Europe/Berlin] Fila: Array
+(
+    [origen] => usuario
+    [nombre_usuario] => Nil_14
+    [correo] => nilton@gmail.com
+)
+
+[14-Jun-2025 07:31:05 Europe/Berlin] Filas encontradas: 1, Nombre usuario: Nil_14, Correo: juan@gmail.com
+[14-Jun-2025 07:31:05 Europe/Berlin] Fila: Array
+(
+    [origen] => usuario
+    [nombre_usuario] => Nil_14
+    [correo] => nilton@gmail.com
+)
+
+[14-Jun-2025 07:31:13 Europe/Berlin] Filas encontradas: 0, Nombre usuario: Juan_1, Correo: juan@gmail.com
+[14-Jun-2025 07:31:37 Europe/Berlin] Filas encontradas: 1, Nombre usuario: Juan_1, Correo: nilton@gmail.com
+[14-Jun-2025 07:31:37 Europe/Berlin] Fila: Array
+(
+    [origen] => usuario
+    [nombre_usuario] => Nil_14
+    [correo] => nilton@gmail.com
+)
+
+[14-Jun-2025 07:31:46 Europe/Berlin] Filas encontradas: 0, Nombre usuario: Juan_1, Correo: juan@gmail.com

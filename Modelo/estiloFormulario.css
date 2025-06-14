@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Poiret+One&display=swap');
+
 * {
     font-family: "Figtree", sans-serif;
 }
+
 body {
     margin: 0;
     padding: 0;
@@ -15,8 +17,8 @@ body {
     width: 100%;
     max-width: 400px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    margin: 50px auto; /* Espacio entre el formulario y el header */
-    margin-top: 80px; /* Añadimos un margen superior para que no se solape con el header */
+    margin: 50px auto;
+    margin-top: 80px;
 }
 
 h2 {
@@ -25,13 +27,21 @@ h2 {
     color: white;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
 form label {
     display: block;
     margin-top: 15px;
     color: white;
+    font-size: 1rem;
 }
 
-form input {
+form input,
+form select {
     width: 95%;
     padding: 10px;
     margin-top: 5px;
@@ -44,13 +54,11 @@ form input {
 
 form select {
     width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: none;
-    border-radius: 5px;
-    background-color: #2a2a2a;
-    color: #fff;
-    font-size: 16px;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M6%208.586L1.707%204.293a1%201%200%2000-1.414%201.414l5%205a1%201%200%20001.414%200l5-5a1%201%200%2000-1.414-1.414L6%208.586z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
 }
 
 .button-form {
@@ -79,35 +87,46 @@ p {
 a {
     text-decoration: none;
     color: #2944ff;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    &:hover{
-        color: #6679ff;
-    }  
+    transition: color 0.3s ease;
 }
 
-/* Estilos específicos para el campo de "Sexo" */
-form select {
-    background-color: #2a2a2a;
-    color: #fff;
-    font-size: 16px;
+a:hover {
+    color: #6679ff;
 }
 
-/* Estilo para el mensaje de error */
+/* Estilos para mensajes de error */
 .error-message {
-    color: #ff0000;
-    background-color: #fdd;
-    padding: 10px;
-    margin-top: 15px;
-    border-radius: 5px;
+    color: #ff5555;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.5rem;
+    display: none;
+    text-align: left;
+    transition: opacity 0.3s ease;
+}
+
+.error-message:not(:empty) {
+    display: block;
+    opacity: 1;
+}
+
+#error-general {
+    color: #ff5555;
+    font-size: 0.9rem;
+    margin-top: 1rem;
     text-align: center;
+    display: none;
+}
+
+#error-general:not(:empty) {
+    display: block;
 }
 
 /* INICIO DE ESTILOS HEADER */
-
 header {
     background-color: #171717;
     padding: 15px 30px;
-    position: relative; /* Necesario para alinear el dropdown */
+    position: relative;
 }
 
 .nav-container {
@@ -117,7 +136,7 @@ header {
     gap: 30px;
     flex-wrap: wrap;
     width: 70%;
-    margin: 0 auto; /* Esto lo centra horizontalmente */
+    margin: 0 auto;
 }
 
 .logo-container {
@@ -149,7 +168,7 @@ header {
 }
 
 nav {
-    position: relative; /* Necesario para alinear el dropdown */
+    position: relative;
 }
 
 nav ul {
@@ -179,27 +198,27 @@ nav ul li a:hover {
 }
 
 .dropdown {
-    position: relative; /* Necesario para posicionar el menú */
+    position: relative;
 }
 
 .dropdown-menu {
-    position: absolute; /* Necesario para que se coloque debajo */
-    top: 100%; /* Coloca el dropdown justo debajo del contenedor principal */
+    position: absolute;
+    top: 100%;
     left: 0;
-    right: 0; /* Ajusta para que ocupe todo el ancho disponible */
+    right: 0;
     background-color: #2a2a2a;
     padding: 10px 0;
     display: none;
     flex-direction: column;
     border-radius: 5px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    z-index: 999; /* Asegura que esté por encima de otros elementos */
+    z-index: 999;
     min-width: 160px;
-    margin-top: 5px; /* Ajusta la distancia del menú con el header */
+    margin-top: 5px;
 }
 
 .dropdown-menu.show {
-    display: flex; /* Muestra el menú cuando tiene la clase 'show' */
+    display: flex;
 }
 
 .dropdown-menu li a {
@@ -219,8 +238,8 @@ nav ul li a:hover {
     .nav-container {
         width: 100%;
         display: flex;
-        justify-content: space-between; /* Distribuye los elementos entre los extremos */
-        align-items: center; /* Alinea verticalmente */
+        justify-content: space-between;
+        align-items: center;
     }
 
     .logo-container {
@@ -230,7 +249,7 @@ nav ul li a:hover {
     .menu-toggle {
         order: 3;
         display: flex;
-        justify-content: flex-end; /* Lo coloca en el extremo derecho */
+        justify-content: flex-end;
     }
 
     #main-nav {
@@ -238,24 +257,20 @@ nav ul li a:hover {
         width: 100%;
     }
 
-    /* Botón hamburguesa visible solo en pantallas pequeñas */
     .menu-toggle {
         display: block;
     }
   
-    /* Ocultamos el nav en pantallas pequeñas por defecto */
     nav {
         width: 100%;
         display: none;
         margin-top: 10px;
     }
 
-    /* Cuando el nav tiene la clase 'active', lo mostramos */
     nav.active {
         display: block;
     }
 
-    /* Hacemos que los elementos de la lista se apilen en columna */
     nav ul {
         flex-direction: column;
         align-items: flex-start;
@@ -272,7 +287,6 @@ nav ul li a:hover {
         width: 100%;
     }
 
-    /* Estilo del dropdown para móviles */
     .dropdown {
         width: 100%;
     }

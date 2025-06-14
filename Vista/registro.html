@@ -38,21 +38,26 @@
     <main>
         <div class="form-container">
             <h2>Crear una cuenta</h2>
-            <form action="../Controlador/registro.php" method="POST">
+            <form id="registro-form" method="POST">
                 <label for="nombre_usuario">Nombre de usuario</label>
                 <input type="text" id="nombre_usuario" name="nombre_usuario" required>
+                <div class="error-message" id="error-nombre_usuario"></div>
             
                 <label for="nombre">Nombre</label>
                 <input type="text" id="nombre" name="nombre" required>
+                <div class="error-message" id="error-nombre"></div>
             
                 <label for="apellido">Apellido</label>
                 <input type="text" id="apellido" name="apellido" required>
+                <div class="error-message" id="error-apellido"></div>
             
                 <label for="correo">Correo electrónico</label>
                 <input type="email" id="correo" name="correo" required>
+                <div class="error-message" id="error-correo"></div>
             
                 <label for="contraseña">Contraseña</label>
                 <input type="password" id="contraseña" name="contraseña" required>
+                <div class="error-message" id="error-contraseña"></div>
             
                 <label for="sexo">Sexo</label>
                 <select id="sexo" name="sexo" required>
@@ -60,13 +65,17 @@
                     <option value="Femenino">Femenino</option>
                     <option value="Otro">Otro</option>
                 </select>
+                <div class="error-message" id="error-sexo"></div>
             
                 <label for="fecha_nacimiento">Fecha de nacimiento</label>
                 <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                <div class="error-message" id="error-fecha_nacimiento"></div>
 
                 <label for="codigo_invitacion">¿Eres invitado? Ingresa tu código</label>
                 <input type="text" id="codigo_invitacion" name="codigo_invitacion" placeholder="Opcional">
+                <div class="error-message" id="error-codigo_invitacion"></div>
             
+                <div class="error-message" id="error-general"></div>
                 <button type="submit" class="button-form">Registrarse</button>
             </form>                   
             <p>¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>

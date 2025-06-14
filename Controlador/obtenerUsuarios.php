@@ -6,24 +6,32 @@ error_reporting(E_ALL);
 session_start();
 header("Content-Type: application/json");
 
-if (!isset($_SESSION["usuario"])) {
+if (!isset($_SESSION["usuario"]) || !isset($_SESSION["jerarquia"])) {
     echo json_encode(["exito" => false, "error" => "No autorizado."]);
     exit;
 }
 
-require_once "conexion.php"; // Ajustar la ruta si es necesario
+require_once "conexion.php";
 
-// Verificar conexión
 if ($conexion->connect_error) {
     error_log("Error de conexión: " . $conexion->connect_error);
     echo json_encode(["exito" => false, "error" => "Error de conexión a la base de datos."]);
     exit;
 }
 
-$sql = "SELECT id, nombre_usuario, nombre, apellido, correo, sexo FROM usuario";
-$resultado = $conexion->query($sql);
-
+$jerarquia = $_SESSION["jerarquia"];
 $usuarios = [];
+
+if ($jerarquia === "admin") {
+    $sql = "SELECT id, nombre_usuario, nombre, apellido, correo, sexo FROM usuario WHERE tipo_cuenta IN ('Libre', 'Invitación')";
+} elseif ($jerarquia === "psicologo") {
+    $sql = "SELECT id, nombre_usuario, nombre, apellido, correo, sexo FROM usuario WHERE tipo_cuenta = 'Invitación'";
+} else {
+    echo json_encode(["exito" => false, "error" => "Jerarquía no autorizada."]);
+    exit;
+}
+
+$resultado = $conexion->query($sql);
 
 if ($resultado) {
     while ($fila = $resultado->fetch_assoc()) {
