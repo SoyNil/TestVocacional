@@ -2,62 +2,114 @@ document.addEventListener("DOMContentLoaded", function () {
     let intervaloReloj = null;
     let mostrandoCodigos = false;
 
+    const contenido = document.getElementById("contenido");
+    const btnInicio = document.getElementById("btn-inicio");
+    const btnPacientes = document.getElementById("btn-pacientes");
+    const btnCrearPsicologos = document.getElementById("btn-crear-psicologos");
+    const cerrarSesionBtn = document.getElementById("cerrarSesionBtn");
+    const eliminarCuentaBtn = document.getElementById("eliminarCuentaBtn");
+    const imgElement = document.getElementById("foto-perfil");
+    const nombreElement = document.getElementById("profile-name");
+    const inputFoto = document.getElementById("input-foto");
+    const modalCrearPsicologo = document.getElementById("modal-crear-psicologo");
+    const closeModal = modalCrearPsicologo ? modalCrearPsicologo.querySelector(".close-modal") : null;
+    const formCrearPsicologo = document.getElementById("form-crear-psicologo");
+
+    
+    // Verificar sesión y cargar datos del psicólogo
     fetch("../Controlador/verificarSesionJSON.php", {
         credentials: "include"
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Error en la respuesta del servidor: " + response.status);
-        }
-        return response.text();
-    })
-    .then(text => {
-        try {
-            const data = JSON.parse(text);
-            if (!data.logueado) {
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Error en la respuesta del servidor: " + response.status);
+            }
+            return response.text();
+        })
+        .then(text => {
+            try {
+                const data = JSON.parse(text);
+                if (!data.logueado) {
+                    window.location.href = "../Vista/login.html";
+                    return;
+                }
+
+                // Verificar que el usuario sea psicólogo y tenga jerarquía válida
+                if (data.tipo_usuario !== 'psicologo' || (data.jerarquia !== 'admin' && data.jerarquia !== 'psicologo')) {
+                    window.location.href = "../Vista/principal.html";
+                    return;
+                }
+
+                const fotoPerfil = data.foto_perfil && data.foto_perfil.trim() !== ""
+                    ? `${data.foto_perfil}?t=${new Date().getTime()}`
+                    : "https://cdn-icons-png.flaticon.com/512/847/847969.png";
+
+                console.log("Intentando cargar imagen:", fotoPerfil);
+                imgElement.src = fotoPerfil;
+                imgElement.onerror = () => {
+                    console.error("Error al cargar la imagen, usando predeterminada:", fotoPerfil);
+                    imgElement.src = "https://cdn-icons-png.flaticon.com/512/847/847969.png";
+                };
+
+                nombreElement.textContent = `${data.nombre} ${data.apellido}`;
+
+                // Mostrar botón "Crear Psicólogos" solo para admin
+                if (data.jerarquia === 'admin' && btnCrearPsicologos) {
+                    btnCrearPsicologos.style.display = "block";
+                }
+            } catch (e) {
+                console.error("Error al parsear JSON:", e, "Respuesta:", text);
                 window.location.href = "../Vista/login.html";
-                return;
             }
-
-            // Verificar que el usuario sea psicólogo y tenga jerarquía válida
-            if (data.tipo_usuario !== 'psicologo' || (data.jerarquia !== 'admin' && data.jerarquia !== 'psicologo')) {
-                window.location.href = "../Vista/principal.html";
-                return;
-            }
-
-            const imgElement = document.getElementById("foto-perfil");
-            const nombreElement = document.getElementById("profile-name");
-
-            const fotoPerfil = data.foto_perfil && data.foto_perfil.trim() !== ""
-                ? `${data.foto_perfil}?t=${new Date().getTime()}`
-                : "https://cdn-icons-png.flaticon.com/512/847/847969.png";
-
-            console.log("Intentando cargar imagen:", fotoPerfil);
-            imgElement.src = fotoPerfil;
-            imgElement.onerror = () => {
-                console.error("Error al cargar la imagen, usando predeterminada:", fotoPerfil);
-                imgElement.src = "https://cdn-icons-png.flaticon.com/512/847/847969.png";
-            };
-
-            nombreElement.textContent = `${data.nombre} ${data.apellido}`;
-        } catch (e) {
-            console.error("Error al parsear JSON:", e, "Respuesta:", text);
+        })
+        .catch(error => {
+            console.error("Error al verificar la sesión:", error);
             window.location.href = "../Vista/login.html";
-        }
-    })
-    .catch(error => {
-        console.error("Error al verificar la sesión:", error);
-        window.location.href = "../Vista/login.html";
-    });
+        });
 
-    const cerrarSesionBtn = document.getElementById("cerrarSesionBtn");
     if (cerrarSesionBtn) {
         cerrarSesionBtn.addEventListener("click", () => {
             window.location.href = "../Controlador/logout.php";
         });
     }
 
-    const inputFoto = document.getElementById("input-foto");
+// Eliminar cuenta
+    if (eliminarCuentaBtn) {
+        eliminarCuentaBtn.addEventListener("click", () => {
+            if (confirm("¿Estás seguro de eliminar tu cuenta? Esta acción eliminará tu cuenta de psicólogo de forma permanente.")) {
+                fetch("../Controlador/verificarSesionJSON.php", { credentials: "include" })
+                    .then(res => {
+                        if (!res.ok) throw new Error("Error en la respuesta del servidor: " + res.status);
+                        return res.json();
+                    })
+                    .then(data => {
+                        if (!data.logueado) throw new Error("Sesión no activa");
+                        const idUsuario = data.id_usuario;
+                        return fetch(`../Controlador/eliminarUsuario.php?id_usuario=${idUsuario}`, {
+                            method: "GET",
+                            credentials: "include"
+                        });
+                    })
+                    .then(res => {
+                        if (!res.ok) throw new Error("Error al eliminar cuenta: " + res.status);
+                        return res.json();
+                    })
+                    .then(data => {
+                        if (data.exito) {
+                            alert("Cuenta eliminada correctamente.");
+                            window.location.href = "../Vista/login.html";
+                        } else {
+                            alert(`Error al eliminar cuenta: ${data.mensaje}`);
+                        }
+                    })
+                    .catch(err => {
+                        console.error("Error al eliminar cuenta:", err);
+                        alert("Error al eliminar cuenta: " + err.message);
+                    });
+            }
+        });
+    }
+
     if (inputFoto) {
         inputFoto.addEventListener("change", async function () {
             const file = inputFoto.files[0];
@@ -97,11 +149,70 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    const btnInicio = document.getElementById("btn-inicio");
-    const btnPacientes = document.getElementById("btn-pacientes");
-    const contenido = document.getElementById("contenido");
+    // Botón Inicio
+    if (btnInicio) {
+        btnInicio.addEventListener("click", () => {
+            mostrandoCodigos = false;
+            mostrarContenidoInicio();
+        });
+    }
 
-    // Manejador de eventos para botones
+    // Botón Pacientes
+    if (btnPacientes) {
+        btnPacientes.addEventListener("click", () => {
+            mostrandoCodigos = false;
+            mostrarPacientes();
+        });
+    }
+
+    // Botón Crear Psicólogos
+    if (btnCrearPsicologos) {
+        btnCrearPsicologos.addEventListener("click", () => {
+            if (modalCrearPsicologo) {
+                modalCrearPsicologo.style.display = "block";
+            }
+        });
+    }
+
+    // Cerrar modal
+    if (closeModal) {
+        closeModal.addEventListener("click", () => {
+            modalCrearPsicologo.style.display = "none";
+            if (formCrearPsicologo) formCrearPsicologo.reset();
+        });
+    }
+
+    // Enviar formulario de crear psicólogo
+    if (formCrearPsicologo) {
+        formCrearPsicologo.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const formData = new FormData(formCrearPsicologo);
+            fetch("../Controlador/crearPsicologo.php", {
+                method: "POST",
+                body: formData,
+                credentials: "include"
+            })
+                .then(res => {
+                    if (!res.ok) throw new Error("Error en la respuesta del servidor: " + res.status);
+                    return res.json();
+                })
+                .then(data => {
+                    if (data.exito) {
+                        alert("Psicólogo creado correctamente.");
+                        modalCrearPsicologo.style.display = "none";
+                        formCrearPsicologo.reset();
+                    } else {
+                        alert(`Error: ${data.mensaje}`);
+                    }
+                })
+                .catch(err => {
+                    console.error("Error al crear psicólogo:", err);
+                    alert("Error al crear psicólogo: " + err.message);
+                });
+        });
+    }
+
+    // Manejador de eventos para botones de códigos
     document.addEventListener("click", (e) => {
         if (e.target.id === "btn-generar-codigos") {
             generarCodigoInvitacion();
@@ -122,6 +233,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 e.target.textContent = "Ocultar";
             }
         }
+    });
+
+    // Manejador alternativo para nav-btn
+    document.querySelectorAll(".nav-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const texto = btn.textContent.trim();
+            if (texto === "Inicio") {
+                mostrandoCodigos = false;
+                mostrarContenidoInicio();
+            } else if (texto === "Pacientes") {
+                mostrandoCodigos = false;
+                mostrarPacientes();
+            } else if (texto === "Crear Psicólogos") {
+                if (modalCrearPsicologo) {
+                    modalCrearPsicologo.style.display = "block";
+                }
+            }
+        });
     });
 
     function mostrarContenidoInicio() {
@@ -906,35 +1035,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("Ocurrió un error al eliminar el test.");
             });
     }
-
-    // Configurar eventos de navegación
-    if (btnInicio) {
-        btnInicio.addEventListener("click", () => {
-            mostrandoCodigos = false;
-            mostrarContenidoInicio();
-        });
-    }
-
-    if (btnPacientes) {
-        btnPacientes.addEventListener("click", () => {
-            mostrandoCodigos = false;
-            mostrarPacientes();
-        });
-    }
-
-    // Manejador alternativo para nav-btn (si usas clase .nav-btn)
-    document.querySelectorAll(".nav-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-            const texto = btn.textContent.trim();
-            if (texto === "Inicio") {
-                mostrandoCodigos = false;
-                mostrarContenidoInicio();
-            } else if (texto === "Pacientes") {
-                mostrandoCodigos = false;
-                mostrarPacientes();
-            }
-        });
-    });
 
     function generarCodigoInvitacion() {
         const mensaje = document.createElement("div");

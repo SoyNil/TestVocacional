@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Poiret+One&display=swap');
+
 * {
     font-family: "Figtree", sans-serif;
 }
+
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
@@ -60,59 +62,6 @@ body {
 }
 
 .profile-img {
-    width: 80px;
-    height: 80px;
-    background-color: #333;
-    border-radius: 50%;
-    margin-bottom: 15px;
-}
-
-.icon-buttons {
-    display: flex;
-    gap: 10px;
-}
-
-.icon-buttons button {
-    background-color: transparent;
-    border: none;
-    color: #fff;
-    font-size: 18px;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.icon-buttons button:hover {
-    transform: scale(1.1);
-    color: #0ff;
-}
-
-.nav-options {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.nav-btn {
-    background-color: #2c2c2c;
-    border: none;
-    color: #fff;
-    padding: 10px;
-    text-align: left;
-    cursor: pointer;
-    transition: background 0.2s;
-    border-radius: 6px;
-}
-
-.nav-btn:hover {
-    background-color: #3a3a3a;
-}
-
-.content {
-    flex: 1;
-    padding: 20px;
-}
-
-.profile-img {
     position: relative;
     width: 100px;
     height: 100px;
@@ -154,6 +103,67 @@ body {
     display: flex;
 }
 
+.profile-name {
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.icon-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 1rem;
+}
+
+.icon-buttons button {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.2s, color 0.2s;
+}
+
+.icon-buttons button:hover {
+    transform: scale(1.1);
+    color: #0ff;
+}
+
+#eliminarCuentaBtn {
+    color: #ff4d4d;
+}
+
+#eliminarCuentaBtn:hover {
+    color: #ff6666;
+    transform: scale(1.1);
+}
+
+.nav-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nav-btn {
+    background-color: #2c2c2c;
+    border: none;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    border-radius: 6px;
+}
+
+.nav-btn:hover {
+    background-color: #3a3a3a;
+    color: #0ff;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
 .card-reloj {
     background-color: #1f1f1f;
     color: #ffffff;
@@ -190,7 +200,7 @@ body {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
-    background-color: #2b2b3c;
+    background-color: #1f1f1f;
     color: #fff;
     border-radius: 10px;
     overflow: hidden;
@@ -199,16 +209,16 @@ body {
 .tabla-usuarios th,
 .tabla-usuarios td {
     padding: 0.75rem 1rem;
-    border-bottom: 1px solid #444;
+    border-bottom: 1px solid #333;
     text-align: left;
 }
 
 .tabla-usuarios th {
-    background-color: #3c3c50;
+    background-color: #2c2c2c;
 }
 
 .tabla-usuarios tr:hover {
-    background-color: #44445e;
+    background-color: #2a2a2a;
 }
 
 .btn-ver-paciente,
@@ -221,29 +231,27 @@ body {
     padding: 0.5rem;
     margin: 0 0.25rem;
     border-radius: 6px;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: color 0.2s;
 }
 
 .btn-ver-paciente {
-    color: #5c6bc0;
+    color: #0ff;
 }
 
 .btn-ver-paciente:hover {
-    background-color: #5c6bc0;
-    color: #fff;
+    color: #00cccc;
 }
 
 .btn-eliminar-usuario {
-    color: #e57373;
+    color: #ff4d4d;
 }
 
 .btn-eliminar-usuario:hover {
-    background-color: #e57373;
-    color: #fff;
+    color: #ff6666;
 }
 
 .info-paciente {
-    background-color: #2b2b3c;
+    background-color: #1f1f1f;
     padding: 1.5rem;
     border-radius: 10px;
     margin-bottom: 1.5rem;
@@ -252,7 +260,7 @@ body {
 
 .info-paciente h3 {
     margin-top: 0;
-    color: #5c6bc0;
+    color: #0ff;
 }
 
 .info-paciente p {
@@ -266,7 +274,7 @@ body {
 }
 
 .test-section {
-    background-color: #2b2b3c;
+    background-color: #1f1f1f;
     padding: 1.5rem;
     border-radius: 10px;
     color: #fff;
@@ -274,7 +282,7 @@ body {
 
 .test-section h4 {
     margin-top: 0;
-    color: #5c6bc0;
+    color: #0ff;
 }
 
 .test-section p {
@@ -287,7 +295,7 @@ body {
     padding: 0.5rem;
     border: none;
     border-radius: 6px;
-    background-color: #3c3c50;
+    background-color: #2c2c2c;
     color: #fff;
     font-size: 1rem;
     cursor: pointer;
@@ -295,118 +303,7 @@ body {
 
 .select-test:focus {
     outline: none;
-    background-color: #44445e;
-}
-
-.card {
-    background-color: #2b2b3c;
-    border-radius: 10px;
-    border: none;
-    margin-top: 1rem;
-}
-
-.card-body {
-    padding: 1rem;
-    color: #fff;
-}
-
-.card-body table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #3c3c50;
-    border-radius: 6px;
-    overflow: hidden;
-}
-
-.card-body th,
-.card-body td {
-    padding: 0.75rem;
-    border: 1px solid #444;
-    text-align: center;
-}
-
-.card-body th {
-    background-color: #5c6bc0;
-}
-
-.card-body tr:nth-child(even) {
-    background-color: #44445e;
-}
-
-.loading {
-    color: #7986cb;
-    font-style: italic;
-}
-
-.resultados-casm83,
-.resultados-casm85 {
-    margin-top: 1rem;
-}
-
-.btn-volver {
-    padding: 0.5rem 1rem;
-    background-color: #5c6bc0;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-bottom: 1rem;
-    transition: background-color 0.2s ease;
-}
-
-.btn-volver:hover {
-    background-color: #7986cb;
-}
-
-.btn-eliminar-test {
-    padding: 0.5rem 1rem;
-    background-color: #d32f2f;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-left: 0.5rem;
-    transition: background-color 0.2s ease;
-}
-
-.btn-eliminar-test:hover {
-    background-color: #ef5350;
-}
-
-.select-container {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.celda-percentil {
-    position: relative;
-}
-
-.punto-marcado {
-    background-color: #5c6bc0;
-}
-
-.punto {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background: red;
-    border-radius: 50%;
-    z-index: 5;
-}
-
-.contenedor-tabla {
-    position: relative;
-    overflow-x: auto;
-}
-
-#svg-lineas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 10;
+    border: 1px solid #0ff;
 }
 
 .card {
@@ -424,7 +321,7 @@ body {
 .card-body table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #3c3c50;
+    background-color: #2c2c2c;
     border-radius: 6px;
     overflow: hidden;
 }
@@ -432,61 +329,93 @@ body {
 .card-body th,
 .card-body td {
     padding: 0.75rem;
-    border: 1px solid #444;
+    border: 1px solid #333;
     text-align: left;
 }
 
 .card-body th {
-    background-color: #5c6bc0;
+    background-color: #3a3a3a;
 }
 
 .card-body tr:nth-child(even) {
-    background-color: #44445e;
+    background-color: #2a2a2a;
 }
 
 .loading {
-    color: #7986cb;
+    color: #0ff;
     font-style: italic;
 }
 
+.resultados-casm83,
 .resultados-casm85 {
     margin-top: 1rem;
 }
 
 .btn-volver {
     padding: 0.5rem 1rem;
-    background-color: #5c6bc0;
+    background-color: #2c2c2c;
     color: #fff;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     margin-bottom: 1rem;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s, color 0.2s;
 }
 
 .btn-volver:hover {
-    background-color: #7986cb;
+    background-color: #3a3a3a;
+    color: #0ff;
 }
 
 .btn-eliminar-test {
     padding: 0.5rem 1rem;
-    background-color: #d32f2f;
+    background-color: #ff4d4d;
     color: #fff;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     margin-left: 0.5rem;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s;
 }
 
 .btn-eliminar-test:hover {
-    background-color: #ef5350;
+    background-color: #ff6666;
 }
 
 .select-container {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+}
+
+.celda-percentil {
+    position: relative;
+}
+
+.punto-marcado {
+    background-color: #0ff;
+}
+
+.punto {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #ff4d4d;
+    border-radius: 50%;
+    z-index: 5;
+}
+
+.contenedor-tabla {
+    position: relative;
+    overflow-x: auto;
+}
+
+#svg-lineas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 10;
 }
 
 .card-codigos {
@@ -512,18 +441,19 @@ body {
 }
 
 .btn-generar, .btn-ver {
-    background-color: #2944ff;
+    background-color: #2c2c2c;
     color: #fff;
     border: none;
     padding: 0.6rem 1rem;
     border-radius: 8px;
     cursor: pointer;
     margin-top: 1rem;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, color 0.2s;
 }
 
 .btn-generar:hover, .btn-ver:hover {
-    background-color: #6679ff;
+    background-color: #3a3a3a;
+    color: #0ff;
 }
 
 .inicio-container {
@@ -581,7 +511,7 @@ body {
 }
 
 .card-codigo.expirado {
-    border-color: #c0392b;
+    border-color: #ff4d4d;
 }
 
 .card-codigo h3 {
@@ -609,8 +539,8 @@ body {
 
 .btn-eliminar {
     margin-top: 10px;
-    background-color: #c0392b;
-    color: black;
+    background-color: #ff4d4d;
+    color: #fff;
     padding: 6px 12px;
     border: none;
     border-radius: 6px;
@@ -619,7 +549,7 @@ body {
 }
 
 .btn-eliminar:hover {
-    background-color: #e74c3c;
+    background-color: #ff6666;
 }
 
 .filtros-codigos {
@@ -634,28 +564,115 @@ body {
 .filtros-codigos select {
     padding: 0.5rem;
     border-radius: 8px;
-    border: 1px solid #ccc;
-    background-color: #171717;
+    border: 1px solid #333;
+    background-color: #2c2c2c;
     color: white;
 }
 
 select,
-::picker(select){
+::picker(select) {
     appearance: base-select;
     color: white;
 }
 
-option{
+option {
     background: #171717;
-    &:hover{
-        background: #454545;
-    }
-    &:checked{
-        background: #2944ff;
-    }
 }
 
-::picker(select){
+option:hover {
+    background: #3a3a3a;
+}
+
+option:checked {
+    background: #2c2c2c;
+}
+
+::picker(select) {
     margin-top: 10px;
     border-radius: 4px;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #1f1f1f;
+    color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 400px;
+    max-width: 90%;
+    position: relative;
+    border: 1px solid #333;
+}
+
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #fff;
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: #0ff;
+}
+
+.modal-content h2 {
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+#form-crear-psicologo {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#form-crear-psicologo label {
+    font-size: 1rem;
+    color: #fff;
+}
+
+#form-crear-psicologo input,
+#form-crear-psicologo select {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 6px;
+    background-color: #2c2c2c;
+    color: #fff;
+    transition: border 0.2s;
+}
+
+#form-crear-psicologo input:focus,
+#form-crear-psicologo select:focus {
+    outline: none;
+    border: 1px solid #0ff;
+}
+
+#form-crear-psicologo button {
+    background-color: #2c2c2c;
+    color: #fff;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+#form-crear-psicologo button:hover {
+    background-color: #3a3a3a;
+    color: #0ff;
 }

@@ -10,66 +10,59 @@ document.addEventListener("DOMContentLoaded", function () {
     const toggle = document.getElementById("servicios-toggle");
     const menu = document.getElementById("servicios-menu");
 
-    // Verificar si los elementos existen antes de agregar eventos
     if (menuToggle && nav) {
         menuToggle.addEventListener("click", function () {
-            nav.classList.toggle("active"); // Agrega o elimina la clase 'active' en cada clic
+            nav.classList.toggle("active");
         });
     }
 
-    // Verificar si los elementos del dropdown existen
     if (toggle && menu) {
         toggle.addEventListener("click", function(e) {
-            e.preventDefault(); // Evita el comportamiento predeterminado
+            e.preventDefault();
             menu.classList.toggle("show");
         });
 
-        // Ocultar submenú si se hace clic fuera
         document.addEventListener("click", function(e) {
             if (!toggle.contains(e.target) && !menu.contains(e.target)) {
                 menu.classList.remove("show");
             }
         });
     }
-// VERIFICAR SESIÓN
-fetch("../Controlador/verificarSesionJSON.php")
-.then(response => response.json())
-.then(data => {
-    if (!data.logueado) {
-        window.location.href = "../Vista/principal.html";
-    } else {
-        // Rellenar los campos de nombre y sexo
-        document.getElementById("nombre").value = data.nombre || '';
-        document.getElementById("sexo").value = data.sexo || '';
 
-        if (data.fecha_nacimiento) {
-            const fechaNacimiento = new Date(data.fecha_nacimiento);
-            const hoy = new Date();
+    fetch("../Controlador/verificarSesionJSON.php")
+        .then(response => response.json())
+        .then(data => {
+            if (!data.logueado) {
+                window.location.href = "../Vista/principal.html";
+            } else {
+                document.getElementById("nombre").value = data.nombre || '';
+                document.getElementById("sexo").value = data.sexo || '';
 
-            // Calcular la edad
-            let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
-            const mes = hoy.getMonth() - fechaNacimiento.getMonth();
+                if (data.fecha_nacimiento) {
+                    const fechaNacimiento = new Date(data.fecha_nacimiento);
+                    const hoy = new Date();
+                    let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+                    const mes = hoy.getMonth() - fechaNacimiento.getMonth();
 
-            if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
-                edad--;  // Si no ha cumplido años aún este año, restar un año
+                    if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
+                        edad--;
+                    }
+
+                    console.log("Fecha de nacimiento:", data.fecha_nacimiento);
+                    console.log("Edad calculada:", edad);
+
+                    const edadInput = document.getElementById("edad");
+                    if (edadInput) {
+                        edadInput.value = edad;
+                    }
+                }
             }
+        })
+        .catch(error => {
+            console.error("Error verificando sesión:", error);
+            window.location.href = "../Vista/principal.html";
+        });
 
-            // Console log para verificar la edad calculada
-            console.log("Fecha de nacimiento:", data.fecha_nacimiento);
-            console.log("Edad calculada:", edad);
-
-            // Asignar la edad al campo input
-            const edadInput = document.getElementById("edad");
-            if (edadInput) {
-                edadInput.value = edad;
-            }
-        }
-        }
-    })
-    .catch(error => {
-        console.error("Error verificando sesión:", error);
-        window.location.href = "../Vista/principal.html";
-    });
     const form = document.querySelector("form");
     const formContainer = form.closest('.container');
     const seccionCuestionario = document.getElementById("seccionCuestionario");
@@ -98,71 +91,72 @@ fetch("../Controlador/verificarSesionJSON.php")
             }
         });
     }
+
     function cargarCuestionario(){
-    const tabla = document.getElementById("tablaCuestionario");
+        const tabla = document.getElementById("tablaCuestionario");
 
-    preguntasCASM83.forEach((pregunta, index) => {
-        const numero = pregunta.numero; // Usamos el número real, no el índice
+        preguntasCASM83.forEach((pregunta, index) => {
+            const numero = pregunta.numero;
 
-        const fila1 = document.createElement("tr");
-        const celdaPregunta = document.createElement("td");
-        celdaPregunta.rowSpan = 2;
-        celdaPregunta.textContent = `${numero}`;
-        celdaPregunta.style.textAlign = "center";
+            const fila1 = document.createElement("tr");
+            const celdaPregunta = document.createElement("td");
+            celdaPregunta.rowSpan = 2;
+            celdaPregunta.textContent = `${numero}`;
+            celdaPregunta.style.textAlign = "center";
 
-        const celdaOpcionA = document.createElement("td");
-        celdaOpcionA.style.textAlign = "center";
-        const checkboxA = document.createElement("input");
-        checkboxA.type = "checkbox";
-        checkboxA.dataset.numero = numero;
-        checkboxA.dataset.opcion = 'A';
-        checkboxA.onchange = function () {
-            toggleTachado(this);
-            if (!respuestas[numero]) respuestas[numero] = {};
-            respuestas[numero].A = this.checked;
-        };
-        const spanA = document.createElement("span");
-        spanA.textContent = "a";
-        celdaOpcionA.appendChild(checkboxA);
-        celdaOpcionA.appendChild(spanA);
+            const celdaOpcionA = document.createElement("td");
+            celdaOpcionA.style.textAlign = "center";
+            const checkboxA = document.createElement("input");
+            checkboxA.type = "checkbox";
+            checkboxA.dataset.numero = numero;
+            checkboxA.dataset.opcion = 'A';
+            checkboxA.onchange = function () {
+                toggleTachado(this);
+                if (!respuestas[numero]) respuestas[numero] = {};
+                respuestas[numero].A = this.checked;
+            };
+            const spanA = document.createElement("span");
+            spanA.textContent = "a";
+            celdaOpcionA.appendChild(checkboxA);
+            celdaOpcionA.appendChild(spanA);
 
-        const celdaTextoA = document.createElement("td");
-        celdaTextoA.textContent = pregunta.opcionA;
-        celdaTextoA.style.textAlign = "left";
+            const celdaTextoA = document.createElement("td");
+            celdaTextoA.textContent = pregunta.opcionA;
+            celdaTextoA.style.textAlign = "left";
 
-        fila1.appendChild(celdaPregunta);
-        fila1.appendChild(celdaOpcionA);
-        fila1.appendChild(celdaTextoA);
+            fila1.appendChild(celdaPregunta);
+            fila1.appendChild(celdaOpcionA);
+            fila1.appendChild(celdaTextoA);
 
-        const fila2 = document.createElement("tr");
-        const celdaOpcionB = document.createElement("td");
-        celdaOpcionB.style.textAlign = "center";
-        const checkboxB = document.createElement("input");
-        checkboxB.type = "checkbox";
-        checkboxB.dataset.numero = numero;
-        checkboxB.dataset.opcion = 'B';
-        checkboxB.onchange = function () {
-            toggleTachado(this);
-            if (!respuestas[numero]) respuestas[numero] = {};
-            respuestas[numero].B = this.checked;
-        };
-        const spanB = document.createElement("span");
-        spanB.textContent = "b";
-        celdaOpcionB.appendChild(checkboxB);
-        celdaOpcionB.appendChild(spanB);
+            const fila2 = document.createElement("tr");
+            const celdaOpcionB = document.createElement("td");
+            celdaOpcionB.style.textAlign = "center";
+            const checkboxB = document.createElement("input");
+            checkboxB.type = "checkbox";
+            checkboxB.dataset.numero = numero;
+            checkboxB.dataset.opcion = 'B';
+            checkboxB.onchange = function () {
+                toggleTachado(this);
+                if (!respuestas[numero]) respuestas[numero] = {};
+                respuestas[numero].B = this.checked;
+            };
+            const spanB = document.createElement("span");
+            spanB.textContent = "b";
+            celdaOpcionB.appendChild(checkboxB);
+            celdaOpcionB.appendChild(spanB);
 
-        const celdaTextoB = document.createElement("td");
-        celdaTextoB.textContent = pregunta.opcionB;
-        celdaTextoB.style.textAlign = "left";
+            const celdaTextoB = document.createElement("td");
+            celdaTextoB.textContent = pregunta.opcionB;
+            celdaTextoB.style.textAlign = "left";
 
-        fila2.appendChild(celdaOpcionB);
-        fila2.appendChild(celdaTextoB);
+            fila2.appendChild(celdaOpcionB);
+            fila2.appendChild(celdaTextoB);
 
-        tabla.appendChild(fila1);
-        tabla.appendChild(fila2);
-    });
+            tabla.appendChild(fila1);
+            tabla.appendChild(fila2);
+        });
     }
-    // Mostrar el cuestionario
+
     document.getElementById("cuestionario").style.display = "block";
     
     document.getElementById("resultadosBtn").addEventListener("click", function() {
@@ -170,7 +164,6 @@ fetch("../Controlador/verificarSesionJSON.php")
         verResultados();
     });    
 
-    // Función de debounce
     function debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {
@@ -183,11 +176,9 @@ fetch("../Controlador/verificarSesionJSON.php")
         };
     }
 
-    // Función para dibujar puntos
     function dibujarPuntos(resultadosCategorias) {
         console.log("Dibujando puntos...");
 
-        // Limpiar puntos y clases anteriores
         document.querySelectorAll(".punto").forEach(punto => punto.remove());
         document.querySelectorAll(".punto-marcado").forEach(celda => celda.classList.remove("punto-marcado"));
 
@@ -214,7 +205,7 @@ fetch("../Controlador/verificarSesionJSON.php")
                 punto.style.position = "absolute";
                 punto.style.width = "10px";
                 punto.style.height = "10px";
-                punto.style.background = "red";
+                punto.style.background = "#ff4d4d";
                 punto.style.borderRadius = "50%";
                 punto.style.left = "50%";
                 punto.style.top = "50%";
@@ -225,7 +216,6 @@ fetch("../Controlador/verificarSesionJSON.php")
                 const celdaRect = celdaMarcada.getBoundingClientRect();
                 const contenedorRect = contenedorTabla.getBoundingClientRect();
 
-                // Calcular coordenadas relativas al contenedor de la tabla
                 const coordenada = {
                     x: celdaRect.left + celdaRect.width / 2 - contenedorRect.left,
                     y: celdaRect.top + celdaRect.height / 2 - contenedorRect.top
@@ -240,7 +230,6 @@ fetch("../Controlador/verificarSesionJSON.php")
         dibujarLineasEntrePuntos(posiciones);
     }
 
-    // Función para dibujar líneas
     function dibujarLineasEntrePuntos(posiciones) {
         const svg = document.getElementById("svg-lineas");
 
@@ -249,13 +238,12 @@ fetch("../Controlador/verificarSesionJSON.php")
             return;
         }
 
-        // Ajustar dimensiones del SVG al contenedor de la tabla
         const contenedorTabla = document.querySelector("#tablaResumen .contenedor-tabla");
         const contenedorRect = contenedorTabla.getBoundingClientRect();
         svg.setAttribute("width", contenedorRect.width);
         svg.setAttribute("height", contenedorRect.height);
 
-        svg.innerHTML = ""; // Limpiar líneas anteriores
+        svg.innerHTML = "";
 
         console.log("🔷 Dibujando líneas entre puntos...");
         console.log("📌 Total de puntos:", posiciones.length);
@@ -271,7 +259,7 @@ fetch("../Controlador/verificarSesionJSON.php")
             linea.setAttribute("y1", y1.toString());
             linea.setAttribute("x2", x2.toString());
             linea.setAttribute("y2", y2.toString());
-            linea.setAttribute("stroke", "blue");
+            linea.setAttribute("stroke", "#0ff");
             linea.setAttribute("stroke-width", "2");
 
             svg.appendChild(linea);
@@ -280,17 +268,14 @@ fetch("../Controlador/verificarSesionJSON.php")
         console.log("✅ Líneas dibujadas.");
     }
 
-    // 🔍 Verificar consistencia entre pares
     function verResultados() {
-        // 1. Ocultar cuestionario y mostrar sección de resultados
         document.getElementById("seccionCuestionario").style.display = "none";
         document.getElementById("seccionResultados").style.display = "block";
         const resultados = document.getElementById("resultados");
-        resultados.innerHTML = ""; // Limpiar resultados previos
+        resultados.innerHTML = "";
 
         const tabla = document.getElementById("tablaCuestionario");
 
-        // 2. Mostrar respuestas seleccionadas en el cuestionario
         preguntasCASM83.forEach(pregunta => {
             const numero = pregunta.numero;
             const filaA = tabla.querySelector(`tr[data-numero="${numero}"][data-opcion="A"]`);
@@ -302,7 +287,6 @@ fetch("../Controlador/verificarSesionJSON.php")
             if (filaB?.querySelector('span')) filaB.querySelector('span').textContent = respuestaB;
         });
 
-        // 3. Evaluación de Consistencia
         const paresConsistentes = [
             [13, 131], [26, 132], [39, 133], [52, 134], [65, 135],
             [78, 136], [91, 137], [104, 138], [117, 139], [130, 140], [143, 1]
@@ -317,16 +301,6 @@ fetch("../Controlador/verificarSesionJSON.php")
             if (A1 !== A2 || B1 !== B2) inconsistencias++;
         });
 
-        // Crear tarjeta de Consistencia
-        resultados.innerHTML += `
-        <div class="card">
-            <h3>🧪 Evaluación de Consistencia</h3>
-            <p>Inconsistencias encontradas: <strong>${inconsistencias}</strong></p>
-            ${inconsistencias > 5 ? '<p><strong>❗Nota:</strong> Más de 5 inconsistencias detectadas. Revisa tus respuestas.</p>' : ''}
-        </div>
-        `;
-
-        // 4. Evaluación de Veracidad
         const preguntasVeracidad = [12, 25, 38, 51, 64, 77, 90, 103, 116, 129, 142];
         let conteoVeracidadA = 0;
 
@@ -336,16 +310,6 @@ fetch("../Controlador/verificarSesionJSON.php")
             }
         });
 
-        // Crear tarjeta de Veracidad
-        resultados.innerHTML += `
-        <div class="card">
-            <h3>✅ Evaluación de Veracidad</h3>
-            <p>Respuestas "A" en preguntas de veracidad: <strong>${conteoVeracidadA}</strong></p>
-            ${conteoVeracidadA > 5 ? '<p><strong>❗Nota:</strong> Se marcaron más de 5 opciones "A" en veracidad. Respuestas poco realistas.</p>' : ''}
-        </div>
-        `;
-
-        // 5. Cálculo de Puntajes por Categoría
         const categorias = {
             CCFM: { horizontal: [1, 13], vertical: [1, 131] },
             CCSS: { horizontal: [14, 26], vertical: [2, 132] },
@@ -383,41 +347,24 @@ fetch("../Controlador/verificarSesionJSON.php")
             resultadosCategorias[categoria] = { total, A: countA, B: countB };
         }
 
-        // Crear tarjeta de Categorías
-        let listaCategorias = "<ul>";
-        for (const [cat, { total, A, B }] of Object.entries(resultadosCategorias)) {
-            listaCategorias += `<li><strong>${cat}:</strong> Total: ${total} (A: ${A}, B: ${B})</li>`;
-        }
-        listaCategorias += "</ul>";
-
-        resultados.innerHTML += `
-        <div class="card">
-            <h3>📊 Puntaje por Categoría</h3>
-            ${listaCategorias}
-        </div>
-        `;
-
-        // Obtener el valor de sexo del formulario
         const sexo = document.getElementById('sexo').value;
-        console.log('Valor de sexo:', sexo); // Depuración
+        console.log('Valor de sexo:', sexo);
         if (!sexo || !['Masculino', 'Femenino'].includes(sexo)) {
             alert('Por favor, selecciona un sexo válido (Masculino o Femenino) en el formulario');
             return;
         }
 
-        // Depuración: Mostrar los datos a enviar
         console.log('Resultados a enviar:', resultadosCategorias);
         const payload = { resultados: resultadosCategorias, sexo: sexo };
         console.log('JSON a enviar:', JSON.stringify(payload));
 
-        // Enviar los resultados al servidor
         fetch('../Controlador/guardar_resultado_CASM83.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         })
         .then(response => {
-            console.log('Código de respuesta:', response.status); // Depuración
+            console.log('Código de respuesta:', response.status);
             return response.json();
         })
         .then(data => {
@@ -433,36 +380,32 @@ fetch("../Controlador/verificarSesionJSON.php")
             alert('Error al guardar los resultados');
         });
 
-        // 6. Tabla Cruzada de Preguntas
         const etiquetas = ["CCFM", "CCSS", "CCNA", "CCCO", "ARTE", "BURO", "CCEP", "HAA", "FINA", "LING", "JURI", "VERA", "CONS"];
         const etiquetasVertical = etiquetas.slice(0, 11);
 
         const tablaCruce = document.createElement("table");
+        tablaCruce.className = "cruce-table";
         tablaCruce.border = "1";
         tablaCruce.style.borderCollapse = "collapse";
         tablaCruce.style.marginTop = "20px";
         tablaCruce.style.textAlign = "center";
         tablaCruce.style.width = "100%";
 
-        // Encabezado
         const encabezadoFila = document.createElement("tr");
-        encabezadoFila.appendChild(document.createElement("th")); // Celda vacía
+        encabezadoFila.appendChild(document.createElement("th"));
         etiquetas.forEach(et => {
             const th = document.createElement("th");
             th.textContent = et;
             th.style.padding = "6px";
-            th.style.backgroundColor = "#eee";
             encabezadoFila.appendChild(th);
         });
         tablaCruce.appendChild(encabezadoFila);
 
-        // Filas
         let preguntaNumero = 1;
         etiquetasVertical.forEach(etFila => {
             const fila = document.createElement("tr");
             const th = document.createElement("th");
             th.textContent = etFila;
-            th.style.backgroundColor = "#eee";
             fila.appendChild(th);
 
             etiquetas.forEach(() => {
@@ -488,7 +431,6 @@ fetch("../Controlador/verificarSesionJSON.php")
             tablaCruce.appendChild(fila);
         });
 
-        // Crear tarjeta de Tabla Cruzada
         const cardTablaCruce = document.createElement("div");
         cardTablaCruce.className = "card";
         const tituloTablaCruce = document.createElement("h3");
@@ -497,10 +439,6 @@ fetch("../Controlador/verificarSesionJSON.php")
         cardTablaCruce.appendChild(tablaCruce);
 
         resultados.appendChild(cardTablaCruce);
-
-        // =======================
-        // Tabla de percentiles (masculino)
-        // =======================
 
         const sexoSeleccionado = document.getElementById("sexo").value;
 
@@ -527,7 +465,7 @@ fetch("../Controlador/verificarSesionJSON.php")
                     <h3 class="card-title" style="margin: 10px 0;">📈 Tabla de Percentiles (Masculino)</h3>
                     <div class="contenedor-tabla" style="position: relative; overflow-x: auto; margin: 0; padding: 0;">
                         <svg id="svg-lineas" style="position: absolute; top: 0; left: 0; pointer-events: none; z-index: 10;"></svg>
-                        <table border="1" cellspacing="0" cellpadding="5" style="border-collapse: collapse; text-align: center; width: 100%; margin: 0;">
+                        <table border="1" class="percentiles-table" style="border-collapse: collapse; text-align: center; margin: 0;">
                             <tr><th colspan="9">Masculino</th></tr>
                             <tr>${encabezados.map(h => `<th>${h}</th>`).join('')}</tr>
                             ${categorias.map(fila => `
@@ -553,23 +491,16 @@ fetch("../Controlador/verificarSesionJSON.php")
             const tablaResumen = document.getElementById("tablaResumen");
             tablaResumen.innerHTML = tablaHTML;
 
-            // Dibujar puntos inicialmente usando requestAnimationFrame
             requestAnimationFrame(() => dibujarPuntos(resultadosCategorias));
 
-            // Agregar listener para resize con debounce
             const actualizarGrafico = debounce(() => {
                 console.log("🔄 Ventana redimensionada, actualizando gráfico...");
                 requestAnimationFrame(() => dibujarPuntos(resultadosCategorias));
             }, 100);
 
-            // Remover listeners anteriores para evitar duplicados
             window.removeEventListener("resize", actualizarGrafico);
             window.addEventListener("resize", actualizarGrafico);
         }
-
-        // =======================
-        // Tabla de percentiles (Femeino)
-        // =======================
 
         if (sexoSeleccionado === "Femenino") {
             const encabezados = ["", "Desinterés", "Bajo", "Promedio Bajo", "Indecisión", "Promedio Alto", "Alto", "Muy Alto", ""];
@@ -594,7 +525,7 @@ fetch("../Controlador/verificarSesionJSON.php")
                     <h3 class="card-title" style="margin: 10px 0;">📈 Tabla de Percentiles (Femenino)</h3>
                     <div class="contenedor-tabla" style="position: relative; overflow-x: auto; margin: 0; padding: 0;">
                         <svg id="svg-lineas" style="position: absolute; top: 0; left: 0; pointer-events: none; z-index: 10;"></svg>
-                        <table border="1" cellspacing="0" cellpadding="5" style="border-collapse: collapse; text-align: center; width: 100%; margin: 0;">
+                        <table border="1" class="percentiles-table" style="border-collapse: collapse; text-align: center; margin: 0;">
                             <tr><th colspan="9">Femenino</th></tr>
                             <tr>${encabezados.map(h => `<th>${h}</th>`).join('')}</tr>
                             ${categorias.map(fila => `
@@ -620,21 +551,17 @@ fetch("../Controlador/verificarSesionJSON.php")
             const tablaResumen = document.getElementById("tablaResumen");
             tablaResumen.innerHTML = tablaHTML;
 
-            // Dibujar puntos inicialmente usando requestAnimationFrame
             requestAnimationFrame(() => dibujarPuntos(resultadosCategorias));
 
-            // Agregar listener para resize con debounce
             const actualizarGrafico = debounce(() => {
                 console.log("🔄 Ventana redimensionada, actualizando gráfico...");
                 requestAnimationFrame(() => dibujarPuntos(resultadosCategorias));
             }, 100);
 
-            // Remover listeners anteriores para evitar duplicados
             window.removeEventListener("resize", actualizarGrafico);
             window.addEventListener("resize", actualizarGrafico);
         }
 
-        // Asegúrate de que el SVG esté dentro ANTES de dibujar
         if (!document.getElementById("svg-lineas")) {
             const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             svg.setAttribute("id", "svg-lineas");

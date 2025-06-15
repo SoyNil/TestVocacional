@@ -16,33 +16,83 @@ document.addEventListener("DOMContentLoaded", () => {
     const editarPerfilBtn = document.getElementById("editarPerfilBtn");
     const verResultadosBtn = document.getElementById("verResultadosBtn");
     const cerrarSesionBtn = document.getElementById("cerrarSesionBtn");
-
+    const eliminarCuentaBtn = document.getElementById("eliminarCuentaBtn");
     const verResultadosSection = document.getElementById("verResultados");
 
     // Mostrar sección Editar Perfil
-    editarPerfilBtn.addEventListener("click", () => {
-        verResultadosSection.style.display = "none";
-
-        const perfilContent = document.getElementById("perfil-content");
-        if (perfilContent) {
-            perfilContent.style.display = "block";
-            mostrarFormularioEditarPerfil(); // Mostrar formulario
-        }
-    });
+    if (editarPerfilBtn) {
+        editarPerfilBtn.addEventListener("click", () => {
+            verResultadosSection.style.display = "none";
+            const perfilContent = document.getElementById("perfil-content");
+            if (perfilContent) {
+                perfilContent.style.display = "block";
+                mostrarFormularioEditarPerfil(); // Asumido existente
+            }
+        });
+    }
 
     // Mostrar sección Ver Resultados
-    verResultadosBtn.addEventListener("click", () => {
-        document.getElementById("perfil-content").style.display = "none";
-        verResultadosSection.style.display = "block";
-    });
+    if (verResultadosBtn) {
+        verResultadosBtn.addEventListener("click", () => {
+            document.getElementById("perfil-content").style.display = "none";
+            verResultadosSection.style.display = "block";
+        });
+    }
 
-    cerrarSesionBtn.addEventListener("click", () => {
-        window.location.href = "../Controlador/logout.php";
-    });
+    // Cerrar sesión
+    if (cerrarSesionBtn) {
+        cerrarSesionBtn.addEventListener("click", () => {
+            window.location.href = "../Controlador/logout.php";
+        });
+    }
+
+    // Eliminar cuenta
+    if (eliminarCuentaBtn) {
+        eliminarCuentaBtn.addEventListener("click", () => {
+            if (confirm('¿Estás seguro de eliminar tu cuenta? Esta acción eliminará tu cuenta, tests y análisis asociados de forma permanente.')) {
+                fetch('../Controlador/verificarSesionJSON.php', {
+                    credentials: 'include'
+                })
+                .then(res => {
+                    if (!res.ok) throw new Error('Error en la respuesta del servidor: ' + res.status);
+                    return res.json();
+                })
+                .then(data => {
+                    if (!data.logueado) {
+                        throw new Error('Sesión no activa');
+                    }
+                    const idUsuario = data.id_usuario;
+                    return fetch(`../Controlador/eliminarUsuario.php?id_usuario=${idUsuario}`, {
+                        method: 'GET',
+                        credentials: 'include'
+                    });
+                })
+                .then(res => {
+                    if (!res.ok) throw new Error('Error al eliminar cuenta: ' + res.status);
+                    return res.json();
+                })
+                .then(data => {
+                    if (data.exito) {
+                        alert('Cuenta eliminada correctamente.');
+                        window.location.href = '../Vista/login.html';
+                    } else {
+                        alert('Error al eliminar cuenta: ' + data.mensaje);
+                    }
+                })
+                .catch(err => {
+                    console.error('Error al eliminar cuenta:', err);
+                    alert('Error al eliminar cuenta: ' + err.message);
+                });
+            }
+        });
+    }
+
+    mostrarFormularioEditarPerfil();
 
     function mostrarFormularioEditarPerfil() {
-        const content = document.getElementById('perfil-content');
-        content.innerHTML = `
+    const content = document.getElementById('perfil-content');
+    content.innerHTML = `
+        <div id="editarPerfil">
             <h2>Editar Perfil</h2>
             <form id="formEditarPerfil">
                 <label for="nombre_usuario">Nombre de Usuario:</label>
@@ -58,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <input type="email" id="correo" name="correo">
     
                 <label for="contraseña">Contraseña:</label>
-                <input type="password" id="contraseña" name="contraseña">
+                <input type="password" id="contraseña" name="contraseña" placeholder="Mínimo 8 caracteres">
     
                 <label for="sexo">Sexo:</label>
                 <select id="sexo" name="sexo">
@@ -74,88 +124,95 @@ document.addEventListener("DOMContentLoaded", () => {
                 <button type="submit">Guardar</button>
             </form>
             <div id="mensajePerfil" style="margin-top: 10px;"></div>
-        `;
+        </div>
+    `;
     
-        let datosOriginales = {};
+    let datosOriginales = {};
     
-        // Cargar datos del perfil actual
-        fetch("../Controlador/verificarSesionJSON.php")
-            .then(response => response.json())
-            .then(data => {
-                if (data.logueado) {
-                    datosOriginales = data;
+    // Cargar datos del perfil actual
+    fetch("../Controlador/verificarSesionJSON.php")
+        .then(response => response.json())
+        .then(data => {
+            if (data.logueado) {
+                datosOriginales = data;
     
-                    document.getElementById("nombre_usuario").value = data.nombre_usuario || '';
-                    document.getElementById("nombre").value = data.nombre || '';
-                    document.getElementById("apellido").value = data.apellido || '';
-                    document.getElementById("correo").value = data.correo || '';
-                    document.getElementById("sexo").value = data.sexo || '';
-                    document.getElementById("fecha_nacimiento").value = data.fecha_nacimiento || '';
-                } else {
-                    window.location.href = "principal.html";
-                }
-            })
-            .catch(error => {
-                console.error("Error al verificar la sesión:", error);
+                document.getElementById("nombre_usuario").value = data.nombre_usuario || '';
+                document.getElementById("nombre").value = data.nombre || '';
+                document.getElementById("apellido").value = data.apellido || '';
+                document.getElementById("correo").value = data.correo || '';
+                document.getElementById("sexo").value = data.sexo || '';
+                document.getElementById("fecha_nacimiento").value = data.fecha_nacimiento || '';
+            } else {
                 window.location.href = "principal.html";
-            });
-    
-        // Guardar cambios
-        document.getElementById("formEditarPerfil").addEventListener("submit", function (event) {
-            event.preventDefault();
-
-            const campos = ["nombre_usuario", "nombre", "apellido", "correo", "contraseña", "sexo", "fecha_nacimiento"];
-            const datosActualizados = {};
-
-            campos.forEach(campo => {
-                const valorActual = document.getElementById(campo).value.trim();
-                const valorOriginal = datosOriginales[campo] ? datosOriginales[campo].trim() : "";
-
-                if (valorActual && valorActual !== valorOriginal) {
-                    datosActualizados[campo] = valorActual;
-                }
-            });
-
-            if (Object.keys(datosActualizados).length === 0) {
-                mostrarMensaje("No se realizaron cambios.", false);
-                return;
             }
-
-            fetch('../Controlador/guardarPerfil.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(datosActualizados)
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.exito) {
-                    mostrarMensaje("¡Perfil guardado con éxito!", true);
-                    // Recargar los datos de la sesión para reflejar los cambios
-                    fetch("../Controlador/verificarSesionJSON.php")
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.logueado) {
-                                // Actualizar los campos del formulario con los nuevos datos
-                                document.getElementById("nombre_usuario").value = data.nombre_usuario || '';
-                                document.getElementById("nombre").value = data.nombre || '';
-                                document.getElementById("apellido").value = data.apellido || '';
-                                document.getElementById("correo").value = data.correo || '';
-                                document.getElementById("sexo").value = data.sexo || '';
-                                document.getElementById("fecha_nacimiento").value = data.fecha_nacimiento || '';
-                            }
-                        });
-                } else {
-                    mostrarMensaje("Hubo un error al guardar el perfil. Inténtalo de nuevo.", false);
-                }
-            })
-            .catch(error => {
-                console.error("Error al guardar el perfil:", error);
-                mostrarMensaje("Hubo un problema al guardar el perfil.", false);
-            });
+        })
+        .catch(error => {
+            console.error("Error al verificar la sesión:", error);
+            window.location.href = "principal.html";
         });
-    }    
+    
+    // Guardar cambios
+    document.getElementById("formEditarPerfil").addEventListener("submit", function (event) {
+        event.preventDefault();
+    
+        const contrasena = document.getElementById("contraseña").value.trim();
+        if (contrasena && contrasena.length < 8) {
+            mostrarMensaje("La contraseña debe tener al menos 8 caracteres.", false);
+            return;
+        }
+    
+        const campos = ["nombre_usuario", "nombre", "apellido", "correo", "contraseña", "sexo", "fecha_nacimiento"];
+        const datosActualizados = {};
+    
+        campos.forEach(campo => {
+            const valorActual = document.getElementById(campo).value.trim();
+            const valorOriginal = datosOriginales[campo] ? datosOriginales[campo].trim() : "";
+    
+            if (valorActual && valorActual !== valorOriginal) {
+                datosActualizados[campo] = valorActual;
+            }
+        });
+    
+        if (Object.keys(datosActualizados).length === 0) {
+            mostrarMensaje("No se realizaron cambios.", false);
+            return;
+        }
+    
+        fetch('../Controlador/guardarPerfil.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(datosActualizados)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.exito) {
+                mostrarMensaje("¡Perfil guardado con éxito!", true);
+                // Recargar los datos de la sesión para reflejar los cambios
+                fetch("../Controlador/verificarSesionJSON.php")
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.logueado) {
+                            // Actualizar los campos del formulario con los nuevos datos
+                            document.getElementById("nombre_usuario").value = data.nombre_usuario || '';
+                            document.getElementById("nombre").value = data.nombre || '';
+                            document.getElementById("apellido").value = data.apellido || '';
+                            document.getElementById("correo").value = data.correo || '';
+                            document.getElementById("sexo").value = data.sexo || '';
+                            document.getElementById("fecha_nacimiento").value = data.fecha_nacimiento || '';
+                        }
+                    });
+            } else {
+                mostrarMensaje("Hubo un error al guardar el perfil. Inténtalo de nuevo.", false);
+            }
+        })
+        .catch(error => {
+            console.error("Error al guardar el perfil:", error);
+            mostrarMensaje("Hubo un problema al guardar el perfil.", false);
+        });
+    });
+}
 
     // Función para mostrar mensajes
     function mostrarMensaje(mensaje, exito) {

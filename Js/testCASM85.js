@@ -271,7 +271,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
     
                 <!-- Tabla de interpretación de categorías -->
-                <table border="1">
+                <table border="1" class="categoria-table">
                     <tr><th>CATEGORÍA</th></tr>
                     <tr><td>De 44-53 Muy Positivo</td></tr>
                     <tr><td>De 36-43 Positivo</td></tr>

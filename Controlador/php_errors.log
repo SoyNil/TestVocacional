@@ -183,3 +183,15 @@ Stack trace:
 [15-Jun-2025 08:26:17 Europe/Berlin] Eliminados 2 análisis CASM-85 para usuario 5
 [15-Jun-2025 08:26:17 Europe/Berlin] Eliminados 5 tests CASM-85 para usuario 5
 [15-Jun-2025 08:26:17 Europe/Berlin] Usuario 5 eliminado correctamente
+[15-Jun-2025 18:42:04 Europe/Berlin] ID de test inválido recibido: No proporcionado
+[15-Jun-2025 19:15:29 Europe/Berlin] ID de test inválido recibido: No proporcionado
+[15-Jun-2025 20:15:18 Europe/Berlin] Procesando eliminación de usuario con id_usuario: 4 por usuario: Carlos_1
+[15-Jun-2025 20:15:18 Europe/Berlin] Eliminados 1 códigos de invitación para usuario 4
+[15-Jun-2025 20:15:18 Europe/Berlin] No se encontraron análisis CASM-83 para usuario 4
+[15-Jun-2025 20:15:18 Europe/Berlin] Eliminados 0 tests CASM-83 para usuario 4
+[15-Jun-2025 20:15:18 Europe/Berlin] No se encontraron análisis CASM-85 para usuario 4
+[15-Jun-2025 20:15:18 Europe/Berlin] Eliminados 0 tests CASM-85 para usuario 4
+[15-Jun-2025 20:15:18 Europe/Berlin] Usuario 4 eliminado correctamente
+[15-Jun-2025 20:44:09 Europe/Berlin] Psicólogo Pepito_1 creado correctamente por admin: admin_jefe
+[15-Jun-2025 20:44:54 Europe/Berlin] Procesando eliminación de usuario con id_usuario: 3 por usuario: Pepito_1 (tipo: psicologo)
+[15-Jun-2025 20:44:54 Europe/Berlin] Psicólogo 3 eliminado correctamente

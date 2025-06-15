@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Poiret+One&display=swap');
+
 * {
     font-family: "Figtree", sans-serif;
 }
+
 /* Estilos generales */
 body {
     background-color: #171717;
@@ -10,14 +12,14 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
-    overflow: auto; /* Permitir el desplazamiento en el body si es necesario */
+    overflow: auto;
 }
 
 /* INICIO DE ESTILOS HEADER */
 header {
     background-color: #171717;
     padding: 15px 30px;
-    position: relative; /* Necesario para alinear el dropdown */
+    position: relative;
 }
 
 .nav-container {
@@ -102,7 +104,7 @@ nav ul li a:hover {
     flex-direction: column;
     border-radius: 5px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    z-index: 2; /* Por encima del container */
+    z-index: 2;
     min-width: 160px;
     margin-top: 5px;
 }
@@ -119,19 +121,19 @@ nav ul li a:hover {
 }
 
 .dropdown-menu li a:hover {
-    color: #3576ff;
+    color: #0ff;
     background-color: transparent;
 }
 
 /* Contenedor del formulario */
 .container {
-    background: white;
+    background: #1f1f1f;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     width: 100%;
     max-width: 500px;
-    display: flex; /* Corregido de display: absolute */
+    display: flex;
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
@@ -139,29 +141,35 @@ nav ul li a:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    margin-top: 40px; /* Espacio para el header */
+    margin-top: 40px;
+    border: 1px solid #333;
 }
 
-/* Cuestionario */
-#seccionCuestionario, #seccionResultados{
+/* Cuestionario y Resultados */
+#seccionCuestionario, #seccionResultados {
     display: none;
     width: 80%;
     max-width: 1000px;
     max-height: 90vh;
     overflow-y: auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: #1f1f1f;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border: 1px solid #333;
+    color: #fff;
+}
+
+#seccionResultados p, #seccionResultados h2, #seccionResultados h3, #seccionResultados strong {
+    color: #fff;
 }
 
 h1, h2, h3 {
-    color: #333;
+    color: #fff;
 }
 
 h2 {
     font-size: 24px;
-    margin-bottom: 20px;
     margin: 20px 0;
 }
 
@@ -169,7 +177,7 @@ label {
     display: block;
     margin-top: 15px;
     font-weight: bold;
-    color: #333;
+    color: #bababa;
     text-align: left;
 }
 
@@ -177,18 +185,27 @@ input, select {
     width: calc(100% - 16px);
     padding: 12px;
     margin-top: 10px;
-    border: 1px solid #ccc;
+    border: none;
     border-radius: 5px;
+    background-color: #2c2c2c;
+    color: #fff;
     box-sizing: border-box;
+    transition: border 0.2s;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border: 1px solid #0ff;
 }
 
 #cuestionario {
-    display: block; /* Aseguramos que el contenedor se muestra correctamente */
+    display: block;
     width: 100%;
-    height: auto;  /* Eliminamos cualquier restricción de altura */
+    height: auto;
     padding: 20px;
-    background-color: #fff;
-    overflow-y: auto;  /* Permitimos desplazamiento vertical si el contenido excede */
+    background-color: #1f1f1f;
+    overflow-y: auto;
+    border-radius: 10px;
 }
 
 #tablaCuestionario {
@@ -197,38 +214,53 @@ input, select {
     margin-top: 20px;
     max-height: 700px;
     overflow-y: auto;
+    background-color: #2c2c2c;
+    border-radius: 6px;
+    border: 1px solid #333;
 }
 
 #tablaCuestionario th, #tablaCuestionario td {
     padding: 15px;
     text-align: center;
-    border: 1px solid #ccc;
+    border: 1px solid #333;
+    color: #fff;
 }
 
 #tablaCuestionario th {
-    background-color: #f2f2f2;
+    background-color: #3a3a3a;
     font-weight: bold;
 }
 
 #tablaCuestionario td input {
     margin-top: 5px;
     width: 40px;
+    background-color: #2c2c2c;
+    color: #fff;
+}
+
+#tablaCuestionario tr:nth-child(even) {
+    background-color: #2a2a2a;
+}
+
+#tablaCuestionario tr:hover {
+    background-color: #2a2a2a;
 }
 
 button {
-    background: #007BFF;
-    color: white;
+    background: #2c2c2c;
+    color: #fff;
     border: none;
     padding: 12px;
     width: 100%;
     margin-top: 20px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background-color 0.3s, color 0.2s;
 }
 
 button:hover {
-    background: #0056b3;
+    background: #3a3a3a;
+    color: #0ff;
 }
 
 #tablaCuestionario th:nth-child(2),
@@ -238,23 +270,101 @@ button:hover {
 
 .tachado {
     text-decoration: line-through;
-    color: red;
+    color: #ff4d4d;
     font-weight: bold;
 }
 
 .card {
-    background: #f9f9f9;
+    background: #1f1f1f;
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.3);
+    border: 1px solid #333;
+}
+
+/* Tabla Cruzada de Preguntas */
+#seccionResultados table.cruce-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #2c2c2c;
+    border-radius: 6px;
+    border: 1px solid #333;
+    margin-top: 20px;
+}
+
+#seccionResultados table.cruce-table th, #seccionResultados table.cruce-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #333;
+    color: #fff;
+}
+
+#seccionResultados table.cruce-table th {
+    background-color: #3a3a3a;
+    font-weight: bold;
+}
+
+#seccionResultados table.cruce-table tr:nth-child(even) {
+    background-color: #2a2a2a;
+}
+
+#seccionResultados table.cruce-table tr:hover {
+    background-color: #2a2a2a;
+}
+
+/* Tabla de Percentiles */
+#seccionResultados table.percentiles-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #2c2c2c;
+    border-radius: 6px;
+    border: 1px solid #333;
+    margin-top: 20px;
+}
+
+#seccionResultados table.percentiles-table th, #seccionResultados table.percentiles-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #333;
+    color: #fff;
+}
+
+#seccionResultados table.percentiles-table th {
+    background-color: #3a3a3a;
+    font-weight: bold;
+}
+
+#seccionResultados table.percentiles-table tr:nth-child(even) {
+    background-color: #2a2a2a;
+}
+
+#seccionResultados table.percentiles-table tr:hover {
+    background-color: #2a2a2a;
+}
+
+.punto {
+    width: 10px;
+    height: 10px;
+    background-color: #ff4d4d;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+#svg-lineas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
 }
 
 /* Media Queries - Responsive */
 @media (max-width: 768px) {
-    /* Contenedor del formulario */
     .container {
-        z-index: 1; /* Por debajo del dropdown-menu */
+        z-index: 1;
         position: relative;
     }
     .nav-container {
@@ -316,7 +426,7 @@ button:hover {
 
     .dropdown {
         width: 100%;
-        z-index: 2; /* Por encima del container en móviles */
+        z-index: 2;
     }
 
     .dropdown-menu {
@@ -328,7 +438,7 @@ button:hover {
         min-width: auto;
         background-color: #2a2a2a;
         display: none;
-        z-index: 2; /* Por encima del container en móviles */
+        z-index: 2;
     }
 
     .dropdown-menu.show {

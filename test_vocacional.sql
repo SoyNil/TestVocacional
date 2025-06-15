@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-06-2025 a las 08:44:54
+-- Tiempo de generación: 15-06-2025 a las 23:02:23
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -34,6 +34,13 @@ CREATE TABLE `analisis_casm83` (
   `fecha_creacion` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `analisis_casm83`
+--
+
+INSERT INTO `analisis_casm83` (`id`, `grupo_hash`, `analisis`, `fecha_creacion`) VALUES
+(17, '209a0f6b4bcaf09ee5e343fc2d4343a39d223e9810a09d5288068684ad560183', 'Los resultados del Test CASM-83 indican una ausencia total de intereses vocacionales en las 13 categorías evaluadas, lo que sugiere un perfil de desinterés generalizado en áreas como ciencias, arte, oficios, finanzas, lenguaje, jurisprudencia, entre otras. Esto podría indicar que el participante aún no ha explorado o identificado sus intereses y pasiones, o que no se siente atraído por ninguna de las áreas evaluadas. En este sentido, es fundamental que el participante explore y descubra sus verdaderos intereses y habilidades a través de experiencias prácticas y de auto-reflexión, con el fin de encontrar un camino vocacional que se adapte a sus necesidades y aspiraciones. Se recomienda que el participante busque asesoramiento y apoyo para explorar diferentes áreas y encontrar aquellas que realmente lo motiven y satisfagan.', '2025-06-15 14:33:41');
+
 -- --------------------------------------------------------
 
 --
@@ -52,7 +59,8 @@ CREATE TABLE `analisis_casm85` (
 --
 
 INSERT INTO `analisis_casm85` (`id`, `grupo_hash`, `analisis_texto`, `fecha_creacion`) VALUES
-(11, 'e5d8cf45a9267b4c3c93eb6f134fac18e20dfa4d23a996c2aa0bff1ed7d53a42', 'Los resultados del test CASM85 revelan un patrón preocupante en los hábitos de estudio, con una tendencia generalizada hacia categorías negativas. En particular, las áreas de \"¿Cómo hace Ud. sus tareas?\", \"¿Cómo prepara sus exámenes?\", \"¿Cómo escucha las clases?\" y \"¿Qué acompaña sus momentos de estudio?\" obtuvieron un puntaje de 0, clasificándose como \"MUY NEGATIVO\", lo que sugiere una gran debilidad en la capacidad de gestionar y realizar tareas de manera efectiva, preparar y enfrentar exámenes con confianza, prestar atención en clase y crear un ambiente de estudio propicio. La única área que presenta un puntaje ligeramente superior es \"¿Cómo estudia Ud?\", con un puntaje de 1 y una categoría de \"NEGATIVO\", indicando que, aunque no es tan crítica como las demás, todavía hay un margen significativo de mejora. En resumen, estos resultados destacan la necessityad de trabajar en la construcción de hábitos de estudio más efectivos y enfocados, y recomendamos buscar apoyo y estrategias para mejorar la gestión del tiempo, la concentración y la motivación para el estudio.', '2025-06-15 01:27:43');
+(11, 'e5d8cf45a9267b4c3c93eb6f134fac18e20dfa4d23a996c2aa0bff1ed7d53a42', 'Los resultados del test CASM85 revelan un patrón preocupante en los hábitos de estudio, con una tendencia generalizada hacia categorías negativas. En particular, las áreas de \"¿Cómo hace Ud. sus tareas?\", \"¿Cómo prepara sus exámenes?\", \"¿Cómo escucha las clases?\" y \"¿Qué acompaña sus momentos de estudio?\" obtuvieron un puntaje de 0, clasificándose como \"MUY NEGATIVO\", lo que sugiere una gran debilidad en la capacidad de gestionar y realizar tareas de manera efectiva, preparar y enfrentar exámenes con confianza, prestar atención en clase y crear un ambiente de estudio propicio. La única área que presenta un puntaje ligeramente superior es \"¿Cómo estudia Ud?\", con un puntaje de 1 y una categoría de \"NEGATIVO\", indicando que, aunque no es tan crítica como las demás, todavía hay un margen significativo de mejora. En resumen, estos resultados destacan la necessityad de trabajar en la construcción de hábitos de estudio más efectivos y enfocados, y recomendamos buscar apoyo y estrategias para mejorar la gestión del tiempo, la concentración y la motivación para el estudio.', '2025-06-15 01:27:43'),
+(12, 'a18ee40c37de6dd07fc31443a91e9c2c95a06a99ae5c9cc12b39bfdb505ee2ad', 'Los resultados del test CASM85 revelan un panorama mixto en cuanto a los hábitos de estudio. Por un lado, se destaca una tendencia muy positiva en la forma en que se aborda el estudio en general, con un puntaje perfecto de 5, lo que sugiere una actitud proactiva y efectiva hacia el aprendizaje. Sin embargo, esta fortaleza se ve contrastada por debilidades significativas en áreas específicas como la preparación de tareas, exámenes, la escucha en clase y el entorno de estudio, todas ellas calificadas como \"MUY NEGATIVO\" con un puntaje de 0. Esto indica una necesidad urgente de mejorar la gestión del tiempo, la organización y las estrategias de estudio en estas áreas. Se recomienda trabajar en el desarrollo de habilidades para la planificación y ejecución de tareas, la preparación efectiva para exámenes, mejorar la atención y participación en clase, y crear un ambiente de estudio propicio para el aprendizaje. Al abordar estas debilidades, se puede potenciar la tendencia positiva general hacia el estudio, llevando a un desempeño académico más equilibrado y exitoso.', '2025-06-15 14:34:46');
 
 -- --------------------------------------------------------
 
@@ -77,12 +85,12 @@ CREATE TABLE `codigos_invitacion` (
 --
 
 INSERT INTO `codigos_invitacion` (`id`, `codigo_hash`, `codigo_visible`, `id_creador`, `usado`, `id_usuario_usado`, `fecha_creacion`, `fecha_uso`, `fecha_expiracion`) VALUES
-(3, '$2y$10$eEjcnUAlTqHqCGphjrNsHeEJd0y8EpY1d1/tiTQLLmPXZzS0HbwHe', 'AV8E8TVCTVVC', 2, 1, 4, '2025-06-13 21:51:19', '2025-06-13 22:55:47', '2025-06-21 04:51:19'),
 (6, '$2y$10$Ia7BxkIYzjRs5PcVhwK2Ru7DIacjq8SdBTubSP4LYwzzXyRF1aF1S', 'BEUMJ6BC5YPH', 2, 0, NULL, '2025-06-14 00:22:56', NULL, '2025-06-21 07:22:56'),
 (7, '$2y$10$OCj9s/gzqPltsZ2hbi9ks.q1ezA2.5NQfzBZCvhVEvqCN9w/XZQ.K', '2CAS4JS44ATN', 2, 0, NULL, '2025-06-15 01:36:03', NULL, '2025-06-22 08:36:03'),
 (8, '$2y$10$rWjcc9G6rFpMvxeLX.uVyuCzQCGcioRd/WqlsJ.L.xoKZZbYV0hdC', 'WYQKDPBMHJJA', 2, 0, NULL, '2025-06-15 01:36:46', NULL, '2025-06-22 08:36:46'),
 (9, '$2y$10$kb5buhWuUU.AbQptG9ZhU.ygGdmqLPXQHcXYL3r61oawbXx.6v6zS', 'EN2RP3G7938F', 2, 0, NULL, '2025-06-15 01:37:10', NULL, '2025-06-22 08:37:10'),
-(10, '$2y$10$1pQiECm1/8IBIio/mmCcr.f9p9tRRbtX95OWfejxQSP6922aNd9Fq', 'E63U6GG3K8JB', 1, 0, NULL, '2025-06-15 01:51:58', NULL, '2025-06-22 08:51:58');
+(10, '$2y$10$1pQiECm1/8IBIio/mmCcr.f9p9tRRbtX95OWfejxQSP6922aNd9Fq', 'E63U6GG3K8JB', 1, 0, NULL, '2025-06-15 01:51:58', NULL, '2025-06-22 08:51:58'),
+(11, '$2y$10$0ITWQsvrzrPNoCDBJH/bq.Rkb6cFEUNzbZrtnbQI//y6GCjsXINtC', 'M7PX8B2MLYZ2', 2, 0, NULL, '2025-06-15 18:42:42', NULL, '2025-06-23 01:42:42');
 
 -- --------------------------------------------------------
 
@@ -129,6 +137,103 @@ CREATE TABLE `test_casm83` (
   `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `test_casm83`
+--
+
+INSERT INTO `test_casm83` (`id`, `id_usuario`, `categoria`, `total`, `count_a`, `count_b`, `sexo`, `fecha`) VALUES
+(144, 3, 'CCFM', 0, 0, 0, 'Masculino', '2025-06-15'),
+(145, 3, 'CCSS', 0, 0, 0, 'Masculino', '2025-06-15'),
+(146, 3, 'CCNA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(147, 3, 'CCCO', 0, 0, 0, 'Masculino', '2025-06-15'),
+(148, 3, 'ARTE', 0, 0, 0, 'Masculino', '2025-06-15'),
+(149, 3, 'BURO', 0, 0, 0, 'Masculino', '2025-06-15'),
+(150, 3, 'CCEP', 0, 0, 0, 'Masculino', '2025-06-15'),
+(151, 3, 'HAA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(152, 3, 'FINA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(153, 3, 'LING', 0, 0, 0, 'Masculino', '2025-06-15'),
+(154, 3, 'JURI', 0, 0, 0, 'Masculino', '2025-06-15'),
+(155, 3, 'VERA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(156, 3, 'CONS', 0, 0, 0, 'Masculino', '2025-06-15'),
+(157, 3, 'CCFM', 0, 0, 0, 'Masculino', '2025-06-15'),
+(158, 3, 'CCSS', 0, 0, 0, 'Masculino', '2025-06-15'),
+(159, 3, 'CCNA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(160, 3, 'CCCO', 0, 0, 0, 'Masculino', '2025-06-15'),
+(161, 3, 'ARTE', 0, 0, 0, 'Masculino', '2025-06-15'),
+(162, 3, 'BURO', 0, 0, 0, 'Masculino', '2025-06-15'),
+(163, 3, 'CCEP', 0, 0, 0, 'Masculino', '2025-06-15'),
+(164, 3, 'HAA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(165, 3, 'FINA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(166, 3, 'LING', 0, 0, 0, 'Masculino', '2025-06-15'),
+(167, 3, 'JURI', 0, 0, 0, 'Masculino', '2025-06-15'),
+(168, 3, 'VERA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(169, 3, 'CONS', 0, 0, 0, 'Masculino', '2025-06-15'),
+(170, 3, 'CCFM', 2, 0, 2, 'Masculino', '2025-06-15'),
+(171, 3, 'CCSS', 0, 0, 0, 'Masculino', '2025-06-15'),
+(172, 3, 'CCNA', 1, 1, 0, 'Masculino', '2025-06-15'),
+(173, 3, 'CCCO', 1, 1, 0, 'Masculino', '2025-06-15'),
+(174, 3, 'ARTE', 0, 0, 0, 'Masculino', '2025-06-15'),
+(175, 3, 'BURO', 0, 0, 0, 'Masculino', '2025-06-15'),
+(176, 3, 'CCEP', 0, 0, 0, 'Masculino', '2025-06-15'),
+(177, 3, 'HAA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(178, 3, 'FINA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(179, 3, 'LING', 0, 0, 0, 'Masculino', '2025-06-15'),
+(180, 3, 'JURI', 0, 0, 0, 'Masculino', '2025-06-15'),
+(181, 3, 'VERA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(182, 3, 'CONS', 0, 0, 0, 'Masculino', '2025-06-15'),
+(183, 3, 'CCFM', 2, 1, 1, 'Masculino', '2025-06-15'),
+(184, 3, 'CCSS', 0, 0, 0, 'Masculino', '2025-06-15'),
+(185, 3, 'CCNA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(186, 3, 'CCCO', 0, 0, 0, 'Masculino', '2025-06-15'),
+(187, 3, 'ARTE', 0, 0, 0, 'Masculino', '2025-06-15'),
+(188, 3, 'BURO', 0, 0, 0, 'Masculino', '2025-06-15'),
+(189, 3, 'CCEP', 0, 0, 0, 'Masculino', '2025-06-15'),
+(190, 3, 'HAA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(191, 3, 'FINA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(192, 3, 'LING', 0, 0, 0, 'Masculino', '2025-06-15'),
+(193, 3, 'JURI', 0, 0, 0, 'Masculino', '2025-06-15'),
+(194, 3, 'VERA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(195, 3, 'CONS', 0, 0, 0, 'Masculino', '2025-06-15'),
+(196, 3, 'CCFM', 0, 0, 0, 'Masculino', '2025-06-15'),
+(197, 3, 'CCSS', 0, 0, 0, 'Masculino', '2025-06-15'),
+(198, 3, 'CCNA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(199, 3, 'CCCO', 0, 0, 0, 'Masculino', '2025-06-15'),
+(200, 3, 'ARTE', 0, 0, 0, 'Masculino', '2025-06-15'),
+(201, 3, 'BURO', 0, 0, 0, 'Masculino', '2025-06-15'),
+(202, 3, 'CCEP', 0, 0, 0, 'Masculino', '2025-06-15'),
+(203, 3, 'HAA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(204, 3, 'FINA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(205, 3, 'LING', 0, 0, 0, 'Masculino', '2025-06-15'),
+(206, 3, 'JURI', 0, 0, 0, 'Masculino', '2025-06-15'),
+(207, 3, 'VERA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(208, 3, 'CONS', 0, 0, 0, 'Masculino', '2025-06-15'),
+(209, 3, 'CCFM', 3, 0, 3, 'Masculino', '2025-06-15'),
+(210, 3, 'CCSS', 0, 0, 0, 'Masculino', '2025-06-15'),
+(211, 3, 'CCNA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(212, 3, 'CCCO', 0, 0, 0, 'Masculino', '2025-06-15'),
+(213, 3, 'ARTE', 1, 1, 0, 'Masculino', '2025-06-15'),
+(214, 3, 'BURO', 0, 0, 0, 'Masculino', '2025-06-15'),
+(215, 3, 'CCEP', 0, 0, 0, 'Masculino', '2025-06-15'),
+(216, 3, 'HAA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(217, 3, 'FINA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(218, 3, 'LING', 0, 0, 0, 'Masculino', '2025-06-15'),
+(219, 3, 'JURI', 0, 0, 0, 'Masculino', '2025-06-15'),
+(220, 3, 'VERA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(221, 3, 'CONS', 0, 0, 0, 'Masculino', '2025-06-15'),
+(222, 3, 'CCFM', 0, 0, 0, 'Masculino', '2025-06-15'),
+(223, 3, 'CCSS', 0, 0, 0, 'Masculino', '2025-06-15'),
+(224, 3, 'CCNA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(225, 3, 'CCCO', 0, 0, 0, 'Masculino', '2025-06-15'),
+(226, 3, 'ARTE', 0, 0, 0, 'Masculino', '2025-06-15'),
+(227, 3, 'BURO', 0, 0, 0, 'Masculino', '2025-06-15'),
+(228, 3, 'CCEP', 0, 0, 0, 'Masculino', '2025-06-15'),
+(229, 3, 'HAA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(230, 3, 'FINA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(231, 3, 'LING', 0, 0, 0, 'Masculino', '2025-06-15'),
+(232, 3, 'JURI', 0, 0, 0, 'Masculino', '2025-06-15'),
+(233, 3, 'VERA', 0, 0, 0, 'Masculino', '2025-06-15'),
+(234, 3, 'CONS', 0, 0, 0, 'Masculino', '2025-06-15');
+
 -- --------------------------------------------------------
 
 --
@@ -158,7 +263,22 @@ INSERT INTO `test_casm85` (`id`, `id_usuario`, `area`, `puntaje`, `categoria`, `
 (7, 3, '¿CÓMO HACE UD. SUS TAREAS?', 0, 'MUY NEGATIVO', '2025-04-23'),
 (8, 3, '¿CÓMO PREPARA SUS EXÁMENES?', 0, 'MUY NEGATIVO', '2025-04-23'),
 (9, 3, '¿CÓMO ESCUCHA LAS CLASES?', 0, 'MUY NEGATIVO', '2025-04-23'),
-(10, 3, '¿QUÉ ACOMPAÑA SUS MOMENTOS DE ESTUDIO?', 0, 'MUY NEGATIVO', '2025-04-23');
+(10, 3, '¿QUÉ ACOMPAÑA SUS MOMENTOS DE ESTUDIO?', 0, 'MUY NEGATIVO', '2025-04-23'),
+(42, 3, '¿CÓMO ESTUDIA USTED?', 1, 'NEGATIVO', '2025-06-15'),
+(43, 3, '¿CÓMO HACE UD. SUS TAREAS?', 0, 'MUY NEGATIVO', '2025-06-15'),
+(44, 3, '¿CÓMO PREPARA SUS EXÁMENES?', 0, 'MUY NEGATIVO', '2025-06-15'),
+(45, 3, '¿CÓMO ESCUCHA LAS CLASES?', 0, 'MUY NEGATIVO', '2025-06-15'),
+(46, 3, '¿QUÉ ACOMPAÑA SUS MOMENTOS DE ESTUDIO?', 0, 'MUY NEGATIVO', '2025-06-15'),
+(47, 3, '¿CÓMO ESTUDIA USTED?', 0, 'MUY NEGATIVO', '2025-06-15'),
+(48, 3, '¿CÓMO HACE UD. SUS TAREAS?', 0, 'MUY NEGATIVO', '2025-06-15'),
+(49, 3, '¿CÓMO PREPARA SUS EXÁMENES?', 0, 'MUY NEGATIVO', '2025-06-15'),
+(50, 3, '¿CÓMO ESCUCHA LAS CLASES?', 0, 'MUY NEGATIVO', '2025-06-15'),
+(51, 3, '¿QUÉ ACOMPAÑA SUS MOMENTOS DE ESTUDIO?', 0, 'MUY NEGATIVO', '2025-06-15'),
+(52, 3, '¿CÓMO ESTUDIA USTED?', 0, 'MUY NEGATIVO', '2025-06-15'),
+(53, 3, '¿CÓMO HACE UD. SUS TAREAS?', 0, 'MUY NEGATIVO', '2025-06-15'),
+(54, 3, '¿CÓMO PREPARA SUS EXÁMENES?', 0, 'MUY NEGATIVO', '2025-06-15'),
+(55, 3, '¿CÓMO ESCUCHA LAS CLASES?', 0, 'MUY NEGATIVO', '2025-06-15'),
+(56, 3, '¿QUÉ ACOMPAÑA SUS MOMENTOS DE ESTUDIO?', 0, 'MUY NEGATIVO', '2025-06-15');
 
 -- --------------------------------------------------------
 
@@ -184,8 +304,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nombre_usuario`, `nombre`, `sexo`, `fecha_nacimiento`, `apellido`, `correo`, `contraseña`, `fecha_creacion`, `tipo_cuenta`) VALUES
-(3, 'Nil_14', 'Nilton', 'Masculino', '2004-04-14', 'Tolentino Rojas', 'nilton@gmail.com', '$2y$10$xhAA37vR0JI5ufzr.sAZROgJv4etKWTqhQ22c7sgoPhowpeuoK5fW', '2025-04-22 21:51:12', 'Libre'),
-(4, 'Carlos_1', 'Carlos', 'Masculino', '2004-11-13', 'Pepe Norm', 'carlos123@gmail.com', '$2y$10$8VH2Ekz9iltU9LBQM7tHTe62UR49DEFHLiIxaoh/Vi5m5iYw5iAmG', '2025-06-13 22:55:47', 'Invitación');
+(3, 'Nil_14', 'Nilton Fernando', 'Masculino', '2004-04-14', 'Tolentino Rojas', 'nilton@gmail.com', '$2y$10$4xNY7fnMVaAwCsiUB9u5yuButqBfKrVVQE5r4m0vGZaTJzlBZfOfu', '2025-04-22 21:51:12', 'Libre');
 
 --
 -- Índices para tablas volcadas
@@ -254,37 +373,37 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `analisis_casm83`
 --
 ALTER TABLE `analisis_casm83`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `analisis_casm85`
 --
 ALTER TABLE `analisis_casm85`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `codigos_invitacion`
 --
 ALTER TABLE `codigos_invitacion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `psicologos`
 --
 ALTER TABLE `psicologos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `test_casm83`
 --
 ALTER TABLE `test_casm83`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
 
 --
 -- AUTO_INCREMENT de la tabla `test_casm85`
 --
 ALTER TABLE `test_casm85`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
