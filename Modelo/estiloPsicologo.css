@@ -155,7 +155,7 @@ body {
 }
 
 .card-reloj {
-    background-color: #1e1e2f;
+    background-color: #1f1f1f;
     color: #ffffff;
     padding: 1.5rem;
     border-radius: 1rem;
@@ -172,7 +172,7 @@ body {
 
 .card-reloj .icono-clock {
     font-size: 2.5rem;
-    color: #00d1b2;
+    color: white;
     margin-bottom: 1rem;
 }
 
@@ -211,8 +211,286 @@ body {
     background-color: #44445e;
 }
 
+.btn-ver-paciente,
+.btn-eliminar-usuario {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin: 0 0.25rem;
+    border-radius: 6px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-ver-paciente {
+    color: #5c6bc0;
+}
+
+.btn-ver-paciente:hover {
+    background-color: #5c6bc0;
+    color: #fff;
+}
+
+.btn-eliminar-usuario {
+    color: #e57373;
+}
+
+.btn-eliminar-usuario:hover {
+    background-color: #e57373;
+    color: #fff;
+}
+
+.info-paciente {
+    background-color: #2b2b3c;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    color: #fff;
+}
+
+.info-paciente h3 {
+    margin-top: 0;
+    color: #5c6bc0;
+}
+
+.info-paciente p {
+    margin: 0.5rem 0;
+}
+
+.tests-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.test-section {
+    background-color: #2b2b3c;
+    padding: 1.5rem;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.test-section h4 {
+    margin-top: 0;
+    color: #5c6bc0;
+}
+
+.test-section p {
+    margin: 0.5rem 0;
+}
+
+.select-test {
+    width: 100%;
+    max-width: 300px;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 6px;
+    background-color: #3c3c50;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.select-test:focus {
+    outline: none;
+    background-color: #44445e;
+}
+
+.card {
+    background-color: #2b2b3c;
+    border-radius: 10px;
+    border: none;
+    margin-top: 1rem;
+}
+
+.card-body {
+    padding: 1rem;
+    color: #fff;
+}
+
+.card-body table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #3c3c50;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.card-body th,
+.card-body td {
+    padding: 0.75rem;
+    border: 1px solid #444;
+    text-align: center;
+}
+
+.card-body th {
+    background-color: #5c6bc0;
+}
+
+.card-body tr:nth-child(even) {
+    background-color: #44445e;
+}
+
+.loading {
+    color: #7986cb;
+    font-style: italic;
+}
+
+.resultados-casm83,
+.resultados-casm85 {
+    margin-top: 1rem;
+}
+
+.btn-volver {
+    padding: 0.5rem 1rem;
+    background-color: #5c6bc0;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    transition: background-color 0.2s ease;
+}
+
+.btn-volver:hover {
+    background-color: #7986cb;
+}
+
+.btn-eliminar-test {
+    padding: 0.5rem 1rem;
+    background-color: #d32f2f;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    transition: background-color 0.2s ease;
+}
+
+.btn-eliminar-test:hover {
+    background-color: #ef5350;
+}
+
+.select-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.celda-percentil {
+    position: relative;
+}
+
+.punto-marcado {
+    background-color: #5c6bc0;
+}
+
+.punto {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: red;
+    border-radius: 50%;
+    z-index: 5;
+}
+
+.contenedor-tabla {
+    position: relative;
+    overflow-x: auto;
+}
+
+#svg-lineas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.card {
+    background-color: #1f1f1f;
+    border-radius: 10px;
+    border: none;
+    margin-top: 1rem;
+}
+
+.card-body {
+    padding: 1rem;
+    color: #fff;
+}
+
+.card-body table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #3c3c50;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.card-body th,
+.card-body td {
+    padding: 0.75rem;
+    border: 1px solid #444;
+    text-align: left;
+}
+
+.card-body th {
+    background-color: #5c6bc0;
+}
+
+.card-body tr:nth-child(even) {
+    background-color: #44445e;
+}
+
+.loading {
+    color: #7986cb;
+    font-style: italic;
+}
+
+.resultados-casm85 {
+    margin-top: 1rem;
+}
+
+.btn-volver {
+    padding: 0.5rem 1rem;
+    background-color: #5c6bc0;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    transition: background-color 0.2s ease;
+}
+
+.btn-volver:hover {
+    background-color: #7986cb;
+}
+
+.btn-eliminar-test {
+    padding: 0.5rem 1rem;
+    background-color: #d32f2f;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    transition: background-color 0.2s ease;
+}
+
+.btn-eliminar-test:hover {
+    background-color: #ef5350;
+}
+
+.select-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 .card-codigos {
-    background-color: #1e1e2f;
+    background-color: #1f1f1f;
     color: #fff;
     border-radius: 12px;
     padding: 1.5rem;
@@ -230,11 +508,11 @@ body {
 .icono-card {
     font-size: 2rem;
     margin-bottom: 0.5rem;
-    color: #00d1b2;
+    color: white;
 }
 
 .btn-generar, .btn-ver {
-    background-color: #00d1b2;
+    background-color: #2944ff;
     color: #fff;
     border: none;
     padding: 0.6rem 1rem;
@@ -245,7 +523,7 @@ body {
 }
 
 .btn-generar:hover, .btn-ver:hover {
-    background-color: #00b39b;
+    background-color: #6679ff;
 }
 
 .inicio-container {
@@ -279,7 +557,7 @@ body {
 }
 
 .card-codigo {
-    background: #1e1e2f;
+    background: #1f1f1f;
     border-radius: 12px;
     padding: 1rem;
     min-width: 250px;
@@ -303,7 +581,7 @@ body {
 }
 
 .card-codigo.expirado {
-    border-color: #f44336;
+    border-color: #c0392b;
 }
 
 .card-codigo h3 {
@@ -318,11 +596,11 @@ body {
 }
 
 #mensaje-generacion {
-    color: #00d1b2;
+    color: white;
     text-align: center;
     padding: 0.5rem;
     margin-top: 1rem;
-    background-color: #2b2b3c;
+    background-color: #1f1f1f;
     border-radius: 8px;
     max-width: 300px;
     margin-left: auto;
@@ -331,8 +609,8 @@ body {
 
 .btn-eliminar {
     margin-top: 10px;
-    background-color: #d9534f;
-    color: white;
+    background-color: #c0392b;
+    color: black;
     padding: 6px 12px;
     border: none;
     border-radius: 6px;
@@ -341,7 +619,7 @@ body {
 }
 
 .btn-eliminar:hover {
-    background-color: #c9302c;
+    background-color: #e74c3c;
 }
 
 .filtros-codigos {
@@ -357,4 +635,27 @@ body {
     padding: 0.5rem;
     border-radius: 8px;
     border: 1px solid #ccc;
+    background-color: #171717;
+    color: white;
+}
+
+select,
+::picker(select){
+    appearance: base-select;
+    color: white;
+}
+
+option{
+    background: #171717;
+    &:hover{
+        background: #454545;
+    }
+    &:checked{
+        background: #2944ff;
+    }
+}
+
+::picker(select){
+    margin-top: 10px;
+    border-radius: 4px;
 }

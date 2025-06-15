@@ -26,6 +26,9 @@ if (empty($resultados) || empty($sexo)) {
     exit;
 }
 
+// Definir orden fijo de categorías
+$categorias = ['CCFM', 'CCSS', 'CCNA', 'CCCO', 'ARTE', 'BURO', 'CCEP', 'HAA', 'FINA', 'LING', 'JURI', 'VERA', 'CONS'];
+
 // Definir rangos de percentiles según sexo
 $rangos = $sexo === "Masculino" ? [
     "CCFM" => ["0-4" => "Desinterés", "5-7" => "Bajo", "8-9" => "Promedio Bajo", "10-12" => "Indecisión", "14-15" => "Promedio Alto", "16-17" => "Alto", "18-22" => "Muy Alto"],
@@ -38,7 +41,9 @@ $rangos = $sexo === "Masculino" ? [
     "HAA" => ["0-2" => "Desinterés", "3-5" => "Bajo", "6-7" => "Promedio Bajo", "8-9" => "Indecisión", "10-12" => "Promedio Alto", "13-14" => "Alto", "15-18" => "Muy Alto"],
     "FINA" => ["0-2" => "Desinterés", "3-4" => "Bajo", "5-7" => "Promedio Bajo", "8-10" => "Indecisión", "11-13" => "Promedio Alto", "14-15" => "Alto", "16-20" => "Muy Alto"],
     "LING" => ["0-3" => "Desinterés", "4-5" => "Bajo", "6-7" => "Promedio Bajo", "8-9" => "Indecisión", "10-12" => "Promedio Alto", "13-14" => "Alto", "15-20" => "Muy Alto"],
-    "JURI" => ["0-2" => "Desinterés", "3-4" => "Bajo", "5-7" => "Promedio Bajo", "8-10" => "Indecisión", "11-13" => "Promedio Alto", "14-15" => "Alto", "16-20" => "Muy Alto"]
+    "JURI" => ["0-2" => "Desinterés", "3-4" => "Bajo", "5-7" => "Promedio Bajo", "8-10" => "Indecisión", "11-13" => "Promedio Alto", "14-15" => "Alto", "16-20" => "Muy Alto"],
+    "VERA" => ["0-2" => "Desinterés", "3-4" => "Bajo", "5-6" => "Promedio Bajo", "7-9" => "Indecisión", "10-12" => "Promedio Alto", "13-15" => "Alto", "16-22" => "Muy Alto"],
+    "CONS" => ["0-2" => "Desinterés", "3-4" => "Bajo", "5-6" => "Promedio Bajo", "7-9" => "Indecisión", "10-12" => "Promedio Alto", "13-15" => "Alto", "16-22" => "Muy Alto"]
 ] : [
     "CCFM" => ["0-2" => "Desinterés", "3-4" => "Bajo", "5-6" => "Promedio Bajo", "7-11" => "Indecisión", "12-14" => "Promedio Alto", "15-17" => "Alto", "18-22" => "Muy Alto"],
     "CCSS" => ["0-4" => "Desinterés", "5-7" => "Bajo", "8-9" => "Promedio Bajo", "10-14" => "Indecisión", "15-16" => "Promedio Alto", "17-19" => "Alto", "20-22" => "Muy Alto"],
@@ -50,37 +55,41 @@ $rangos = $sexo === "Masculino" ? [
     "HAA" => ["0-2" => "Desinterés", "3-4" => "Bajo", "5-6" => "Promedio Bajo", "7-9" => "Indecisión", "10-12" => "Promedio Alto", "13-15" => "Alto", "16-22" => "Muy Alto"],
     "FINA" => ["0-2" => "Desinterés", "3-5" => "Bajo", "6-7" => "Promedio Bajo", "8-12" => "Indecisión", "13-14" => "Promedio Alto", "15-17" => "Alto", "18-22" => "Muy Alto"],
     "LING" => ["0-2" => "Desinterés", "3-5" => "Bajo", "6-7" => "Promedio Bajo", "8-12" => "Indecisión", "13-14" => "Promedio Alto", "15-17" => "Alto", "18-22" => "Muy Alto"],
-    "JURI" => ["0-2" => "Desinterés", "3-4" => "Bajo", "5-6" => "Promedio Bajo", "7-11" => "Indecisión", "12-13" => "Promedio Alto", "14-16" => "Alto", "17-22" => "Muy Alto"]
+    "JURI" => ["0-2" => "Desinterés", "3-4" => "Bajo", "5-6" => "Promedio Bajo", "7-11" => "Indecisión", "12-13" => "Promedio Alto", "14-16" => "Alto", "17-22" => "Muy Alto"],
+    "VERA" => ["0-2" => "Desinterés", "3-4" => "Bajo", "5-6" => "Promedio Bajo", "7-9" => "Indecisión", "10-12" => "Promedio Alto", "13-15" => "Alto", "16-22" => "Muy Alto"],
+    "CONS" => ["0-2" => "Desinterés", "3-4" => "Bajo", "5-6" => "Promedio Bajo", "7-9" => "Indecisión", "10-12" => "Promedio Alto", "13-15" => "Alto", "16-22" => "Muy Alto"]
 ];
 
-// Crear tabla de datos para el prompt
+// Crear tabla de datos para el prompt y hash
 $datos_tabla = "Resultados del Test CASM-83:\n\nCategoría\tPuntaje\tA\tB\tNivel\tSexo\n";
 $hash_input = "";
-foreach ($resultados as $categoria => $datos) {
-    if (!isset($datos['total'], $datos['A'], $datos['B'])) {
-        logError("Formato de datos inválido: " . json_encode($resultados));
+foreach ($categorias as $categoria) {
+    if (!isset($resultados[$categoria]['total'], $resultados[$categoria]['A'], $resultados[$categoria]['B'])) {
+        logError("Formato de datos inválido para categoría $categoria: " . json_encode($resultados));
         echo json_encode(['exito' => false, 'mensaje' => 'Formato de datos inválido.']);
         exit;
     }
 
-    // Determinar el nivel según el puntaje y los rangos
-    $puntaje = $datos['total'];
+    $puntaje = $resultados[$categoria]['total'];
+    $count_a = $resultados[$categoria]['A'];
+    $count_b = $resultados[$categoria]['B'];
     $nivel = "Desconocido";
     if (isset($rangos[$categoria])) {
         foreach ($rangos[$categoria] as $rango => $etiqueta) {
             list($min, $max) = explode("-", $rango);
-            if ($puntaje >= $min && $puntaje <= $max) {
+            if ($puntaje >= (int)$min && $puntaje <= (int)$max) {
                 $nivel = $etiqueta;
                 break;
             }
         }
     }
 
-    $datos_tabla .= "$categoria\t$puntaje\t{$datos['A']}\t{$datos['B']}\t$nivel\t$sexo\n";
-    $hash_input .= "$categoria|{$datos['total']}|{$datos['A']}|{$datos['B']}|$nivel|$sexo|";
+    $datos_tabla .= "$categoria\t$puntaje\t$count_a\t$count_b\t$nivel\t$sexo\n";
+    $hash_input .= "$categoria|$puntaje|$count_a|$count_b|$nivel|$sexo|";
 }
 
 $grupo_hash = hash('sha256', $hash_input);
+error_log("Grupo_hash generado en análisis: $grupo_hash");
 
 // Verificar si el análisis ya existe en la base de datos
 $result = $conexion->query("SELECT analisis FROM analisis_casm83 WHERE grupo_hash = '$grupo_hash'");
@@ -97,7 +106,7 @@ if ($result->num_rows > 0) {
 }
 
 // Configurar solicitud a la API de Together
-$together_api_key = "d285b1cfe48c461f457e1a3d0241826e4f17d04bc98e5dead7d48c9107912a4e"; // Reemplaza con tu clave
+$together_api_key = "d285b1cfe48c461f457e1a3d0241826e4f17d04bc98e5dead7d48c9107912a4e";
 $together_api_url = "https://api.together.xyz/v1/chat/completions";
 
 $data = [

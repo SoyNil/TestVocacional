@@ -458,13 +458,26 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(`✅ Líneas dibujadas para grupo ${index + 1}.`);
     }
 
-    // Función para enviar solicitud de análisis con reintentos (modificada)
     async function enviarSolicitudConReintentos(resultadosCategorias, sexo, index, intentos = 3, esperaInicial = 1000) {
+        const categorias = ['CCFM', 'CCSS', 'CCNA', 'CCCO', 'ARTE', 'BURO', 'CCEP', 'HAA', 'FINA', 'LING', 'JURI', 'VERA', 'CONS'];
+        const resultadosOrdenados = {};
+        categorias.forEach(categoria => {
+            if (resultadosCategorias[categoria]) {
+                resultadosOrdenados[categoria] = {
+                    total: resultadosCategorias[categoria].total,
+                    A: resultadosCategorias[categoria].A,
+                    B: resultadosCategorias[categoria].B
+                };
+            } else {
+                console.error(`Categoría ${categoria} no encontrada en resultados`);
+            }
+        });
+
         try {
             const response = await fetch("../Controlador/analizarResultadosCASM83.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ resultados: resultadosCategorias, sexo: sexo })
+                body: JSON.stringify({ resultados: resultadosOrdenados, sexo: sexo })
             });
             const data = await response.json();
             const analisisSpan = document.getElementById(`analisis-${index}`);

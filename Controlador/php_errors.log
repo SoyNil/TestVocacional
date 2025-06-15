@@ -38,3 +38,148 @@
 )
 
 [14-Jun-2025 07:31:46 Europe/Berlin] Filas encontradas: 0, Nombre usuario: Juan_1, Correo: juan@gmail.com
+[15-Jun-2025 06:21:23 Europe/Berlin] Error al eliminar test CASM-85: Unknown column 'id_usuario' in 'where clause'
+[15-Jun-2025 06:21:23 Europe/Berlin] PHP Warning:  Undefined variable $stmtAnalisis in C:\xampp\htdocs\TestVocacional\Controlador\eliminarTestCASM85.php on line 101
+[15-Jun-2025 06:21:23 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function close() on null in C:\xampp\htdocs\TestVocacional\Controlador\eliminarTestCASM85.php:101
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\TestVocacional\Controlador\eliminarTestCASM85.php on line 101
+[15-Jun-2025 06:21:36 Europe/Berlin] Error al eliminar test CASM-85: Unknown column 'id_usuario' in 'where clause'
+[15-Jun-2025 06:21:36 Europe/Berlin] PHP Warning:  Undefined variable $stmtAnalisis in C:\xampp\htdocs\TestVocacional\Controlador\eliminarTestCASM85.php on line 101
+[15-Jun-2025 06:21:36 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function close() on null in C:\xampp\htdocs\TestVocacional\Controlador\eliminarTestCASM85.php:101
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\TestVocacional\Controlador\eliminarTestCASM85.php on line 101
+[15-Jun-2025 06:27:23 Europe/Berlin] Error al eliminar test CASM-85: No se eliminaron los 5 registros esperados del test.
+[15-Jun-2025 06:43:02 Europe/Berlin] Error al eliminar test CASM-85: No se encontraron los 5 registros esperados del test.
+[15-Jun-2025 06:43:02 Europe/Berlin] PHP Warning:  Undefined variable $stmtDeleteAnalisis in C:\xampp\htdocs\TestVocacional\Controlador\eliminarTestCASM85.php on line 107
+[15-Jun-2025 06:43:02 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function close() on null in C:\xampp\htdocs\TestVocacional\Controlador\eliminarTestCASM85.php:107
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\TestVocacional\Controlador\eliminarTestCASM85.php on line 107
+[15-Jun-2025 06:43:05 Europe/Berlin] Error al eliminar test CASM-85: No se encontraron los 5 registros esperados del test.
+[15-Jun-2025 06:43:05 Europe/Berlin] PHP Warning:  Undefined variable $stmtDeleteAnalisis in C:\xampp\htdocs\TestVocacional\Controlador\eliminarTestCASM85.php on line 107
+[15-Jun-2025 06:43:05 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function close() on null in C:\xampp\htdocs\TestVocacional\Controlador\eliminarTestCASM85.php:107
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\TestVocacional\Controlador\eliminarTestCASM85.php on line 107
+[15-Jun-2025 06:43:06 Europe/Berlin] Error al eliminar test CASM-85: No se encontraron los 5 registros esperados del test.
+[15-Jun-2025 06:43:06 Europe/Berlin] PHP Warning:  Undefined variable $stmtDeleteAnalisis in C:\xampp\htdocs\TestVocacional\Controlador\eliminarTestCASM85.php on line 107
+[15-Jun-2025 06:43:06 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function close() on null in C:\xampp\htdocs\TestVocacional\Controlador\eliminarTestCASM85.php:107
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\TestVocacional\Controlador\eliminarTestCASM85.php on line 107
+[15-Jun-2025 07:02:51 Europe/Berlin] Procesando eliminación de test CASM-83 con id_inicio: 40 para usuario: admin_jefe
+[15-Jun-2025 07:02:51 Europe/Berlin] Grupo_hash generado: f040054bc69eed95f2681929680d9d30f2d2821e7d7db53fbd586b73c6d02e83
+[15-Jun-2025 07:02:51 Europe/Berlin] Análisis encontrado para grupo_hash f040054bc69eed95f2681929680d9d30f2d2821e7d7db53fbd586b73c6d02e83: No
+[15-Jun-2025 07:02:51 Europe/Berlin] No se encontró análisis para eliminar con grupo_hash: f040054bc69eed95f2681929680d9d30f2d2821e7d7db53fbd586b73c6d02e83
+[15-Jun-2025 07:02:51 Europe/Berlin] Test CASM-83 y análisis eliminados correctamente para id_inicio: 40
+[15-Jun-2025 07:03:34 Europe/Berlin] Procesando eliminación de test CASM-83 con id_inicio: 1 para usuario: admin_jefe
+[15-Jun-2025 07:03:34 Europe/Berlin] Grupo_hash generado: fc8f6a5895d127599c6f7ce99bbcc5906026fbf22275a31462520c2830f2def7
+[15-Jun-2025 07:03:34 Europe/Berlin] Análisis encontrado para grupo_hash fc8f6a5895d127599c6f7ce99bbcc5906026fbf22275a31462520c2830f2def7: No
+[15-Jun-2025 07:03:34 Europe/Berlin] No se encontró análisis para eliminar con grupo_hash: fc8f6a5895d127599c6f7ce99bbcc5906026fbf22275a31462520c2830f2def7
+[15-Jun-2025 07:03:34 Europe/Berlin] Test CASM-83 y análisis eliminados correctamente para id_inicio: 1
+[15-Jun-2025 07:03:44 Europe/Berlin] ID de test inválido recibido: No proporcionado
+[15-Jun-2025 07:07:47 Europe/Berlin] Procesando eliminación de test CASM-83 con id_inicio: 27 para usuario: admin_jefe
+[15-Jun-2025 07:07:47 Europe/Berlin] Grupo_hash generado: 209a0f6b4bcaf09ee5e343fc2d4343a39d223e9810a09d5288068684ad560183
+[15-Jun-2025 07:07:47 Europe/Berlin] Análisis encontrado para grupo_hash 209a0f6b4bcaf09ee5e343fc2d4343a39d223e9810a09d5288068684ad560183: No
+[15-Jun-2025 07:07:47 Europe/Berlin] No se encontró análisis para eliminar con grupo_hash: 209a0f6b4bcaf09ee5e343fc2d4343a39d223e9810a09d5288068684ad560183
+[15-Jun-2025 07:07:47 Europe/Berlin] Test CASM-83 y análisis eliminados correctamente para id_inicio: 27
+[15-Jun-2025 07:07:48 Europe/Berlin] ID de test inválido recibido: No proporcionado
+----[15-Jun-2025 07:08:44 Europe/Berlin] Procesando eliminación de test CASM-83 con id_inicio: 14 para usuario: admin_jefe
+[15-Jun-2025 07:08:44 Europe/Berlin] Grupo_hash generado: 0735a5d0eb1237344a36f9ddd4dabb22017f77d4a9113f1202efd192721510de
+[15-Jun-2025 07:08:44 Europe/Berlin] Análisis encontrado para grupo_hash 0735a5d0eb1237344a36f9ddd4dabb22017f77d4a9113f1202efd192721510de: No
+[15-Jun-2025 07:08:44 Europe/Berlin] No se encontró análisis para eliminar con grupo_hash: 0735a5d0eb1237344a36f9ddd4dabb22017f77d4a9113f1202efd192721510de
+[15-Jun-2025 07:08:44 Europe/Berlin] Test CASM-83 y análisis eliminados correctamente para id_inicio: 14
+[15-Jun-2025 07:33:31 Europe/Berlin] Procesando eliminación de test CASM-83 con id_inicio: 92 para usuario: admin_jefe
+[15-Jun-2025 07:33:31 Europe/Berlin] Grupo_hash generado: 209a0f6b4bcaf09ee5e343fc2d4343a39d223e9810a09d5288068684ad560183
+[15-Jun-2025 07:33:31 Europe/Berlin] Análisis encontrado para grupo_hash 209a0f6b4bcaf09ee5e343fc2d4343a39d223e9810a09d5288068684ad560183: No
+[15-Jun-2025 07:33:31 Europe/Berlin] No se encontró análisis para eliminar con grupo_hash: 209a0f6b4bcaf09ee5e343fc2d4343a39d223e9810a09d5288068684ad560183
+[15-Jun-2025 07:33:31 Europe/Berlin] Test CASM-83 y análisis eliminados correctamente para id_inicio: 92
+-----
+[15-Jun-2025 07:47:57 Europe/Berlin] Procesando eliminación de test CASM-83 con id_inicio: 105 para usuario: admin_jefe
+[15-Jun-2025 07:47:57 Europe/Berlin] Hash input para CCFM: CCFM|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:47:57 Europe/Berlin] Hash input para CCSS: CCSS|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:47:57 Europe/Berlin] Hash input para CCNA: CCNA|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:47:57 Europe/Berlin] Hash input para CCCO: CCCO|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:47:57 Europe/Berlin] Hash input para ARTE: ARTE|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:47:57 Europe/Berlin] Hash input para BURO: BURO|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:47:57 Europe/Berlin] Hash input para CCEP: CCEP|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:47:57 Europe/Berlin] Hash input para HAA: HAA|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:47:57 Europe/Berlin] Hash input para FINA: FINA|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:47:57 Europe/Berlin] Hash input para LING: LING|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:47:57 Europe/Berlin] Hash input para JURI: JURI|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:47:57 Europe/Berlin] Hash input para VERA: VERA|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:47:57 Europe/Berlin] Hash input para CONS: CONS|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:47:57 Europe/Berlin] Grupo_hash generado: 209a0f6b4bcaf09ee5e343fc2d4343a39d223e9810a09d5288068684ad560183
+[15-Jun-2025 07:47:57 Europe/Berlin] Análisis encontrado para grupo_hash 209a0f6b4bcaf09ee5e343fc2d4343a39d223e9810a09d5288068684ad560183: Sí
+[15-Jun-2025 07:47:57 Europe/Berlin] Análisis eliminado para grupo_hash: 209a0f6b4bcaf09ee5e343fc2d4343a39d223e9810a09d5288068684ad560183
+[15-Jun-2025 07:47:57 Europe/Berlin] Test CASM-83 y análisis eliminados correctamente para id_inicio: 105
+[15-Jun-2025 07:49:45 Europe/Berlin] Procesando eliminación de test CASM-83 con id_inicio: 118 para usuario: admin_jefe
+[15-Jun-2025 07:49:45 Europe/Berlin] Hash input para CCFM: CCFM|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:49:45 Europe/Berlin] Hash input para CCSS: CCSS|1|0|1|Desinterés|Masculino|
+[15-Jun-2025 07:49:45 Europe/Berlin] Hash input para CCNA: CCNA|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:49:45 Europe/Berlin] Hash input para CCCO: CCCO|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:49:45 Europe/Berlin] Hash input para ARTE: ARTE|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:49:45 Europe/Berlin] Hash input para BURO: BURO|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:49:45 Europe/Berlin] Hash input para CCEP: CCEP|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:49:45 Europe/Berlin] Hash input para HAA: HAA|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:49:45 Europe/Berlin] Hash input para FINA: FINA|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:49:45 Europe/Berlin] Hash input para LING: LING|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:49:45 Europe/Berlin] Hash input para JURI: JURI|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:49:45 Europe/Berlin] Hash input para VERA: VERA|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:49:45 Europe/Berlin] Hash input para CONS: CONS|0|0|0|Desinterés|Masculino|
+[15-Jun-2025 07:49:45 Europe/Berlin] Grupo_hash generado: 78f45d425878b8492032f527932c6d81c8626953bee51414b3d328275f6b5d63
+[15-Jun-2025 07:49:45 Europe/Berlin] Análisis encontrado para grupo_hash 78f45d425878b8492032f527932c6d81c8626953bee51414b3d328275f6b5d63: Sí
+[15-Jun-2025 07:49:45 Europe/Berlin] Análisis eliminado para grupo_hash: 78f45d425878b8492032f527932c6d81c8626953bee51414b3d328275f6b5d63
+[15-Jun-2025 07:49:45 Europe/Berlin] Test CASM-83 y análisis eliminados correctamente para id_inicio: 118
+[15-Jun-2025 08:14:42 Europe/Berlin] Procesando eliminación de usuario con id_usuario: 5 para admin: admin_jefe
+[15-Jun-2025 08:14:42 Europe/Berlin] No se encontraron análisis CASM-83 para usuario 5
+[15-Jun-2025 08:14:42 Europe/Berlin] Eliminados 0 tests CASM-83 para usuario 5
+[15-Jun-2025 08:14:42 Europe/Berlin] Eliminados 3 análisis CASM-85 para usuario 5
+[15-Jun-2025 08:14:42 Europe/Berlin] Eliminados 5 tests CASM-85 para usuario 5
+[15-Jun-2025 08:14:42 Europe/Berlin] Error al eliminar usuario 5: Cannot delete or update a parent row: a foreign key constraint fails (`test_vocacional`.`codigos_invitacion`, CONSTRAINT `codigos_invitacion_ibfk_2` FOREIGN KEY (`id_usuario_usado`) REFERENCES `usuario` (`id`))
+[15-Jun-2025 08:16:51 Europe/Berlin] Procesando eliminación de usuario con id_usuario: 6 para admin: admin_jefe
+[15-Jun-2025 08:16:51 Europe/Berlin] Eliminados 1 análisis CASM-83 para usuario 6
+[15-Jun-2025 08:16:51 Europe/Berlin] Eliminados 13 tests CASM-83 para usuario 6
+[15-Jun-2025 08:16:51 Europe/Berlin] Eliminados 4 análisis CASM-85 para usuario 6
+[15-Jun-2025 08:16:51 Europe/Berlin] Eliminados 5 tests CASM-85 para usuario 6
+[15-Jun-2025 08:16:51 Europe/Berlin] Error al eliminar usuario 6: No se encontró el usuario o no es de tipo 'Invitación'.
+[15-Jun-2025 08:17:56 Europe/Berlin] Procesando eliminación de usuario con id_usuario: 6 para admin: admin_jefe
+[15-Jun-2025 08:17:56 Europe/Berlin] Eliminados 1 análisis CASM-83 para usuario 6
+[15-Jun-2025 08:17:56 Europe/Berlin] Eliminados 13 tests CASM-83 para usuario 6
+[15-Jun-2025 08:17:56 Europe/Berlin] Eliminados 4 análisis CASM-85 para usuario 6
+[15-Jun-2025 08:17:56 Europe/Berlin] Eliminados 5 tests CASM-85 para usuario 6
+[15-Jun-2025 08:17:56 Europe/Berlin] Usuario 6 eliminado correctamente
+[15-Jun-2025 08:21:28 Europe/Berlin] Procesando eliminación de usuario con id_usuario: 4 para admin: admin_jefe
+[15-Jun-2025 08:21:28 Europe/Berlin] No se encontraron análisis CASM-83 para usuario 4
+[15-Jun-2025 08:21:28 Europe/Berlin] Eliminados 0 tests CASM-83 para usuario 4
+[15-Jun-2025 08:21:28 Europe/Berlin] No se encontraron análisis CASM-85 para usuario 4
+[15-Jun-2025 08:21:28 Europe/Berlin] Eliminados 0 tests CASM-85 para usuario 4
+[15-Jun-2025 08:21:28 Europe/Berlin] Error al eliminar usuario 4: No se encontró el usuario o no es de tipo 'Invitación'.
+[15-Jun-2025 08:21:33 Europe/Berlin] Procesando eliminación de usuario con id_usuario: 5 para admin: admin_jefe
+[15-Jun-2025 08:21:33 Europe/Berlin] No se encontraron análisis CASM-83 para usuario 5
+[15-Jun-2025 08:21:33 Europe/Berlin] Eliminados 0 tests CASM-83 para usuario 5
+[15-Jun-2025 08:21:33 Europe/Berlin] Eliminados 2 análisis CASM-85 para usuario 5
+[15-Jun-2025 08:21:33 Europe/Berlin] Eliminados 5 tests CASM-85 para usuario 5
+[15-Jun-2025 08:21:33 Europe/Berlin] Error al eliminar usuario 5: No se encontró el usuario o no es de tipo 'Invitación'.
+[15-Jun-2025 08:21:50 Europe/Berlin] Procesando eliminación de usuario con id_usuario: 4 para admin: admin_jefe
+[15-Jun-2025 08:21:50 Europe/Berlin] No se encontraron análisis CASM-83 para usuario 4
+[15-Jun-2025 08:21:50 Europe/Berlin] Eliminados 0 tests CASM-83 para usuario 4
+[15-Jun-2025 08:21:50 Europe/Berlin] No se encontraron análisis CASM-85 para usuario 4
+[15-Jun-2025 08:21:50 Europe/Berlin] Eliminados 0 tests CASM-85 para usuario 4
+[15-Jun-2025 08:21:50 Europe/Berlin] Error al eliminar usuario 4: Cannot delete or update a parent row: a foreign key constraint fails (`test_vocacional`.`codigos_invitacion`, CONSTRAINT `codigos_invitacion_ibfk_2` FOREIGN KEY (`id_usuario_usado`) REFERENCES `usuario` (`id`))
+[15-Jun-2025 08:25:54 Europe/Berlin] Filas encontradas: 0, Nombre usuario: Juan_1, Correo: juan@gmail.com
+[15-Jun-2025 08:26:14 Europe/Berlin] Procesando eliminación de usuario con id_usuario: 7 para admin: admin_jefe
+[15-Jun-2025 08:26:14 Europe/Berlin] No se encontraron análisis CASM-83 para usuario 7
+[15-Jun-2025 08:26:14 Europe/Berlin] Eliminados 0 tests CASM-83 para usuario 7
+[15-Jun-2025 08:26:14 Europe/Berlin] No se encontraron análisis CASM-85 para usuario 7
+[15-Jun-2025 08:26:14 Europe/Berlin] Eliminados 0 tests CASM-85 para usuario 7
+[15-Jun-2025 08:26:14 Europe/Berlin] Usuario 7 eliminado correctamente
+[15-Jun-2025 08:26:17 Europe/Berlin] Procesando eliminación de usuario con id_usuario: 5 para admin: admin_jefe
+[15-Jun-2025 08:26:17 Europe/Berlin] Eliminados 1 códigos de invitación para usuario 5
+[15-Jun-2025 08:26:17 Europe/Berlin] No se encontraron análisis CASM-83 para usuario 5
+[15-Jun-2025 08:26:17 Europe/Berlin] Eliminados 0 tests CASM-83 para usuario 5
+[15-Jun-2025 08:26:17 Europe/Berlin] Eliminados 2 análisis CASM-85 para usuario 5
+[15-Jun-2025 08:26:17 Europe/Berlin] Eliminados 5 tests CASM-85 para usuario 5
+[15-Jun-2025 08:26:17 Europe/Berlin] Usuario 5 eliminado correctamente
