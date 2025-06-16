@@ -186,33 +186,33 @@ document.addEventListener("DOMContentLoaded", () => {
             body: JSON.stringify(datosActualizados)
         })
         .then(res => res.json())
-        .then(data => {
-            if (data.exito) {
-                mostrarMensaje("¡Perfil guardado con éxito!", true);
-                // Recargar los datos de la sesión para reflejar los cambios
-                fetch("../Controlador/verificarSesionJSON.php")
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.logueado) {
-                            // Actualizar los campos del formulario con los nuevos datos
-                            document.getElementById("nombre_usuario").value = data.nombre_usuario || '';
-                            document.getElementById("nombre").value = data.nombre || '';
-                            document.getElementById("apellido").value = data.apellido || '';
-                            document.getElementById("correo").value = data.correo || '';
-                            document.getElementById("sexo").value = data.sexo || '';
-                            document.getElementById("fecha_nacimiento").value = data.fecha_nacimiento || '';
-                        }
-                    });
-            } else {
-                mostrarMensaje("Hubo un error al guardar el perfil. Inténtalo de nuevo.", false);
-            }
-        })
-        .catch(error => {
-            console.error("Error al guardar el perfil:", error);
-            mostrarMensaje("Hubo un problema al guardar el perfil.", false);
+            .then(data => {
+                if (data.exito) {
+                    mostrarMensaje("¡Perfil guardado con éxito!", true);
+                    // Recargar los datos de la sesión para reflejar los cambios
+                    fetch("../Controlador/verificarSesionJSON.php")
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.logueado) {
+                                // Actualizar los campos del formulario con los nuevos datos
+                                document.getElementById("nombre_usuario").value = data.nombre_usuario || '';
+                                document.getElementById("nombre").value = data.nombre || '';
+                                document.getElementById("apellido").value = data.apellido || '';
+                                document.getElementById("correo").value = data.correo || '';
+                                document.getElementById("sexo").value = data.sexo || '';
+                                document.getElementById("fecha_nacimiento").value = data.fecha_nacimiento || '';
+                            }
+                        });
+                } else {
+                    mostrarMensaje("Hubo un error al guardar el perfil. Inténtalo de nuevo.", false);
+                }
+            })
+            .catch(error => {
+                console.error("Error al guardar el perfil:", error);
+                mostrarMensaje("Hubo un problema al guardar el perfil.", false);
+            });
         });
-    });
-}
+    }
 
     // Función para mostrar mensajes
     function mostrarMensaje(mensaje, exito) {

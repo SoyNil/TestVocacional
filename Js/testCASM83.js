@@ -29,12 +29,16 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // Verificar sesión y tipo de usuario
     fetch("../Controlador/verificarSesionJSON.php")
         .then(response => response.json())
         .then(data => {
             if (!data.logueado) {
                 window.location.href = "../Vista/principal.html";
+            } else if (data.tipo_usuario !== 'usuario') {
+                window.location.href = "../Vista/principalpsicologo.html";
             } else {
+                // Cargar datos del usuario
                 document.getElementById("nombre").value = data.nombre || '';
                 document.getElementById("sexo").value = data.sexo || '';
 

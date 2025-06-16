@@ -1,21 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
     let intervaloReloj = null;
     let mostrandoCodigos = false;
+    let datosOriginales = {};
 
+    // Selección de elementos
     const contenido = document.getElementById("contenido");
     const btnInicio = document.getElementById("btn-inicio");
     const btnPacientes = document.getElementById("btn-pacientes");
     const btnCrearPsicologos = document.getElementById("btn-crear-psicologos");
     const cerrarSesionBtn = document.getElementById("cerrarSesionBtn");
-    const eliminarCuentaBtn = document.getElementById("eliminarCuentaBtn");
     const imgElement = document.getElementById("foto-perfil");
     const nombreElement = document.getElementById("profile-name");
     const inputFoto = document.getElementById("input-foto");
-    const modalCrearPsicologo = document.getElementById("modal-crear-psicologo");
-    const closeModal = modalCrearPsicologo ? modalCrearPsicologo.querySelector(".close-modal") : null;
-    const formCrearPsicologo = document.getElementById("form-crear-psicologo");
+    const btnEliminarCuenta = document.getElementById("btn-eliminar-cuenta");
+    const btnPerfil = document.querySelector(".icon-buttons button[title='Perfil']");
 
-    
     // Verificar sesión y cargar datos del psicólogo
     fetch("../Controlador/verificarSesionJSON.php", {
         credentials: "include"
@@ -57,6 +56,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data.jerarquia === 'admin' && btnCrearPsicologos) {
                     btnCrearPsicologos.style.display = "block";
                 }
+
+                // Inicializar la página
+                mostrarContenidoInicio();
             } catch (e) {
                 console.error("Error al parsear JSON:", e, "Respuesta:", text);
                 window.location.href = "../Vista/login.html";
@@ -67,16 +69,49 @@ document.addEventListener("DOMContentLoaded", function () {
             window.location.href = "../Vista/login.html";
         });
 
+    // Botón Cerrar Sesión
     if (cerrarSesionBtn) {
         cerrarSesionBtn.addEventListener("click", () => {
             window.location.href = "../Controlador/logout.php";
         });
     }
 
-// Eliminar cuenta
-    if (eliminarCuentaBtn) {
-        eliminarCuentaBtn.addEventListener("click", () => {
-            if (confirm("¿Estás seguro de eliminar tu cuenta? Esta acción eliminará tu cuenta de psicólogo de forma permanente.")) {
+    // Botón Inicio
+    if (btnInicio) {
+        btnInicio.addEventListener("click", () => {
+            mostrandoCodigos = false;
+            mostrarContenidoInicio();
+        });
+    }
+
+    // Botón Pacientes
+    if (btnPacientes) {
+        btnPacientes.addEventListener("click", () => {
+            mostrandoCodigos = false;
+            mostrarPacientes();
+        });
+    }
+
+    // Botón Perfil
+    if (btnPerfil) {
+        btnPerfil.addEventListener("click", () => {
+            mostrandoCodigos = false;
+            mostrarPerfilPsicologo();
+        });
+    }
+
+    // Botón Crear Psicólogos
+    if (btnCrearPsicologos) {
+        btnCrearPsicologos.addEventListener("click", () => {
+            mostrandoCodigos = false;
+            mostrarCrearPsicologo();
+        });
+    }
+
+    // Botón Eliminar Cuenta
+    if (btnEliminarCuenta) {
+        btnEliminarCuenta.addEventListener("click", () => {
+            if (confirm("¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.")) {
                 fetch("../Controlador/verificarSesionJSON.php", { credentials: "include" })
                     .then(res => {
                         if (!res.ok) throw new Error("Error en la respuesta del servidor: " + res.status);
@@ -110,6 +145,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // Subir foto de perfil
     if (inputFoto) {
         inputFoto.addEventListener("change", async function () {
             const file = inputFoto.files[0];
@@ -149,69 +185,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Botón Inicio
-    if (btnInicio) {
-        btnInicio.addEventListener("click", () => {
-            mostrandoCodigos = false;
-            mostrarContenidoInicio();
-        });
-    }
-
-    // Botón Pacientes
-    if (btnPacientes) {
-        btnPacientes.addEventListener("click", () => {
-            mostrandoCodigos = false;
-            mostrarPacientes();
-        });
-    }
-
-    // Botón Crear Psicólogos
-    if (btnCrearPsicologos) {
-        btnCrearPsicologos.addEventListener("click", () => {
-            if (modalCrearPsicologo) {
-                modalCrearPsicologo.style.display = "block";
-            }
-        });
-    }
-
-    // Cerrar modal
-    if (closeModal) {
-        closeModal.addEventListener("click", () => {
-            modalCrearPsicologo.style.display = "none";
-            if (formCrearPsicologo) formCrearPsicologo.reset();
-        });
-    }
-
-    // Enviar formulario de crear psicólogo
-    if (formCrearPsicologo) {
-        formCrearPsicologo.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const formData = new FormData(formCrearPsicologo);
-            fetch("../Controlador/crearPsicologo.php", {
-                method: "POST",
-                body: formData,
-                credentials: "include"
-            })
-                .then(res => {
-                    if (!res.ok) throw new Error("Error en la respuesta del servidor: " + res.status);
-                    return res.json();
-                })
-                .then(data => {
-                    if (data.exito) {
-                        alert("Psicólogo creado correctamente.");
-                        modalCrearPsicologo.style.display = "none";
-                        formCrearPsicologo.reset();
-                    } else {
-                        alert(`Error: ${data.mensaje}`);
-                    }
-                })
-                .catch(err => {
-                    console.error("Error al crear psicólogo:", err);
-                    alert("Error al crear psicólogo: " + err.message);
-                });
-        });
-    }
-
     // Manejador de eventos para botones de códigos
     document.addEventListener("click", (e) => {
         if (e.target.id === "btn-generar-codigos") {
@@ -235,23 +208,228 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Manejador alternativo para nav-btn
-    document.querySelectorAll(".nav-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-            const texto = btn.textContent.trim();
-            if (texto === "Inicio") {
-                mostrandoCodigos = false;
-                mostrarContenidoInicio();
-            } else if (texto === "Pacientes") {
-                mostrandoCodigos = false;
-                mostrarPacientes();
-            } else if (texto === "Crear Psicólogos") {
-                if (modalCrearPsicologo) {
-                    modalCrearPsicologo.style.display = "block";
+    // Función para mostrar el formulario de perfil del psicólogo
+    function mostrarPerfilPsicologo() {
+        contenido.innerHTML = `
+            <div class="card">
+                <h2>Editar Perfil</h2>
+                <form id="form-editar-perfil-psicologo">
+                    <label for="nombre_usuario">Nombre de usuario:</label>
+                    <input type="text" id="nombre_usuario" name="nombre_usuario" required />
+
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required />
+
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" id="apellido" name="apellido" required />
+
+                    <label for="correo">Correo:</label>
+                    <input type="email" id="correo" name="correo" required />
+
+                    <label for="contrasena">Contraseña:</label>
+                    <input type="password" id="contrasena" name="contrasena" placeholder="Dejar en blanco para no cambiar" />
+
+                    <label for="jerarquia">Jerarquía:</label>
+                    <input type="text" id="jerarquia" name="jerarquia" readonly />
+
+                    <label for="sexo">Sexo:</label>
+                    <select id="sexo" name="sexo">
+                        <option value="">Seleccione</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+
+                    <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+                    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" />
+
+                    <button type="submit">Guardar Cambios</button>
+                </form>
+                <div id="mensaje-perfil" style="display: none; margin-top: 1rem;"></div>
+            </div>
+        `;
+
+        // Cargar datos del perfil
+        fetch("../Controlador/verificarSesionJSON.php", {
+            credentials: "include"
+        })
+            .then(response => {
+                if (!response.ok) throw new Error("Error en la respuesta del servidor: " + response.status);
+                return response.json();
+            })
+            .then(data => {
+                if (data.logueado) {
+                    datosOriginales = data;
+
+                    document.getElementById("nombre_usuario").value = data.nombre_usuario || '';
+                    document.getElementById("nombre").value = data.nombre || '';
+                    document.getElementById("apellido").value = data.apellido || '';
+                    document.getElementById("correo").value = data.correo || '';
+                    document.getElementById("jerarquia").value = data.jerarquia || '';
+                    document.getElementById("sexo").value = data.sexo || '';
+                    document.getElementById("fecha_nacimiento").value = data.fecha_nacimiento || '';
+                } else {
+                    window.location.href = "../Vista/login.html";
                 }
+            })
+            .catch(error => {
+                console.error("Error al verificar la sesión:", error);
+                window.location.href = "../Vista/login.html";
+            });
+
+        // Guardar cambios
+        const formEditarPerfil = document.getElementById("form-editar-perfil-psicologo");
+        formEditarPerfil.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const contrasena = document.getElementById("contrasena").value.trim();
+            if (contrasena && contrasena.length < 8) {
+                mostrarMensaje("La contraseña debe tener al menos 8 caracteres.", false);
+                return;
             }
+
+            const campos = ["nombre_usuario", "nombre", "apellido", "correo", "contrasena", "sexo", "fecha_nacimiento"];
+            const datosActualizados = {};
+
+            campos.forEach(campo => {
+                const valorActual = document.getElementById(campo).value.trim();
+                const valorOriginal = datosOriginales[campo] ? datosOriginales[campo].trim() : "";
+
+                if (valorActual && valorActual !== valorOriginal) {
+                    datosActualizados[campo] = valorActual;
+                }
+            });
+
+            if (Object.keys(datosActualizados).length === 0) {
+                mostrarMensaje("No se realizaron cambios.", false);
+                return;
+            }
+
+            fetch('../Controlador/guardarPerfil.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(datosActualizados),
+                credentials: "include"
+            })
+                .then(res => {
+                    if (!res.ok) throw new Error("Error en la respuesta del servidor: " + res.status);
+                    return res.json();
+                })
+                .then(data => {
+                    if (data.exito) {
+                        mostrarMensaje("¡Perfil guardado con éxito!", true);
+                        // Recargar datos de la sesión
+                        fetch("../Controlador/verificarSesionJSON.php", {
+                            credentials: "include"
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.logueado) {
+                                    datosOriginales = data;
+                                    document.getElementById("nombre_usuario").value = data.nombre_usuario || '';
+                                    document.getElementById("nombre").value = data.nombre || '';
+                                    document.getElementById("apellido").value = data.apellido || '';
+                                    document.getElementById("correo").value = data.correo || '';
+                                    document.getElementById("jerarquia").value = data.jerarquia || '';
+                                    document.getElementById("sexo").value = data.sexo || '';
+                                    document.getElementById("fecha_nacimiento").value = data.fecha_nacimiento || '';
+                                    nombreElement.textContent = `${data.nombre} ${data.apellido}`;
+                                }
+                            });
+                    } else {
+                        mostrarMensaje(`Error: ${data.mensaje}`, false);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error al guardar el perfil:", error);
+                    mostrarMensaje("Hubo un problema al guardar el perfil.", false);
+                });
         });
-    });
+
+        // Función para mostrar mensajes
+        function mostrarMensaje(mensaje, exito) {
+            const mensajeDiv = document.getElementById("mensaje-perfil");
+            mensajeDiv.textContent = mensaje;
+            mensajeDiv.style.display = "block";
+            mensajeDiv.style.color = exito ? "#4caf50" : "#ff4d4d";
+            setTimeout(() => {
+                mensajeDiv.style.display = "none";
+            }, 3000);
+        }
+    }
+
+    // Función para mostrar el formulario de crear psicólogo
+    function mostrarCrearPsicologo() {
+        contenido.innerHTML = `
+            <div class="card">
+                <h2>Crear Nuevo Psicólogo</h2>
+                <form id="form-crear-psicologo">
+                    <label for="nombre_usuario">Nombre de usuario:</label>
+                    <input type="text" id="nombre_usuario" name="nombre_usuario" required />
+
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required />
+
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" id="apellido" name="apellido" required />
+
+                    <label for="correo">Correo:</label>
+                    <input type="email" id="correo" name="correo" required />
+
+                    <label for="contrasena">Contraseña:</label>
+                    <input type="password" id="contrasena" name="contrasena" required />
+
+                    <label for="jerarquia">Jerarquía:</label>
+                    <select id="jerarquia" name="jerarquia" required>
+                        <option value="psicologo">Psicólogo</option>
+                        <option value="admin">Admin</option>
+                    </select>
+
+                    <label for="sexo">Sexo:</label>
+                    <select id="sexo" name="sexo">
+                        <option value="">Seleccione</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+
+                    <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+                    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" />
+
+                    <button type="submit">Crear Psicólogo</button>
+                </form>
+            </div>
+        `;
+
+        const formCrearPsicologo = document.getElementById("form-crear-psicologo");
+        formCrearPsicologo.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const formData = new FormData(formCrearPsicologo);
+            fetch("../Controlador/crearPsicologo.php", {
+                method: "POST",
+                body: formData,
+                credentials: "include"
+            })
+                .then(res => {
+                    if (!res.ok) throw new Error("Error en la respuesta del servidor: " + res.status);
+                    return res.json();
+                })
+                .then(data => {
+                    if (data.exito) {
+                        alert("Psicólogo creado correctamente.");
+                        formCrearPsicologo.reset();
+                    } else {
+                        alert(`Error: ${data.mensaje}`);
+                    }
+                })
+                .catch(err => {
+                    console.error("Error al crear psicólogo:", err);
+                    alert("Error al crear psicólogo: " + err.message);
+                });
+        });
+    }
 
     function mostrarContenidoInicio() {
         contenido.innerHTML = `
@@ -321,7 +499,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function dibujarPuntos(resultadosCategorias, index, contenedorTabla) {
-        const tablaActual = contenedorTabla.querySelector('.card');
+        const tablaActual = contenedorTabla.querySelector('.card-table');
         if (!tablaActual) {
             console.error(`No se encontró la tabla (.card) para el grupo ${index + 1}`);
             return;
@@ -871,9 +1049,9 @@ document.addEventListener("DOMContentLoaded", function () {
         ];
 
         return `
-            <div class="card" style="margin: 0; padding: 0; border: none;">
+            <div class="card-table" style="margin: 0; padding: 0; border: none;">
                 <div class="card-body" style="padding: 0;">
-                    <h3 class="card-title" style="margin: 10px 0;">📈 Resultados del test N° ${index} (${sexo})</h3>
+                    <h3 class="card-title" style="margin: 10px 0;">📈 Resultados del test (${sexo})</h3>
                     <div class="contenedor-tabla" style="position: relative; overflow-x: auto; margin: 0; padding: 0;">
                         <svg id="svg-lineas-${index}" style="position: absolute; top: 0; left: 0; pointer-events: none; z-index: 10;"></svg>
                         <table border="1" cellspacing="0" cellpadding="5" style="border-collapse: collapse; text-align: center; width: 100%; margin: 0;">
@@ -922,7 +1100,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
 
                     let tabla = `
-                        <div class="card" style="margin: 0; padding: 0; border: none;">
+                        <div class="card-table" style="margin: 0; padding: 0; border: none;">
                             <div class="card-body" style="padding: 0;">
                                 <h3>📈 Resultados del test</h3>
                                 <table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse; width: 100%;">
@@ -1213,7 +1391,4 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("Ocurrió un error inesperado.");
         });
     }
-
-    // Inicializar la página
-    mostrarContenidoInicio();
 });

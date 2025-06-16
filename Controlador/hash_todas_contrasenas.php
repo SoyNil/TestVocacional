@@ -1,7 +1,7 @@
 <?php
 require 'conexion.php'; // Debe devolver $conexion (MySQLi)
 
-$tabla = 'psicologos'; // Cambia a 'usuario' si quieres
+$tabla = 'usuario'; // Cambia a 'usuario' si quieres
 
 $query = "SELECT id, nombre_usuario, contraseña FROM $tabla";
 $resultado = $conexion->query($query);

@@ -103,7 +103,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const btnApoyoVocacional = document.getElementById("btnApoyoVocacional");
     const modal = document.getElementById("contenidoAjax");
     const tabButtons = document.querySelectorAll(".tab-button");
-    const contenidoTab = document.getElementById("contenidoTab");
 
     btnApoyoVocacional.addEventListener("click", function (e) {
         e.preventDefault();
@@ -159,18 +158,109 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(data => {
                 if (!data.logueado) {
                     mostrarMensaje("Debes iniciar sesión para acceder a este test.", false);
-                } else if (data.tipo_usuario !== 'usuario') {
-                    mostrarMensaje("Solo los usuarios pueden acceder a los tests.", false);
-                    // Opcional: Redirigir a principalpsicologo.html si es psicólogo
-                    window.location.href = "../Vista/principalpsicologo.html";
-                } else {
-                    window.location.href = urlTest;
+                    return;
                 }
+                if (data.tipo_usuario !== 'usuario') {
+                    mostrarMensaje("Solo los usuarios pueden acceder a los tests.", false);
+                    window.location.href = "../Vista/principalpsicologo.html";
+                    return;
+                }
+
+                // Determinar el endpoint según el test
+                let endpoint = "";
+                let categoriasPorTest = 1;
+                if (urlTest.includes("testCASM83.html")) {
+                    endpoint = "../Controlador/obtenerResultadosCASM83.php";
+                    categoriasPorTest = 13; // 13 categorías por test CASM-83
+                } else if (urlTest.includes("testCASM85.html")) {
+                    endpoint = "../Controlador/obtenerResultadosCASM85.php";
+                    categoriasPorTest = 5; // 5 áreas por test CASM-85
+                }
+
+                // Si no es un test restringido, redirigir directamente
+                if (!endpoint) {
+                    window.location.href = urlTest;
+                    return;
+                }
+
+                // Verificar número de intentos
+                fetch(endpoint)
+                    .then(res => res.json())
+                    .then(dataTest => {
+                        if (!dataTest.exito) {
+                            console.error("Error al obtener resultados:", dataTest.mensaje);
+                            mostrarMensaje("Error al verificar intentos.", false);
+                            return;
+                        }
+
+                        const numTests = Math.floor(dataTest.resultados.length / categoriasPorTest);
+                        if (numTests >= 4) {
+                            mostrarModalLimite();
+                        } else {
+                            window.location.href = urlTest;
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error al consultar resultados:", error);
+                        mostrarMensaje("Hubo un problema al verificar los intentos.", false);
+                    });
             })
             .catch(error => {
                 console.error("Error al verificar la sesión:", error);
                 mostrarMensaje("Hubo un problema al verificar la sesión.", false);
             });
+    }
+
+    function mostrarModalLimite() {
+        // Crear modal si no existe
+        let modal = document.getElementById("modal-limit-exceeded");
+        if (!modal) {
+            const modalHTML = `
+                <div id="modal-limit-exceeded" class="modal-adv">
+                    <div class="modal-content-adv">
+                        <span id="modal-close" class="modal-close">×</span>
+                        <h3>Límite de Intentos Alcanzado</h3>
+                        <p>Has excedido el número de intentos para hacer la prueba. Si quieres más, contáctate con nosotros.</p>
+                        <button id="modal-ok" class="modal-button">Aceptar</button>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML("beforeend", modalHTML);
+            modal = document.getElementById("modal-limit-exceeded");
+
+            // Configurar eventos
+            const closeBtn = document.getElementById("modal-close");
+            const okBtn = document.getElementById("modal-ok");
+
+            closeBtn.onclick = () => {
+                modal.classList.remove("show");
+                setTimeout(() => {
+                    modal.style.display = "none";
+                }, 300);
+            };
+
+            okBtn.onclick = () => {
+                modal.classList.remove("show");
+                setTimeout(() => {
+                    modal.style.display = "none";
+                }, 300);
+            };
+
+            window.onclick = (event) => {
+                if (event.target === modal) {
+                    modal.classList.remove("show");
+                    setTimeout(() => {
+                        modal.style.display = "none";
+                    }, 300);
+                }
+            };
+        }
+
+        // Mostrar modal
+        modal.style.display = "block";
+        setTimeout(() => {
+            modal.classList.add("show");
+        }, 10);
     }
 
     function mostrarMensaje(mensaje, exito = true) {

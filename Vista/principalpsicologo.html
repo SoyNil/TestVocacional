@@ -31,7 +31,6 @@
                     <button title="Perfil"><i class="fas fa-user"></i></button>
                     <button title="Mensajería"><i class="fas fa-envelope"></i></button>
                     <button title="Cerrar sesión" id="cerrarSesionBtn"><i class="fas fa-sign-out-alt"></i></button>
-                    <button title="Eliminar cuenta" id="eliminarCuentaBtn"><i class="fas fa-trash-alt"></i></button>
                 </div>
             </div>
 
@@ -39,55 +38,13 @@
                 <button class="nav-btn" id="btn-inicio">Inicio</button>
                 <button class="nav-btn" id="btn-pacientes">Pacientes</button>
                 <button class="nav-btn" id="btn-crear-psicologos" style="display: none;">Crear Psicólogos</button>
+                <button class="nav-btn" id="btn-eliminar-cuenta">Eliminar Cuenta</button>
             </nav>
         </aside>
 
         <section class="content" id="contenido">
             <!-- Aquí se mostrará el contenido de cada opción -->
         </section>
-    </div>
-
-    <!-- Modal para crear psicólogos -->
-    <div id="modal-crear-psicologo" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Crear Nuevo Psicólogo</h2>
-            <form id="form-crear-psicologo">
-                <label for="nombre_usuario">Nombre de usuario:</label>
-                <input type="text" id="nombre_usuario" name="nombre_usuario" required />
-
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required />
-
-                <label for="apellido">Apellido:</label>
-                <input type="text" id="apellido" name="apellido" required />
-
-                <label for="correo">Correo:</label>
-                <input type="email" id="correo" name="correo" required />
-
-                <label for="contrasena">Contraseña:</label>
-                <input type="password" id="contrasena" name="contrasena" required />
-
-                <label for="jerarquia">Jerarquía:</label>
-                <select id="jerarquia" name="jerarquia" required>
-                    <option value="psicologo">Psicólogo</option>
-                    <option value="admin">Admin</option>
-                </select>
-
-                <label for="sexo">Sexo:</label>
-                <select id="sexo" name="sexo">
-                    <option value="">Seleccione</option>
-                    <option value="Masculino">Masculino</option>
-                    <option value="Femenino">Femenino</option>
-                    <option value="Otro">Otro</option>
-                </select>
-
-                <label for="fecha_nacimiento">Fecha de nacimiento:</label>
-                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" />
-
-                <button type="submit">Crear Psicólogo</button>
-            </form>
-        </div>
     </div>
 </body>
 </html>

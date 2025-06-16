@@ -25,12 +25,15 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-    // VERIFICAR SESIÓN
+
+    // Verificar sesión y tipo de usuario
     fetch("../Controlador/verificarSesionJSON.php")
         .then(response => response.json())
         .then(data => {
             if (!data.logueado) {
                 window.location.href = "../Vista/principal.html";
+            } else if (data.tipo_usuario !== 'usuario') {
+                window.location.href = "../Vista/principalpsicologo.html";
             } else {
                 // Rellenar los campos de nombre y sexo
                 document.getElementById("nombre").value = data.nombre || '';
@@ -44,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     const mes = hoy.getMonth() - fechaNacimiento.getMonth();
 
                     if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
-                        edad--;  // Si no ha cumplido años aún este año, restar un año
+                        edad--; // Si no ha cumplido años aún este año, restar un año
                     }
 
                     // Console log para verificar la edad calculada

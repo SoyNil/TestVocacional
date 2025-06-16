@@ -9,3 +9,6 @@
 [2025-06-07 07:06:38] Límite de solicitudes alcanzado (HTTP 429).
 [2025-06-15 08:16:19] Límite de solicitudes alcanzado (HTTP 429).
 [2025-06-15 08:16:21] Límite de solicitudes alcanzado (HTTP 429).
+[2025-06-16 08:08:36] Límite de solicitudes alcanzado (HTTP 429).
+[2025-06-16 08:08:37] Límite de solicitudes alcanzado (HTTP 429).
+[2025-06-16 08:08:56] Límite de solicitudes alcanzado (HTTP 429).
