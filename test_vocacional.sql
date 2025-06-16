@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-06-2025 a las 23:02:23
+-- Tiempo de generación: 16-06-2025 a las 08:10:14
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -39,7 +39,9 @@ CREATE TABLE `analisis_casm83` (
 --
 
 INSERT INTO `analisis_casm83` (`id`, `grupo_hash`, `analisis`, `fecha_creacion`) VALUES
-(17, '209a0f6b4bcaf09ee5e343fc2d4343a39d223e9810a09d5288068684ad560183', 'Los resultados del Test CASM-83 indican una ausencia total de intereses vocacionales en las 13 categorías evaluadas, lo que sugiere un perfil de desinterés generalizado en áreas como ciencias, arte, oficios, finanzas, lenguaje, jurisprudencia, entre otras. Esto podría indicar que el participante aún no ha explorado o identificado sus intereses y pasiones, o que no se siente atraído por ninguna de las áreas evaluadas. En este sentido, es fundamental que el participante explore y descubra sus verdaderos intereses y habilidades a través de experiencias prácticas y de auto-reflexión, con el fin de encontrar un camino vocacional que se adapte a sus necesidades y aspiraciones. Se recomienda que el participante busque asesoramiento y apoyo para explorar diferentes áreas y encontrar aquellas que realmente lo motiven y satisfagan.', '2025-06-15 14:33:41');
+(18, '61fabc68bbd2e4170b461ce337b5ba36a290fba137325c765d420253bf6917d7', 'Los resultados del Test CASM-83 indican una notable ausencia de intereses vocacionales definidos en las 13 categorías evaluadas. Con un puntaje de 2 en CCFM y 0 en todas las demás categorías, se observa un desinterés generalizado en áreas como ciencias, arte, oficios y profesiones. Este patrón sugiere que el participante masculino podría estar en una etapa de exploración o indecisión respecto a sus intereses y objetivos profesionales. Es importante destacar que la falta de intereses definidos no implica una falta de capacidad o potencial, sino más bien una oportunidad para explorar y descubrir nuevas áreas de interés. Se recomienda que el participante se involucre en actividades y experiencias que le permitan descubrir sus fortalezas y pasiones, y que busque orientación vocacional para encontrar carreras y campos que se alineen con sus habilidades y valores.', '2025-06-15 23:40:41'),
+(19, '360b45143e92ba75a0032a239ce0519d3caa8b9628f993153ee12186d81bdfa7', 'Los resultados del Test CASM-83 indican que el participante masculino muestra un patrón de desinterés generalizado en todas las 13 categorías evaluadas. Con puntajes muy bajos en cada área, desde CCFM hasta CONS, y niveles clasificados como \"Desinterés\" en todas ellas, se sugiere que el individuo no tiene preferencias vocacionales claras o destacadas en ninguno de los campos evaluados. Esto podría indicar una falta de exploración de intereses o una indecisión significativa en cuanto a la orientación vocacional. Es importante destacar que la ausencia de intereses destacados no necesariamente implica una falta de capacidad, sino más bien la necesidad de una mayor exploración y reflexión sobre las propias inclinaciones y pasiones. Se recomienda al participante involucrarse en actividades de exploración vocacional, buscar mentorías o asesoramiento profesional para descubrir áreas de interés y potencial que aún no han sido identificadas.', '2025-06-15 23:43:23'),
+(24, '209a0f6b4bcaf09ee5e343fc2d4343a39d223e9810a09d5288068684ad560183', 'Los resultados del Test CASM-83 indican una ausencia total de intereses vocacionales en todas las categorías evaluadas, lo que sugiere una falta de dirección o pasión clara en el ámbito profesional. Con puntajes de 0 en todas las áreas, desde CCFM hasta CONS, y un nivel de desinterés en cada una, se puede inferir que el participante no ha encontrado una área que lo motive o atraiga significativamente. Esto puede ser un indicador de que es necesario explorar más a fondo las preferencias y habilidades del individuo para identificar posibles intereses ocultos o áreas que podrían ser desarrolladas con mayor exposición o experiencia. Es importante considerar que esta falta de interés puede deberse a una variedad de factores, incluyendo la falta de exposición a diferentes campos o la necesidad de una mayor exploración personal. Se recomienda una evaluación más profunda y una guía vocacional para ayudar al participante a découvrir sus verdaderas pasiones y fortalezas, y así poder orientarse hacia un camino profesional que sea más satisfactorio y acorde a sus capacidades y deseos.', '2025-06-16 01:09:03');
 
 -- --------------------------------------------------------
 
@@ -60,7 +62,9 @@ CREATE TABLE `analisis_casm85` (
 
 INSERT INTO `analisis_casm85` (`id`, `grupo_hash`, `analisis_texto`, `fecha_creacion`) VALUES
 (11, 'e5d8cf45a9267b4c3c93eb6f134fac18e20dfa4d23a996c2aa0bff1ed7d53a42', 'Los resultados del test CASM85 revelan un patrón preocupante en los hábitos de estudio, con una tendencia generalizada hacia categorías negativas. En particular, las áreas de \"¿Cómo hace Ud. sus tareas?\", \"¿Cómo prepara sus exámenes?\", \"¿Cómo escucha las clases?\" y \"¿Qué acompaña sus momentos de estudio?\" obtuvieron un puntaje de 0, clasificándose como \"MUY NEGATIVO\", lo que sugiere una gran debilidad en la capacidad de gestionar y realizar tareas de manera efectiva, preparar y enfrentar exámenes con confianza, prestar atención en clase y crear un ambiente de estudio propicio. La única área que presenta un puntaje ligeramente superior es \"¿Cómo estudia Ud?\", con un puntaje de 1 y una categoría de \"NEGATIVO\", indicando que, aunque no es tan crítica como las demás, todavía hay un margen significativo de mejora. En resumen, estos resultados destacan la necessityad de trabajar en la construcción de hábitos de estudio más efectivos y enfocados, y recomendamos buscar apoyo y estrategias para mejorar la gestión del tiempo, la concentración y la motivación para el estudio.', '2025-06-15 01:27:43'),
-(12, 'a18ee40c37de6dd07fc31443a91e9c2c95a06a99ae5c9cc12b39bfdb505ee2ad', 'Los resultados del test CASM85 revelan un panorama mixto en cuanto a los hábitos de estudio. Por un lado, se destaca una tendencia muy positiva en la forma en que se aborda el estudio en general, con un puntaje perfecto de 5, lo que sugiere una actitud proactiva y efectiva hacia el aprendizaje. Sin embargo, esta fortaleza se ve contrastada por debilidades significativas en áreas específicas como la preparación de tareas, exámenes, la escucha en clase y el entorno de estudio, todas ellas calificadas como \"MUY NEGATIVO\" con un puntaje de 0. Esto indica una necesidad urgente de mejorar la gestión del tiempo, la organización y las estrategias de estudio en estas áreas. Se recomienda trabajar en el desarrollo de habilidades para la planificación y ejecución de tareas, la preparación efectiva para exámenes, mejorar la atención y participación en clase, y crear un ambiente de estudio propicio para el aprendizaje. Al abordar estas debilidades, se puede potenciar la tendencia positiva general hacia el estudio, llevando a un desempeño académico más equilibrado y exitoso.', '2025-06-15 14:34:46');
+(12, 'a18ee40c37de6dd07fc31443a91e9c2c95a06a99ae5c9cc12b39bfdb505ee2ad', 'Los resultados del test CASM85 revelan un panorama mixto en cuanto a los hábitos de estudio. Por un lado, se destaca una tendencia muy positiva en la forma en que se aborda el estudio en general, con un puntaje perfecto de 5, lo que sugiere una actitud proactiva y efectiva hacia el aprendizaje. Sin embargo, esta fortaleza se ve contrastada por debilidades significativas en áreas específicas como la preparación de tareas, exámenes, la escucha en clase y el entorno de estudio, todas ellas calificadas como \"MUY NEGATIVO\" con un puntaje de 0. Esto indica una necesidad urgente de mejorar la gestión del tiempo, la organización y las estrategias de estudio en estas áreas. Se recomienda trabajar en el desarrollo de habilidades para la planificación y ejecución de tareas, la preparación efectiva para exámenes, mejorar la atención y participación en clase, y crear un ambiente de estudio propicio para el aprendizaje. Al abordar estas debilidades, se puede potenciar la tendencia positiva general hacia el estudio, llevando a un desempeño académico más equilibrado y exitoso.', '2025-06-15 14:34:46'),
+(13, 'd1b2d20e131488cc70e764ba1dc55325529cb1021164904f4c22e4953ad56635', 'Los resultados del test CASM85 indican un patrón de hábitos de estudio muy negativos en todas las áreas evaluadas. Con puntajes de 0 en cada categoría, se sugiere que el individuo enfrenta desafíos significativos en acompañar sus momentos de estudio de manera efectiva, en la forma en que estudia, realiza tareas, se prepara para exámenes y escucha las clases. Esta consistencia en resultados muy negativos sugiere una necesidad urgente de revisar y ajustar los hábitos de estudio en general. Se recomienda buscar apoyo para desarrollar estrategias de estudio más efectivas, mejorar la gestión del tiempo y las técnicas de aprendizaje, así como trabajar en la motivación y el compromiso con el propio aprendizaje. Al abordar estas debilidades de manera integral, el individuo puede mejorar significativamente su desempeño académico y desarrollar hábitos de estudio más positivos y productivos.', '2025-06-15 23:47:38'),
+(14, 'a9fc34cf217d8e230d828cf63fb6a315a57ab957a27fc51aed1c1b1514a9fbf7', 'Los resultados del test CASM85 revelan un panorama desafiante en cuanto a los hábitos de estudio. En todas las áreas evaluadas, el puntaje es cero y la categoría es MUY NEGATIVO, lo que indica una gran debilidad en los hábitos de estudio y aprendizaje. Esto sugiere que es necesario abordar de manera integral y urgente los patrones y comportamientos asociados con el estudio, desde el acompañamiento durante los momentos de estudio hasta la forma en que se preparan los exámenes y se escuchan las clases. La repetición de resultados MUY NEGATIVOS en todas las áreas destaca una necesidad crítica de intervenir y mejorar estos aspectos para fomentar un enfoque más efectivo y positivo hacia el estudio. Se recomienda buscar apoyo y recursos para desarrollar estrategias de estudio más adecuadas y mejorar la motivación y el compromiso con el aprendizaje, lo que podría incluir la búsqueda de orientación académica o el desarrollo de habilidades de gestión del tiempo y organización.', '2025-06-15 23:47:57');
 
 -- --------------------------------------------------------
 
@@ -90,7 +94,8 @@ INSERT INTO `codigos_invitacion` (`id`, `codigo_hash`, `codigo_visible`, `id_cre
 (8, '$2y$10$rWjcc9G6rFpMvxeLX.uVyuCzQCGcioRd/WqlsJ.L.xoKZZbYV0hdC', 'WYQKDPBMHJJA', 2, 0, NULL, '2025-06-15 01:36:46', NULL, '2025-06-22 08:36:46'),
 (9, '$2y$10$kb5buhWuUU.AbQptG9ZhU.ygGdmqLPXQHcXYL3r61oawbXx.6v6zS', 'EN2RP3G7938F', 2, 0, NULL, '2025-06-15 01:37:10', NULL, '2025-06-22 08:37:10'),
 (10, '$2y$10$1pQiECm1/8IBIio/mmCcr.f9p9tRRbtX95OWfejxQSP6922aNd9Fq', 'E63U6GG3K8JB', 1, 0, NULL, '2025-06-15 01:51:58', NULL, '2025-06-22 08:51:58'),
-(11, '$2y$10$0ITWQsvrzrPNoCDBJH/bq.Rkb6cFEUNzbZrtnbQI//y6GCjsXINtC', 'M7PX8B2MLYZ2', 2, 0, NULL, '2025-06-15 18:42:42', NULL, '2025-06-23 01:42:42');
+(11, '$2y$10$0ITWQsvrzrPNoCDBJH/bq.Rkb6cFEUNzbZrtnbQI//y6GCjsXINtC', 'M7PX8B2MLYZ2', 2, 0, NULL, '2025-06-15 18:42:42', NULL, '2025-06-23 01:42:42'),
+(12, '$2y$10$IPvbazMC99qearJQoq.by.q0Pv8e5nGx8ZbEvWhMY1ZcZXfpVAtmW', 'JYF7MFXX3TDX', 2, 0, NULL, '2025-06-16 04:20:10', NULL, '2025-06-23 11:20:10');
 
 -- --------------------------------------------------------
 
@@ -142,19 +147,6 @@ CREATE TABLE `test_casm83` (
 --
 
 INSERT INTO `test_casm83` (`id`, `id_usuario`, `categoria`, `total`, `count_a`, `count_b`, `sexo`, `fecha`) VALUES
-(144, 3, 'CCFM', 0, 0, 0, 'Masculino', '2025-06-15'),
-(145, 3, 'CCSS', 0, 0, 0, 'Masculino', '2025-06-15'),
-(146, 3, 'CCNA', 0, 0, 0, 'Masculino', '2025-06-15'),
-(147, 3, 'CCCO', 0, 0, 0, 'Masculino', '2025-06-15'),
-(148, 3, 'ARTE', 0, 0, 0, 'Masculino', '2025-06-15'),
-(149, 3, 'BURO', 0, 0, 0, 'Masculino', '2025-06-15'),
-(150, 3, 'CCEP', 0, 0, 0, 'Masculino', '2025-06-15'),
-(151, 3, 'HAA', 0, 0, 0, 'Masculino', '2025-06-15'),
-(152, 3, 'FINA', 0, 0, 0, 'Masculino', '2025-06-15'),
-(153, 3, 'LING', 0, 0, 0, 'Masculino', '2025-06-15'),
-(154, 3, 'JURI', 0, 0, 0, 'Masculino', '2025-06-15'),
-(155, 3, 'VERA', 0, 0, 0, 'Masculino', '2025-06-15'),
-(156, 3, 'CONS', 0, 0, 0, 'Masculino', '2025-06-15'),
 (157, 3, 'CCFM', 0, 0, 0, 'Masculino', '2025-06-15'),
 (158, 3, 'CCSS', 0, 0, 0, 'Masculino', '2025-06-15'),
 (159, 3, 'CCNA', 0, 0, 0, 'Masculino', '2025-06-15'),
@@ -193,46 +185,7 @@ INSERT INTO `test_casm83` (`id`, `id_usuario`, `categoria`, `total`, `count_a`, 
 (192, 3, 'LING', 0, 0, 0, 'Masculino', '2025-06-15'),
 (193, 3, 'JURI', 0, 0, 0, 'Masculino', '2025-06-15'),
 (194, 3, 'VERA', 0, 0, 0, 'Masculino', '2025-06-15'),
-(195, 3, 'CONS', 0, 0, 0, 'Masculino', '2025-06-15'),
-(196, 3, 'CCFM', 0, 0, 0, 'Masculino', '2025-06-15'),
-(197, 3, 'CCSS', 0, 0, 0, 'Masculino', '2025-06-15'),
-(198, 3, 'CCNA', 0, 0, 0, 'Masculino', '2025-06-15'),
-(199, 3, 'CCCO', 0, 0, 0, 'Masculino', '2025-06-15'),
-(200, 3, 'ARTE', 0, 0, 0, 'Masculino', '2025-06-15'),
-(201, 3, 'BURO', 0, 0, 0, 'Masculino', '2025-06-15'),
-(202, 3, 'CCEP', 0, 0, 0, 'Masculino', '2025-06-15'),
-(203, 3, 'HAA', 0, 0, 0, 'Masculino', '2025-06-15'),
-(204, 3, 'FINA', 0, 0, 0, 'Masculino', '2025-06-15'),
-(205, 3, 'LING', 0, 0, 0, 'Masculino', '2025-06-15'),
-(206, 3, 'JURI', 0, 0, 0, 'Masculino', '2025-06-15'),
-(207, 3, 'VERA', 0, 0, 0, 'Masculino', '2025-06-15'),
-(208, 3, 'CONS', 0, 0, 0, 'Masculino', '2025-06-15'),
-(209, 3, 'CCFM', 3, 0, 3, 'Masculino', '2025-06-15'),
-(210, 3, 'CCSS', 0, 0, 0, 'Masculino', '2025-06-15'),
-(211, 3, 'CCNA', 0, 0, 0, 'Masculino', '2025-06-15'),
-(212, 3, 'CCCO', 0, 0, 0, 'Masculino', '2025-06-15'),
-(213, 3, 'ARTE', 1, 1, 0, 'Masculino', '2025-06-15'),
-(214, 3, 'BURO', 0, 0, 0, 'Masculino', '2025-06-15'),
-(215, 3, 'CCEP', 0, 0, 0, 'Masculino', '2025-06-15'),
-(216, 3, 'HAA', 0, 0, 0, 'Masculino', '2025-06-15'),
-(217, 3, 'FINA', 0, 0, 0, 'Masculino', '2025-06-15'),
-(218, 3, 'LING', 0, 0, 0, 'Masculino', '2025-06-15'),
-(219, 3, 'JURI', 0, 0, 0, 'Masculino', '2025-06-15'),
-(220, 3, 'VERA', 0, 0, 0, 'Masculino', '2025-06-15'),
-(221, 3, 'CONS', 0, 0, 0, 'Masculino', '2025-06-15'),
-(222, 3, 'CCFM', 0, 0, 0, 'Masculino', '2025-06-15'),
-(223, 3, 'CCSS', 0, 0, 0, 'Masculino', '2025-06-15'),
-(224, 3, 'CCNA', 0, 0, 0, 'Masculino', '2025-06-15'),
-(225, 3, 'CCCO', 0, 0, 0, 'Masculino', '2025-06-15'),
-(226, 3, 'ARTE', 0, 0, 0, 'Masculino', '2025-06-15'),
-(227, 3, 'BURO', 0, 0, 0, 'Masculino', '2025-06-15'),
-(228, 3, 'CCEP', 0, 0, 0, 'Masculino', '2025-06-15'),
-(229, 3, 'HAA', 0, 0, 0, 'Masculino', '2025-06-15'),
-(230, 3, 'FINA', 0, 0, 0, 'Masculino', '2025-06-15'),
-(231, 3, 'LING', 0, 0, 0, 'Masculino', '2025-06-15'),
-(232, 3, 'JURI', 0, 0, 0, 'Masculino', '2025-06-15'),
-(233, 3, 'VERA', 0, 0, 0, 'Masculino', '2025-06-15'),
-(234, 3, 'CONS', 0, 0, 0, 'Masculino', '2025-06-15');
+(195, 3, 'CONS', 0, 0, 0, 'Masculino', '2025-06-15');
 
 -- --------------------------------------------------------
 
@@ -278,7 +231,12 @@ INSERT INTO `test_casm85` (`id`, `id_usuario`, `area`, `puntaje`, `categoria`, `
 (53, 3, '¿CÓMO HACE UD. SUS TAREAS?', 0, 'MUY NEGATIVO', '2025-06-15'),
 (54, 3, '¿CÓMO PREPARA SUS EXÁMENES?', 0, 'MUY NEGATIVO', '2025-06-15'),
 (55, 3, '¿CÓMO ESCUCHA LAS CLASES?', 0, 'MUY NEGATIVO', '2025-06-15'),
-(56, 3, '¿QUÉ ACOMPAÑA SUS MOMENTOS DE ESTUDIO?', 0, 'MUY NEGATIVO', '2025-06-15');
+(56, 3, '¿QUÉ ACOMPAÑA SUS MOMENTOS DE ESTUDIO?', 0, 'MUY NEGATIVO', '2025-06-15'),
+(57, 3, '¿CÓMO ESTUDIA USTED?', 0, 'MUY NEGATIVO', '2025-06-16'),
+(58, 3, '¿CÓMO HACE UD. SUS TAREAS?', 0, 'MUY NEGATIVO', '2025-06-16'),
+(59, 3, '¿CÓMO PREPARA SUS EXÁMENES?', 0, 'MUY NEGATIVO', '2025-06-16'),
+(60, 3, '¿CÓMO ESCUCHA LAS CLASES?', 0, 'MUY NEGATIVO', '2025-06-16'),
+(61, 3, '¿QUÉ ACOMPAÑA SUS MOMENTOS DE ESTUDIO?', 0, 'MUY NEGATIVO', '2025-06-16');
 
 -- --------------------------------------------------------
 
@@ -304,7 +262,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nombre_usuario`, `nombre`, `sexo`, `fecha_nacimiento`, `apellido`, `correo`, `contraseña`, `fecha_creacion`, `tipo_cuenta`) VALUES
-(3, 'Nil_14', 'Nilton Fernando', 'Masculino', '2004-04-14', 'Tolentino Rojas', 'nilton@gmail.com', '$2y$10$4xNY7fnMVaAwCsiUB9u5yuButqBfKrVVQE5r4m0vGZaTJzlBZfOfu', '2025-04-22 21:51:12', 'Libre');
+(3, 'Nil_14', 'Nilton Fernando', 'Masculino', '2004-04-14', 'Tolentino Rojas', 'nilton@gmail.com', '$2y$10$i5Rk2VtDeODcKx7YNtz0Je0/bSum1bEJuzMyNUp24HJ4buqzb7.eC', '2025-04-22 21:51:12', 'Libre'),
+(8, 'Luis_1', 'Luis', 'Masculino', '2025-06-04', 'Carlos', 'luis@gmail.com', '$2y$10$omfjMMZdTIItVX1Xu/lDeejoZ/yHOphIb5CiFWTXfvr4bLTMAUS1S', '2025-06-16 05:25:24', 'Libre');
 
 --
 -- Índices para tablas volcadas
@@ -373,43 +332,43 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `analisis_casm83`
 --
 ALTER TABLE `analisis_casm83`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `analisis_casm85`
 --
 ALTER TABLE `analisis_casm85`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `codigos_invitacion`
 --
 ALTER TABLE `codigos_invitacion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `psicologos`
 --
 ALTER TABLE `psicologos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `test_casm83`
 --
 ALTER TABLE `test_casm83`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=248;
 
 --
 -- AUTO_INCREMENT de la tabla `test_casm85`
 --
 ALTER TABLE `test_casm85`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restricciones para tablas volcadas
