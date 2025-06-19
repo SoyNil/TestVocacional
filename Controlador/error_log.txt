@@ -12,3 +12,4 @@
 [2025-06-16 08:08:36] Límite de solicitudes alcanzado (HTTP 429).
 [2025-06-16 08:08:37] Límite de solicitudes alcanzado (HTTP 429).
 [2025-06-16 08:08:56] Límite de solicitudes alcanzado (HTTP 429).
+[2025-06-17 20:46:36] Formato de datos inválido: [{"area":"\u00bfC\u00d3MO ESTUDIA USTED?","puntaje":4,"categoria":"TENDENCIA NEGATIVA"},{"area":"\u00bfC\u00d3MO HACE UD. SUS TAREAS?","puntaje":3,"categoria":"TENDENCIA NEGATIVA"},{"area":"\u00bfC\u00d3MO PREPARA SUS EX\u00c1MENES?","puntaje":0,"categoria":"MUY NEGATIVO"},{"area":"\u00bfC\u00d3MO ESCUCHA LAS CLASES?","puntaje":0,"categoria":"MUY NEGATIVO"},{"area":"\u00bfQU\u00c9 ACOMPA\u00d1A SUS MOMENTOS DE ESTUDIO?","puntaje":0,"categoria":"MUY NEGATIVO"}]

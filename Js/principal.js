@@ -7,17 +7,25 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => console.error("Error al cargar el mensaje de bienvenida:", error));
 
-    // VERIFICAR SESIÓN
+    // VERIFICAR SESIÓN Y ABRIR MODAL SI ESTÁ LOGUEADO
     fetch("../Controlador/verificarSesion.php")
         .then(response => response.text())
         .then(data => {
             document.getElementById("auth-buttons").innerHTML = data;
 
             const tipoUsuarioElement = document.getElementById("tipo-usuario");
-            if (tipoUsuarioElement) {
+            const modal = document.getElementById("contenidoAjax");
+            if (tipoUsuarioElement && modal) {
                 const tipo = tipoUsuarioElement.dataset.tipo;
                 if (tipo === "psicologo") {
                     window.location.href = "principalpsicologo.html";
+                } else if (tipo === "usuario") {
+                    // Abrir modal automáticamente para usuarios logueados
+                    modal.style.display = "block";
+                    setTimeout(() => {
+                        modal.classList.add("show");
+                        cargarContenido("test"); // Cargar tests por defecto
+                    }, 10);
                 }
             }
         })
@@ -104,20 +112,23 @@ document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById("contenidoAjax");
     const tabButtons = document.querySelectorAll(".tab-button");
 
-    btnApoyoVocacional.addEventListener("click", function (e) {
-        e.preventDefault();
-        if (modal.classList.contains("show")) {
-            modal.classList.remove("show");
-            setTimeout(() => {
-                modal.style.display = "none";
-            }, 300);
-        } else {
-            modal.style.display = "block";
-            setTimeout(() => {
-                modal.classList.add("show");
-            }, 10);
-        }
-    });
+    if (btnApoyoVocacional && modal) {
+        btnApoyoVocacional.addEventListener("click", function (e) {
+            e.preventDefault();
+            if (modal.classList.contains("show")) {
+                modal.classList.remove("show");
+                setTimeout(() => {
+                    modal.style.display = "none";
+                }, 300);
+            } else {
+                modal.style.display = "block";
+                setTimeout(() => {
+                    modal.classList.add("show");
+                    cargarContenido("test"); // Cargar tests por defecto
+                }, 10);
+            }
+        });
+    }
 
     tabButtons.forEach(button => {
         button.addEventListener("click", function () {
@@ -157,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(res => res.json())
             .then(data => {
                 if (!data.logueado) {
-                    mostrarMensaje("Debes iniciar sesión para acceder a este test.", false);
+                    mostrarModalLogin();
                     return;
                 }
                 if (data.tipo_usuario !== 'usuario') {
@@ -170,10 +181,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 let endpoint = "";
                 let categoriasPorTest = 1;
                 if (urlTest.includes("testCASM83.html")) {
-                    endpoint = "../Controlador/obtenerResultadosCASM83.php";
+                    endpoint = "../Controlador/obtenerResultadosCASM83General.php";
                     categoriasPorTest = 13; // 13 categorías por test CASM-83
                 } else if (urlTest.includes("testCASM85.html")) {
-                    endpoint = "../Controlador/obtenerResultadosCASM85.php";
+                    endpoint = "../Controlador/obtenerResultadosCASM85General.php";
                     categoriasPorTest = 5; // 5 áreas por test CASM-85
                 }
 
@@ -209,6 +220,58 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("Error al verificar la sesión:", error);
                 mostrarMensaje("Hubo un problema al verificar la sesión.", false);
             });
+    }
+
+    function mostrarModalLogin() {
+        // Crear modal si no existe
+        let modal = document.getElementById("modal-login-required");
+        if (!modal) {
+            const modalHTML = `
+                <div id="modal-login-required" class="modal-log">
+                    <div class="modal-content-log">
+                        <span id="modal-close-login" class="modal-close">×</span>
+                        <h3>Inicio de Sesión Requerido</h3>
+                        <p>Debes iniciar sesión para acceder a este test. Si tienes una cuenta presiona <a href="../Vista/login.html" style="color: #2944ff; text-decoration: underline;">aquí</a> o si te vas a registrar hazlo <a href="../Vista/registro.html" style="color: #2944ff; text-decoration: underline;">aquí</a>.</p>
+                        <button id="modal-ok-login" class="modal-button">Aceptar</button>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML("beforeend", modalHTML);
+            modal = document.getElementById("modal-login-required");
+
+            // Configurar eventos
+            const closeBtn = document.getElementById("modal-close-login");
+            const okBtn = document.getElementById("modal-ok-login");
+
+            closeBtn.onclick = () => {
+                modal.classList.remove("show");
+                setTimeout(() => {
+                    modal.style.display = "none";
+                }, 300);
+            };
+
+            okBtn.onclick = () => {
+                modal.classList.remove("show");
+                setTimeout(() => {
+                    modal.style.display = "none";
+                }, 300);
+            };
+
+            window.onclick = (event) => {
+                if (event.target === modal) {
+                    modal.classList.remove("show");
+                    setTimeout(() => {
+                        modal.style.display = "none";
+                    }, 300);
+                }
+            };
+        }
+
+        // Mostrar modal
+        modal.style.display = "block";
+        setTimeout(() => {
+            modal.classList.add("show");
+        }, 10);
     }
 
     function mostrarModalLimite() {

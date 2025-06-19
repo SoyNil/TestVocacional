@@ -238,7 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     document.getElementById("testCASM85Btn").addEventListener("click", () => {
-        fetch("../Controlador/obtenerResultadosCASM85.php")
+        fetch("../Controlador/obtenerResultadosCASM85General.php")
             .then(response => response.json())
             .then(data => {
                 if (data.exito) {
@@ -561,7 +561,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Evento para el botón testCASM83Btn (modificado para asegurar renderizado antes de dibujar)
     document.getElementById("testCASM83Btn").addEventListener("click", () => {
-        fetch("../Controlador/obtenerResultadosCASM83.php")
+        fetch("../Controlador/obtenerResultadosCASM83General.php")
             .then(response => response.json())
             .then(data => {
                 if (data.exito) {

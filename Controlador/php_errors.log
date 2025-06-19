@@ -296,3 +296,106 @@ Stack trace:
 [16-Jun-2025 08:08:54 Europe/Berlin] Análisis encontrado para grupo_hash 209a0f6b4bcaf09ee5e343fc2d4343a39d223e9810a09d5288068684ad560183: Sí
 [16-Jun-2025 08:08:54 Europe/Berlin] Análisis eliminado para grupo_hash: 209a0f6b4bcaf09ee5e343fc2d4343a39d223e9810a09d5288068684ad560183
 [16-Jun-2025 08:08:54 Europe/Berlin] Test CASM-83 y análisis eliminados correctamente para id_inicio: 144
+[17-Jun-2025 18:51:58 Europe/Berlin] Error al eliminar test CASM-85: No se encontraron los 5 registros esperados del test.
+[17-Jun-2025 18:51:58 Europe/Berlin] PHP Warning:  Undefined variable $stmtDeleteAnalisis in C:\xampp\htdocs\TestVocacional\Controlador\eliminarTestCASM85.php on line 107
+[17-Jun-2025 18:51:58 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function close() on null in C:\xampp\htdocs\TestVocacional\Controlador\eliminarTestCASM85.php:107
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\TestVocacional\Controlador\eliminarTestCASM85.php on line 107
+[17-Jun-2025 19:32:12 Europe/Berlin] Procesando eliminación de test CASM-83 con id_inicio: 183 para usuario: admin_jefe
+[17-Jun-2025 19:32:12 Europe/Berlin] Hash input para CCFM: CCFM|2|1|1|Desinterés|Masculino|
+[17-Jun-2025 19:32:12 Europe/Berlin] Hash input para CCSS: CCSS|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:32:12 Europe/Berlin] Hash input para CCNA: CCNA|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:32:12 Europe/Berlin] Hash input para CCCO: CCCO|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:32:12 Europe/Berlin] Hash input para ARTE: ARTE|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:32:12 Europe/Berlin] Hash input para BURO: BURO|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:32:12 Europe/Berlin] Hash input para CCEP: CCEP|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:32:12 Europe/Berlin] Hash input para HAA: HAA|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:32:12 Europe/Berlin] Hash input para FINA: FINA|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:32:12 Europe/Berlin] Hash input para LING: LING|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:32:12 Europe/Berlin] Hash input para JURI: JURI|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:32:12 Europe/Berlin] Hash input para VERA: VERA|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:32:12 Europe/Berlin] Hash input para CONS: CONS|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:32:12 Europe/Berlin] Grupo_hash generado: 61fabc68bbd2e4170b461ce337b5ba36a290fba137325c765d420253bf6917d7
+[17-Jun-2025 19:32:12 Europe/Berlin] Análisis encontrado para grupo_hash 61fabc68bbd2e4170b461ce337b5ba36a290fba137325c765d420253bf6917d7: Sí
+[17-Jun-2025 19:32:12 Europe/Berlin] Análisis eliminado para grupo_hash: 61fabc68bbd2e4170b461ce337b5ba36a290fba137325c765d420253bf6917d7
+[17-Jun-2025 19:32:12 Europe/Berlin] Test CASM-83 y análisis eliminados correctamente para id_inicio: 183
+[17-Jun-2025 19:46:51 Europe/Berlin] Parámetros inválidos: id_inicio=6, tipo_test=No proporcionado
+[17-Jun-2025 19:46:57 Europe/Berlin] Parámetros inválidos: id_inicio=248, tipo_test=No proporcionado
+[17-Jun-2025 19:47:26 Europe/Berlin] Parámetros inválidos: id_inicio=248, tipo_test=No proporcionado
+
+----
+[17-Jun-2025 19:48:13 Europe/Berlin] Parámetros inválidos: id_inicio=248, tipo_test=No proporcionado
+[17-Jun-2025 19:48:22 Europe/Berlin] Parámetros inválidos: id_inicio=6, tipo_test=No proporcionado
+[17-Jun-2025 19:53:55 Europe/Berlin] Procesando eliminación de test casm83 con id_inicio: 248 para usuario: admin_jefe
+[17-Jun-2025 19:53:55 Europe/Berlin] Hash input para CCFM: CCFM|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:53:55 Europe/Berlin] Hash input para CCSS: CCSS|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:53:55 Europe/Berlin] Hash input para CCNA: CCNA|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:53:55 Europe/Berlin] Hash input para CCCO: CCCO|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:53:55 Europe/Berlin] Hash input para ARTE: ARTE|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:53:55 Europe/Berlin] Hash input para BURO: BURO|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:53:55 Europe/Berlin] Hash input para CCEP: CCEP|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:53:55 Europe/Berlin] Hash input para HAA: HAA|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:53:55 Europe/Berlin] Hash input para FINA: FINA|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:53:55 Europe/Berlin] Hash input para LING: LING|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:53:55 Europe/Berlin] Hash input para JURI: JURI|4|1|3|Bajo|Masculino|
+[17-Jun-2025 19:53:55 Europe/Berlin] Hash input para VERA: VERA|1|1|0|Desinterés|Masculino|
+[17-Jun-2025 19:53:55 Europe/Berlin] Hash input para CONS: CONS|0|0|0|Desinterés|Masculino|
+[17-Jun-2025 19:53:55 Europe/Berlin] Grupo_hash generado para CASM-83: 7a8a5a14556404dc6396b14598b18c169b901ed90b5cb2dfbfef1afc8212da67
+[17-Jun-2025 19:53:55 Europe/Berlin] Análisis encontrado para grupo_hash 7a8a5a14556404dc6396b14598b18c169b901ed90b5cb2dfbfef1afc8212da67 (CASM-83): Sí
+[17-Jun-2025 19:53:55 Europe/Berlin] Análisis eliminado para grupo_hash: 7a8a5a14556404dc6396b14598b18c169b901ed90b5cb2dfbfef1afc8212da67 (CASM-83)
+[17-Jun-2025 19:53:55 Europe/Berlin] Test casm83 y análisis eliminados correctamente para id_inicio: 248
+[18-Jun-2025 18:48:31 Europe/Berlin] Procesando eliminación de test casm83 con id_inicio: 261 para usuario: admin_jefe
+[18-Jun-2025 18:48:31 Europe/Berlin] Hash input para CCFM: CCFM|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 18:48:31 Europe/Berlin] Hash input para CCSS: CCSS|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 18:48:31 Europe/Berlin] Hash input para CCNA: CCNA|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 18:48:31 Europe/Berlin] Hash input para CCCO: CCCO|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 18:48:31 Europe/Berlin] Hash input para ARTE: ARTE|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 18:48:31 Europe/Berlin] Hash input para BURO: BURO|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 18:48:31 Europe/Berlin] Hash input para CCEP: CCEP|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 18:48:31 Europe/Berlin] Hash input para HAA: HAA|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 18:48:31 Europe/Berlin] Hash input para FINA: FINA|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 18:48:31 Europe/Berlin] Hash input para LING: LING|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 18:48:31 Europe/Berlin] Hash input para JURI: JURI|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 18:48:31 Europe/Berlin] Hash input para VERA: VERA|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 18:48:31 Europe/Berlin] Hash input para CONS: CONS|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 18:48:31 Europe/Berlin] Grupo_hash generado para CASM-83: 209a0f6b4bcaf09ee5e343fc2d4343a39d223e9810a09d5288068684ad560183
+[18-Jun-2025 18:48:31 Europe/Berlin] Análisis encontrado para grupo_hash 209a0f6b4bcaf09ee5e343fc2d4343a39d223e9810a09d5288068684ad560183 (CASM-83): Sí
+[18-Jun-2025 18:48:31 Europe/Berlin] Análisis eliminado para grupo_hash: 209a0f6b4bcaf09ee5e343fc2d4343a39d223e9810a09d5288068684ad560183 (CASM-83)
+[18-Jun-2025 18:48:31 Europe/Berlin] Test casm83 y análisis eliminados correctamente para id_inicio: 261
+[18-Jun-2025 19:15:32 Europe/Berlin] Procesando eliminación de test casm83 con id_inicio: 274 para usuario: admin_jefe
+[18-Jun-2025 19:15:32 Europe/Berlin] Hash input para CCFM: CCFM|3|1|2|Desinterés|Masculino|
+[18-Jun-2025 19:15:32 Europe/Berlin] Hash input para CCSS: CCSS|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:32 Europe/Berlin] Hash input para CCNA: CCNA|1|1|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:32 Europe/Berlin] Hash input para CCCO: CCCO|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:32 Europe/Berlin] Hash input para ARTE: ARTE|1|1|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:32 Europe/Berlin] Hash input para BURO: BURO|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:32 Europe/Berlin] Hash input para CCEP: CCEP|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:32 Europe/Berlin] Hash input para HAA: HAA|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:32 Europe/Berlin] Hash input para FINA: FINA|1|1|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:32 Europe/Berlin] Hash input para LING: LING|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:32 Europe/Berlin] Hash input para JURI: JURI|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:32 Europe/Berlin] Hash input para VERA: VERA|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:32 Europe/Berlin] Hash input para CONS: CONS|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:32 Europe/Berlin] Grupo_hash generado para CASM-83: 084e809ea850ba5457427613889ac937c657331c9ce348f66d85fa30e2be96bc
+[18-Jun-2025 19:15:32 Europe/Berlin] Análisis encontrado para grupo_hash 084e809ea850ba5457427613889ac937c657331c9ce348f66d85fa30e2be96bc (CASM-83): Sí
+[18-Jun-2025 19:15:32 Europe/Berlin] Análisis eliminado para grupo_hash: 084e809ea850ba5457427613889ac937c657331c9ce348f66d85fa30e2be96bc (CASM-83)
+[18-Jun-2025 19:15:32 Europe/Berlin] Test casm83 y análisis eliminados correctamente para id_inicio: 274
+[18-Jun-2025 19:15:37 Europe/Berlin] Procesando eliminación de test casm83 con id_inicio: 170 para usuario: admin_jefe
+[18-Jun-2025 19:15:37 Europe/Berlin] Hash input para CCFM: CCFM|2|0|2|Desinterés|Masculino|
+[18-Jun-2025 19:15:37 Europe/Berlin] Hash input para CCSS: CCSS|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:37 Europe/Berlin] Hash input para CCNA: CCNA|1|1|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:37 Europe/Berlin] Hash input para CCCO: CCCO|1|1|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:37 Europe/Berlin] Hash input para ARTE: ARTE|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:37 Europe/Berlin] Hash input para BURO: BURO|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:37 Europe/Berlin] Hash input para CCEP: CCEP|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:37 Europe/Berlin] Hash input para HAA: HAA|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:37 Europe/Berlin] Hash input para FINA: FINA|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:37 Europe/Berlin] Hash input para LING: LING|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:37 Europe/Berlin] Hash input para JURI: JURI|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:37 Europe/Berlin] Hash input para VERA: VERA|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:37 Europe/Berlin] Hash input para CONS: CONS|0|0|0|Desinterés|Masculino|
+[18-Jun-2025 19:15:37 Europe/Berlin] Grupo_hash generado para CASM-83: 360b45143e92ba75a0032a239ce0519d3caa8b9628f993153ee12186d81bdfa7
+[18-Jun-2025 19:15:37 Europe/Berlin] Análisis encontrado para grupo_hash 360b45143e92ba75a0032a239ce0519d3caa8b9628f993153ee12186d81bdfa7 (CASM-83): Sí
+[18-Jun-2025 19:15:37 Europe/Berlin] Análisis eliminado para grupo_hash: 360b45143e92ba75a0032a239ce0519d3caa8b9628f993153ee12186d81bdfa7 (CASM-83)
+[18-Jun-2025 19:15:37 Europe/Berlin] Test casm83 y análisis eliminados correctamente para id_inicio: 170

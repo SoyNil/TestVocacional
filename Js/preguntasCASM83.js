@@ -685,7 +685,7 @@ const preguntasCASM83 = [
         opcionB: "Prefiere escuchar acusaciones y defensas para sancionar de acuerdo a lo que la ley señala",
     },
     {
-        numero: 137,
+        numero: 138,
         opcionA: "Le interesa mucho saber como se organiza un ejército",
         opcionB: "Prefiere participar como jurado en un juicio",
     },

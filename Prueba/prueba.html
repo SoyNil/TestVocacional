@@ -1,10 +1,84 @@
-<button id="openDialog">
-  Abrir Modal
-</button>
-<dialog id="myDialog" closeby="any">
-  <h2>Bienvenido</h2>
-  <p>Este es un ejemplo de modal</p>
-  <form method="dialog">
-  <button>Cerrar</button>
-  </form>
-</dialog>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Test PMA - Factor E</title>
+  <style>
+    .contenedor {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: sans-serif;
+    }
+
+    .figura-base {
+      margin: 1rem;
+      transform: rotate(0deg);
+      width: 100px;
+    }
+
+    .opciones {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .opcion {
+      cursor: pointer;
+      border: 2px solid transparent;
+      padding: 5px;
+      border-radius: 8px;
+      transition: border 0.2s;
+    }
+
+    .opcion:hover {
+      border-color: #666;
+    }
+
+    .correcto {
+      border-color: green !important;
+    }
+
+    .incorrecto {
+      border-color: red !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <h2>¿Cuál es la figura que corresponde a la misma, rotada?</h2>
+    <img src="figura.png" alt="Figura base" class="figura-base" id="figuraBase">
+
+    <div class="opciones" id="opcionesContainer">
+      <!-- Opciones se generan con JS -->
+    </div>
+  </div>
+
+  <script>
+    const opcionesContainer = document.getElementById('opcionesContainer');
+    const angulos = [90, 180, 270, 45]; // Una es incorrecta (45)
+    const respuestaCorrecta = 45;
+
+    angulos.forEach(angulo => {
+      const img = document.createElement('img');
+      img.src = "figura.png";
+      img.className = "opcion";
+      img.style.width = "80px";
+      img.style.transform = `rotate(${angulo}deg)`;
+      img.dataset.angulo = angulo;
+
+      img.addEventListener('click', () => {
+        if (parseInt(img.dataset.angulo) === respuestaCorrecta) {
+          img.classList.add("correcto");
+          alert("¡Correcto!");
+        } else {
+          img.classList.add("incorrecto");
+          alert("Incorrecto");
+        }
+      });
+
+      opcionesContainer.appendChild(img);
+    });
+  </script>
+</body>
+</html>

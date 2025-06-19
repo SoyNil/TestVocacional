@@ -273,304 +273,283 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function verResultados() {
-        document.getElementById("seccionCuestionario").style.display = "none";
-        document.getElementById("seccionResultados").style.display = "block";
-        const resultados = document.getElementById("resultados");
-        resultados.innerHTML = "";
+    document.getElementById("seccionCuestionario").style.display = "none";
+    document.getElementById("seccionResultados").style.display = "block";
+    const resultados = document.getElementById("resultados");
+    resultados.innerHTML = "";
 
-        const tabla = document.getElementById("tablaCuestionario");
+    const tabla = document.getElementById("tablaCuestionario");
 
-        preguntasCASM83.forEach(pregunta => {
-            const numero = pregunta.numero;
-            const filaA = tabla.querySelector(`tr[data-numero="${numero}"][data-opcion="A"]`);
-            const filaB = tabla.querySelector(`tr[data-numero="${numero}"][data-opcion="B"]`);
-            const respuestaA = respuestas[numero]?.A ? "(a)" : "";
-            const respuestaB = respuestas[numero]?.B ? "(b)" : "";
+    preguntasCASM83.forEach(pregunta => {
+        const numero = pregunta.numero;
+        const filaA = tabla.querySelector(`tr[data-numero="${numero}"][data-opcion="A"]`);
+        const filaB = tabla.querySelector(`tr[data-numero="${numero}"][data-opcion="B"]`);
+        const respuestaA = respuestas[numero]?.A ? "(a)" : "";
+        const respuestaB = respuestas[numero]?.B ? "(b)" : "";
 
-            if (filaA?.querySelector('span')) filaA.querySelector('span').textContent = respuestaA;
-            if (filaB?.querySelector('span')) filaB.querySelector('span').textContent = respuestaB;
-        });
+        if (filaA?.querySelector('span')) filaA.querySelector('span').textContent = respuestaA;
+        if (filaB?.querySelector('span')) filaB.querySelector('span').textContent = respuestaB;
+    });
 
-        const paresConsistentes = [
-            [13, 131], [26, 132], [39, 133], [52, 134], [65, 135],
-            [78, 136], [91, 137], [104, 138], [117, 139], [130, 140], [143, 1]
-        ];
+    const paresConsistentes = [
+        [13, 131], [26, 132], [39, 133], [52, 134], [65, 135],
+        [78, 136], [91, 137], [104, 138], [117, 139], [130, 140], [143, 1]
+    ];
 
-        let inconsistencias = 0;
-        paresConsistentes.forEach(([num1, num2]) => {
-            const A1 = respuestas[num1]?.A ?? false;
-            const B1 = respuestas[num1]?.B ?? false;
-            const A2 = respuestas[num2]?.A ?? false;
-            const B2 = respuestas[num2]?.B ?? false;
-            if (A1 !== A2 || B1 !== B2) inconsistencias++;
-        });
+    let inconsistencias = 0;
+    paresConsistentes.forEach(([num1, num2]) => {
+        const A1 = respuestas[num1]?.A ?? false;
+        const B1 = respuestas[num1]?.B ?? false;
+        const A2 = respuestas[num2]?.A ?? false;
+        const B2 = respuestas[num2]?.B ?? false;
+        if (A1 !== A2 || B1 !== B2) inconsistencias++;
+    });
 
-        const preguntasVeracidad = [12, 25, 38, 51, 64, 77, 90, 103, 116, 129, 142];
-        let conteoVeracidadA = 0;
+    const preguntasVeracidad = [12, 25, 38, 51, 64, 77, 90, 103, 116, 129, 142];
+    let conteoVeracidadA = 0;
 
-        preguntasVeracidad.forEach(numero => {
-            if (document.querySelector(`input[data-numero="${numero}"][data-opcion="A"]`)?.checked) {
-                conteoVeracidadA++;
+    preguntasVeracidad.forEach(numero => {
+        if (document.querySelector(`input[data-numero="${numero}"][data-opcion="A"]`)?.checked) {
+            conteoVeracidadA++;
+        }
+    });
+
+    const categorias = {
+        CCFM: { horizontal: [1, 13], vertical: [1, 131] },
+        CCSS: { horizontal: [14, 26], vertical: [2, 132] },
+        CCNA: { horizontal: [27, 39], vertical: [3, 133] },
+        CCCO: { horizontal: [40, 52], vertical: [4, 134] },
+        ARTE: { horizontal: [53, 65], vertical: [5, 135] },
+        BURO: { horizontal: [66, 78], vertical: [6, 136] },
+        CCEP: { horizontal: [79, 91], vertical: [7, 137] },
+        HAA:  { horizontal: [92, 104], vertical: [8, 138] },
+        FINA: { horizontal: [105, 117], vertical: [9, 139] },
+        LING: { horizontal: [118, 130], vertical: [10, 140] },
+        JURI: { horizontal: [131, 143], vertical: [11, 141] },
+        VERA: { horizontal: [], vertical: [12, 142] },
+        CONS: { horizontal: [], vertical: [] }
+    };
+
+    const resultadosCategorias = {};
+    for (const [categoria, rangos] of Object.entries(categorias)) {
+        let total = 0, countA = 0, countB = 0;
+
+        for (let i = rangos.horizontal[0]; i <= rangos.horizontal[1]; i++) {
+            if (document.querySelector(`input[data-numero="${i}"][data-opcion="B"]`)?.checked) {
+                countB++;
+                total++;
             }
-        });
-
-        const categorias = {
-            CCFM: { horizontal: [1, 13], vertical: [1, 131] },
-            CCSS: { horizontal: [14, 26], vertical: [2, 132] },
-            CCNA: { horizontal: [27, 39], vertical: [3, 133] },
-            CCCO: { horizontal: [40, 52], vertical: [4, 134] },
-            ARTE: { horizontal: [53, 65], vertical: [5, 135] },
-            BURO: { horizontal: [66, 78], vertical: [6, 136] },
-            CCEP: { horizontal: [79, 91], vertical: [7, 137] },
-            HAA:  { horizontal: [92, 104], vertical: [8, 138] },
-            FINA: { horizontal: [105, 117], vertical: [9, 139] },
-            LING: { horizontal: [118, 130], vertical: [10, 140] },
-            JURI: { horizontal: [131, 143], vertical: [11, 141] },
-            VERA: { horizontal: [], vertical: [12, 142] },
-            CONS: { horizontal: [], vertical: [] }
-        };
-
-        const resultadosCategorias = {};
-        for (const [categoria, rangos] of Object.entries(categorias)) {
-            let total = 0, countA = 0, countB = 0;
-
-            for (let i = rangos.horizontal[0]; i <= rangos.horizontal[1]; i++) {
-                if (document.querySelector(`input[data-numero="${i}"][data-opcion="B"]`)?.checked) {
-                    countB++;
-                    total++;
-                }
-            }
-
-            for (let i = rangos.vertical[0]; i <= rangos.vertical[1]; i += 13) {
-                if (document.querySelector(`input[data-numero="${i}"][data-opcion="A"]`)?.checked) {
-                    countA++;
-                    total++;
-                }
-            }
-
-            resultadosCategorias[categoria] = { total, A: countA, B: countB };
         }
 
-        const sexo = document.getElementById('sexo').value;
-        console.log('Valor de sexo:', sexo);
-        if (!sexo || !['Masculino', 'Femenino'].includes(sexo)) {
-            alert('Por favor, selecciona un sexo válido (Masculino o Femenino) en el formulario');
+        for (let i = rangos.vertical[0]; i <= rangos.vertical[1]; i += 13) {
+            if (document.querySelector(`input[data-numero="${i}"][data-opcion="A"]`)?.checked) {
+                countA++;
+                total++;
+            }
+        }
+
+        resultadosCategorias[categoria] = { total, A: countA, B: countB };
+    }
+
+    const sexo = document.getElementById('sexo').value;
+    if (!sexo || !['Masculino', 'Femenino'].includes(sexo)) {
+        alert('Por favor, selecciona un sexo válido (Masculino o Femenino) en el formulario');
+        return;
+    }
+
+    // Enviar resultados para guardarlos
+    const payload = { resultados: resultadosCategorias, sexo: sexo };
+    fetch('../Controlador/guardarResultadosTest.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message) {
+            console.log('Resultados guardados:', data.message);
+        } else {
+            console.error('Error al guardar:', data.error);
+            alert('Error al guardar los resultados: ' + (data.error || 'Desconocido'));
+        }
+    })
+    .catch(error => {
+        console.error('Error al enviar los datos:', error);
+        alert('Error al guardar los resultados');
+    });
+
+    const tablaResumen = document.getElementById("tablaResumen");
+    let tablaHTML = `
+        <div class="card" style="margin: 0; padding: 0; border: none;">
+            <div class="card-body" style="padding: 0;">
+                <p style="margin: 20px 0;">Si quieres volver a ver tus resultados ve a "Ver Perfil" en la ventana de inicio o presione <a href="../Vista/perfil.html" style="color: #2944ff;">aquí</a></p>
+                <h3 class="card-title" style="margin: 10px 0;">📈 Tabla de Percentiles (${sexo})</h3>
+                <div class="contenedor-tabla" style="position: relative; overflow-x: auto; margin: 0; padding: 0;">
+                    <svg id="svg-lineas" style="position: absolute; top: 0; left: 0; pointer-events: none; z-index: 10;"></svg>
+                    <table border="1" class="percentiles-table" style="border-collapse: collapse; text-align: center; margin: 0;">
+    `;
+
+    if (sexo === "Masculino") {
+        const encabezados = ["", "Desinterés", "Bajo", "Promedio Bajo", "Indecisión", "Promedio Alto", "Alto", "Muy Alto", ""];
+        const categoriasPercentiles = [
+            ["CCFM", "0-4", "5-7", "8-9", "10-12", "14-15", "16-17", "18-22"],
+            ["CCSS", "0-3", "4-6", "7-8", "9-12", "13-14", "15-16", "17-22"],
+            ["CCNA", "0-4", "5-7", "8-9", "10-13", "14-15", "16-18", "19-22"],
+            ["CCCO", "0-2", "3-4", "5-6", "7-10", "11-13", "14-17", "18-22"],
+            ["ARTE", "0-2", "3-4", "5-6", "7-10", "11-14", "15-17", "18-22"],
+            ["BURO", "0-3", "4-5", "6-7", "8-11", "12-13", "14-16", "17-22"],
+            ["CCEP", "0-3", "4-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+            ["HAA", "0-3", "4-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+            ["FINA", "0-2", "3-4", "5-6", "7-10", "11-12", "13-16", "17-22"],
+            ["LING", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
+            ["JURI", "0-2", "3-4", "5-6", "7-10", "11-13", "14-16", "17-22"]
+        ];
+        const percentiles = ["1-14", "15-29", "30-39", "40-60", "61-74", "75-89", "90-99"];
+
+        tablaHTML += `
+            <tr><th colspan="9">Masculino</th></tr>
+            <tr>${encabezados.map(h => `<th>${h}</th>`).join('')}</tr>
+            ${categoriasPercentiles.map(fila => `
+                <tr>
+                    <td>${fila[0]}</td>
+                    ${fila.slice(1).map(rango => `<td class="celda-percentil" data-cat="${fila[0]}" data-rango="${rango}">${rango}</td>`).join('')}
+                    <td>${fila[0]}</td>
+                </tr>
+            `).join('')}
+            <tr>
+                <td></td>
+                ${percentiles.map(p => `<td>${p}</td>`).join('')}
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="9" style="text-align:center;"><strong>PERCENTILES</strong></td>
+            </tr>
+        `;
+    } else if (sexo === "Femenino") {
+        const encabezados = ["", "Desinterés", "Bajo", "Promedio Bajo", "Indecisión", "Promedio Alto", "Alto", "Muy Alto", ""];
+        const categoriasPercentiles = [
+            ["CCFM", "0-2", "3-4", "5-6", "7-11", "12-14", "15-17", "18-22"],
+            ["CCSS", "0-4", "5-7", "8-9", "10-14", "15-16", "17-19", "20-22"],
+            ["CCNA", "0-3", "4-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+            ["CCCO", "0-2", "3-4", "5-6", "7-11", "12-13", "14-16", "17-22"],
+            ["ARTE", "0-2", "3-4", "5-6", "7-11", "12-13", "14-16", "17-22"],
+            ["BURO", "0-4", "5-7", "8-9", "10-14", "15-16", "17-19", "20-22"],
+            ["CCEP", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+            ["HAA", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
+            ["FINA", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+            ["LING", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+            ["JURI", "0-2", "3-4", "5-6", "7-11", "12-13", "14-16", "17-22"]
+        ];
+        const percentiles = ["1-14", "15-29", "30-39", "40-60", "61-74", "75-89", "90-99"];
+
+        tablaHTML += `
+            <tr><th colspan="9">Femenino</th></tr>
+            <tr>${encabezados.map(h => `<th>${h}</th>`).join('')}</tr>
+            ${categoriasPercentiles.map(fila => `
+                <tr>
+                    <td>${fila[0]}</td>
+                    ${fila.slice(1).map(rango => `<td class="celda-percentil" data-cat="${fila[0]}" data-rango="${rango}">${rango}</td>`).join('')}
+                    <td>${fila[0]}</td>
+                </tr>
+            `).join('')}
+            <tr>
+                <td></td>
+                ${percentiles.map(p => `<td>${p}</td>`).join('')}
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="9" style="text-align:center;"><strong>PERCENTILES</strong></td>
+            </tr>
+        `;
+    }
+
+    // Añadir veracidad, consistencia y análisis
+    const veracidadCumple = conteoVeracidadA <= 5;
+    const consistenciaCumple = inconsistencias <= 5;
+
+    tablaHTML += `
+                    </table>
+                </div>
+                <p style="margin-top: 10px;">Veracidad: <strong>${veracidadCumple ? 'Se cumple la veracidad' : 'No se cumple la veracidad'}</strong></p>
+                <p style="margin-top: 5px;">Consistencia: <strong>${consistenciaCumple ? 'Se cumple la consistencia' : 'No se cumple la consistencia'}</strong></p>
+                <p style="margin-top: 20px;"><strong>Análisis de resultados:</strong> <span id="analisis-casm83">${veracidadCumple && consistenciaCumple ? 'Cargando análisis' : 'No se puede realizar el análisis debido a inconsistencias o falta de veracidad en las respuestas.'}</span></p>
+            </div>
+        </div>`;
+
+    tablaResumen.innerHTML = tablaHTML;
+
+    requestAnimationFrame(() => dibujarPuntos(resultadosCategorias));
+
+    const actualizarGrafico = debounce(() => {
+        console.log("🔄 Ventana redimensionada, actualizando gráfico...");
+        requestAnimationFrame(() => dibujarPuntos(resultadosCategorias));
+    }, 100);
+
+    window.removeEventListener("resize", actualizarGrafico);
+    window.addEventListener("resize", actualizarGrafico);
+
+    if (!document.getElementById("svg-lineas")) {
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("id", "svg-lineas");
+        svg.setAttribute("style", "position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;");
+        tablaResumen.querySelector(".contenedor-tabla").appendChild(svg);
+    }
+
+    // Solicitar análisis si se cumplen los criterios
+    if (veracidadCumple && consistenciaCumple) {
+        setTimeout(() => {
+            enviarSolicitudConReintentosCASM83(resultadosCategorias, sexo);
+        }, 0);
+    }
+}
+
+async function enviarSolicitudConReintentosCASM83(resultadosCategorias, sexo, intentos = 3, esperaInicial = 1000) {
+    const categorias = ['CCFM', 'CCSS', 'CCNA', 'CCCO', 'ARTE', 'BURO', 'CCEP', 'HAA', 'FINA', 'LING', 'JURI', 'VERA', 'CONS'];
+    const resultadosOrdenados = {};
+
+    categorias.forEach(categoria => {
+        if (resultadosCategorias[categoria]) {
+            resultadosOrdenados[categoria] = {
+                total: resultadosCategorias[categoria].total,
+                A: resultadosCategorias[categoria].A,
+                B: resultadosCategorias[categoria].B
+            };
+        } else {
+            console.warn(`Categoría ${categoria} no encontrada en resultados, usando valores por defecto`);
+            resultadosOrdenados[categoria] = { total: 0, A: 0, B: 0 };
+        }
+    });
+
+    console.log("Datos enviados a analizarResultadosCASM83:", JSON.stringify({ resultados: resultadosOrdenados, sexo }, null, 2));
+
+    try {
+        const response = await fetch("../Controlador/analizarResultadosCASM83.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ resultados: resultadosOrdenados, sexo })
+        });
+        const data = await response.json();
+        const analisisSpan = document.getElementById("analisis-casm83");
+        if (!analisisSpan) {
+            console.error("No se encontró el elemento analisis-casm83");
             return;
         }
-
-        console.log('Resultados a enviar:', resultadosCategorias);
-        const payload = { resultados: resultadosCategorias, sexo: sexo };
-        console.log('JSON a enviar:', JSON.stringify(payload));
-
-        fetch('../Controlador/guardar_resultado_CASM83.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        })
-        .then(response => {
-            console.log('Código de respuesta:', response.status);
-            return response.json();
-        })
-        .then(data => {
-            console.log('Respuesta del servidor:', data);
-            if (data.message) {
-                alert('Resultados guardados correctamente');
-            } else {
-                alert('Error al guardar: ' + (data.error || 'Desconocido'));
-            }
-        })
-        .catch(error => {
-            console.error('Error al enviar los datos:', error);
-            alert('Error al guardar los resultados');
-        });
-
-        const etiquetas = ["CCFM", "CCSS", "CCNA", "CCCO", "ARTE", "BURO", "CCEP", "HAA", "FINA", "LING", "JURI", "VERA", "CONS"];
-        const etiquetasVertical = etiquetas.slice(0, 11);
-
-        const tablaCruce = document.createElement("table");
-        tablaCruce.className = "cruce-table";
-        tablaCruce.border = "1";
-        tablaCruce.style.borderCollapse = "collapse";
-        tablaCruce.style.marginTop = "20px";
-        tablaCruce.style.textAlign = "center";
-        tablaCruce.style.width = "100%";
-
-        const encabezadoFila = document.createElement("tr");
-        encabezadoFila.appendChild(document.createElement("th"));
-        etiquetas.forEach(et => {
-            const th = document.createElement("th");
-            th.textContent = et;
-            th.style.padding = "6px";
-            encabezadoFila.appendChild(th);
-        });
-        tablaCruce.appendChild(encabezadoFila);
-
-        let preguntaNumero = 1;
-        etiquetasVertical.forEach(etFila => {
-            const fila = document.createElement("tr");
-            const th = document.createElement("th");
-            th.textContent = etFila;
-            fila.appendChild(th);
-
-            etiquetas.forEach(() => {
-                const td = document.createElement("td");
-                const checkA = document.querySelector(`input[data-numero="${preguntaNumero}"][data-opcion="A"]`)?.checked;
-                const checkB = document.querySelector(`input[data-numero="${preguntaNumero}"][data-opcion="B"]`)?.checked;
-
-                const spanA = document.createElement("span");
-                spanA.textContent = "(a)";
-                if (checkA) spanA.classList.add("tachado");
-
-                const spanB = document.createElement("span");
-                spanB.textContent = "(b)";
-                if (checkB) spanB.classList.add("tachado");
-
-                td.appendChild(spanA);
-                td.appendChild(document.createTextNode(` ${preguntaNumero} `));
-                td.appendChild(spanB);
-                fila.appendChild(td);
-                preguntaNumero++;
-            });
-
-            tablaCruce.appendChild(fila);
-        });
-
-        const cardTablaCruce = document.createElement("div");
-        cardTablaCruce.className = "card";
-        const tituloTablaCruce = document.createElement("h3");
-        tituloTablaCruce.textContent = "🗂️ Tabla Cruzada de Preguntas";
-        cardTablaCruce.appendChild(tituloTablaCruce);
-        cardTablaCruce.appendChild(tablaCruce);
-
-        resultados.appendChild(cardTablaCruce);
-
-        const sexoSeleccionado = document.getElementById("sexo").value;
-
-        if (sexoSeleccionado === "Masculino") {
-            const encabezados = ["", "Desinterés", "Bajo", "Promedio Bajo", "Indecisión", "Promedio Alto", "Alto", "Muy Alto", ""];
-            const categorias = [
-                ["CCFM", "0-4", "5-7", "8-9", "10-12", "14-15", "16-17", "18-22"],
-                ["CCSS", "0-3", "4-6", "7-8", "9-12", "13-14", "15-16", "17-22"],
-                ["CCNA", "0-4", "5-7", "8-9", "10-13", "14-15", "16-18", "19-22"],
-                ["CCCO", "0-2", "3-4", "5-6", "7-10", "11-13", "14-17", "18-22"],
-                ["ARTE", "0-2", "3-4", "5-6", "7-10", "11-14", "15-17", "18-22"],
-                ["BURO", "0-3", "4-5", "6-7", "8-11", "12-13", "14-16", "17-22"],
-                ["CCEP", "0-3", "4-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
-                ["HAA", "0-3", "4-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
-                ["FINA", "0-2", "3-4", "5-6", "7-10", "11-12", "13-16", "17-22"],
-                ["LING", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
-                ["JURI", "0-2", "3-4", "5-6", "7-10", "11-13", "14-16", "17-22"]
-            ];
-            const percentiles = ["1-14", "15-29", "30-39", "40-60", "61-74", "75-89", "90-99"];
-
-            let tablaHTML = `
-            <div class="card" style="margin: 0; padding: 0; border: none;">
-                <div class="card-body" style="padding: 0;">
-                    <h3 class="card-title" style="margin: 10px 0;">📈 Tabla de Percentiles (Masculino)</h3>
-                    <div class="contenedor-tabla" style="position: relative; overflow-x: auto; margin: 0; padding: 0;">
-                        <svg id="svg-lineas" style="position: absolute; top: 0; left: 0; pointer-events: none; z-index: 10;"></svg>
-                        <table border="1" class="percentiles-table" style="border-collapse: collapse; text-align: center; margin: 0;">
-                            <tr><th colspan="9">Masculino</th></tr>
-                            <tr>${encabezados.map(h => `<th>${h}</th>`).join('')}</tr>
-                            ${categorias.map(fila => `
-                                <tr>
-                                    <td>${fila[0]}</td>
-                                    ${fila.slice(1).map(rango => `<td class="celda-percentil" data-cat="${fila[0]}" data-rango="${rango}">${rango}</td>`).join('')}
-                                    <td>${fila[0]}</td>
-                                </tr>
-                            `).join('')}
-                            <tr>
-                                <td></td>
-                                ${percentiles.map(p => `<td>${p}</td>`).join('')}
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td colspan="9" style="text-align:center;"><strong>PERCENTILES</strong></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>`;
-
-            const tablaResumen = document.getElementById("tablaResumen");
-            tablaResumen.innerHTML = tablaHTML;
-
-            requestAnimationFrame(() => dibujarPuntos(resultadosCategorias));
-
-            const actualizarGrafico = debounce(() => {
-                console.log("🔄 Ventana redimensionada, actualizando gráfico...");
-                requestAnimationFrame(() => dibujarPuntos(resultadosCategorias));
-            }, 100);
-
-            window.removeEventListener("resize", actualizarGrafico);
-            window.addEventListener("resize", actualizarGrafico);
+        if (data.exito) {
+            analisisSpan.innerHTML = data.analisis;
+        } else if (data.mensaje.includes("Límite de solicitudes alcanzado") && intentos > 0) {
+            console.log(`Límite de solicitudes alcanzado. Reintentando en ${esperaInicial}ms (${intentos} intentos restantes)`);
+            await new Promise(resolve => setTimeout(resolve, esperaInicial));
+            return enviarSolicitudConReintentosCASM83(resultadosCategorias, sexo, intentos - 1, esperaInicial * 2);
+        } else {
+            console.error("Error del servidor:", data.mensaje);
+            analisisSpan.innerHTML = `Error: ${data.mensaje}`;
         }
-
-        if (sexoSeleccionado === "Femenino") {
-            const encabezados = ["", "Desinterés", "Bajo", "Promedio Bajo", "Indecisión", "Promedio Alto", "Alto", "Muy Alto", ""];
-            const categorias = [
-                ["CCFM", "0-2", "3-4", "5-6", "7-11", "12-14", "15-17", "18-22"],
-                ["CCSS", "0-4", "5-7", "8-9", "10-14", "15-16", "17-19", "20-22"],
-                ["CCNA", "0-3", "4-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
-                ["CCCO", "0-2", "3-4", "5-6", "7-11", "12-13", "14-16", "17-22"],
-                ["ARTE", "0-2", "3-4", "5-6", "7-11", "12-13", "14-16", "17-22"],
-                ["BURO", "0-4", "5-7", "8-9", "10-14", "15-16", "17-19", "20-22"],
-                ["CCEP", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
-                ["HAA", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
-                ["FINA", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
-                ["LING", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
-                ["JURI", "0-2", "3-4", "5-6", "7-11", "12-13", "14-16", "17-22"]
-            ];
-            const percentiles = ["1-14", "15-29", "30-39", "40-60", "61-74", "75-89", "90-99"];
-
-            let tablaHTML = `
-            <div class="card" style="margin: 0; padding: 0; border: none;">
-                <div class="card-body" style="padding: 0;">
-                    <h3 class="card-title" style="margin: 10px 0;">📈 Tabla de Percentiles (Femenino)</h3>
-                    <div class="contenedor-tabla" style="position: relative; overflow-x: auto; margin: 0; padding: 0;">
-                        <svg id="svg-lineas" style="position: absolute; top: 0; left: 0; pointer-events: none; z-index: 10;"></svg>
-                        <table border="1" class="percentiles-table" style="border-collapse: collapse; text-align: center; margin: 0;">
-                            <tr><th colspan="9">Femenino</th></tr>
-                            <tr>${encabezados.map(h => `<th>${h}</th>`).join('')}</tr>
-                            ${categorias.map(fila => `
-                                <tr>
-                                    <td>${fila[0]}</td>
-                                    ${fila.slice(1).map(rango => `<td class="celda-percentil" data-cat="${fila[0]}" data-rango="${rango}">${rango}</td>`).join('')}
-                                    <td>${fila[0]}</td>
-                                </tr>
-                            `).join('')}
-                            <tr>
-                                <td></td>
-                                ${percentiles.map(p => `<td>${p}</td>`).join('')}
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td colspan="9" style="text-align:center;"><strong>PERCENTILES</strong></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>`;
-
-            const tablaResumen = document.getElementById("tablaResumen");
-            tablaResumen.innerHTML = tablaHTML;
-
-            requestAnimationFrame(() => dibujarPuntos(resultadosCategorias));
-
-            const actualizarGrafico = debounce(() => {
-                console.log("🔄 Ventana redimensionada, actualizando gráfico...");
-                requestAnimationFrame(() => dibujarPuntos(resultadosCategorias));
-            }, 100);
-
-            window.removeEventListener("resize", actualizarGrafico);
-            window.addEventListener("resize", actualizarGrafico);
+    } catch (error) {
+        console.error("Error al obtener análisis CASM-83:", error);
+        const analisisSpan = document.getElementById("analisis-casm83");
+        if (analisisSpan) {
+            analisisSpan.innerHTML = `Error al obtener el análisis: ${error.message}`;
         }
-
-        if (!document.getElementById("svg-lineas")) {
-            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            svg.setAttribute("id", "svg-lineas");
-            svg.setAttribute("style", "position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;");
-            tablaResumen.appendChild(svg);
-        }       
     }
+}
 });

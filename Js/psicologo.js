@@ -882,7 +882,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function cargarResultadosCASM83(idInicio, contenedor) {
         contenedor.innerHTML = "<p>Cargando resultados...</p>";
 
-        fetch(`../Controlador/obtenerResultadosCASM83PorTest.php?id_inicio=${idInicio}`, { credentials: "include" })
+        fetch(`../Controlador/obtenerResultadosCASM83General.php?id_inicio=${idInicio}`, { credentials: "include" })
             .then(response => response.json())
             .then(data => {
                 if (data.exito) {
@@ -1087,7 +1087,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function cargarResultadosCASM85(idInicio, contenedor) {
         contenedor.innerHTML = "<p>Cargando resultados...</p>";
 
-        fetch(`../Controlador/obtenerResultadosCASM85PorTest.php?id_inicio=${idInicio}`, { credentials: "include" })
+        fetch(`../Controlador/obtenerResultadosCASM85General.php?id_inicio=${idInicio}`, { credentials: "include" })
             .then(response => response.json())
             .then(data => {
                 if (data.exito) {
@@ -1175,7 +1175,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function eliminarTestCASM83(idInicio, idPaciente, casm83Section) {
-        fetch(`../Controlador/eliminarTestCASM83.php?id_inicio=${idInicio}`, { 
+        fetch(`../Controlador/eliminarTest.php?id_inicio=${idInicio}&tipo_test=casm83`, {
             method: "POST",
             credentials: "include"
         })
@@ -1189,13 +1189,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             })
             .catch(error => {
-                console.error("Error al eliminar el test:", error);
+                console.error("Error al eliminar el test CASM-83:", error);
                 alert("Ocurrió un error al eliminar el test.");
             });
     }
 
     function eliminarTestCASM85(idInicio, idPaciente, casm85Section) {
-        fetch(`../Controlador/eliminarTestCASM85.php?id_inicio=${idInicio}`, { 
+        fetch(`../Controlador/eliminarTest.php?id_inicio=${idInicio}&tipo_test=casm85`, {
             method: "POST",
             credentials: "include"
         })
@@ -1209,7 +1209,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             })
             .catch(error => {
-                console.error("Error al eliminar el test:", error);
+                console.error("Error al eliminar el test CASM-85:", error);
                 alert("Ocurrió un error al eliminar el test.");
             });
     }

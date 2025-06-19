@@ -279,8 +279,8 @@ main {
     background-color: #171717;
 }
 
-/* Estilos para el modal de límite de intentos */
-#modal-limit-exceeded.modal-adv {
+/* Modal base styles */
+.modal-log, .modal-adv {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -294,11 +294,11 @@ main {
     align-items: center;
 }
 
-#modal-limit-exceeded.modal-adv.show {
+.modal-log.show, .modal-adv.show {
     display: flex;
 }
 
-#modal-limit-exceeded.modal-adv .modal-content-adv {
+.modal-content-log, .modal-content-adv {
     background-color: #171717;
     color: white;
     padding: 20px;
@@ -316,23 +316,23 @@ main {
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-#modal-limit-exceeded.modal-adv.show .modal-content-adv {
+.modal-log.show .modal-content-log, .modal-adv.show .modal-content-adv {
     opacity: 1;
     transform: scale(1);
 }
 
-#modal-limit-exceeded.modal-adv h3 {
+.modal-content-log h3, .modal-content-adv h3 {
     color: #2944ff;
     margin-bottom: 1rem;
     font-size: 1.5rem;
 }
 
-#modal-limit-exceeded.modal-adv p {
+.modal-content-log p, .modal-content-adv p {
     font-size: 1rem;
     margin-bottom: 1.5rem;
 }
 
-#modal-limit-exceeded.modal-adv .modal-close {
+.modal-close {
     position: absolute;
     top: 0.5rem;
     right: 0.75rem;
@@ -342,11 +342,11 @@ main {
     transition: color 0.3s;
 }
 
-#modal-limit-exceeded.modal-adv .modal-close:hover {
+.modal-close:hover {
     color: #6679ff;
 }
 
-#modal-limit-exceeded.modal-adv .modal-button {
+.modal-button {
     padding: 10px 15px;
     border: 1px solid #454545;
     cursor: pointer;
@@ -354,30 +354,36 @@ main {
     color: white;
     border-radius: 5px;
     font-size: 1rem;
-    transition: background 0.3s, border-color 0.3s;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
-#modal-limit-exceeded.modal-adv .modal-button:hover {
+.modal-button:hover {
     border-color: #747474;
     background-color: #252525;
 }
 
-/* Responsividad */
+/* Specific modal overrides */
+#modal-login-required.modal-log .modal-content-log a {
+    color: #2944ff;
+    text-decoration: underline;
+}
+
+/* Responsive design */
 @media (max-width: 768px) {
-    #modal-limit-exceeded.modal-adv .modal-content-adv {
+    .modal-content-log, .modal-content-adv {
         padding: 15px;
         width: 95%;
     }
 
-    #modal-limit-exceeded.modal-adv h3 {
+    .modal-content-log h3, .modal-content-adv log h3 {
         font-size: 1.3rem;
     }
 
-    #modal-limit-exceeded.modal-adv p {
+    .modal-content-log p, .modal-content-adv p {
         font-size: 0.95rem;
     }
 
-    #modal-limit-exceeded.modal-adv .modal-button {
+    .modal-button {
         padding: 8px 12px;
         font-size: 0.95rem;
     }

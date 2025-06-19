@@ -217,19 +217,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 let puntajes = {};
                 let puntajeTotal = 0;
                 let preguntaNumero = 1;
-    
+
                 if (!data.secciones) {
                     console.error("El JSON no tiene la estructura esperada");
                     return;
                 }
-    
+
                 data.secciones.forEach(seccion => {
                     let puntajeSeccion = 0;
                     seccion.preguntas.forEach(pregunta => {
                         let regla = pregunta.regla || "normal";
                         let seleccion = document.querySelector(`input[name='pregunta${preguntaNumero}']:checked`);
-    
-                        // Si hay una respuesta seleccionada, se procesa
+
                         if (seleccion) {
                             if ((regla === "normal" && seleccion.value === "siempre") || 
                                 (regla === "invertida" && seleccion.value === "nunca")) {
@@ -237,34 +236,29 @@ document.addEventListener("DOMContentLoaded", function () {
                                 puntajeTotal++;
                             }
                         }
-                        // Si no hay selección, simplemente no se cuenta esa pregunta
                         preguntaNumero++;
                     });
                     puntajes[seccion.titulo] = puntajeSeccion;
                 });
-    
-                // Ahora, mostramos los resultados, incluso si algunas respuestas están incompletas
-                mostrarResultados(puntajes, puntajeTotal);  // Mostramos los resultados, incluso si algunas respuestas están incompletas
+
+                mostrarResultados(puntajes, puntajeTotal);
             })
             .catch(error => console.error("Error al calcular los resultados:", error));
-    } 
+    }
 
     function mostrarResultados(puntajes, puntajeTotal) {
         const nombre = document.getElementById("nombre").value || "Sin nombre";
         const edad = document.getElementById("edad").value || "Sin edad";
         const sexo = document.getElementById("sexo").value || "Sin especificar";
         const gradoEstudio = document.getElementById("gradoEstudio").value || "Sin especificar";
-        const fechaActual = new Date().toLocaleDateString();
-    
+        const fechaActual = new Date().toISOString().split('T')[0]; // Formato YYYY-MM-DD
+
         let puntajeTotalGlobal = 0;
-    
-        // Contenedor flexible para alinear los textos y tablas
+
         let resultadosHTML = `
             <h2>Resultados del Test</h2>
             
             <div style="display: flex; justify-content: space-between; gap: 40px; align-items: flex-start;">
-                
-                <!-- Columna izquierda: Datos personales -->
                 <div style="flex: 1;">
                     <p><strong>Nombre:</strong> ${nombre}</p>
                     <p><strong>Edad:</strong> ${edad}</p>
@@ -272,8 +266,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <p><strong>Grado de Estudio:</strong> ${gradoEstudio}</p>
                     <p><strong>Fecha:</strong> ${fechaActual}</p>
                 </div>
-    
-                <!-- Tabla de interpretación de categorías -->
+
                 <table border="1" class="categoria-table">
                     <tr><th>CATEGORÍA</th></tr>
                     <tr><td>De 44-53 Muy Positivo</td></tr>
@@ -281,12 +274,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     <tr><td>De 28-35 Tendencia (+)</td></tr>
                     <tr><td>De 18-27 Tendencia (-)</td></tr>
                     <tr><td>De 09-17 Negativo</td></tr>
-                    <tr><td>De 0-08 Muy Negativo.</td></tr>
+                    <tr><td>De 0-08 Muy Negativo</td></tr>
                 </table>
-    
-            </div>  <!-- Fin del contenedor flexible -->
-    
-            <!-- Tabla de resultados -->
+            </div>
+
+            <p style="margin-top: 20px;">Si quieres volver a ver tus resultados ve a "Ver Perfil" o presione <a href="../Vista/perfil.html" style="color: #2944ff;">aquí</a></p>
+
             <table border="1">
                 <thead>
                     <tr>
@@ -296,25 +289,23 @@ document.addEventListener("DOMContentLoaded", function () {
                     </tr>
                 </thead>
                 <tbody>`;
-    
-        // Agregar filas de evaluación
+
         Object.keys(puntajes).forEach((seccion, index) => {
             const puntajeSeccion = puntajes[seccion];
             const categoria = obtenerCategoriaSeccion(puntajeSeccion, index + 1);
-    
+
             resultadosHTML += `
                 <tr>
                     <td>${seccion}</td>
                     <td>${puntajeSeccion}</td>
                     <td>${categoria}</td>
                 </tr>`;
-    
+
             puntajeTotalGlobal += puntajeSeccion;
         });
-    
-        // Agregar fila de puntaje total
+
         const categoriaGlobal = obtenerCategoriaGlobal(puntajeTotalGlobal);
-    
+
         resultadosHTML += `
                 <tr>
                     <td><strong>PUNTAJE TOTAL</strong></td>
@@ -322,23 +313,33 @@ document.addEventListener("DOMContentLoaded", function () {
                     <td><strong>${categoriaGlobal}</strong></td>
                 </tr>
             </tbody>
-        </table>`;
-    
-        // Insertar HTML en el contenedor
+        </table>
+        <p style="margin-top: 20px;"><strong>Análisis de resultados:</strong> <span id="analisis-casm85">Cargando análisis</span></p>`;
+
         resultadosContenido.innerHTML = resultadosHTML;
-        // Convertir resultados a un array de objetos
+
         const resultadosParaEnviar = [];
 
         Object.keys(puntajes).forEach((seccion, index) => {
             resultadosParaEnviar.push({
                 area: seccion,
                 puntaje: puntajes[seccion],
-                categoria: obtenerCategoriaSeccion(puntajes[seccion], index + 1)
+                categoria: obtenerCategoriaSeccion(puntajes[seccion], index + 1),
+                fecha: fechaActual
             });
         });
 
-        // Enviar a PHP mediante fetch POST
-        fetch("../Controlador/guardar_resultados.php", {
+        // Depuración
+        console.log("Datos enviados a analizarResultados.php:", JSON.stringify({ resultados: resultadosParaEnviar }, null, 2));
+
+        // Validar que haya 5 áreas
+        if (resultadosParaEnviar.length !== 5) {
+            document.getElementById("analisis-casm85").innerHTML = "Error: Se esperaban 5 áreas, pero se recibieron " + resultadosParaEnviar.length;
+            return;
+        }
+
+        // Enviar resultados para guardarlos
+        fetch("../Controlador/guardarResultadosTest.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -349,10 +350,49 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(response => response.text())
         .then(data => {
-            console.log("Respuesta del servidor:", data);
+            console.log("Respuesta del servidor (guardar):", data);
         })
         .catch(error => {
             console.error("Error al guardar los resultados:", error);
         });
-    }   
+
+        // Solicitar análisis
+        setTimeout(() => {
+            enviarSolicitudConReintentos(resultadosParaEnviar);
+        }, 0);
+    }
+
+    async function enviarSolicitudConReintentos(resultados, intentos = 3, esperaInicial = 1000) {
+        try {
+            const response = await fetch("../Controlador/analizarResultados.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ resultados })
+            });
+            const data = await response.json();
+            const analisisSpan = document.getElementById("analisis-casm85");
+            if (!analisisSpan) {
+                console.error("No se encontró el elemento analisis-casm85 en el DOM");
+                return;
+            }
+            if (data.exito) {
+                analisisSpan.innerHTML = data.analisis;
+            } else if (data.mensaje.includes("Límite de solicitudes alcanzado") && intentos > 0) {
+                console.log(`Límite de solicitudes alcanzado. Reintentando en ${esperaInicial}ms... (${intentos} intentos restantes)`);
+                await new Promise(resolve => setTimeout(resolve, esperaInicial));
+                return enviarSolicitudConReintentos(resultados, intentos - 1, esperaInicial * 2);
+            } else {
+                console.error("Error del servidor:", data.mensaje);
+                analisisSpan.innerHTML = `Error: ${data.mensaje}`;
+            }
+        } catch (error) {
+            console.error("Error al obtener análisis:", error);
+            const analisisSpan = document.getElementById("analisis-casm85");
+            if (analisisSpan) {
+                analisisSpan.innerHTML = `Error al obtener el análisis: ${error.message}`;
+            }
+        }
+    }
 });
