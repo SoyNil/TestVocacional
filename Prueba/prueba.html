@@ -1,84 +1,84 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Test PMA - Factor E</title>
-  <style>
-    .contenedor {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-family: sans-serif;
-    }
+<table border="1" cellspacing="0" cellpadding="8">
+  <thead>
+    <tr>
+      <th>Área</th>
+      <th>Puntaje</th>
+      <th>Categoría</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>¿CÓMO ESTUDIA USTED?</td>
+      <td>0</td>
+      <td>Muy negativo</td>
+    </tr>
+    <tr>
+      <td>¿CÓMO HACE UD. SUS TAREAS?</td>
+      <td>0</td>
+      <td>Muy negativo</td>
+    </tr>
+    <tr>
+      <td>¿CÓMO HACE UD. SUS TAREAS?</td>
+      <td>0</td>
+      <td>Muy negativo</td>
+    </tr>
+    <tr>
+      <td>¿CÓMO ESCUCHA LAS CLASES?</td>
+      <td>0</td>
+      <td>Muy negativo</td>
+    </tr>
+    <tr>
+      <td>¿QUÉ ACOMPAÑA SUS MOMENTOS DE ESTUDIO?</td>
+      <td>0</td>
+      <td>Muy negativo</td>
+    </tr>
+  </tbody>
+</table>
 
-    .figura-base {
-      margin: 1rem;
-      transform: rotate(0deg);
-      width: 100px;
-    }
+<table border="1" cellspacing="0" cellpadding="6">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="7">Masculino</th>
+      <th></th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Desinterés</th>
+      <th>Bajo</th>
+      <th>Promedio Bajo</th>
+      <th>Indecisión</th>
+      <th>Promedio Alto</th>
+      <th>Alto</th>
+      <th>Muy Alto</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>CCFM</td><td>0-4</td><td>5-7</td><td>8-9</td><td>10-12</td><td>14-15</td><td>16-17</td><td>18-22</td><td>CCFM</td></tr>
+    <tr><td>CCSS</td><td>0-3</td><td>4-6</td><td>7-8</td><td>9-12</td><td>13-14</td><td>15-16</td><td>17-22</td><td>CCSS</td></tr>
+    <tr><td>CCNA</td><td>0-4</td><td>5-7</td><td>8-9</td><td>10-13</td><td>14-15</td><td>16-18</td><td>19-22</td><td>CCNA</td></tr>
+    <tr><td>CCCO</td><td>0-2</td><td>3-4</td><td>5-6</td><td>7-10</td><td>11-13</td><td>14-17</td><td>18-22</td><td>CCCO</td></tr>
+    <tr><td>ARTE</td><td>0-2</td><td>3-4</td><td>5-6</td><td>7-10</td><td>11-14</td><td>15-17</td><td>18-22</td><td>ARTE</td></tr>
+    <tr><td>BURO</td><td>0-3</td><td>4-5</td><td>6-7</td><td>8-11</td><td>12-13</td><td>14-16</td><td>17-22</td><td>BURO</td></tr>
+    <tr><td>CCEP</td><td>0-3</td><td>4-5</td><td>6-7</td><td>8-12</td><td>13-14</td><td>15-17</td><td>18-22</td><td>CCEP</td></tr>
+    <tr><td>HAA</td><td>0-3</td><td>4-5</td><td>6-7</td><td>8-12</td><td>13-14</td><td>15-17</td><td>18-22</td><td>HAA</td></tr>
+    <tr><td>FINA</td><td>0-2</td><td>3-4</td><td>5-6</td><td>7-10</td><td>11-12</td><td>13-16</td><td>17-22</td><td>FINA</td></tr>
+    <tr><td>LING</td><td>0-2</td><td>3-4</td><td>5-6</td><td>7-9</td><td>10-12</td><td>13-15</td><td>16-22</td><td>LING</td></tr>
+    <tr><td>JURI</td><td>0-2</td><td>3-4</td><td>5-6</td><td>7-10</td><td>11-13</td><td>14-16</td><td>17-22</td><td>JURI</td></tr>
+    <tr><td>VERA</td><td>0-2</td><td>3-4</td><td>5-6</td><td>7-9</td><td>10-12</td><td>13-15</td><td>16-22</td><td>VERA</td></tr>
+    <tr><td>CONS</td><td>0-2</td><td>3-4</td><td>5-6</td><td>7-9</td><td>10-12</td><td>13-15</td><td>16-22</td><td>CONS</td></tr>
+    <tr>
+      <td></td>
+      <td>1-14</td>
+      <td>15-29</td>
+      <td>30-39</td>
+      <td>40-60</td>
+      <td>61-74</td>
+      <td>75-89</td>
+      <td>90-99</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
 
-    .opciones {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-    }
-
-    .opcion {
-      cursor: pointer;
-      border: 2px solid transparent;
-      padding: 5px;
-      border-radius: 8px;
-      transition: border 0.2s;
-    }
-
-    .opcion:hover {
-      border-color: #666;
-    }
-
-    .correcto {
-      border-color: green !important;
-    }
-
-    .incorrecto {
-      border-color: red !important;
-    }
-  </style>
-</head>
-<body>
-  <div class="contenedor">
-    <h2>¿Cuál es la figura que corresponde a la misma, rotada?</h2>
-    <img src="figura.png" alt="Figura base" class="figura-base" id="figuraBase">
-
-    <div class="opciones" id="opcionesContainer">
-      <!-- Opciones se generan con JS -->
-    </div>
-  </div>
-
-  <script>
-    const opcionesContainer = document.getElementById('opcionesContainer');
-    const angulos = [90, 180, 270, 45]; // Una es incorrecta (45)
-    const respuestaCorrecta = 45;
-
-    angulos.forEach(angulo => {
-      const img = document.createElement('img');
-      img.src = "figura.png";
-      img.className = "opcion";
-      img.style.width = "80px";
-      img.style.transform = `rotate(${angulo}deg)`;
-      img.dataset.angulo = angulo;
-
-      img.addEventListener('click', () => {
-        if (parseInt(img.dataset.angulo) === respuestaCorrecta) {
-          img.classList.add("correcto");
-          alert("¡Correcto!");
-        } else {
-          img.classList.add("incorrecto");
-          alert("Incorrecto");
-        }
-      });
-
-      opcionesContainer.appendChild(img);
-    });
-  </script>
-</body>
-</html>

@@ -739,144 +739,587 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function verPaciente(idPaciente) {
+        const contenido = document.getElementById("contenido");
         contenido.innerHTML = `<h2>Detalles del Paciente</h2><div id="detalles-paciente">Cargando...</div>`;
 
         fetch(`../Controlador/obtenerTestsPaciente.php?id=${idPaciente}`, { credentials: "include" })
             .then(res => {
                 if (!res.ok) throw new Error("Error en la respuesta del servidor: " + res.status);
-                return res.text();
+                return res.json();
             })
-            .then(text => {
-                try {
-                    const data = JSON.parse(text);
-                    const detalles = document.getElementById("detalles-paciente");
-                    detalles.innerHTML = "";
+            .then(data => {
+                const detalles = document.getElementById("detalles-paciente");
+                detalles.innerHTML = "";
 
-                    if (!data.exito) {
-                        detalles.innerHTML = `<p>Error: ${data.error}</p>`;
-                        return;
-                    }
-
-                    const paciente = data.paciente;
-                    const infoPaciente = document.createElement("div");
-                    infoPaciente.classList.add("info-paciente");
-                    infoPaciente.innerHTML = `
-                        <h3>${paciente.nombre_usuario}</h3>
-                        <p><strong>Nombre:</strong> ${paciente.nombre} ${paciente.apellido}</p>
-                        <p><strong>Correo:</strong> ${paciente.correo}</p>
-                        <p><strong>Sexo:</strong> ${paciente.sexo}</p>
-                        <p><strong>Fecha de Nacimiento:</strong> ${paciente.fecha_nacimiento}</p>
-                        <p><strong>Tipo de Cuenta:</strong> ${paciente.tipo_cuenta}</p>
-                    `;
-                    detalles.appendChild(infoPaciente);
-
-                    const volverBtn = document.createElement("button");
-                    volverBtn.classList.add("btn-volver");
-                    volverBtn.textContent = "Volver a la lista de pacientes";
-                    volverBtn.addEventListener("click", () => mostrarPacientes());
-                    detalles.appendChild(volverBtn);
-
-                    const testsContainer = document.createElement("div");
-                    testsContainer.classList.add("tests-container");
-
-                    // Sección CASM-83
-                    const casm83Section = document.createElement("div");
-                    casm83Section.classList.add("test-section");
-                    casm83Section.innerHTML = `<h4>Test CASM-83</h4>`;
-                    if (data.tests.casm83.length > 0) {
-                        const count = data.tests.casm83.length;
-                        casm83Section.innerHTML += `<p><strong>Cantidad de tests realizados:</strong> ${count}</p>`;
-                        const selectContainer = document.createElement("div");
-                        selectContainer.classList.add("select-container");
-                        const select = document.createElement("select");
-                        select.classList.add("select-test", "select-casm83");
-                        select.innerHTML = data.tests.casm83.map(test => `
-                            <option value="${test.id_inicio}">Test ${test.test_number} - ${test.fecha}</option>
-                        `).join("");
-                        selectContainer.appendChild(select);
-
-                        const eliminarBtn = document.createElement("button");
-                        eliminarBtn.classList.add("btn-eliminar-test");
-                        eliminarBtn.textContent = "Eliminar test";
-                        eliminarBtn.addEventListener("click", () => {
-                            const idInicio = select.value;
-                            if (confirm("¿Estás seguro de que deseas eliminar este test y su análisis? Esta acción no se puede deshacer.")) {
-                                eliminarTestCASM83(idInicio, idPaciente, casm83Section);
-                            }
-                        });
-                        selectContainer.appendChild(eliminarBtn);
-                        casm83Section.appendChild(selectContainer);
-
-                        const resultadosContainer = document.createElement("div");
-                        resultadosContainer.classList.add("resultados-casm83");
-                        resultadosContainer.id = "resultados-casm83";
-                        casm83Section.appendChild(resultadosContainer);
-
-                        select.addEventListener("change", () => {
-                            const idInicio = select.value;
-                            cargarResultadosCASM83(idInicio, resultadosContainer);
-                        });
-
-                        cargarResultadosCASM83(data.tests.casm83[0].id_inicio, resultadosContainer);
-                    } else {
-                        casm83Section.innerHTML += `<p>No se encontraron tests CASM-83.</p>`;
-                    }
-                    testsContainer.appendChild(casm83Section);
-
-                    // Sección CASM-85
-                    const casm85Section = document.createElement("div");
-                    casm85Section.classList.add("test-section");
-                    casm85Section.innerHTML = `<h4>Test CASM-85</h4>`;
-                    if (data.tests.casm85.length > 0) {
-                        const count = data.tests.casm85.length;
-                        casm85Section.innerHTML += `<p><strong>Cantidad de tests realizados:</strong> ${count}</p>`;
-                        const selectContainer = document.createElement("div");
-                        selectContainer.classList.add("select-container");
-                        const select = document.createElement("select");
-                        select.classList.add("select-test", "select-casm85");
-                        select.innerHTML = data.tests.casm85.map(test => `
-                            <option value="${test.id_inicio}">Test ${test.test_number} - ${test.fecha}</option>
-                        `).join("");
-                        selectContainer.appendChild(select);
-
-                        const eliminarBtn = document.createElement("button");
-                        eliminarBtn.classList.add("btn-eliminar-test");
-                        eliminarBtn.textContent = "Eliminar test";
-                        eliminarBtn.addEventListener("click", () => {
-                            const idInicio = select.value;
-                            if (confirm("¿Estás seguro de que deseas eliminar este test y su análisis? Esta acción no se puede deshacer.")) {
-                                eliminarTestCASM85(idInicio, idPaciente, casm85Section);
-                            }
-                        });
-                        selectContainer.appendChild(eliminarBtn);
-                        casm85Section.appendChild(selectContainer);
-
-                        const resultadosContainer = document.createElement("div");
-                        resultadosContainer.classList.add("resultados-casm85");
-                        resultadosContainer.id = "resultados-casm85";
-                        casm85Section.appendChild(resultadosContainer);
-
-                        select.addEventListener("change", () => {
-                            const idInicio = select.value;
-                            cargarResultadosCASM85(idInicio, resultadosContainer);
-                        });
-
-                        cargarResultadosCASM85(data.tests.casm85[0].id_inicio, resultadosContainer);
-                    } else {
-                        casm85Section.innerHTML += `<p>No se encontraron tests CASM-85.</p>`;
-                    }
-                    testsContainer.appendChild(casm85Section);
-
-                    detalles.appendChild(testsContainer);
-                } catch (e) {
-                    console.error("Error al parsear JSON:", e, "Respuesta:", text);
-                    document.getElementById("detalles-paciente").innerHTML = `<p>Error al cargar detalles del paciente.</p>`;
+                if (!data.exito) {
+                    detalles.innerHTML = `<p>Error: ${data.error}</p>`;
+                    return;
                 }
+
+                const paciente = data.paciente;
+                const infoPaciente = document.createElement("div");
+                infoPaciente.classList.add("info-paciente");
+                infoPaciente.innerHTML = `
+                    <h3>${paciente.nombre_usuario}</h3>
+                    <p><strong>Nombre:</strong> ${paciente.nombre} ${paciente.apellido}</p>
+                    <p><strong>Correo:</strong> ${paciente.correo}</p>
+                    <p><strong>Sexo:</strong> ${paciente.sexo}</p>
+                    <p><strong>Fecha de Nacimiento:</strong> ${paciente.fecha_nacimiento}</p>
+                    <p><strong>Tipo de Cuenta:</strong> ${paciente.tipo_cuenta}</p>
+                `;
+                detalles.appendChild(infoPaciente);
+
+                const botonesDiv = document.createElement("div");
+                botonesDiv.style.display = "flex";
+                botonesDiv.style.gap = "10px";
+                botonesDiv.style.marginTop = "1rem";
+
+                const volverBtn = document.createElement("button");
+                volverBtn.classList.add("btn-volver", "modal-button");
+                volverBtn.textContent = "Volver a la lista de pacientes";
+                volverBtn.addEventListener("click", () => mostrarPacientes());
+
+                const informeBtn = document.createElement("button");
+                informeBtn.classList.add("btn-informe", "modal-button");
+                informeBtn.textContent = "Generar Informe";
+                informeBtn.addEventListener("click", () => mostrarModalInforme(idPaciente, data.tests));
+
+                botonesDiv.appendChild(volverBtn);
+                botonesDiv.appendChild(informeBtn);
+                detalles.appendChild(botonesDiv);
+
+                const testsContainer = document.createElement("div");
+                testsContainer.classList.add("tests-container");
+
+                // Sección CASM-83
+                const casm83Section = document.createElement("div");
+                casm83Section.classList.add("test-section");
+                casm83Section.innerHTML = `<h4>Test CASM-83</h4>`;
+                if (data.tests.casm83.length > 0) {
+                    const count = data.tests.casm83.length;
+                    casm83Section.innerHTML += `<p><strong>Cantidad de tests realizados:</strong> ${count}</p>`;
+                    const selectContainer = document.createElement("div");
+                    selectContainer.classList.add("select-container");
+                    const select = document.createElement("select");
+                    select.classList.add("select-test", "select-casm83");
+                    select.innerHTML = data.tests.casm83.map(test => `
+                        <option value="${test.id_inicio}">Test ${test.test_number} - ${test.fecha}</option>
+                    `).join("");
+                    selectContainer.appendChild(select);
+
+                    const eliminarBtn = document.createElement("button");
+                    eliminarBtn.classList.add("btn-eliminar-test");
+                    eliminarBtn.textContent = "Eliminar test";
+                    eliminarBtn.addEventListener("click", () => {
+                        const idInicio = select.value;
+                        if (confirm("¿Estás seguro de que deseas eliminar este test y su análisis? Esta acción no se puede deshacer.")) {
+                            eliminarTestCASM83(idInicio, idPaciente, casm83Section);
+                        }
+                    });
+                    selectContainer.appendChild(eliminarBtn);
+                    casm83Section.appendChild(selectContainer);
+
+                    const resultadosContainer = document.createElement("div");
+                    resultadosContainer.classList.add("resultados-casm83");
+                    resultadosContainer.id = "resultados-casm83";
+                    casm83Section.appendChild(resultadosContainer);
+
+                    select.addEventListener("change", () => {
+                        const idInicio = select.value;
+                        cargarResultadosCASM83(idInicio, resultadosContainer);
+                    });
+
+                    cargarResultadosCASM83(data.tests.casm83[0].id_inicio, resultadosContainer);
+                } else {
+                    casm83Section.innerHTML += `<p>No se encontraron tests CASM-83.</p>`;
+                }
+                testsContainer.appendChild(casm83Section);
+
+                // Sección CASM-85
+                const casm85Section = document.createElement("div");
+                casm85Section.classList.add("test-section");
+                casm85Section.innerHTML = `<h4>Test CASM-85</h4>`;
+                if (data.tests.casm85.length > 0) {
+                    const count = data.tests.casm85.length;
+                    casm85Section.innerHTML += `<p><strong>Cantidad de tests realizados:</strong> ${count}</p>`;
+                    const selectContainer = document.createElement("div");
+                    selectContainer.classList.add("select-container");
+                    const select = document.createElement("select");
+                    select.classList.add("select-test", "select-casm85");
+                    select.innerHTML = data.tests.casm85.map(test => `
+                        <option value="${test.id_inicio}">Test ${test.test_number} - ${test.fecha}</option>
+                    `).join("");
+                    selectContainer.appendChild(select);
+
+                    const eliminarBtn = document.createElement("button");
+                    eliminarBtn.classList.add("btn-eliminar-test");
+                    eliminarBtn.textContent = "Eliminar test";
+                    eliminarBtn.addEventListener("click", () => {
+                        const idInicio = select.value;
+                        if (confirm("¿Estás seguro de que deseas eliminar este test y su análisis? Esta acción no se puede deshacer.")) {
+                            eliminarTestCASM85(idInicio, idPaciente, casm85Section);
+                        }
+                    });
+                    selectContainer.appendChild(eliminarBtn);
+                    casm85Section.appendChild(selectContainer);
+
+                    const resultadosContainer = document.createElement("div");
+                    resultadosContainer.classList.add("resultados-casm85");
+                    resultadosContainer.id = "resultados-casm85";
+                    casm85Section.appendChild(resultadosContainer);
+
+                    select.addEventListener("change", () => {
+                        const idInicio = select.value;
+                        cargarResultadosCASM85(idInicio, resultadosContainer);
+                    });
+
+                    cargarResultadosCASM85(data.tests.casm85[0].id_inicio, resultadosContainer);
+                } else {
+                    casm85Section.innerHTML += `<p>No se encontraron tests CASM-85.</p>`;
+                }
+                testsContainer.appendChild(casm85Section);
+
+                detalles.appendChild(testsContainer);
             })
             .catch(err => {
                 document.getElementById("detalles-paciente").innerHTML = `<p>Error al cargar detalles del paciente.</p>`;
                 console.error("Error al obtener detalles del paciente:", err);
             });
+    }
+
+    function mostrarModalInforme(idPaciente, tests) {
+        console.log("mostrarModalInforme llamado con:", { idPaciente, tests });
+        console.log("tests.casm83:", tests.casm83);
+        console.log("tests.casm85:", tests.casm85);
+
+        // Validar tests
+        if (!tests || !Array.isArray(tests.casm83) || !Array.isArray(tests.casm85)) {
+            console.error("Tests inválidos:", tests);
+            alert("Error: No se proporcionaron datos válidos de los tests.");
+            return;
+        }
+
+        // Eliminar modal existente para evitar duplicados
+        let modal = document.getElementById("modal-informe-container");
+        if (modal) {
+            modal.remove();
+        }
+
+        // Crear modal
+        const modalHTML = `
+            <div id="modal-informe-container" class="modal-adv">
+                <div class="modal-content-adv">
+                    <span id="modal-close-informe" class="modal-close">×</span>
+                    <h3>Generar Informe</h3>
+                    <p>Selecciona un intento para cada test:</p>
+                    <div id="modal-error-informe" style="color: #a94442; display: none; margin-bottom: 1rem;"></div>
+                    <label for="select-casm83">CASM-83:</label>
+                    <select id="select-casm83" class="modal-select">
+                        <option value="">Selecciona un intento</option>
+                        ${tests.casm83.length > 0 ? tests.casm83.map(test => `<option value="${test.id_inicio}">Test ${test.test_number} - ${test.fecha}</option>`).join("") : ''}
+                    </select>
+                    <label for="select-casm85">CASM-85:</label>
+                    <select id="select-casm85" class="modal-select">
+                        <option value="">Selecciona un intento</option>
+                        ${tests.casm85.length > 0 ? tests.casm85.map(test => `<option value="${test.id_inicio}">Test ${test.test_number} - ${test.fecha}</option>`).join("") : ''}
+                    </select>
+                    <div class="modal-buttons">
+                        <button id="modal-generar-informe-btn" class="modal-button">Generar</button>
+                        <button id="modal-cancelar-informe" class="modal-button">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML("beforeend", modalHTML);
+        modal = document.getElementById("modal-informe-container");
+
+        // Asignar eventos
+        const closeBtn = document.getElementById("modal-close-informe");
+        const generarBtn = document.getElementById("modal-generar-informe-btn");
+        const cancelarBtn = document.getElementById("modal-cancelar-informe");
+        const select83 = document.getElementById("select-casm83");
+        const select85 = document.getElementById("select-casm85");
+
+        // Verificar que generarBtn es un botón
+        console.log("generarBtn elemento:", generarBtn.tagName);
+
+        // Prevenir propagación en selects
+        select83.addEventListener("change", (e) => {
+            e.stopPropagation();
+            console.log("select-casm83 cambiado a:", select83.value);
+        });
+        select85.addEventListener("change", (e) => {
+            e.stopPropagation();
+            console.log("select-casm85 cambiado a:", select85.value);
+        });
+
+        // Asignar eventos con addEventListener
+        closeBtn.addEventListener("click", () => cerrarModal(modal));
+        cancelarBtn.addEventListener("click", () => cerrarModal(modal));
+        generarBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const intento83 = select83.value;
+            const intento85 = select85.value;
+            const errorDiv = document.getElementById("modal-error-informe");
+
+            console.log("Botón Generar clicado:", { intento83, intento85 });
+
+            if (!tests.casm83.length || !tests.casm85.length) {
+                errorDiv.textContent = "No hay intentos disponibles para uno o ambos tests.";
+                errorDiv.style.display = "block";
+                return;
+            }
+            if (!intento83 || !intento85 || intento83 === "" || intento85 === "") {
+                errorDiv.textContent = "Debes seleccionar un intento para cada test.";
+                errorDiv.style.display = "block";
+                return;
+            }
+
+            // Convertir a números para comparación
+            const test83 = tests.casm83.find(t => t.id_inicio === Number(intento83));
+            const test85 = tests.casm85.find(t => t.id_inicio === Number(intento85));
+            console.log("test83 encontrado:", test83);
+            console.log("test85 encontrado:", test85);
+            if (!test83 || !test85) {
+                errorDiv.textContent = "Intento seleccionado no válido.";
+                errorDiv.style.display = "block";
+                return;
+            }
+
+            errorDiv.style.display = "none";
+            generarBtn.disabled = true;
+            generarBtn.textContent = "Generando...";
+            generarInforme(idPaciente, intento83, intento85).finally(() => {
+                generarBtn.disabled = false;
+                generarBtn.textContent = "Generar";
+            });
+            cerrarModal(modal);
+        });
+
+        // Detectar clics en modal-content-adv
+        modal.querySelector(".modal-content-adv").addEventListener("click", (e) => {
+            console.log("Clic en modal-content-adv, objetivo:", e.target);
+        });
+
+        modal.addEventListener("click", (event) => {
+            if (event.target === modal) cerrarModal(modal);
+        });
+
+        // Mostrar el modal
+        modal.style.display = "flex";
+        setTimeout(() => modal.classList.add("show"), 10);
+    }
+
+    function cerrarModal(modal) {
+        modal.classList.remove("show");
+        setTimeout(() => modal.style.display = "none", 300);
+    }
+
+    async function generarInforme(idPaciente, idInicio83, idInicio85) {
+        console.log("generarInforme llamado con:", { idPaciente, idInicio83, idInicio85 });
+        try {
+            // Cargar docx.js
+            const { Document, Packer, Paragraph, TextRun, ImageRun, HeadingLevel, AlignmentType, Table, TableRow, TableCell, WidthType, BorderStyle } = await import("https://cdn.jsdelivr.net/npm/docx@8.5.0/+esm");
+
+            // Validar parámetros de entrada
+            if (!idPaciente || !idInicio83 || !idInicio85) {
+                throw new Error("Faltan parámetros requeridos: idPaciente, idInicio83 o idInicio85.");
+            }
+
+            // Obtener datos del paciente
+            const resPaciente = await fetch(`../Controlador/obtenerTestsPaciente.php?id=${idPaciente}`, { credentials: "include" }).then(res => res.json());
+            if (!resPaciente.exito) throw new Error(resPaciente.error || "Error al obtener datos del paciente.");
+            const paciente = resPaciente.paciente;
+            if (!paciente || !paciente.nombre || !paciente.apellido || !paciente.sexo || !paciente.fecha_nacimiento) {
+                throw new Error("Datos del paciente incompletos.");
+            }
+
+            // Calcular edad
+            const fechaNac = new Date(paciente.fecha_nacimiento);
+            if (isNaN(fechaNac)) throw new Error("Fecha de nacimiento inválida.");
+            const hoy = new Date();
+            let edad = hoy.getFullYear() - fechaNac.getFullYear();
+            if (hoy.getMonth() < fechaNac.getMonth() || (hoy.getMonth() === fechaNac.getMonth() && hoy.getDate() < fechaNac.getDate())) {
+                edad--;
+            }
+
+            // Obtener resultados y análisis
+            const [res83, res85] = await Promise.all([
+                fetch(`../Controlador/obtenerResultadosCASM83General.php?id_inicio=${idInicio83}`, { credentials: "include" }).then(res => res.json()),
+                fetch(`../Controlador/obtenerResultadosCASM85General.php?id_inicio=${idInicio85}`, { credentials: "include" }).then(res => res.json())
+            ]);
+
+            if (!res83.exito) throw new Error(res83.error || "Error al obtener resultados de CASM-83.");
+            if (!res85.exito) throw new Error(res85.error || "Error al obtener resultados de CASM-85.");
+            if (!Array.isArray(res83.resultados) || res83.resultados.length === 0) throw new Error("No se encontraron resultados para CASM-83.");
+            if (!Array.isArray(res85.resultados) || res85.resultados.length === 0) throw new Error("No se encontraron resultados para CASM-85.");
+
+            // Procesar resultados CASM-83
+            const resultadosCategorias83 = {};
+            res83.resultados.forEach(fila => {
+                if (fila.categoria && typeof fila.total !== 'undefined' && typeof fila.count_a !== 'undefined' && typeof fila.count_b !== 'undefined') {
+                    resultadosCategorias83[fila.categoria] = { total: fila.total, A: fila.count_a, B: fila.count_b };
+                }
+            });
+            const analisisRespuesta83 = await fetch("../Controlador/analizarResultadosCASM83.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ resultados: resultadosCategorias83, sexo: res83.resultados[0].sexo || "Desconocido" })
+            }).then(res => res.json());
+            const analisis83 = analisisRespuesta83.exito ? analisisRespuesta83.analisis : "Análisis no disponible.";
+
+            // Procesar resultados CASM-85
+            const analisisRespuesta85 = await fetch("../Controlador/analizarResultados.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ resultados: res85.resultados })
+            }).then(res => res.json());
+            const analisis85 = analisisRespuesta85.exito ? analisisRespuesta85.analisis : "Análisis no disponible.";
+
+            // Definir rangos de percentiles para CASM-83 según sexo
+            const rangosCASM83 = (res83.resultados[0].sexo === "Masculino" ? [
+                ["CCFM", "0-4", "5-7", "8-9", "10-12", "14-15", "16-17", "18-22"],
+                ["CCSS", "0-3", "4-6", "7-8", "9-12", "13-14", "15-16", "17-22"],
+                ["CCNA", "0-4", "5-7", "8-9", "10-13", "14-15", "16-18", "19-22"],
+                ["CCCO", "0-2", "3-4", "5-6", "7-10", "11-13", "14-17", "18-22"],
+                ["ARTE", "0-2", "3-4", "5-6", "7-10", "11-14", "15-17", "18-22"],
+                ["BURO", "0-3", "4-7", "5-6", "8-11", "15-16", "17-19", "20-22"],
+                ["CCEP", "0-3", "3-5", "6", "8-12", "13-14", "15-17", "18-20"],
+                ["HAA", "0-3", "3-4", "5-6", "8-9", "10-12", "13-15", "16-18"],
+                ["FINA", "0-2", "3-4", "5-7", "8-10", "11-12", "14-16", "17-19"],
+                ["LING", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-20"],
+                ["JURI", "0-2", "3-4", "5-6", "7-10", "11-13", "14-16", "17-22"],
+                ["VERA", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
+                ["CONS", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"]
+            ] : [
+                ["CCFM", "0-2", "3-4", "5-6", "7-11", "12-14", "15-17", "18-22"],
+                ["CCSS", "0-4", "5-7", "8-9", "10-14", "15-16", "17-19", "20-22"],
+                ["CCNA", "0-3", "4-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+                ["CCCO", "0-2", "3-4", "5-6", "7-11", "12-13", "14-15", "16-18"],
+                ["ARTE", "0-2", "3-4", "5-6", "7-10", "11-13", "14-16", "17-22"],
+                ["BURO", "0-4", "5-7", "8-9", "10-14", "15-16", "17-19", "20-22"],
+                ["CCEP", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+                ["HAA", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
+                ["FINA", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+                ["LING", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+                ["JURI", "0-2", "3-4", "5-6", "7-11", "12-13", "14-16", "17-22"],
+                ["VERA", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
+                ["CONS", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"]
+            ]);
+
+            // Crear tabla CASM-83 con celdas resaltadas en rojo
+            const encabezadosCASM83 = ["", "Desinterés", "Bajo", "Promedio Bajo", "Indecisión", "Promedio Alto", "Alto", "Muy Alto", "Puntaje"];
+            const percentilesCASM83 = ["1-14", "15-29", "30-39", "40-60", "61-74", "75-89", "90-99"];
+            const tablaCASM83Rows = [
+                new TableRow({
+                    children: [
+                        new TableCell({
+                            children: [new Paragraph(res83.resultados[0].sexo || "Desconocido")],
+                            columnSpan: 9,
+                            borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                        })
+                    ]
+                }),
+                new TableRow({
+                    children: encabezadosCASM83.map(h => new TableCell({
+                        children: [new Paragraph(h)],
+                        borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                    }))
+                }),
+                ...rangosCASM83.map(fila => {
+                    const categoria = fila[0];
+                    const puntaje = resultadosCategorias83[categoria]?.total || 0;
+                    return new TableRow({
+                        children: [
+                            new TableCell({
+                                children: [new Paragraph(categoria)],
+                                borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                            }),
+                            ...fila.slice(1).map(rango => {
+                                const [min, max] = rango.split("-").map(Number);
+                                const isHighlighted = puntaje >= min && puntaje <= max;
+                                return new TableCell({
+                                    children: [new Paragraph(rango)],
+                                    borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } },
+                                    shading: isHighlighted ? { fill: "FF0000" } : undefined
+                                });
+                            }),
+                            new TableCell({
+                                children: [new Paragraph(puntaje.toString())],
+                                borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                            })
+                        ]
+                    });
+                }),
+                new TableRow({
+                    children: [
+                        new TableCell({
+                            children: [new Paragraph("")],
+                            borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                        }),
+                        ...percentilesCASM83.map(p => new TableCell({
+                            children: [new Paragraph(p)],
+                            borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                        })),
+                        new TableCell({
+                            children: [new Paragraph("")],
+                            borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                        })
+                    ]
+                }),
+                new TableRow({
+                    children: [
+                        new TableCell({
+                            children: [new Paragraph("PERCENTILES")],
+                            columnSpan: 9,
+                            borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                        })
+                    ]
+                })
+            ];
+
+            // Crear tabla para CASM-85
+            const encabezadosCASM85 = ["Área", "Puntaje", "Categoría"];
+            const tablaCASM85Rows = [
+                new TableRow({
+                    children: encabezadosCASM85.map(h => new TableCell({
+                        children: [new Paragraph(h)],
+                        borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                    }))
+                }),
+                ...res85.resultados.map(fila => new TableRow({
+                    children: [
+                        new TableCell({
+                            children: [new Paragraph(fila.area || "Desconocido")],
+                            borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                        }),
+                        new TableCell({
+                            children: [new Paragraph((fila.puntaje ?? 0).toString())],
+                            borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                        }),
+                        new TableCell({
+                            children: [new Paragraph(fila.categoria || "Desconocido")],
+                            borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                        })
+                    ]
+                }))
+            ];
+
+            // Manejar imagen del encabezado
+            let imageData = null;
+            try {
+                const response = await fetch("../Modelo/img/Encabezado.png");
+                if (!response.ok) throw new Error("No se pudo cargar la imagen del encabezado.");
+                imageData = await response.arrayBuffer();
+            } catch (imgError) {
+                console.warn("Error al cargar la imagen del encabezado:", imgError.message);
+            }
+
+            // Crear documento
+            const doc = new Document({
+                sections: [{
+                    properties: {},
+                    children: [
+                        ...(imageData ? [new Paragraph({
+                            children: [
+                                new ImageRun({
+                                    data: imageData,
+                                    transformation: { width: 600, height: 100 }
+                                })
+                            ],
+                            alignment: AlignmentType.CENTER
+                        })] : []),
+                        new Paragraph({
+                            text: "Informe de Orientación Vocacional",
+                            heading: HeadingLevel.HEADING_1,
+                            alignment: AlignmentType.CENTER,
+                            spacing: { after: 200 }
+                        }),
+                        new Paragraph({
+                            text: "I. Datos de Filiación",
+                            heading: HeadingLevel.HEADING_2,
+                            spacing: { before: 200 }
+                        }),
+                        new Paragraph(`Nombres y Apellidos: ${paciente.nombre} ${paciente.apellido}`),
+                        new Paragraph(`Edad: ${edad} años`),
+                        new Paragraph(`Sexo: ${paciente.sexo}`),
+                        new Paragraph(`Fecha de Informe: ${hoy.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}`),
+                        new Paragraph({
+                            text: "II. Motivo de Consulta",
+                            heading: HeadingLevel.HEADING_2,
+                            spacing: { before: 200 }
+                        }),
+                        new Paragraph({
+                            text: "Adolescente acude a consulta solicitando una evaluación y orientación vocacional, sin la compañía de un adulto. Refiriendo que aún no ha decidido qué estudiar, pero que entre sus posibilidades se encuentra la administración de empresas ya que su familia tiene una ferretería y una herrería. Comentando que desea estudiar en la Universidad Complutense, y de no lograrlo su otra opción sería estudiar administración en el Instituto Tecnológico, ya que sería más rápido. Cabe resaltar que el menor cuenta con apoyo económico por parte de su familia.",
+                            spacing: { after: 100 }
+                        }),
+                        new Paragraph({
+                            text: "III. Antecedentes",
+                            heading: HeadingLevel.HEADING_2,
+                            spacing: { before: 200 }
+                        }),
+                        new Paragraph({
+                            text: "El usuario es el tercero de tres hermanos en su familia. Describe su desempeño académico en la primaria como bueno, teniendo en la mayoría de ocasiones calificación de A+. Durante la secundaria, mantuvo un promedio de entre 15 y 16, aunque este descendió en su último año debido a la modalidad virtual. A su vez, manifestó que el curso que más disfrutaba y en el que le iba mejor, en ambos niveles, fue matemática. Además de participar en deportes como el básquet y el vóley, este último lo practica hasta la actualidad, siendo miembro de un club local. En cuanto a sus logros académicos, comentó que fue seleccionado para exponer un proyecto en la feria de ciencia y tecnología, llegando a la etapa regional, y mencionó que no le teme a hablar en público ni a realizar oratoria.",
+                            spacing: { after: 100 }
+                        }),
+                        new Paragraph({
+                            text: "IV. Técnicas e Instrumentos Aplicados",
+                            heading: HeadingLevel.HEADING_2,
+                            spacing: { before: 200 }
+                        }),
+                        new Paragraph("Técnicas aplicadas:"),
+                        new Paragraph("- Observación"),
+                        new Paragraph("- Entrevista psicológica"),
+                        new Paragraph("Instrumentos aplicados:"),
+                        new Paragraph("- Inventario de hábitos de estudio CASM – 85"),
+                        new Paragraph("- Inventario de intereses vocacionales CASM – 83"),
+                        new Paragraph({
+                            text: "V. Resultados Obtenidos",
+                            heading: HeadingLevel.HEADING_2,
+                            spacing: { before: 200 }
+                        }),
+                        new Paragraph({
+                            text: "Hábitos de Estudio (CASM-85)",
+                            heading: HeadingLevel.HEADING_3
+                        }),
+                        new Paragraph(analisis85 || "No disponible"),
+                        new Table({
+                            rows: tablaCASM85Rows,
+                            width: { size: 100, type: WidthType.PERCENTAGE }
+                        }),
+                        new Paragraph({
+                            text: "Intereses Vocacionales y Ocupacionales (CASM-83)",
+                            heading: HeadingLevel.HEADING_3,
+                            spacing: { before: 200 }
+                        }),
+                        new Paragraph(analisis83 || "No disponible"),
+                        new Table({
+                            rows: tablaCASM83Rows,
+                            width: { size: 100, type: WidthType.PERCENTAGE }
+                        })
+                    ]
+                }]
+            });
+
+            const blob = await Packer.toBlob(doc);
+            // Descarga usando FileSaver.js o fallback
+            if (typeof window.saveAs === "function") {
+                window.saveAs(blob, `Informe_${paciente.nombre}_${paciente.apellido}.docx`);
+            } else {
+                console.warn("FileSaver.js no está disponible, usando fallback de descarga.");
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = `Informe_${paciente.nombre}_${paciente.apellido}.docx`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+        } catch (error) {
+            console.error("Error al generar informe:", error);
+            alert(`Error al generar el informe: ${error.message}. Intenta de nuevo.`);
+        }
     }
 
     function cargarResultadosCASM83(idInicio, contenedor) {
