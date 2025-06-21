@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+   <html lang="es">
+   <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>Test PMA - Aptitudes Mentales Primarias</title>
+       <link rel="stylesheet" href="../Modelo/estilosPMA.css">
+       <script type="module" src="../Js/pma.js" defer></script>
+   </head>
+   <body>
+       <header>
+           <div class="nav-container">
+               <div class="logo-container">
+                   <img src="../Modelo/img/logo2.png" alt="Logo" class="logo-img">
+                   <span class="logo-text">IllaVocacional</span>
+               </div>
+               <button class="menu-toggle" id="menu-toggle">☰</button>
+               <nav id="main-nav">
+                   <ul>
+                       <li><a href="principal.html">Inicio</a></li>
+                       <li class="dropdown">
+                           <a href="#" id="servicios-toggle">Servicios ⮟</a>                          
+                           <ul class="dropdown-menu" id="servicios-menu">
+                               <li><a href="https://psicoilla.com" target="_blank">IllaPsychology</a></li>
+                               <li><a href="https://illaeducatest.psicoilla.com/index.html" target="_blank">IllaEduca</a></li>
+                           </ul>
+                       </li>
+                       <li><a href="#">Contacto</a></li>
+                   </ul>
+               </nav>
+           </div>
+       </header>
+       <div id="datosPersonales" class="container">
+           <h1>Formulario de Test PMA - Aptitudes Mentales Primarias</h1>
+           <form id="form">
+               <label for="nombre">Nombre:</label>
+               <input type="text" id="nombre" name="nombre" required>
+               <label for="edad">Edad:</label>
+               <input type="number" id="edad" name="edad" readonly required>
+               <label for="sexo">Sexo:</label>
+               <input type="text" id="sexo" name="sexo" readonly required>
+               <label for="gradoEstudio">Grado de Estudio:</label>
+               <select id="gradoEstudio" name="gradoEstudio" required>
+                   <option value="">Seleccione...</option>
+                   <option value="Primaria">Primaria</option>
+                   <option value="Secundaria">Secundaria</option>
+                   <option value="Universidad">Universidad</option>
+               </select>
+               <button type="submit" id="siguienteBtn" class="button-form">Siguiente</button>
+           </form>
+       </div>
+       <div id="cuestionario" class="container" style="display: none;">
+           <h2>Cuestionario - Factor V: Comprensión Verbal</h2>
+           <table id="tablaCuestionario">
+               <thead>
+               </thead>
+               <tbody>
+                   <!-- Las preguntas se agregarán aquí dinámicamente -->
+               </tbody>
+           </table>
+           <button id="resultadosBtn" class="button-form">Ver Resultados</button>
+       </div>    
+       <div id="resultados" class="container" style="display:none;">
+           <h2>Resultados del Cuestionario</h2>
+           <div id="resultadosContenido"></div>
+       </div>
+   </body>
+</html>

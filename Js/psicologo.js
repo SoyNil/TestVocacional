@@ -1043,7 +1043,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 edad--;
             }
 
-            // Obtener resultados y análisis
+            // Obtener resultados
             const [res83, res85] = await Promise.all([
                 fetch(`../Controlador/obtenerResultadosCASM83General.php?id_inicio=${idInicio83}`, { credentials: "include" }).then(res => res.json()),
                 fetch(`../Controlador/obtenerResultadosCASM85General.php?id_inicio=${idInicio85}`, { credentials: "include" }).then(res => res.json())
@@ -1061,20 +1061,27 @@ document.addEventListener("DOMContentLoaded", function () {
                     resultadosCategorias83[fila.categoria] = { total: fila.total, A: fila.count_a, B: fila.count_b };
                 }
             });
+
+            // Verificar veracidad y consistencia para CASM-83
+            const veracidadConteo = resultadosCategorias83["VERA"]?.total || 999; // Alto si no existe
+            const consistenciaInconsistencias = resultadosCategorias83["CONS"]?.total || 999; // Alto si no existe
+            const mostrarAnalisis83 = veracidadConteo <= 5 && consistenciaInconsistencias <= 5;
+
+            // Obtener análisis CASM-83
             const analisisRespuesta83 = await fetch("../Controlador/analizarResultadosCASM83.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ resultados: resultadosCategorias83, sexo: res83.resultados[0].sexo || "Desconocido" })
             }).then(res => res.json());
-            const analisis83 = analisisRespuesta83.exito ? analisisRespuesta83.analisis : "Análisis no disponible.";
+            const analisis83 = mostrarAnalisis83 && analisisRespuesta83.exito ? analisisRespuesta83.analisis : "No hay análisis vinculados a este intento";
 
-            // Procesar resultados CASM-85
+            // Obtener análisis CASM-85
             const analisisRespuesta85 = await fetch("../Controlador/analizarResultados.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ resultados: res85.resultados })
             }).then(res => res.json());
-            const analisis85 = analisisRespuesta85.exito ? analisisRespuesta85.analisis : "Análisis no disponible.";
+            const analisis85 = analisisRespuesta85.exito ? analisisRespuesta85.analisis : "No hay análisis vinculados a este intento";
 
             // Definir rangos de percentiles para CASM-83 según sexo
             const rangosCASM83 = (res83.resultados[0].sexo === "Masculino" ? [
@@ -1282,7 +1289,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             text: "Hábitos de Estudio (CASM-85)",
                             heading: HeadingLevel.HEADING_3
                         }),
-                        new Paragraph(analisis85 || "No disponible"),
+                        new Paragraph(analisis85),
                         new Table({
                             rows: tablaCASM85Rows,
                             width: { size: 100, type: WidthType.PERCENTAGE }
@@ -1292,7 +1299,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             heading: HeadingLevel.HEADING_3,
                             spacing: { before: 200 }
                         }),
-                        new Paragraph(analisis83 || "No disponible"),
+                        new Paragraph(analisis83),
                         new Table({
                             rows: tablaCASM83Rows,
                             width: { size: 100, type: WidthType.PERCENTAGE }

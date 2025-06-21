@@ -1,84 +1,50 @@
-<table border="1" cellspacing="0" cellpadding="8">
+<style>
+  table {
+    border-collapse: collapse;
+  }
+
+  td, th {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .selected {
+    background-color: #4CAF50;
+    color: white;
+  }
+</style>
+
+<table id="tablaOpciones">
   <thead>
     <tr>
-      <th>Área</th>
-      <th>Puntaje</th>
-      <th>Categoría</th>
+      <th>Pregunta</th>
+      <th>Opción A</th>
+      <th>Opción B</th>
+      <th>Opción C</th>
+      <th>Opción D</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>¿CÓMO ESTUDIA USTED?</td>
-      <td>0</td>
-      <td>Muy negativo</td>
-    </tr>
-    <tr>
-      <td>¿CÓMO HACE UD. SUS TAREAS?</td>
-      <td>0</td>
-      <td>Muy negativo</td>
-    </tr>
-    <tr>
-      <td>¿CÓMO HACE UD. SUS TAREAS?</td>
-      <td>0</td>
-      <td>Muy negativo</td>
-    </tr>
-    <tr>
-      <td>¿CÓMO ESCUCHA LAS CLASES?</td>
-      <td>0</td>
-      <td>Muy negativo</td>
-    </tr>
-    <tr>
-      <td>¿QUÉ ACOMPAÑA SUS MOMENTOS DE ESTUDIO?</td>
-      <td>0</td>
-      <td>Muy negativo</td>
+      <td>pregunta: "HÚMEDO",</td>
+      <td data-group="p1">A: "Corto",</td>
+      <td data-group="p1">B: "Humano",</td>
+      <td data-group="p1">C: "Mojado",</td>
+      <td data-group="p1">D: "Moderado"</td>
     </tr>
   </tbody>
 </table>
 
-<table border="1" cellspacing="0" cellpadding="6">
-  <thead>
-    <tr>
-      <th></th>
-      <th colspan="7">Masculino</th>
-      <th></th>
-    </tr>
-    <tr>
-      <th></th>
-      <th>Desinterés</th>
-      <th>Bajo</th>
-      <th>Promedio Bajo</th>
-      <th>Indecisión</th>
-      <th>Promedio Alto</th>
-      <th>Alto</th>
-      <th>Muy Alto</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>CCFM</td><td>0-4</td><td>5-7</td><td>8-9</td><td>10-12</td><td>14-15</td><td>16-17</td><td>18-22</td><td>CCFM</td></tr>
-    <tr><td>CCSS</td><td>0-3</td><td>4-6</td><td>7-8</td><td>9-12</td><td>13-14</td><td>15-16</td><td>17-22</td><td>CCSS</td></tr>
-    <tr><td>CCNA</td><td>0-4</td><td>5-7</td><td>8-9</td><td>10-13</td><td>14-15</td><td>16-18</td><td>19-22</td><td>CCNA</td></tr>
-    <tr><td>CCCO</td><td>0-2</td><td>3-4</td><td>5-6</td><td>7-10</td><td>11-13</td><td>14-17</td><td>18-22</td><td>CCCO</td></tr>
-    <tr><td>ARTE</td><td>0-2</td><td>3-4</td><td>5-6</td><td>7-10</td><td>11-14</td><td>15-17</td><td>18-22</td><td>ARTE</td></tr>
-    <tr><td>BURO</td><td>0-3</td><td>4-5</td><td>6-7</td><td>8-11</td><td>12-13</td><td>14-16</td><td>17-22</td><td>BURO</td></tr>
-    <tr><td>CCEP</td><td>0-3</td><td>4-5</td><td>6-7</td><td>8-12</td><td>13-14</td><td>15-17</td><td>18-22</td><td>CCEP</td></tr>
-    <tr><td>HAA</td><td>0-3</td><td>4-5</td><td>6-7</td><td>8-12</td><td>13-14</td><td>15-17</td><td>18-22</td><td>HAA</td></tr>
-    <tr><td>FINA</td><td>0-2</td><td>3-4</td><td>5-6</td><td>7-10</td><td>11-12</td><td>13-16</td><td>17-22</td><td>FINA</td></tr>
-    <tr><td>LING</td><td>0-2</td><td>3-4</td><td>5-6</td><td>7-9</td><td>10-12</td><td>13-15</td><td>16-22</td><td>LING</td></tr>
-    <tr><td>JURI</td><td>0-2</td><td>3-4</td><td>5-6</td><td>7-10</td><td>11-13</td><td>14-16</td><td>17-22</td><td>JURI</td></tr>
-    <tr><td>VERA</td><td>0-2</td><td>3-4</td><td>5-6</td><td>7-9</td><td>10-12</td><td>13-15</td><td>16-22</td><td>VERA</td></tr>
-    <tr><td>CONS</td><td>0-2</td><td>3-4</td><td>5-6</td><td>7-9</td><td>10-12</td><td>13-15</td><td>16-22</td><td>CONS</td></tr>
-    <tr>
-      <td></td>
-      <td>1-14</td>
-      <td>15-29</td>
-      <td>30-39</td>
-      <td>40-60</td>
-      <td>61-74</td>
-      <td>75-89</td>
-      <td>90-99</td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
-
+<script>
+  document.querySelectorAll('#tablaOpciones td[data-group]').forEach(cell => {
+    cell.addEventListener('click', () => {
+      const group = cell.getAttribute('data-group');
+      document.querySelectorAll(`td[data-group='${group}']`).forEach(c => {
+        c.classList.remove('selected');
+      });
+      cell.classList.add('selected');
+    });
+  });
+</script>
