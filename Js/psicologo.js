@@ -1014,7 +1014,7 @@ document.addEventListener("DOMContentLoaded", function () {
             e.stopPropagation();
             const intento83 = select83.value;
             const intento85 = select85.value;
-            const intentopma = select85.value;
+            const intentopma = selectpma.value;
             const errorDiv = document.getElementById("modal-error-informe");
 
             console.log("Botón Generar clicado:", { intento83, intento85 });
@@ -1036,7 +1036,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const testpma = tests.pma.find(t => t.id_inicio === Number(intentopma));
             console.log("test83 encontrado:", test83);
             console.log("test85 encontrado:", test85);
-            console.log("test85 encontrado:", testpma);
+            console.log("testpma encontrado:", testpma);
             if (!test83 || !test85 || !testpma) {
                 errorDiv.textContent = "Intento seleccionado no válido.";
                 errorDiv.style.display = "block";
@@ -1046,7 +1046,7 @@ document.addEventListener("DOMContentLoaded", function () {
             errorDiv.style.display = "none";
             generarBtn.disabled = true;
             generarBtn.textContent = "Generando...";
-            generarInforme(idPaciente, intento83, intento85).finally(() => {
+            generarInforme(idPaciente, intento83, intento85, intentopma).finally(() => {
                 generarBtn.disabled = false;
                 generarBtn.textContent = "Generar";
             });
@@ -1072,318 +1072,445 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(() => modal.style.display = "none", 300);
     }
 
-    async function generarInforme(idPaciente, idInicio83, idInicio85) {
-        console.log("generarInforme llamado con:", { idPaciente, idInicio83, idInicio85 });
-        try {
-            // Cargar docx.js
-            const { Document, Packer, Paragraph, TextRun, ImageRun, HeadingLevel, AlignmentType, Table, TableRow, TableCell, WidthType, BorderStyle } = await import("https://cdn.jsdelivr.net/npm/docx@8.5.0/+esm");
+    async function generarInforme(idPaciente, idInicio83, idInicio85, idInicioPMA) {
+       console.log("generarInforme llamado con:", { idPaciente, idInicio83, idInicio85, idInicioPMA });
+       try {
+           // Cargar docx.js
+           const { Document, Packer, Paragraph, TextRun, ImageRun, HeadingLevel, AlignmentType, Table, TableRow, TableCell, WidthType, BorderStyle } = await import("https://cdn.jsdelivr.net/npm/docx@8.5.0/+esm");
 
-            // Validar parámetros de entrada
-            if (!idPaciente || !idInicio83 || !idInicio85) {
-                throw new Error("Faltan parámetros requeridos: idPaciente, idInicio83 o idInicio85.");
-            }
+           // Validar parámetros
+           if (!idPaciente || !idInicio83 || !idInicio85 || !idInicioPMA) {
+               throw new Error("Faltan parámetros requeridos: idPaciente, idInicio83, idInicio85 o idInicioPMA.");
+           }
 
-            // Obtener datos del paciente
-            const resPaciente = await fetch(`../Controlador/obtenerTestsPaciente.php?id=${idPaciente}`, { credentials: "include" }).then(res => res.json());
-            if (!resPaciente.exito) throw new Error(resPaciente.error || "Error al obtener datos del paciente.");
-            const paciente = resPaciente.paciente;
-            if (!paciente || !paciente.nombre || !paciente.apellido || !paciente.sexo || !paciente.fecha_nacimiento) {
-                throw new Error("Datos del paciente incompletos.");
-            }
+           // Obtener datos del paciente
+           const resPaciente = await fetch(`../Controlador/obtenerTestsPaciente.php?id=${idPaciente}`, { credentials: "include" }).then(res => res.json());
+           if (!resPaciente.exito) throw new Error(resPaciente.mensaje || "Error al obtener datos del paciente.");
+           const paciente = resPaciente.paciente;
+           if (!paciente || !paciente.nombre || !paciente.apellido || !paciente.sexo || !paciente.fecha_nacimiento) {
+               throw new Error("Datos del paciente incompletos.");
+           }
 
-            // Calcular edad
-            const fechaNac = new Date(paciente.fecha_nacimiento);
-            if (isNaN(fechaNac)) throw new Error("Fecha de nacimiento inválida.");
-            const hoy = new Date();
-            let edad = hoy.getFullYear() - fechaNac.getFullYear();
-            if (hoy.getMonth() < fechaNac.getMonth() || (hoy.getMonth() === fechaNac.getMonth() && hoy.getDate() < fechaNac.getDate())) {
-                edad--;
-            }
+           // Calcular edad
+           const fechaNac = new Date(paciente.fecha_nacimiento);
+           if (isNaN(fechaNac)) throw new Error("Fecha de nacimiento inválida.");
+           const hoy = new Date();
+           let edad = hoy.getFullYear() - fechaNac.getFullYear();
+           if (hoy.getMonth() < fechaNac.getMonth() || (hoy.getMonth() === fechaNac.getMonth() && hoy.getDate() < fechaNac.getDate())) {
+               edad--;
+           }
 
-            // Obtener resultados
-            const [res83, res85] = await Promise.all([
-                fetch(`../Controlador/obtenerResultadosCASM83General.php?id_inicio=${idInicio83}`, { credentials: "include" }).then(res => res.json()),
-                fetch(`../Controlador/obtenerResultadosCASM85General.php?id_inicio=${idInicio85}`, { credentials: "include" }).then(res => res.json())
-            ]);
+           // Obtener resultados
+           const [res83, res85, respma] = await Promise.all([
+               fetch(`../Controlador/obtenerResultadosCASM83General.php?id_inicio=${idInicio83}`, { credentials: "include" }).then(res => res.json()),
+               fetch(`../Controlador/obtenerResultadosCASM85General.php?id_inicio=${idInicio85}`, { credentials: "include" }).then(res => res.json()),
+               fetch(`../Controlador/obtenerResultadosPMAGeneral.php?id_inicio=${idInicioPMA}`, { credentials: "include" }).then(res => res.json())
+           ]);
 
-            if (!res83.exito) throw new Error(res83.error || "Error al obtener resultados de CASM-83.");
-            if (!res85.exito) throw new Error(res85.error || "Error al obtener resultados de CASM-85.");
-            if (!Array.isArray(res83.resultados) || res83.resultados.length === 0) throw new Error("No se encontraron resultados para CASM-83.");
-            if (!Array.isArray(res85.resultados) || res85.resultados.length === 0) throw new Error("No se encontraron resultados para CASM-85.");
+           if (!res83.exito) throw new Error(res83.mensaje || "Error al obtener resultados de CASM-83.");
+           if (!res85.exito) throw new Error(res85.mensaje || "Error al obtener resultados de CASM-85.");
+           if (!respma.exito) throw new Error(respma.mensaje || "Error al obtener resultados de PMA.");
+           if (!Array.isArray(res83.resultados) || res83.resultados.length === 0) throw new Error("No se encontraron resultados para CASM-83.");
+           if (!Array.isArray(res85.resultados) || res85.resultados.length === 0) throw new Error("No se encontraron resultados para CASM-85.");
+           if (!respma.resultados || Object.keys(respma.resultados).length === 0) throw new Error("No se encontraron resultados para PMA.");
 
-            // Procesar resultados CASM-83
-            const resultadosCategorias83 = {};
-            res83.resultados.forEach(fila => {
-                if (fila.categoria && typeof fila.total !== 'undefined' && typeof fila.count_a !== 'undefined' && typeof fila.count_b !== 'undefined') {
-                    resultadosCategorias83[fila.categoria] = { total: fila.total, A: fila.count_a, B: fila.count_b };
-                }
-            });
+           // Procesar resultados CASM-83
+           const resultadosCategorias83 = {};
+           res83.resultados.forEach(fila => {
+               if (fila.categoria && typeof fila.total !== 'undefined' && typeof fila.count_a !== 'undefined' && typeof fila.count_b !== 'undefined') {
+                   resultadosCategorias83[fila.categoria] = { total: fila.total, A: fila.count_a, B: fila.count_b };
+               }
+           });
 
-            // Verificar veracidad y consistencia para CASM-83
-            const veracidadConteo = resultadosCategorias83["VERA"]?.total || 999; // Alto si no existe
-            const consistenciaInconsistencias = resultadosCategorias83["CONS"]?.total || 999; // Alto si no existe
-            const mostrarAnalisis83 = veracidadConteo <= 5 && consistenciaInconsistencias <= 5;
+           // Verificar veracidad y consistencia para CASM-83
+           const veracidadConteo = resultadosCategorias83["VERA"]?.total || 999;
+           const consistenciaInconsistencias = resultadosCategorias83["CONS"]?.total || 999;
+           const mostrarAnalisis83 = veracidadConteo <= 5 && consistenciaInconsistencias <= 5;
 
-            // Obtener análisis CASM-83
-            const analisisRespuesta83 = await fetch("../Controlador/analizarResultadosCASM83.php", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ resultados: resultadosCategorias83, sexo: res83.resultados[0].sexo || "Desconocido" })
-            }).then(res => res.json());
-            const analisis83 = mostrarAnalisis83 && analisisRespuesta83.exito ? analisisRespuesta83.analisis : "No hay análisis vinculados a este intento";
+           // Obtener análisis
+           const [analisisRespuesta83, analisisRespuesta85, analisisRespuestaPMA] = await Promise.all([
+               fetch("../Controlador/analizarResultadosCASM83.php", {
+                   method: "POST",
+                   headers: { "Content-Type": "application/json" },
+                   body: JSON.stringify({ resultados: resultadosCategorias83, sexo: res83.resultados[0].sexo || "Desconocido" })
+               }).then(res => res.json()),
+               fetch("../Controlador/analizarResultados.php", {
+                   method: "POST",
+                   headers: { "Content-Type": "application/json" },
+                   body: JSON.stringify({ resultados: res85.resultados })
+               }).then(res => res.json()),
+               fetch("../Controlador/analizarResultadosPMA.php", {
+                   method: "POST",
+                   headers: { "Content-Type": "application/json" },
+                   body: JSON.stringify({ resultados: respma.resultados })
+               }).then(res => res.json())
+           ]);
 
-            // Obtener análisis CASM-85
-            const analisisRespuesta85 = await fetch("../Controlador/analizarResultados.php", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ resultados: res85.resultados })
-            }).then(res => res.json());
-            const analisis85 = analisisRespuesta85.exito ? analisisRespuesta85.analisis : "No hay análisis vinculados a este intento";
+           const analisis83 = mostrarAnalisis83 && analisisRespuesta83.exito ? analisisRespuesta83.analisis : "No hay análisis vinculados a este intento";
+           const analisis85 = analisisRespuesta85.exito ? analisisRespuesta85.analisis : "No hay análisis vinculados a este intento";
+           const analisisPMA = analisisRespuestaPMA.exito ? analisisRespuestaPMA.analisis : "No hay análisis vinculados a este intento";
 
-            // Definir rangos de percentiles para CASM-83 según sexo
-            const rangosCASM83 = (res83.resultados[0].sexo === "Masculino" ? [
-                ["CCFM", "0-4", "5-7", "8-9", "10-12", "14-15", "16-17", "18-22"],
-                ["CCSS", "0-3", "4-6", "7-8", "9-12", "13-14", "15-16", "17-22"],
-                ["CCNA", "0-4", "5-7", "8-9", "10-13", "14-15", "16-18", "19-22"],
-                ["CCCO", "0-2", "3-4", "5-6", "7-10", "11-13", "14-17", "18-22"],
-                ["ARTE", "0-2", "3-4", "5-6", "7-10", "11-14", "15-17", "18-22"],
-                ["BURO", "0-3", "4-7", "5-6", "8-11", "15-16", "17-19", "20-22"],
-                ["CCEP", "0-3", "3-5", "6", "8-12", "13-14", "15-17", "18-20"],
-                ["HAA", "0-3", "3-4", "5-6", "8-9", "10-12", "13-15", "16-18"],
-                ["FINA", "0-2", "3-4", "5-7", "8-10", "11-12", "14-16", "17-19"],
-                ["LING", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-20"],
-                ["JURI", "0-2", "3-4", "5-6", "7-10", "11-13", "14-16", "17-22"],
-                ["VERA", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
-                ["CONS", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"]
-            ] : [
-                ["CCFM", "0-2", "3-4", "5-6", "7-11", "12-14", "15-17", "18-22"],
-                ["CCSS", "0-4", "5-7", "8-9", "10-14", "15-16", "17-19", "20-22"],
-                ["CCNA", "0-3", "4-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
-                ["CCCO", "0-2", "3-4", "5-6", "7-11", "12-13", "14-15", "16-18"],
-                ["ARTE", "0-2", "3-4", "5-6", "7-10", "11-13", "14-16", "17-22"],
-                ["BURO", "0-4", "5-7", "8-9", "10-14", "15-16", "17-19", "20-22"],
-                ["CCEP", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
-                ["HAA", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
-                ["FINA", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
-                ["LING", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
-                ["JURI", "0-2", "3-4", "5-6", "7-11", "12-13", "14-16", "17-22"],
-                ["VERA", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
-                ["CONS", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"]
-            ]);
+           // Definir rangos de percentiles para CASM-83 según sexo
+           const rangosCASM83 = (res83.resultados[0].sexo === "Masculino" ? [
+               ["CCFM", "0-4", "5-7", "8-9", "10-12", "14-15", "16-17", "18-22"],
+               ["CCSS", "0-3", "4-6", "7-8", "9-12", "13-14", "15-16", "17-22"],
+               ["CCNA", "0-4", "5-7", "8-9", "10-13", "14-15", "16-18", "19-22"],
+               ["CCCO", "0-2", "3-4", "5-6", "7-10", "11-13", "14-17", "18-22"],
+               ["ARTE", "0-2", "3-4", "5-6", "7-10", "11-14", "15-17", "18-22"],
+               ["BURO", "0-3", "4-7", "5-6", "8-11", "15-16", "17-19", "20-22"],
+               ["CCEP", "0-3", "3-5", "6", "8-12", "13-14", "15-17", "18-20"],
+               ["HAA", "0-3", "3-4", "5-6", "8-9", "10-12", "13-15", "16-18"],
+               ["FINA", "0-2", "3-4", "5-7", "8-10", "11-12", "14-16", "17-19"],
+               ["LING", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-20"],
+               ["JURI", "0-2", "3-4", "5-6", "7-10", "11-13", "14-16", "17-22"],
+               ["VERA", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
+               ["CONS", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"]
+           ] : [
+               ["CCFM", "0-2", "3-4", "5-6", "7-11", "12-14", "15-17", "18-22"],
+               ["CCSS", "0-4", "5-7", "8-9", "10-14", "15-16", "17-19", "20-22"],
+               ["CCNA", "0-3", "4-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+               ["CCCO", "0-2", "3-4", "5-6", "7-11", "12-13", "14-15", "16-18"],
+               ["ARTE", "0-2", "3-4", "5-6", "7-10", "11-13", "14-16", "17-22"],
+               ["BURO", "0-4", "5-7", "8-9", "10-14", "15-16", "17-19", "20-22"],
+               ["CCEP", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+               ["HAA", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
+               ["FINA", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+               ["LING", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
+               ["JURI", "0-2", "3-4", "5-6", "7-11", "12-13", "14-16", "17-22"],
+               ["VERA", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
+               ["CONS", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"]
+           ]);
 
-            // Crear tabla CASM-83 con celdas resaltadas en rojo
-            const encabezadosCASM83 = ["", "Desinterés", "Bajo", "Promedio Bajo", "Indecisión", "Promedio Alto", "Alto", "Muy Alto", "Puntaje"];
-            const percentilesCASM83 = ["1-14", "15-29", "30-39", "40-60", "61-74", "75-89", "90-99"];
-            const tablaCASM83Rows = [
-                new TableRow({
-                    children: [
-                        new TableCell({
-                            children: [new Paragraph(res83.resultados[0].sexo || "Desconocido")],
-                            columnSpan: 9,
-                            borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
-                        })
-                    ]
-                }),
-                new TableRow({
-                    children: encabezadosCASM83.map(h => new TableCell({
-                        children: [new Paragraph(h)],
-                        borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
-                    }))
-                }),
-                ...rangosCASM83.map(fila => {
-                    const categoria = fila[0];
-                    const puntaje = resultadosCategorias83[categoria]?.total || 0;
-                    return new TableRow({
-                        children: [
-                            new TableCell({
-                                children: [new Paragraph(categoria)],
-                                borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
-                            }),
-                            ...fila.slice(1).map(rango => {
-                                const [min, max] = rango.split("-").map(Number);
-                                const isHighlighted = puntaje >= min && puntaje <= max;
-                                return new TableCell({
-                                    children: [new Paragraph(rango)],
-                                    borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } },
-                                    shading: isHighlighted ? { fill: "FF0000" } : undefined
-                                });
-                            }),
-                            new TableCell({
-                                children: [new Paragraph(puntaje.toString())],
-                                borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
-                            })
-                        ]
-                    });
-                }),
-                new TableRow({
-                    children: [
-                        new TableCell({
-                            children: [new Paragraph("")],
-                            borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
-                        }),
-                        ...percentilesCASM83.map(p => new TableCell({
-                            children: [new Paragraph(p)],
-                            borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
-                        })),
-                        new TableCell({
-                            children: [new Paragraph("")],
-                            borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
-                        })
-                    ]
-                }),
-                new TableRow({
-                    children: [
-                        new TableCell({
-                            children: [new Paragraph("PERCENTILES")],
-                            columnSpan: 9,
-                            borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
-                        })
-                    ]
-                })
-            ];
+           // Crear tabla CASM-83
+           const encabezadosCASM83 = ["", "Desinterés", "Bajo", "Promedio Bajo", "Indecisión", "Promedio Alto", "Alto", "Muy Alto", "Puntaje"];
+           const percentilesCASM83 = ["1-14", "15-29", "30-39", "40-60", "61-74", "75-89", "90-99"];
+           const tablaCASM83Rows = [
+               new TableRow({
+                   children: [
+                       new TableCell({
+                           children: [new Paragraph(res83.resultados[0].sexo || "Desconocido")],
+                           columnSpan: 9,
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       })
+                   ]
+               }),
+               new TableRow({
+                   children: encabezadosCASM83.map(h => new TableCell({
+                       children: [new Paragraph(h)],
+                       borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                   }))
+               }),
+               ...rangosCASM83.map(fila => {
+                   const categoria = fila[0];
+                   const puntaje = resultadosCategorias83[categoria]?.total || 0;
+                   return new TableRow({
+                       children: [
+                           new TableCell({
+                               children: [new Paragraph(categoria)],
+                               borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                           }),
+                           ...fila.slice(1).map(rango => {
+                               const [min, max] = rango.split("-").map(Number);
+                               const isHighlighted = puntaje >= min && puntaje <= max;
+                               return new TableCell({
+                                   children: [new Paragraph(rango)],
+                                   borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } },
+                                   shading: isHighlighted ? { fill: "FF0000" } : undefined
+                               });
+                           }),
+                           new TableCell({
+                               children: [new Paragraph(puntaje.toString())],
+                               borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                           })
+                       ]
+                   });
+               }),
+               new TableRow({
+                   children: [
+                       new TableCell({
+                           children: [new Paragraph("")],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       }),
+                       ...percentilesCASM83.map(p => new TableCell({
+                           children: [new Paragraph(p)],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       })),
+                       new TableCell({
+                           children: [new Paragraph("")],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       })
+                   ]
+               }),
+               new TableRow({
+                   children: [
+                       new TableCell({
+                           children: [new Paragraph("PERCENTILES")],
+                           columnSpan: 9,
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       })
+                   ]
+               })
+           ];
 
-            // Crear tabla para CASM-85
-            const encabezadosCASM85 = ["Área", "Puntaje", "Categoría"];
-            const tablaCASM85Rows = [
-                new TableRow({
-                    children: encabezadosCASM85.map(h => new TableCell({
-                        children: [new Paragraph(h)],
-                        borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
-                    }))
-                }),
-                ...res85.resultados.map(fila => new TableRow({
-                    children: [
-                        new TableCell({
-                            children: [new Paragraph(fila.area || "Desconocido")],
-                            borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
-                        }),
-                        new TableCell({
-                            children: [new Paragraph((fila.puntaje ?? 0).toString())],
-                            borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
-                        }),
-                        new TableCell({
-                            children: [new Paragraph(fila.categoria || "Desconocido")],
-                            borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
-                        })
-                    ]
-                }))
-            ];
+           // Crear tabla CASM-85
+           const encabezadosCASM85 = ["Área", "Puntaje", "Categoría"];
+           const tablaCASM85Rows = [
+               new TableRow({
+                   children: encabezadosCASM85.map(h => new TableCell({
+                       children: [new Paragraph(h)],
+                       borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                   }))
+               }),
+               ...res85.resultados.map(fila => new TableRow({
+                   children: [
+                       new TableCell({
+                           children: [new Paragraph(fila.area || "Desconocido")],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       }),
+                       new TableCell({
+                           children: [new Paragraph((fila.puntaje ?? 0).toString())],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       }),
+                       new TableCell({
+                           children: [new Paragraph(fila.categoria || "Desconocido")],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       })
+                   ]
+               }))
+           ];
 
-            // Manejar imagen del encabezado
-            let imageData = null;
-            try {
-                const response = await fetch("../Modelo/img/Encabezado.png");
-                if (!response.ok) throw new Error("No se pudo cargar la imagen del encabezado.");
-                imageData = await response.arrayBuffer();
-            } catch (imgError) {
-                console.warn("Error al cargar la imagen del encabezado:", imgError.message);
-            }
+           // Crear tabla PMA
+           const encabezadosPMA = ["Factor", "Puntaje", "Máximo"];
+           const tablaPMARows = [
+               new TableRow({
+                   children: encabezadosPMA.map(h => new TableCell({
+                       children: [new Paragraph(h)],
+                       borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                   }))
+               }),
+               new TableRow({
+                   children: [
+                       new TableCell({
+                           children: [new Paragraph("Comprensión Verbal (V)")],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       }),
+                       new TableCell({
+                           children: [new Paragraph((respma.resultados.factorV ?? 0).toString())],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       }),
+                       new TableCell({
+                           children: [new Paragraph("50")],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       })
+                   ]
+               }),
+               new TableRow({
+                   children: [
+                       new TableCell({
+                           children: [new Paragraph("Razonamiento Espacial (E)")],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       }),
+                       new TableCell({
+                           children: [new Paragraph((respma.resultados.factorE ?? 0).toString())],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       }),
+                       new TableCell({
+                           children: [new Paragraph("20")],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       })
+                   ]
+               }),
+               new TableRow({
+                   children: [
+                       new TableCell({
+                           children: [new Paragraph("Razonamiento (R)")],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       }),
+                       new TableCell({
+                           children: [new Paragraph((respma.resultados.factorR ?? 0).toString())],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       }),
+                       new TableCell({
+                           children: [new Paragraph("30")],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       })
+                   ]
+               }),
+               new TableRow({
+                   children: [
+                       new TableCell({
+                           children: [new Paragraph("Cálculo Numérico (N)")],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       }),
+                       new TableCell({
+                           children: [new Paragraph((respma.resultados.factorN ?? 0).toString())],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       }),
+                       new TableCell({
+                           children: [new Paragraph("70")],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       })
+                   ]
+               }),
+               new TableRow({
+                   children: [
+                       new TableCell({
+                           children: [new Paragraph("Fluidez Verbal (F)")],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       }),
+                       new TableCell({
+                           children: [new Paragraph((respma.resultados.factorF ?? 0).toString())],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       }),
+                       new TableCell({
+                           children: [new Paragraph("75")],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       })
+                   ]
+               }),
+               new TableRow({
+                   children: [
+                       new TableCell({
+                           children: [new Paragraph("Puntaje Total")],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       }),
+                       new TableCell({
+                           children: [new Paragraph((respma.resultados.puntajeTotal ?? 0).toString())],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       }),
+                       new TableCell({
+                           children: [new Paragraph("-")],
+                           borders: { top: { style: BorderStyle.SINGLE }, bottom: { style: BorderStyle.SINGLE }, left: { style: BorderStyle.SINGLE }, right: { style: BorderStyle.SINGLE } }
+                       })
+                   ]
+               })
+           ];
 
-            // Crear documento
-            const doc = new Document({
-                sections: [{
-                    properties: {},
-                    children: [
-                        ...(imageData ? [new Paragraph({
-                            children: [
-                                new ImageRun({
-                                    data: imageData,
-                                    transformation: { width: 600, height: 100 }
-                                })
-                            ],
-                            alignment: AlignmentType.CENTER
-                        })] : []),
-                        new Paragraph({
-                            text: "Informe de Orientación Vocacional",
-                            heading: HeadingLevel.HEADING_1,
-                            alignment: AlignmentType.CENTER,
-                            spacing: { after: 200 }
-                        }),
-                        new Paragraph({
-                            text: "I. Datos de Filiación",
-                            heading: HeadingLevel.HEADING_2,
-                            spacing: { before: 200 }
-                        }),
-                        new Paragraph(`Nombres y Apellidos: ${paciente.nombre} ${paciente.apellido}`),
-                        new Paragraph(`Edad: ${edad} años`),
-                        new Paragraph(`Sexo: ${paciente.sexo}`),
-                        new Paragraph(`Fecha de Informe: ${hoy.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}`),
-                        new Paragraph({
-                            text: "II. Motivo de Consulta",
-                            heading: HeadingLevel.HEADING_2,
-                            spacing: { before: 200 }
-                        }),
-                        new Paragraph({
-                            text: "Adolescente acude a consulta solicitando una evaluación y orientación vocacional, sin la compañía de un adulto. Refiriendo que aún no ha decidido qué estudiar, pero que entre sus posibilidades se encuentra la administración de empresas ya que su familia tiene una ferretería y una herrería. Comentando que desea estudiar en la Universidad Complutense, y de no lograrlo su otra opción sería estudiar administración en el Instituto Tecnológico, ya que sería más rápido. Cabe resaltar que el menor cuenta con apoyo económico por parte de su familia.",
-                            spacing: { after: 100 }
-                        }),
-                        new Paragraph({
-                            text: "III. Antecedentes",
-                            heading: HeadingLevel.HEADING_2,
-                            spacing: { before: 200 }
-                        }),
-                        new Paragraph({
-                            text: "El usuario es el tercero de tres hermanos en su familia. Describe su desempeño académico en la primaria como bueno, teniendo en la mayoría de ocasiones calificación de A+. Durante la secundaria, mantuvo un promedio de entre 15 y 16, aunque este descendió en su último año debido a la modalidad virtual. A su vez, manifestó que el curso que más disfrutaba y en el que le iba mejor, en ambos niveles, fue matemática. Además de participar en deportes como el básquet y el vóley, este último lo practica hasta la actualidad, siendo miembro de un club local. En cuanto a sus logros académicos, comentó que fue seleccionado para exponer un proyecto en la feria de ciencia y tecnología, llegando a la etapa regional, y mencionó que no le teme a hablar en público ni a realizar oratoria.",
-                            spacing: { after: 100 }
-                        }),
-                        new Paragraph({
-                            text: "IV. Técnicas e Instrumentos Aplicados",
-                            heading: HeadingLevel.HEADING_2,
-                            spacing: { before: 200 }
-                        }),
-                        new Paragraph("Técnicas aplicadas:"),
-                        new Paragraph("- Observación"),
-                        new Paragraph("- Entrevista psicológica"),
-                        new Paragraph("Instrumentos aplicados:"),
-                        new Paragraph("- Inventario de hábitos de estudio CASM – 85"),
-                        new Paragraph("- Inventario de intereses vocacionales CASM – 83"),
-                        new Paragraph({
-                            text: "V. Resultados Obtenidos",
-                            heading: HeadingLevel.HEADING_2,
-                            spacing: { before: 200 }
-                        }),
-                        new Paragraph({
-                            text: "Hábitos de Estudio (CASM-85)",
-                            heading: HeadingLevel.HEADING_3
-                        }),
-                        new Paragraph(analisis85),
-                        new Table({
-                            rows: tablaCASM85Rows,
-                            width: { size: 100, type: WidthType.PERCENTAGE }
-                        }),
-                        new Paragraph({
-                            text: "Intereses Vocacionales y Ocupacionales (CASM-83)",
-                            heading: HeadingLevel.HEADING_3,
-                            spacing: { before: 200 }
-                        }),
-                        new Paragraph(analisis83),
-                        new Table({
-                            rows: tablaCASM83Rows,
-                            width: { size: 100, type: WidthType.PERCENTAGE }
-                        })
-                    ]
-                }]
-            });
+           // Manejar imagen del encabezado
+           let imageData = null;
+           try {
+               const response = await fetch("../Modelo/img/Encabezado.png");
+               if (!response.ok) throw new Error("No se pudo cargar la imagen del encabezado.");
+               imageData = await response.arrayBuffer();
+           } catch (imgError) {
+               console.warn("Error al cargar la imagen del encabezado:", imgError.message);
+           }
 
-            const blob = await Packer.toBlob(doc);
-            // Descarga usando FileSaver.js o fallback
-            if (typeof window.saveAs === "function") {
-                window.saveAs(blob, `Informe_${paciente.nombre}_${paciente.apellido}.docx`);
-            } else {
-                console.warn("FileSaver.js no está disponible, usando fallback de descarga.");
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = `Informe_${paciente.nombre}_${paciente.apellido}.docx`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-            }
-        } catch (error) {
-            console.error("Error al generar informe:", error);
-            alert(`Error al generar el informe: ${error.message}. Intenta de nuevo.`);
-        }
+           // Crear documento
+           const doc = new Document({
+               sections: [{
+                   properties: {},
+                   children: [
+                       ...(imageData ? [new Paragraph({
+                           children: [
+                               new ImageRun({
+                                   data: imageData,
+                                   transformation: { width: 600, height: 100 }
+                               })
+                           ],
+                           alignment: AlignmentType.CENTER
+                       })] : []),
+                       new Paragraph({
+                           text: "Informe de Orientación Vocacional",
+                           heading: HeadingLevel.HEADING_1,
+                           alignment: AlignmentType.CENTER,
+                           spacing: { after: 200 }
+                       }),
+                       new Paragraph({
+                           text: "I. Datos de Filiación",
+                           heading: HeadingLevel.HEADING_2,
+                           spacing: { before: 200 }
+                       }),
+                       new Paragraph(`Nombres y Apellidos: ${paciente.nombre} ${paciente.apellido}`),
+                       new Paragraph(`Edad: ${edad} años`),
+                       new Paragraph(`Sexo: ${paciente.sexo}`),
+                       new Paragraph(`Fecha de Informe: ${hoy.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}`),
+                       new Paragraph({
+                           text: "II. Motivo de Consulta",
+                           heading: HeadingLevel.HEADING_2,
+                           spacing: { before: 200 }
+                       }),
+                       new Paragraph({
+                           text: "Adolescente acude a consulta solicitando una evaluación y orientación vocacional, sin la compañía de un adulto. Refiriendo que aún no ha decidido qué estudiar, pero que entre sus posibilidades se encuentra la administración de empresas ya que su familia tiene una ferretería y una herrería. Comentando que desea estudiar en la Universidad Complutense, y de no lograrlo su otra opción sería estudiar administración en el Instituto Tecnológico, ya que sería más rápido. Cabe resaltar que el menor cuenta con apoyo económico por parte de su familia.",
+                           spacing: { after: 100 }
+                       }),
+                       new Paragraph({
+                           text: "III. Antecedentes",
+                           heading: HeadingLevel.HEADING_2,
+                           spacing: { before: 200 }
+                       }),
+                       new Paragraph({
+                           text: "El usuario es el tercero de tres hermanos en su familia. Describe su desempeño académico en la primaria como bueno, teniendo en la mayoría de ocasiones calificación de A+. Durante la secundaria, mantuvo un promedio de entre 15 y 16, aunque este descendió en su último año debido a la modalidad virtual. A su vez, manifestó que el curso que más disfrutaba y en el que le iba mejor, en ambos niveles, fue matemática. Además de participar en deportes como el básquet y el vóley, este último lo practica hasta la actualidad, siendo miembro de un club local. En cuanto a sus logros académicos, comentó que fue seleccionado para exponer un proyecto en la feria de ciencia y tecnología, llegando a la etapa regional, y mencionó que no le teme a hablar en público ni a realizar oratoria.",
+                           spacing: { after: 100 }
+                       }),
+                       new Paragraph({
+                           text: "IV. Técnicas e Instrumentos Aplicados",
+                           heading: HeadingLevel.HEADING_2,
+                           spacing: { before: 200 }
+                       }),
+                       new Paragraph("Técnicas aplicadas:"),
+                       new Paragraph("- Observación"),
+                       new Paragraph("- Entrevista psicológica"),
+                       new Paragraph("Instrumentos aplicados:"),
+                       new Paragraph("- Inventario de hábitos de estudio CASM – 85"),
+                       new Paragraph("- Inventario de intereses vocacionales CASM – 83"),
+                       new Paragraph("- Test de Aptitudes Mentales Primarias (PMA)"),
+                       new Paragraph({
+                           text: "V. Resultados Obtenidos",
+                           heading: HeadingLevel.HEADING_2,
+                           spacing: { before: 200 }
+                       }),
+                       new Paragraph({
+                           text: "Hábitos de Estudio (CASM-85)",
+                           heading: HeadingLevel.HEADING_3
+                       }),
+                       new Paragraph(analisis85),
+                       new Table({
+                           rows: tablaCASM85Rows,
+                           width: { size: 100, type: WidthType.PERCENTAGE }
+                       }),
+                       new Paragraph({
+                           text: "Intereses Vocacionales y Ocupacionales (CASM-83)",
+                           heading: HeadingLevel.HEADING_3,
+                           spacing: { before: 200 }
+                       }),
+                       new Paragraph(analisis83),
+                       new Table({
+                           rows: tablaCASM83Rows,
+                           width: { size: 100, type: WidthType.PERCENTAGE }
+                       }),
+                       new Paragraph({
+                           text: "Aptitudes Mentales Primarias (PMA)",
+                           heading: HeadingLevel.HEADING_3,
+                           spacing: { before: 200 }
+                       }),
+                       new Paragraph(analisisPMA),
+                       new Table({
+                           rows: tablaPMARows,
+                           width: { size: 100, type: WidthType.PERCENTAGE }
+                       })
+                   ]
+               }]
+           });
+
+           const blob = await Packer.toBlob(doc);
+           if (typeof window.saveAs === "function") {
+               window.saveAs(blob, `Informe_${paciente.nombre}_${paciente.apellido}.docx`);
+           } else {
+               console.warn("FileSaver.js no está disponible, usando fallback de descarga.");
+               const url = URL.createObjectURL(blob);
+               const a = document.createElement("a");
+               a.href = url;
+               a.download = `Informe_${paciente.nombre}_${paciente.apellido}.docx`;
+               document.body.appendChild(a);
+               a.click();
+               document.body.removeChild(a);
+               URL.revokeObjectURL(url);
+           }
+       } catch (error) {
+           console.error("Error al generar informe:", error);
+           alert(`Error al generar el informe: ${error.message}. Intenta de nuevo.`);
+       }
     }
 
     function cargarResultadosPMA(idTest, container) {
