@@ -816,4 +816,141 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("resultados").innerHTML = "<p>Ocurrió un error al obtener los resultados: " + error.message + "</p>";
             });
     });
+
+    // Mostrar resultados PMA
+    document.getElementById("testPMABtn").addEventListener("click", () => {
+        fetch("../Controlador/obtenerResultadosPMAGeneral.php")
+            .then(response => response.json())
+            .then(data => {
+                if (data.exito) {
+                    const resultados = data.resultados;
+                    const contenedor = document.getElementById("resultados");
+                    contenedor.innerHTML = "<h3>Resultados del Test PMA:</h3>";
+
+                    if (resultados.length === 0) {
+                        contenedor.innerHTML += "<p>No se encontraron resultados.</p>";
+                        return;
+                    }
+
+                    const grupos = resultados.map(resultado => [resultado]); // Cada resultado es un grupo
+
+                    const pruebasHTML = [];
+                    let pruebaActual = 0;
+
+                    const enviarSolicitudConReintentos = async (grupo, index, intentos = 3, esperaInicial = 1000) => {
+                        try {
+                            const response = await fetch("../Controlador/analizarResultadosPMA.php", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({ resultados: grupo[0] }) // Enviar solo el objeto del test
+                            });
+                            const data = await response.json();
+                            const analisisSpan = document.getElementById(`analisis-${index}`);
+                            if (!analisisSpan) {
+                                console.error(`No se encontró el elemento analisis-${index} en el DOM`);
+                                return;
+                            }
+                            if (data.exito) {
+                                analisisSpan.innerHTML = data.analisis;
+                            } else if (data.mensaje.includes("Límite de solicitudes alcanzado") && intentos > 0) {
+                                await new Promise(resolve => setTimeout(resolve, esperaInicial));
+                                return enviarSolicitudConReintentos(grupo, index, intentos - 1, esperaInicial * 2);
+                            } else {
+                                analisisSpan.innerHTML = `Error: ${data.mensaje}`;
+                            }
+                        } catch (error) {
+                            console.error(`Error al obtener análisis para el grupo ${index + 1}:`, error);
+                            const analisisSpan = document.getElementById(`analisis-${index}`);
+                            if (analisisSpan) {
+                                analisisSpan.innerHTML = `Error al obtener el análisis: ${error.message}`;
+                            }
+                        }
+                    };
+
+                    const generarHTMLPruebaPMA = (grupo, index) => {
+                        const fila = grupo[0];
+                        let tabla = `
+                            <div class="card" style="margin: 0; padding: 0; border: none;">
+                                <div class="card-body" style="padding: 0;">
+                                    <h3>📈 Resultados del test N° ${index + 1}</h3>
+                                    <table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse; width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Factor</th>
+                                                <th>Puntaje</th>
+                                                <th>Máximo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>Comprensión Verbal (V)</td><td>${fila.factorV}</td><td>50</td></tr>
+                                            <tr><td>Razonamiento Espacial (E)</td><td>${fila.factorE}</td><td>20</td></tr>
+                                            <tr><td>Razonamiento (R)</td><td>${fila.factorR}</td><td>30</td></tr>
+                                            <tr><td>Cálculo Numérico (N)</td><td>${fila.factorN}</td><td>70</td></tr>
+                                            <tr><td>Fluidez Verbal (F)</td><td>${fila.factorF}</td><td>75</td></tr>
+                                            <tr><td><strong>Puntuación Total</strong></td><td><strong>${parseFloat(fila.puntajeTotal).toFixed(2)}</strong></td><td>-</td></tr>
+                                        </tbody>
+                                    </table>
+                                    <p><strong>Fecha:</strong> ${fila.fecha}</p>
+                                    <p><strong>Análisis de resultados:</strong> <span id="analisis-${index}" class="loading">Cargando análisis</span></p>
+                                </div>
+                            </div>
+                        `;
+                        return tabla;
+                    };
+
+                    const procesarGruposPMA = async () => {
+                        for (let index = 0; index < grupos.length; index++) {
+                            const grupo = grupos[index];
+                            const tablaHTML = generarHTMLPruebaPMA(grupo, index);
+                            pruebasHTML[index] = tablaHTML;
+                        }
+
+                        if (pruebasHTML.length > 0) {
+                            const selectorHTML = `
+                                <select id="selector-pruebas" style="margin-bottom: 10px;">
+                                    ${pruebasHTML.map((_, i) => `<option value="${i}">Prueba ${i + 1} (${grupos[i][0].fecha})</option>`).join('')}
+                                </select>
+                            `;
+                            contenedor.innerHTML += selectorHTML;
+
+                            contenedor.innerHTML += `<div id="prueba-contenido-pma"></div>`;
+                            const pruebaContenido = document.getElementById("prueba-contenido-pma");
+                            pruebaContenido.innerHTML = pruebasHTML[0];
+
+                            setTimeout(() => {
+                                if (grupos[0]) {
+                                    enviarSolicitudConReintentos(grupos[0], 0);
+                                }
+                            }, 0);
+
+                            const selector = document.getElementById("selector-pruebas");
+                            selector.addEventListener("change", async () => {
+                                pruebaActual = parseInt(selector.value);
+                                pruebaContenido.innerHTML = pruebasHTML[pruebaActual];
+                                setTimeout(() => {
+                                    if (grupos[pruebaActual]) {
+                                        enviarSolicitudConReintentos(grupos[pruebaActual], pruebaActual);
+                                    }
+                                }, 0);
+                            });
+                        } else {
+                            contenedor.innerHTML += "<p>No hay pruebas válidas para mostrar.</p>";
+                        }
+                    };
+
+                    procesarGruposPMA().catch(error => {
+                        console.error("Error en el procesamiento de grupos:", error);
+                        contenedor.innerHTML += `<p>Error en el procesamiento de grupos: ${error.message}</p>`;
+                    });
+                } else {
+                    document.getElementById("resultados").innerHTML = "<p>Error: " + data.mensaje + "</p>";
+                }
+            })
+            .catch(error => {
+                console.error("Error al obtener resultados:", error);
+                document.getElementById("resultados").innerHTML = "<p>Ocurrió un error al obtener los resultados: " + error.message + "</p>";
+            });
+    });
 });

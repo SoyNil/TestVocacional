@@ -13,3 +13,26 @@
 [2025-06-16 08:08:37] Límite de solicitudes alcanzado (HTTP 429).
 [2025-06-16 08:08:56] Límite de solicitudes alcanzado (HTTP 429).
 [2025-06-17 20:46:36] Formato de datos inválido: [{"area":"\u00bfC\u00d3MO ESTUDIA USTED?","puntaje":4,"categoria":"TENDENCIA NEGATIVA"},{"area":"\u00bfC\u00d3MO HACE UD. SUS TAREAS?","puntaje":3,"categoria":"TENDENCIA NEGATIVA"},{"area":"\u00bfC\u00d3MO PREPARA SUS EX\u00c1MENES?","puntaje":0,"categoria":"MUY NEGATIVO"},{"area":"\u00bfC\u00d3MO ESCUCHA LAS CLASES?","puntaje":0,"categoria":"MUY NEGATIVO"},{"area":"\u00bfQU\u00c9 ACOMPA\u00d1A SUS MOMENTOS DE ESTUDIO?","puntaje":0,"categoria":"MUY NEGATIVO"}]
+[2025-06-22 01:50:54] Formato de datos inválido: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[2025-06-22 01:50:57] Formato de datos inválido: {"id":2,"factorV":"0","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"0.00","fecha":"2025-06-21"}
+[2025-06-22 01:50:59] Formato de datos inválido: {"id":3,"factorV":"3","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"4.50","fecha":"2025-06-21"}
+[2025-06-22 01:51:07] Formato de datos inválido: {"id":4,"factorV":"0","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"0.00","fecha":"2025-06-21"}
+[2025-06-22 01:52:01] No se proporcionaron datos suficientes para analizar: {"resultados":[],"sexo":0}
+[2025-06-22 01:52:03] No se proporcionaron datos suficientes para analizar: {"resultados":[],"sexo":1}
+[2025-06-22 01:52:06] No se proporcionaron datos suficientes para analizar: {"resultados":[],"sexo":0}
+[2025-06-22 01:52:09] No se proporcionaron datos suficientes para analizar: {"resultados":[],"sexo":0}
+[2025-06-22 02:49:59] No se proporcionaron datos suficientes para analizar: {"resultados":[],"sexo":0}
+[2025-06-22 02:50:41] Formato de datos inválido: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[2025-06-22 02:51:09] Formato de datos inválido: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[2025-06-22 02:51:10] Formato de datos inválido: {"id":2,"factorV":"0","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"0.00","fecha":"2025-06-21"}
+[2025-06-22 02:51:11] Formato de datos inválido: {"id":3,"factorV":"3","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"4.50","fecha":"2025-06-21"}
+[2025-06-22 02:51:13] Formato de datos inválido: {"id":4,"factorV":"0","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"0.00","fecha":"2025-06-21"}
+[2025-06-22 02:51:14] Formato de datos inválido: {"id":3,"factorV":"3","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"4.50","fecha":"2025-06-21"}
+[2025-06-22 02:51:32] No se proporcionaron datos suficientes para analizar: {"resultados":[],"sexo":0}
+[2025-06-22 02:51:33] No se proporcionaron datos suficientes para analizar: {"resultados":[],"sexo":2}
+[2025-06-22 02:51:38] No se proporcionaron datos suficientes para analizar: {"resultados":[],"sexo":0}
+[2025-06-22 02:51:47] No se proporcionaron datos suficientes para analizar: {"resultados":[],"sexo":0}
+[2025-06-22 04:44:30] No se proporcionaron datos para analizar.
+[2025-06-22 04:44:37] No se proporcionaron datos para analizar.
+[2025-06-22 04:44:38] No se proporcionaron datos para analizar.
+[2025-06-22 04:44:39] No se proporcionaron datos para analizar.

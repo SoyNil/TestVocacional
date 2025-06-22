@@ -879,6 +879,50 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
                 testsContainer.appendChild(casm85Section);
 
+                // Sección PMA
+                const pmaSection = document.createElement("div");
+                pmaSection.classList.add("test-section");
+                pmaSection.innerHTML = `<h4>Test PMA</h4>`;
+                if (data.tests.pma && data.tests.pma.length > 0) {
+                    const count = data.tests.pma.length;
+                    pmaSection.innerHTML += `<p><strong>Cantidad de tests realizados:</strong> ${count}</p>`;
+                    const selectContainer = document.createElement("div");
+                    selectContainer.classList.add("select-container");
+                    const select = document.createElement("select");
+                    select.classList.add("select-test", "select-pma");
+                    select.innerHTML = data.tests.pma.map((test, index) => `
+                        <option value="${test.id_inicio}">Test ${index + 1} - ${test.fecha}</option>
+                    `).join("");
+                    selectContainer.appendChild(select);
+
+                    const eliminarBtn = document.createElement("button");
+                    eliminarBtn.classList.add("btn-eliminar-test");
+                    eliminarBtn.textContent = "Eliminar test";
+                    eliminarBtn.addEventListener("click", () => {
+                        const idTest = select.value;
+                        if (confirm("¿Estás seguro de que deseas eliminar este test PMA y su análisis? Esta acción no se puede deshacer.")) {
+                            eliminarTestPMA(idTest, idPaciente, pmaSection);
+                        }
+                    });
+                    selectContainer.appendChild(eliminarBtn);
+                    pmaSection.appendChild(selectContainer);
+
+                    const resultadosContainer = document.createElement("div");
+                    resultadosContainer.classList.add("resultados-pma");
+                    resultadosContainer.id = "resultados-pma";
+                    pmaSection.appendChild(resultadosContainer);
+
+                    select.addEventListener("change", () => {
+                        const idTest = select.value;
+                        cargarResultadosPMA(idTest, resultadosContainer);
+                    });
+
+                    cargarResultadosPMA(data.tests.pma[0].id_inicio, resultadosContainer);
+                } else {
+                    pmaSection.innerHTML += `<p>No se encontraron tests PMA.</p>`;
+                }
+                testsContainer.appendChild(pmaSection);
+
                 detalles.appendChild(testsContainer);
             })
             .catch(err => {
@@ -893,7 +937,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("tests.casm85:", tests.casm85);
 
         // Validar tests
-        if (!tests || !Array.isArray(tests.casm83) || !Array.isArray(tests.casm85)) {
+        if (!tests || !Array.isArray(tests.casm83) || !Array.isArray(tests.casm85) || !Array.isArray(tests.pma)) {
             console.error("Tests inválidos:", tests);
             alert("Error: No se proporcionaron datos válidos de los tests.");
             return;
@@ -923,6 +967,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         <option value="">Selecciona un intento</option>
                         ${tests.casm85.length > 0 ? tests.casm85.map(test => `<option value="${test.id_inicio}">Test ${test.test_number} - ${test.fecha}</option>`).join("") : ''}
                     </select>
+                    <label for="select-pma">PMA:</label>
+                    <select id="select-pma" class="modal-select">
+                        <option value="">Selecciona un intento</option>
+                        ${tests.pma.length > 0 ? tests.pma.map(test => `<option value="${test.id_inicio}">Test ${test.test_number} - ${test.fecha}</option>`).join("") : ''}
+                    </select>
                     <div class="modal-buttons">
                         <button id="modal-generar-informe-btn" class="modal-button">Generar</button>
                         <button id="modal-cancelar-informe" class="modal-button">Cancelar</button>
@@ -939,6 +988,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const cancelarBtn = document.getElementById("modal-cancelar-informe");
         const select83 = document.getElementById("select-casm83");
         const select85 = document.getElementById("select-casm85");
+        const selectpma = document.getElementById("select-pma");
 
         // Verificar que generarBtn es un botón
         console.log("generarBtn elemento:", generarBtn.tagName);
@@ -952,6 +1002,10 @@ document.addEventListener("DOMContentLoaded", function () {
             e.stopPropagation();
             console.log("select-casm85 cambiado a:", select85.value);
         });
+        selectpma.addEventListener("change", (e) => {
+            e.stopPropagation();
+            console.log("select-pma cambiado a:", selectpma.value);
+        });
 
         // Asignar eventos con addEventListener
         closeBtn.addEventListener("click", () => cerrarModal(modal));
@@ -960,16 +1014,17 @@ document.addEventListener("DOMContentLoaded", function () {
             e.stopPropagation();
             const intento83 = select83.value;
             const intento85 = select85.value;
+            const intentopma = select85.value;
             const errorDiv = document.getElementById("modal-error-informe");
 
             console.log("Botón Generar clicado:", { intento83, intento85 });
 
-            if (!tests.casm83.length || !tests.casm85.length) {
+            if (!tests.casm83.length || !tests.casm85.length || !tests.pma.length) {
                 errorDiv.textContent = "No hay intentos disponibles para uno o ambos tests.";
                 errorDiv.style.display = "block";
                 return;
             }
-            if (!intento83 || !intento85 || intento83 === "" || intento85 === "") {
+            if (!intento83 || !intento85 || !intentopma || intentopma==="" ||intento83 === "" || intento85 === "") {
                 errorDiv.textContent = "Debes seleccionar un intento para cada test.";
                 errorDiv.style.display = "block";
                 return;
@@ -978,9 +1033,11 @@ document.addEventListener("DOMContentLoaded", function () {
             // Convertir a números para comparación
             const test83 = tests.casm83.find(t => t.id_inicio === Number(intento83));
             const test85 = tests.casm85.find(t => t.id_inicio === Number(intento85));
+            const testpma = tests.pma.find(t => t.id_inicio === Number(intentopma));
             console.log("test83 encontrado:", test83);
             console.log("test85 encontrado:", test85);
-            if (!test83 || !test85) {
+            console.log("test85 encontrado:", testpma);
+            if (!test83 || !test85 || !testpma) {
                 errorDiv.textContent = "Intento seleccionado no válido.";
                 errorDiv.style.display = "block";
                 return;
@@ -1327,6 +1384,79 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Error al generar informe:", error);
             alert(`Error al generar el informe: ${error.message}. Intenta de nuevo.`);
         }
+    }
+
+    function cargarResultadosPMA(idTest, container) {
+        container.innerHTML = `<p>Cargando resultados...</p>`;
+
+        fetch(`../Controlador/obtenerResultadosPMAGeneral.php?id_inicio=${idTest}`, { credentials: "include" })
+            .then(res => {
+                if (!res.ok) throw new Error("Error al cargar resultados: " + res.status);
+                return res.json();
+            })
+            .then(data => {
+                console.log("✅ Datos recibidos del backend:", data);
+                if (!data.exito) {
+                    container.innerHTML = `<p>Error: ${data.mensaje || "No se pudieron cargar los resultados"}</p>`;
+                    return;
+                }
+
+                const resultados = data.resultados;
+                if (!resultados) {
+                    container.innerHTML = `<p>Error: No se encontraron resultados para el test seleccionado</p>`;
+                    return;
+                }
+
+                container.innerHTML = `
+                    <div class="card-table" style="margin: 0; padding: 0; border: none;">
+                        <div class="card-body" style="padding: 0;">
+                            <h3>📊 Resultados del Test PMA</h3>
+                            <table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Factor</th>
+                                        <th>Puntaje</th>
+                                        <th>Máximo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Comprensión Verbal (V)</td><td>${resultados.factorV}</td><td>50</td></tr>
+                                    <tr><td>Razonamiento Espacial (E)</td><td>${resultados.factorE}</td><td>20</td></tr>
+                                    <tr><td>Razonamiento (R)</td><td>${resultados.factorR}</td><td>30</td></tr>
+                                    <tr><td>Cálculo Numérico (N)</td><td>${resultados.factorN}</td><td>70</td></tr>
+                                    <tr><td>Fluidez Verbal (F)</td><td>${resultados.factorF}</td><td>75</td></tr>
+                                    <tr><td><strong>Puntaje Total</strong></td><td><strong>${resultados.puntajeTotal}</strong></td><td>-</td></tr>
+                                </tbody>
+                            </table>
+                            <p><strong>Fecha:</strong> ${resultados.fecha}</p>
+                            <p><strong>Análisis:</strong> <span id="analisis-pma" class="loading">Cargando análisis...</span></p>
+                        </div>
+                    </div>
+                `;
+
+                // Cargar análisis
+                fetch("../Controlador/analizarResultadosPMA.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ resultados })
+                })
+                    .then(res => res.json())
+                    .then(analisisData => {
+                        const analisisSpan = container.querySelector("#analisis-pma");
+                        if (analisisData.exito) {
+                            analisisSpan.innerHTML = analisisData.analisis;
+                        } else {
+                            analisisSpan.innerHTML = `Error: ${analisisData.mensaje || "No se pudo obtener el análisis"}`;
+                        }
+                    })
+                    .catch(err => {
+                        container.querySelector("#analisis-pma").innerHTML = `Error al cargar análisis: ${err.message}`;
+                    });
+            })
+            
+            .catch(err => {
+                container.innerHTML = `<p>Error al cargar resultados: ${err.message}</p>`;
+            });
     }
 
     function cargarResultadosCASM83(idInicio, contenedor) {

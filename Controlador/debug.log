@@ -97,3 +97,360 @@ Array
 
     [sexo] => Masculino
 )
+Array
+(
+    [resultados] => Array
+        (
+            [0] => Array
+                (
+                    [factor] => V
+                    [puntaje] => 0
+                    [fecha] => 2025-06-21
+                )
+
+            [1] => Array
+                (
+                    [factor] => E
+                    [puntaje] => 0
+                    [fecha] => 2025-06-21
+                )
+
+            [2] => Array
+                (
+                    [factor] => R
+                    [puntaje] => 0
+                    [fecha] => 2025-06-21
+                )
+
+            [3] => Array
+                (
+                    [factor] => N
+                    [puntaje] => 0
+                    [fecha] => 2025-06-21
+                )
+
+            [4] => Array
+                (
+                    [factor] => F
+                    [puntaje] => 0
+                    [fecha] => 2025-06-21
+                )
+
+            [5] => Array
+                (
+                    [factor] => Total
+                    [puntaje] => 0
+                    [fecha] => 2025-06-21
+                )
+
+        )
+
+)
+Array
+(
+    [resultados] => Array
+        (
+            [factorV] => 2
+            [factorE] => 0
+            [factorR] => 0
+            [factorN] => 0
+            [factorF] => 0
+            [puntajeTotal] => 3
+            [fecha] => 2025-06-21
+        )
+
+)
+Array
+(
+    [resultados] => Array
+        (
+            [factorV] => 0
+            [factorE] => 0
+            [factorR] => 0
+            [factorN] => 0
+            [factorF] => 0
+            [puntajeTotal] => 0
+            [fecha] => 2025-06-21
+        )
+
+)
+Array
+(
+    [resultados] => Array
+        (
+            [factorV] => 3
+            [factorE] => 0
+            [factorR] => 0
+            [factorN] => 0
+            [factorF] => 0
+            [puntajeTotal] => 4.5
+            [fecha] => 2025-06-21
+        )
+
+)
+Array
+(
+    [resultados] => Array
+        (
+            [factorV] => 0
+            [factorE] => 0
+            [factorR] => 0
+            [factorN] => 0
+            [factorF] => 0
+            [puntajeTotal] => 0
+            [fecha] => 2025-06-21
+        )
+
+)
+Array
+(
+    [resultados] => Array
+        (
+            [factorV] => 17
+            [factorE] => 0
+            [factorR] => 1
+            [factorN] => 0
+            [factorF] => 3
+            [puntajeTotal] => 30.5
+            [fecha] => 2025-06-22
+        )
+
+)
+Array
+(
+    [resultados] => Array
+        (
+            [factorV] => 27
+            [factorE] => 0
+            [factorR] => 0
+            [factorN] => 0
+            [factorF] => 0
+            [puntajeTotal] => 40.5
+            [fecha] => 2025-06-22
+        )
+
+)
+Array
+(
+    [resultados] => Array
+        (
+            [0] => Array
+                (
+                    [factorV] => 0
+                    [factorE] => 0
+                    [factorR] => 0
+                    [factorN] => 0
+                    [factorF] => 0
+                    [puntajeTotal] => 0
+                    [fecha] => 2025-06-22
+                )
+
+        )
+
+)
+Array
+(
+    [resultados] => Array
+        (
+            [0] => Array
+                (
+                    [factorV] => 0
+                    [factorE] => 0
+                    [factorR] => 0
+                    [factorN] => 0
+                    [factorF] => 0
+                    [puntajeTotal] => 0
+                    [fecha] => 2025-06-22
+                )
+
+        )
+
+)
+Array
+(
+    [resultados] => Array
+        (
+            [factorV] => 0
+            [factorE] => 0
+            [factorR] => 0
+            [factorN] => 0
+            [factorF] => 0
+            [puntajeTotal] => 0
+            [fecha] => 2025-06-22
+        )
+
+)
+Array
+(
+    [resultados] => Array
+        (
+            [factorV] => 2
+            [factorE] => 0
+            [factorR] => 0
+            [factorN] => 0
+            [factorF] => 1
+            [puntajeTotal] => 4
+            [fecha] => 2025-06-22
+        )
+
+)
+Array
+(
+    [resultados] => Array
+        (
+            [0] => Array
+                (
+                    [area] => ¿CÓMO ESTUDIA USTED?
+                    [puntaje] => 0
+                    [categoria] => MUY NEGATIVO
+                    [fecha] => 2025-06-22
+                )
+
+            [1] => Array
+                (
+                    [area] => ¿CÓMO HACE UD. SUS TAREAS?
+                    [puntaje] => 0
+                    [categoria] => MUY NEGATIVO
+                    [fecha] => 2025-06-22
+                )
+
+            [2] => Array
+                (
+                    [area] => ¿CÓMO PREPARA SUS EXÁMENES?
+                    [puntaje] => 0
+                    [categoria] => MUY NEGATIVO
+                    [fecha] => 2025-06-22
+                )
+
+            [3] => Array
+                (
+                    [area] => ¿CÓMO ESCUCHA LAS CLASES?
+                    [puntaje] => 0
+                    [categoria] => MUY NEGATIVO
+                    [fecha] => 2025-06-22
+                )
+
+            [4] => Array
+                (
+                    [area] => ¿QUÉ ACOMPAÑA SUS MOMENTOS DE ESTUDIO?
+                    [puntaje] => 0
+                    [categoria] => MUY NEGATIVO
+                    [fecha] => 2025-06-22
+                )
+
+        )
+
+)
+Array
+(
+    [resultados] => Array
+        (
+            [CCFM] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCSS] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCNA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCCO] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [ARTE] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [BURO] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCEP] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [HAA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [FINA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [LING] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [JURI] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [VERA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CONS] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+        )
+
+    [sexo] => Masculino
+)
+Array
+(
+    [resultados] => Array
+        (
+            [factorV] => 0
+            [factorE] => 0
+            [factorR] => 0
+            [factorN] => 0
+            [factorF] => 0
+            [puntajeTotal] => 0
+            [fecha] => 2025-06-22
+        )
+
+)

@@ -367,6 +367,22 @@ body {
     color: #0ff;
 }
 
+.btn-informe {
+    padding: 0.5rem 1rem;
+    background-color: #2c2c2c;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-informe:hover {
+    background-color: #3a3a3a;
+    color: #0ff;
+}
+
 .btn-eliminar-test {
     padding: 0.5rem 1rem;
     background-color: #ff4d4d;

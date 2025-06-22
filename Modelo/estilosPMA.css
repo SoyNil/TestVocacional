@@ -514,65 +514,53 @@ input:focus, select:focus {
     }
 
     .menu-toggle {
-        order: 100;
+        order: 3;
         display: flex;
-        justify-content: flex-end;
-        margin: 0;
+        justify-content: flex-end; /* Lo coloca en el extremo derecho */
     }
 
-    #main-nav-container {
-        order: 1000;
+    #main-nav {
+        order: 4;
         width: 100%;
-        margin-top: 10px;
     }
 
+    /* Botón hamburguesa visible solo en pantallas pequeñas */
     .menu-toggle {
         display: block;
-        margin-top: 0;
     }
-
-    .menu-toggle:hover {
-        background-color: #333333;
-        border-radius: 5px;
-        color: #fff;
-    }
-
+  
+    /* Ocultamos el nav en pantallas pequeñas por defecto */
     nav {
         width: 100%;
         display: none;
         margin-top: 10px;
     }
 
+    /* Cuando el nav tiene la clase 'active', lo mostramos */
     nav.active {
         display: block;
     }
 
+    /* Hacemos que los elementos de la lista se apilen en columna */
     nav ul {
-        display: flex;
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
-        padding: 0;
-        margin-top: 0;
     }
 
     nav ul li {
-        padding: 10px 0px;
-        margin-top: 0;
         width: 100%;
     }
 
     nav ul li a {
         padding: 10px 0;
-        margin-top: 0;
         display: block;
         width: 100%;
-        color: #bababa;
     }
 
+    /* Estilo del dropdown para móviles */
     .dropdown {
         width: 100%;
-        z-index: 1000;
     }
 
     .dropdown-menu {
@@ -581,17 +569,14 @@ input:focus, select:focus {
         left: 0;
         box-shadow: none;
         padding-left: 15px;
-        min-width: 100%;
-        margin-top: 10px;
-        background-color: #2a2a2a;
+        min-width: auto;
         display: none;
-        z-index: 1000;
+        background-color: #2a2a2a;
     }
 
     .dropdown-menu.show {
         display: flex;
         flex-direction: column;
-        margin-top: 0;
     }
 
     .factorR-input {

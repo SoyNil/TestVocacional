@@ -7,7 +7,7 @@ header('Content-Type: application/json');
 // Verificar si el usuario está autenticado
 if (!isset($_SESSION['id_usuario'])) {
     http_response_code(401);
-    echo json_encode(["error" => "No autenticado"]);
+    echo json_encode(["exito" => false, "mensaje" => "No autenticado"]);
     exit;
 }
 
@@ -16,18 +16,18 @@ $input = json_decode(file_get_contents("php://input"), true);
 $fecha = date('Y-m-d');
 
 // Registrar entrada para depuración
-file_put_contents('debug.log', print_r($input, true));
+file_put_contents('debug.log', print_r($input, true), FILE_APPEND);
 
 // Validar estructura básica
-if (!isset($input['resultados']) || !is_array($input['resultados'])) {
+if (!isset($input['resultados'])) {
     http_response_code(400);
-    echo json_encode(["error" => "Estructura inválida"]);
+    echo json_encode(["exito" => false, "mensaje" => "Estructura inválida"]);
     exit;
 }
 
 try {
     // 🔍 Detectar tipo de test por estructura
-    $primerElemento = $input['resultados'][array_key_first($input['resultados'])];
+    $primerElemento = is_array($input['resultados']) ? $input['resultados'][array_key_first($input['resultados'])] : $input['resultados'];
 
     if (isset($input['sexo']) && isset($primerElemento['total'])) {
         // === CASM83 ===
@@ -35,7 +35,7 @@ try {
 
         if (!in_array($sexo, ['Masculino', 'Femenino'])) {
             http_response_code(400);
-            echo json_encode(["error" => "Sexo inválido"]);
+            echo json_encode(["exito" => false, "mensaje" => "Sexo inválido"]);
             exit;
         }
 
@@ -55,7 +55,7 @@ try {
             $stmt->execute();
         }
 
-        echo json_encode(["message" => "Resultados CASM83 guardados correctamente"]);
+        echo json_encode(["exito" => true, "mensaje" => "Resultados CASM83 guardados correctamente"]);
 
     } elseif (isset($primerElemento['area'], $primerElemento['puntaje'], $primerElemento['categoria'])) {
         // === CASM85 ===
@@ -70,19 +70,49 @@ try {
             $stmt->execute();
         }
 
-        echo json_encode(["message" => "Resultados CASM85 guardados correctamente"]);
+        echo json_encode(["exito" => true, "mensaje" => "Resultados CASM85 guardados correctamente"]);
+
+    } elseif (isset($input['resultados']['factorV'], $input['resultados']['factorE'], $input['resultados']['factorR'], $input['resultados']['factorN'], $input['resultados']['factorF'], $input['resultados']['puntajeTotal'])) {
+        // === PMA ===
+        $resultados = $input['resultados'];
+        $factorV = (int)$resultados['factorV'];
+        $factorE = (int)$resultados['factorE'];
+        $factorR = (int)$resultados['factorR'];
+        $factorN = (int)$resultados['factorN'];
+        $factorF = (int)$resultados['factorF'];
+        $puntajeTotal = floatval($resultados['puntajeTotal']);
+        $fecha_resultado = $resultados['fecha'];
+
+        // Validar puntajes no negativos
+        if ($factorV < 0 || $factorE < 0 || $factorR < 0 || $factorN < 0 || $factorF < 0 || $puntajeTotal < 0) {
+            http_response_code(400);
+            echo json_encode(["exito" => false, "mensaje" => "Puntajes inválidos"]);
+            exit;
+        }
+
+        $stmt = $conexion->prepare("INSERT INTO test_PMA (id_usuario, factorV, factorE, factorR, factorN, factorF, puntajeTotal, fecha) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        if ($stmt === false) {
+            throw new Exception("Error en preparación de consulta: " . $conexion->error);
+        }
+        $stmt->bind_param("iiiiiiis", $id_usuario, $factorV, $factorE, $factorR, $factorN, $factorF, $puntajeTotal, $fecha_resultado);
+        if (!$stmt->execute()) {
+            throw new Exception("Error al guardar resultados PMA: " . $stmt->error);
+        }
+
+        echo json_encode(["exito" => true, "mensaje" => "Resultados PMA guardados correctamente"]);
 
     } else {
         http_response_code(400);
-        echo json_encode(["error" => "Formato de resultados no reconocido"]);
+        echo json_encode(["exito" => false, "mensaje" => "Formato de resultados no reconocido"]);
     }
 
 } catch (Exception $e) {
     http_response_code(500);
-    echo json_encode(["error" => "Error al guardar resultados: " . $e->getMessage()]);
+    echo json_encode(["exito" => false, "mensaje" => "Error al guardar resultados: " . $e->getMessage()]);
 }
 
 if (isset($stmt)) {
     $stmt->close();
 }
 $conexion->close();
+?>
