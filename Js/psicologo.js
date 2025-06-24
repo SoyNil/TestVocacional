@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const inputFoto = document.getElementById("input-foto");
     const btnEliminarCuenta = document.getElementById("btn-eliminar-cuenta");
     const btnPerfil = document.querySelector(".icon-buttons button[title='Perfil']");
+    const btnImportarDatos = document.getElementById("btn-importar-datos");
 
     // Verificar sesión y cargar datos del psicólogo
     fetch("../Controlador/verificarSesionJSON.php", {
@@ -52,9 +53,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 nombreElement.textContent = `${data.nombre} ${data.apellido}`;
 
-                // Mostrar botón "Crear Psicólogos" solo para admin
-                if (data.jerarquia === 'admin' && btnCrearPsicologos) {
-                    btnCrearPsicologos.style.display = "block";
+                // Mostrar botones "Crear Psicólogos" y "Importar datos" solo para admin
+                if (data.jerarquia === 'admin') {
+                    if (btnCrearPsicologos) btnCrearPsicologos.style.display = "block";
+                    if (btnImportarDatos) btnImportarDatos.style.display = "block";
                 }
 
                 // Inicializar la página
@@ -182,6 +184,55 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("Error al subir la imagen:", error);
                 alert("Error al conectar con el servidor.");
             }
+        });
+    }
+
+    // Botón Importar Datos
+    if (btnImportarDatos) {
+        btnImportarDatos.addEventListener("click", () => {
+            mostrandoCodigos = false;
+            mostrarImportarDatos();
+        });
+    }
+
+    // Función para mostrar el formulario de importar datos
+    function mostrarImportarDatos() {
+        contenido.innerHTML = `
+            <div class="card">
+                <h2>Importar Datos</h2>
+                <form id="form-importar-datos">
+                    <label for="archivo-datos">Seleccione un archivo CSV:</label>
+                    <input type="file" id="archivo-datos" name="archivo-datos" accept=".csv" required />
+                    <button type="submit">Importar</button>
+                </form>
+            </div>
+        `;
+
+        const formImportarDatos = document.getElementById("form-importar-datos");
+        formImportarDatos.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const formData = new FormData(formImportarDatos);
+            fetch("../Controlador/importarDatos.php", {
+                method: "POST",
+                body: formData,
+                credentials: "include"
+            })
+                .then(res => {
+                    if (!res.ok) throw new Error("Error en la respuesta del servidor: " + res.status);
+                    return res.json();
+                })
+                .then(data => {
+                    if (data.exito) {
+                        alert("Datos importados correctamente.");
+                        formImportarDatos.reset();
+                    } else {
+                        alert(`Error: ${data.mensaje}`);
+                    }
+                })
+                .catch(err => {
+                    console.error("Error al importar datos:", err);
+                    alert("Error al importar datos: " + err.message);
+                });
         });
     }
 

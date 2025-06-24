@@ -9,6 +9,34 @@ body {
     background-color: #171717;
 }
 
+.whatsapp-float {
+    position: fixed;
+    width: 90px;
+    height: 90px;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25d366;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+}
+
+.whatsapp-float img {
+    width: 65px;
+    height: 65px;
+}
+
+
 /* INICIO DE ESTILOS HEADER */
 
 header {

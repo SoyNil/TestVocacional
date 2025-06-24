@@ -287,7 +287,7 @@ function verificarYRedirigir(urlTest) {
                     <div class="modal-content-adv">
                         <span id="modal-close" class="modal-close">×</span>
                         <h3>Límite de Intentos Alcanzado</h3>
-                        <p>Has excedido el número de intentos para hacer la prueba. Si quieres más, contáctate con nosotros.</p>
+                        <p>Has excedido el número de intentos para hacer la prueba. Si quieres más, <a href="https://wa.me/51995107778?text=Hola,%20me%20gustaría%20solicitar%20más%20intentos" style="color: #2944ff; text-decoration: underline;">contáctate con nosotros.</a></p>
                         <button id="modal-ok" class="modal-button">Aceptar</button>
                     </div>
                 </div>
