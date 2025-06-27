@@ -1,23 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Poiret+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
 
 * {
     font-family: "Figtree", sans-serif;
     box-sizing: border-box;
 }
 
-/* Estilos generales */
 body {
     background-color: #121212;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
     margin: 0;
     padding: 0;
-    overflow: auto;
     color: #e0e0e0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
 }
 
-/* INICIO DE ESTILOS HEADER */
 header {
     background-color: #121212;
     padding: 20px 30px;
@@ -142,7 +140,6 @@ nav ul li a:hover {
     background-color: #2a2a2a;
 }
 
-/* Contenedor del formulario */
 .container {
     background: linear-gradient(145deg, #1a1a1a, #222222);
     padding: 40px;
@@ -150,57 +147,188 @@ nav ul li a:hover {
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
     width: 100%;
     max-width: 600px;
+    margin: 30px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin-top: 40px;
     border: 1px solid #2a2a2a;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Cuestionario */
-#cuestionario {
-    display: none;
-    width: 80%;
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+#datosPersonales.container {
+    max-width: 600px;
+}
+
+#cuestionario.container {
     max-width: 1100px;
-    max-height: 85vh;
+    margin-top: 100px;
+    overflow-x: auto;
     overflow-y: auto;
-    padding: 40px;
+    max-height: 85vh;
     background: linear-gradient(145deg, #1a1a1a, #222222);
     border-radius: 16px;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
-    border: 1px solid #2a2a2a;
-    margin: 100px auto;
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
 }
 
-/* Resultados */
-#resultados {
-    display: none;
-    width: 80%;
+#resultados.container {
     max-width: 1100px;
-    padding: 40px;
+    margin-top: 100px;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 85vh;
     background: linear-gradient(145deg, #1a1a1a, #222222);
     border-radius: 16px;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
-    border: 1px solid #2a2a2a;
-    color: #ffffff;
-    margin: 100px auto;
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
 }
 
-#resultados p, #resultados h2, #resultados strong {
+h1, h2, h3 {
     color: #ffffff;
+    text-align: center;
+    margin: 0 0 20px;
+    font-weight: 600;
+}
+
+h1 {
+    font-size: 32px;
+    letter-spacing: 0.5px;
+}
+
+h2 {
+    font-size: 26px;
+    margin: 25px 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+label {
+    display: block;
+    margin-top: 12px;
+    font-weight: 500;
+    color: #b0b0b0;
+    text-align: left;
+    font-size: 16px;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border: none;
+    border-radius: 8px;
+    background-color: #2a2a2a;
+    color: #ffffff;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border: 2px solid #00f0ff;
+    background-color: #333333;
+}
+
+input[readonly] {
+    background-color: #3a3a3a;
+    cursor: not-allowed;
+}
+
+#tablaCuestionario input[type="text"] {
+    width: 50px; /* Ajustado a 50px para coherencia con el diseño modernizado */
+    text-align: center;
+}
+
+.button-form {
+    background: linear-gradient(90deg, #00f0ff, #007bff);
+    color: #ffffff;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.button-form:hover {
+    background: linear-gradient(90deg, #00f0ff, #0099ff);
+    transform: translateY(-2px);
+}
+
+.button-form:disabled {
+    background: #444444;
+    color: #888888;
+    cursor: not-allowed;
+}
+
+#tablaCuestionario {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+    background-color: #2a2a2a;
+    border-radius: 10px;
+    border: 1px solid #333333;
+    overflow: hidden;
+}
+
+#tablaCuestionario th, #tablaCuestionario td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #333333;
+    color: #e0e0e0;
+    font-size: 15px;
+}
+
+#tablaCuestionario th {
+    background-color: #333333;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#tablaCuestionario td:nth-child(1) {
+    text-align: left;
+    font-weight: 500;
+    width: 60px;
+}
+
+#tablaCuestionario td:nth-child(2) {
+    text-align: left;
+}
+
+#tablaCuestionario td:nth-child(3) {
+    width: 60px;
+}
+
+#tablaCuestionario td:last-child {
+    width: 120px;
+}
+
+#tablaCuestionario tr:nth-child(even) {
+    background-color: #252525;
+}
+
+#tablaCuestionario tr:hover {
+    background-color: #333333;
+    transition: background-color 0.2s ease;
+}
+
+#tablaCuestionario td input {
+    margin-top: 6px;
+    width: 50px;
+    background-color: #333333;
+    color: #ffffff;
+    border-radius: 6px;
+    padding: 8px;
 }
 
 #resultados table {
@@ -235,253 +363,90 @@ nav ul li a:hover {
     background-color: #333333;
 }
 
-/* Tabla de interpretación de categorías */
-#resultados table.categoria-table {
-    width: auto;
-    min-width: 220px;
-    font-size: 14px;
-    margin-top: 15px;
-    background-color: #2a2a2a;
-    border-radius: 10px;
-    border: 1px solid #333333;
-}
-
-#resultados table.categoria-table th, #resultados table.categoria-table td {
-    padding: 8px 12px;
-    text-align: left;
-    border: 1px solid #333333;
-    color: #e0e0e0;
-}
-
-#resultados table.categoria-table th {
-    background-color: #333333;
-    font-weight: 600;
-}
-
-#resultados table.categoria-table tr:nth-child(even) {
-    background-color: #252525;
-}
-
-#resultados table.categoria-table tr:hover {
-    background-color: #333333;
-}
-
-/* Estilos del formulario */
-h1, h2, h3 {
+#resultados p, #resultados h2, #resultados strong {
     color: #ffffff;
-    text-align: center;
-    margin: 0 0 20px;
-    font-weight: 600;
 }
 
-h1 {
-    font-size: 32px;
-    letter-spacing: 0.5px;
+#resultados a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
 
-h2 {
-    font-size: 26px;
-    margin: 25px 0;
+#resultados a:hover {
+    color: #00f0ff;
 }
 
-label {
-    display: block;
-    margin-top: 12px;
-    font-weight: 500;
-    color: #b0b0b0;
-    text-align: left;
-    font-size: 16px;
-}
-
-input, select {
-    width: 100%;
-    padding: 12px;
-    margin-top: 6px;
-    border: none;
-    border-radius: 8px;
-    background-color: #2a2a2a;
-    color: #ffffff;
-    font-size: 16px;
-    transition: all 0.3s ease;
-}
-
-input:focus, select:focus {
-    outline: none;
-    border: 2px solid #00f0ff;
-    background-color: #333333;
-}
-
-.button-form {
-    background: linear-gradient(90deg, #00f0ff, #007bff);
-    color: #ffffff;
-    border: none;
-    padding: 12px;
-    width: 100%;
-    margin-top: 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.button-form:hover {
-    background: linear-gradient(90deg, #00f0ff, #0099ff);
-    transform: translateY(-2px);
-}
-
-#tablaCuestionario {
+/* Estilos no utilizados pero incluidos para compatibilidad con el diseño del CASM85 */
+#tablaCuestionario td table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 25px;
-    background-color: #2a2a2a;
-    border-radius: 10px;
+    background-color: transparent;
+}
+
+#tablaCuestionario td table td {
     border: 1px solid #333333;
-    overflow: hidden;
-}
-
-#tablaCuestionario th, #tablaCuestionario td {
-    padding: 12px;
-    text-align: center;
-    border: 1px solid #333333;
-    color: #e0e0e0;
-    font-size: 15px;
-}
-
-#tablaCuestionario th {
-    background-color: #333333;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-#tablaCuestionario td input {
-    margin-top: 6px;
-    width: 50px;
-    background-color: #333333;
-    color: #ffffff;
-    border-radius: 6px;
-    padding: 8px;
-    text-align: center;
-}
-
-#tablaCuestionario tr:nth-child(even) {
-    background-color: #252525;
-}
-
-#tablaCuestionario tr:hover {
-    background-color: #333333;
-    transition: background-color 0.2s ease;
-}
-
-#tablaCuestionario th:nth-child(2),
-#tablaCuestionario td:nth-child(2) {
+    padding: 10px;
     text-align: left;
+    cursor: pointer;
 }
 
-.punto {
-    width: 12px;
-    height: 12px;
-    background-color: #ff4d4d;
-    border-radius: 50%;
-    z-index: 2;
+#tablaCuestionario td table td.selected {
+    background-color: #333333;
+    border: 2px solid #00f0ff;
 }
 
-#svg-lineas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 5;
-}
-
-/* Media Queries - Responsive */
 @media (max-width: 768px) {
-    .container {
-        z-index: 1;
-        position: relative;
-        width: 95%;
-        margin: 20px auto;
-        padding: 30px;
-        top: auto;
-        left: auto;
-        transform: none;
-    }
-
-    #cuestionario {
-        width: 95%;
-        margin: 80px auto;
-    }
-
-    #resultados {
-        width: 95%;
-        margin: 80px auto;
-    }
-
     .nav-container {
         width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
-
     .logo-container {
         order: 1;
     }
-
     .menu-toggle {
         order: 3;
         display: flex;
         justify-content: flex-end;
     }
-
     #main-nav {
         order: 4;
         width: 100%;
     }
-
     .menu-toggle {
         display: block;
     }
-
     .menu-toggle:hover {
         background-color: #1e1e1e;
         border-radius: 8px;
     }
-
     nav {
         width: 100%;
         display: none;
         margin-top: 12px;
     }
-
     nav.active {
         display: block;
     }
-
     nav ul {
         flex-direction: column;
         align-items: flex-start;
         gap: 12px;
     }
-
     nav ul li {
         width: 100%;
     }
-
     nav ul li a {
         padding: 12px 0;
         display: block;
         width: 100%;
     }
-
     .dropdown {
         width: 100%;
         z-index: 2;
     }
-
     .dropdown-menu {
         position: relative;
         top: 0;
@@ -493,16 +458,29 @@ input:focus, select:focus {
         display: none;
         z-index: 2;
     }
-
     .dropdown-menu.show {
         display: flex;
         flex-direction: column;
     }
-
+    .container {
+        width: 95%;
+        margin: 20px auto;
+        padding: 30px;
+    }
+    #datosPersonales.container {
+        max-width: 95%;
+    }
+    #cuestionario.container {
+        margin-top: 80px;
+        width: 95%;
+    }
+    #resultados.container {
+        margin-top: 80px;
+        width: 95%;
+    }
     #tablaCuestionario td {
         font-size: 0.85em;
     }
-
     #tablaCuestionario td input {
         width: 40px;
     }

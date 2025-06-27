@@ -39,33 +39,59 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("nombre").value = data.nombre || '';
                 document.getElementById("sexo").value = data.sexo || '';
 
+                // Calcular y asignar la edad
                 if (data.fecha_nacimiento) {
                     const fechaNacimiento = new Date(data.fecha_nacimiento);
                     const hoy = new Date();
-                    // Calcular la edad
                     let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
                     const mes = hoy.getMonth() - fechaNacimiento.getMonth();
 
                     if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
-                        edad--; // Si no ha cumplido años aún este año, restar un año
+                        edad--;
                     }
 
-                    // Console log para verificar la edad calculada
                     console.log("Fecha de nacimiento:", data.fecha_nacimiento);
                     console.log("Edad calculada:", edad);
 
-                    // Asignar la edad al campo input
                     const edadInput = document.getElementById("edad");
                     if (edadInput) {
                         edadInput.value = edad;
                     }
                 }
+
+                // Verificar número de intentos del CASM85
+                fetch("../Controlador/obtenerResultadosCASM85General.php")
+                    .then(res => res.json())
+                    .then(dataTest => {
+                        if (!dataTest.exito || !Array.isArray(dataTest.resultados)) {
+                            redirigirConModal();
+                            return;
+                        }
+
+                        const intentos = Math.floor(dataTest.resultados.length / 5); // 5 áreas por intento
+                        if (intentos >= 4) {
+                            redirigirConModal();
+                        } else {
+                            console.log("✔️ Acceso permitido al CASM85.");
+                            // Puedes continuar con el flujo normal del test aquí si es necesario
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error verificando intentos:", error);
+                        redirigirConModal();
+                    });
             }
         })
         .catch(error => {
             console.error("Error verificando sesión:", error);
             window.location.href = "../Vista/principal.html";
         });
+
+    // Función para redirigir y mostrar modal desde principal.html
+    function redirigirConModal() {
+        localStorage.setItem("mostrarModalLimite", "true");
+        window.location.href = "../Vista/principal.html";
+    }
 
     const form = document.querySelector("form");
     const cuestionarioContainer = document.getElementById("cuestionario");

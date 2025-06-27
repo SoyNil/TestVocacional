@@ -1,50 +1,33 @@
-<style>
-  table {
-    border-collapse: collapse;
-  }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Pregunta 28</title>
+</head>
+<body>
 
-  td, th {
-    border: 1px solid black;
-    padding: 10px;
-    text-align: center;
-    cursor: pointer;
-  }
+<h3>Ejemplo de pregunta 28 con diseño especial</h3>
 
-  .selected {
-    background-color: #4CAF50;
-    color: white;
-  }
-</style>
+<table>
+  <tr>
+    <!-- Número -->
+    <td rowspan="2">28</td>
 
-<table id="tablaOpciones">
-  <thead>
-    <tr>
-      <th>Pregunta</th>
-      <th>Opción A</th>
-      <th>Opción B</th>
-      <th>Opción C</th>
-      <th>Opción D</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>pregunta: "HÚMEDO",</td>
-      <td data-group="p1">A: "Corto",</td>
-      <td data-group="p1">B: "Humano",</td>
-      <td data-group="p1">C: "Mojado",</td>
-      <td data-group="p1">D: "Moderado"</td>
-    </tr>
-  </tbody>
+    <!-- Primera opción -->
+    <td>¿Le gusta el orden, la simetría, la regularidad?</td>
+    <td>9</td>
+
+    <!-- Input combinado -->
+    <td rowspan="2">
+      <input type="number" min="1" max="9" step="8" name="respuesta28" placeholder="1 o 9">
+    </td>
+  </tr>
+  <tr>
+    <!-- Segunda opción -->
+    <td>¿El orden le parece aburrido y siente la necesidad de encontrar por doquiera huella de fantasía?</td>
+    <td>1</td>
+  </tr>
 </table>
 
-<script>
-  document.querySelectorAll('#tablaOpciones td[data-group]').forEach(cell => {
-    cell.addEventListener('click', () => {
-      const group = cell.getAttribute('data-group');
-      document.querySelectorAll(`td[data-group='${group}']`).forEach(c => {
-        c.classList.remove('selected');
-      });
-      cell.classList.add('selected');
-    });
-  });
-</script>
+</body>
+</html>

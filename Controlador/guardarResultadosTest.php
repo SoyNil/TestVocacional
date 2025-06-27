@@ -13,23 +13,71 @@ if (!isset($_SESSION['id_usuario'])) {
 
 $id_usuario = $_SESSION['id_usuario'];
 $input = json_decode(file_get_contents("php://input"), true);
-$fecha = date('Y-m-d');
 
 // Registrar entrada para depuración
 file_put_contents('debug.log', print_r($input, true), FILE_APPEND);
 
 // Validar estructura básica
-if (!isset($input['resultados'])) {
+if (!$input) {
     http_response_code(400);
     echo json_encode(["exito" => false, "mensaje" => "Estructura inválida"]);
     exit;
 }
 
 try {
-    // 🔍 Detectar tipo de test por estructura
-    $primerElemento = is_array($input['resultados']) ? $input['resultados'][array_key_first($input['resultados'])] : $input['resultados'];
+    if (isset($input['emotividad'], $input['actividad'], $input['resonancia'], $input['tipo_caracterologico'], $input['formula_caracterologica'], $input['sexo'], $input['fecha'])) {
+        // === Gastón ===
+        $emotividad = (int)$input['emotividad'];
+        $actividad = (int)$input['actividad'];
+        $resonancia = (int)$input['resonancia'];
+        $tipo_caracterologico = $input['tipo_caracterologico'];
+        $formula_caracterologica = $input['formula_caracterologica'];
+        
+        $sexo = strtolower(trim($input['sexo']));
+        if ($sexo === 'masculino' || $sexo === 'másculino') {
+            $sexo = 'Masculino';
+        } elseif ($sexo === 'femenino') {
+            $sexo = 'Femenino';
+        } else {
+            http_response_code(400);
+            echo json_encode(["exito" => false, "mensaje" => "Sexo inválido: debe ser 'Masculino' o 'Femenino'"]);
+            exit;
+        }
 
-    if (isset($input['sexo']) && isset($primerElemento['total'])) {
+        $fecha = $input['fecha'];
+
+        // Validar datos
+        if ($emotividad < 0 || $actividad < 0 || $resonancia < 0 || empty($tipo_caracterologico) || empty($formula_caracterologica) || !in_array($sexo, ['Masculino', 'Femenino']) || empty($fecha)) {
+            http_response_code(400);
+            echo json_encode(["exito" => false, "mensaje" => "Datos inválidos para Gastón"]);
+            exit;
+        }
+
+        $stmt = $conexion->prepare("
+            INSERT INTO test_gaston (id_usuario, emotividad, actividad, resonancia, tipo_caracterologico, formula_caracterologica, sexo, fecha)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ");
+        if ($stmt === false) {
+            throw new Exception("Error en preparación de consulta Gastón: " . $conexion->error);
+        }
+        $stmt->bind_param(
+            "iiisssss",
+            $id_usuario,
+            $emotividad,
+            $actividad,
+            $resonancia,
+            $tipo_caracterologico,
+            $formula_caracterologica,
+            $sexo,
+            $fecha
+        );
+        if (!$stmt->execute()) {
+            throw new Exception("Error al guardar resultados Gastón: " . $stmt->error);
+        }
+
+        echo json_encode(["exito" => true, "mensaje" => "Resultados Gastón guardados correctamente"]);
+
+    } elseif (isset($input['sexo']) && isset($input['resultados']) && is_array($input['resultados']) && isset($input['resultados'][array_key_first($input['resultados'])]['total'])) {
         // === CASM83 ===
         $sexo = $input['sexo'];
 
@@ -57,7 +105,7 @@ try {
 
         echo json_encode(["exito" => true, "mensaje" => "Resultados CASM83 guardados correctamente"]);
 
-    } elseif (isset($primerElemento['area'], $primerElemento['puntaje'], $primerElemento['categoria'])) {
+    } elseif (isset($input['resultados']) && is_array($input['resultados']) && isset($input['resultados'][0]['area'], $input['resultados'][0]['puntaje'], $input['resultados'][0]['categoria'])) {
         // === CASM85 ===
         $stmt = $conexion->prepare("INSERT INTO test_CASM85 (id_usuario, area, puntaje, categoria, fecha) VALUES (?, ?, ?, ?, ?)");
 
@@ -92,7 +140,7 @@ try {
 
         $stmt = $conexion->prepare("INSERT INTO test_PMA (id_usuario, factorV, factorE, factorR, factorN, factorF, puntajeTotal, fecha) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         if ($stmt === false) {
-            throw new Exception("Error en preparación de consulta: " . $conexion->error);
+            throw new Exception("Error en preparación de consulta PMA: " . $conexion->error);
         }
         $stmt->bind_param("iiiiiiis", $id_usuario, $factorV, $factorE, $factorR, $factorN, $factorF, $puntajeTotal, $fecha_resultado);
         if (!$stmt->execute()) {

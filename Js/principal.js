@@ -1,4 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
+    if (localStorage.getItem("mostrarModalLimite") === "true") {
+        localStorage.removeItem("mostrarModalLimite");
+        mostrarModalLimite(); // Ya existente
+    }
+
     // MENSAJE DE BIENVENIDA
     fetch("../Controlador/mensajeBienvenida.php")
         .then(response => response.text())
@@ -138,93 +143,87 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     function cargarContenido(tipo) {
-    const contenidoTab = document.getElementById("contenidoTab");
+        const contenidoTab = document.getElementById("contenidoTab");
 
-    if (tipo === "test") {
-        contenidoTab.innerHTML = `
-            <h2>Test Psicológico</h2>
-            <div class="botones-test">
-                <button onclick="verificarYRedirigir('../Vista/testCASM85.html')">INVENTARIO DE HÁBITOS DE ESTUDIO CASM-85-R 2005</button>
-                <button onclick="verificarYRedirigir('../Vista/testCASM83.html')">INVENTARIO DE INTERESES VOCACIONALES Y OCUPACIONALES CASM-83</button>
-                <button onclick="verificarYRedirigir('../Vista/testPMA.html')">TEST DE APTITUDES MENTALES PRIMARIAS (PMA)</button>
-                <button onclick="verificarYRedirigir('../Vista/otro_test2.html')">Otro Test 2</button>
-            </div>
-        `;
-    } else {
-        let contenido = "";
-        switch (tipo) {
-            case "consejos":
-                contenido = "<h2>Consejos</h2><p>Algunos consejos para elegir una carrera profesional adecuada.</p>";
-                break;
-            case "orientacion":
-                contenido = "<h2>Orientación Vocacional</h2><p>Información sobre orientación vocacional y cómo puede ayudarte.</p>";
-                break;
+        if (tipo === "test") {
+            contenidoTab.innerHTML = `
+                <h2>Test Psicológico</h2>
+                <div class="botones-test">
+                    <button onclick="verificarYRedirigir('../Vista/testCASM85.html')">INVENTARIO DE HÁBITOS DE ESTUDIO CASM-85-R 2005</button>
+                    <button onclick="verificarYRedirigir('../Vista/testCASM83.html')">INVENTARIO DE INTERESES VOCACIONALES Y OCUPACIONALES CASM-83</button>
+                    <button onclick="verificarYRedirigir('../Vista/testPMA.html')">TEST DE APTITUDES MENTALES PRIMARIAS (PMA)</button>
+                    <button onclick="verificarYRedirigir('../Vista/testGaston.html')">TEST DE TEMPERAMENTO CARACTEROLOGICO DE GASTÓN BERGIER</button>
+                </div>
+            `;
+        } else {
+            // contenido general
         }
-        contenidoTab.innerHTML = contenido;
     }
-}
 
-function verificarYRedirigir(urlTest) {
-    fetch("../Controlador/verificarSesionJSON.php")
-        .then(res => res.json())
-        .then(data => {
-            if (!data.logueado) {
-                mostrarModalLogin();
-                return;
-            }
-            if (data.tipo_usuario !== 'usuario') {
-                mostrarMensaje("Solo los usuarios pueden acceder a los tests.", false);
-                window.location.href = "../Vista/principalpsicologo.html";
-                return;
-            }
+    function verificarYRedirigir(urlTest) {
+        fetch("../Controlador/verificarSesionJSON.php")
+            .then(res => res.json())
+            .then(data => {
+                if (!data.logueado) {
+                    mostrarModalLogin();
+                    return;
+                }
+                if (data.tipo_usuario !== 'usuario') {
+                    mostrarMensaje("Solo los usuarios pueden acceder a los tests.", false);
+                    window.location.href = "../Vista/principalpsicologo.html";
+                    return;
+                }
 
-            // Determinar el endpoint según el test
-            let endpoint = "";
-            let categoriasPorTest = 1;
-            if (urlTest.includes("testCASM83.html")) {
-                endpoint = "../Controlador/obtenerResultadosCASM83General.php";
-                categoriasPorTest = 13; // 13 categorías por test CASM-83
-            } else if (urlTest.includes("testCASM85.html")) {
-                endpoint = "../Controlador/obtenerResultadosCASM85General.php";
-                categoriasPorTest = 5; // 5 áreas por test CASM-85
-            } else if (urlTest.includes("testPMA.html")) {
-                endpoint = "../Controlador/obtenerResultadosPMAGeneral.php";
-                categoriasPorTest = 1; // 1 fila por test PMA
-            }
+                // Determinar endpoint y categoría por test
+                let endpoint = "";
+                let categoriasPorTest = 1;
+                if (urlTest.includes("testCASM83.html")) {
+                    endpoint = "../Controlador/obtenerResultadosCASM83General.php";
+                    categoriasPorTest = 13;
+                } else if (urlTest.includes("testCASM85.html")) {
+                    endpoint = "../Controlador/obtenerResultadosCASM85General.php";
+                    categoriasPorTest = 5;
+                } else if (urlTest.includes("testPMA.html")) {
+                    endpoint = "../Controlador/obtenerResultadosPMAGeneral.php";
+                    categoriasPorTest = 1;
+                } else if (urlTest.includes("testGaston.html")) {
+                    endpoint = "../Controlador/obtenerResultadosGastonGeneral.php";
+                    categoriasPorTest = 1;
+                }
 
-            // Si no es un test restringido, redirigir directamente
-            if (!endpoint) {
-                window.location.href = urlTest;
-                return;
-            }
+                // Si no hay endpoint, ir directo
+                if (!endpoint) {
+                    window.location.href = urlTest;
+                    return;
+                }
 
-            // Verificar número de intentos
-            fetch(endpoint)
-                .then(res => res.json())
-                .then(dataTest => {
-                    if (!dataTest.exito) {
-                        console.error("Error al obtener resultados:", dataTest.mensaje);
-                        mostrarMensaje("Error al verificar intentos.", false);
-                        return;
-                    }
+                // Verificar intentos
+                fetch(endpoint)
+                    .then(res => res.json())
+                    .then(dataTest => {
+                        if (!dataTest.exito) {
+                            console.error("Error al obtener resultados:", dataTest.mensaje);
+                            mostrarMensaje("Error al verificar intentos.", false);
+                            return;
+                        }
 
-                    const numTests = Math.floor(dataTest.resultados.length / categoriasPorTest);
-                    if (numTests >= 4) {
-                        mostrarModalLimite();
-                    } else {
-                        window.location.href = urlTest;
-                    }
-                })
-                .catch(error => {
-                    console.error("Error al consultar resultados:", error);
-                    mostrarMensaje("Hubo un problema al verificar los intentos.", false);
-                });
-        })
-        .catch(error => {
-            console.error("Error al verificar la sesión:", error);
-            mostrarMensaje("Hubo un problema al verificar la sesión.", false);
-        });
-}
+                        const numTests = Math.floor(dataTest.resultados.length / categoriasPorTest);
+                        if (numTests >= 4) {
+                            mostrarModalLimite();
+                        } else {
+                            window.location.href = urlTest;
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error al consultar resultados:", error);
+                        mostrarMensaje("Hubo un problema al verificar los intentos.", false);
+                    });
+            })
+            .catch(error => {
+                console.error("Error al verificar la sesión:", error);
+                mostrarMensaje("Hubo un problema al verificar la sesión.", false);
+            });
+    }
 
     function mostrarModalLogin() {
         // Crear modal si no existe

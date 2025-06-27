@@ -602,13 +602,16 @@ document.addEventListener("DOMContentLoaded", () => {
                         ];
 
                         let conteoVeracidadA = 0;
+                        let veracidadYaSumada = false;
+
                         preguntasVeracidadCategorias.forEach(item => {
                             if (item.pregunta) {
                                 if (resultadosCategorias[item.categoria]?.A > 0) {
                                     conteoVeracidadA++;
                                 }
-                            } else if (item.preguntas) {
+                            } else if (item.preguntas && !veracidadYaSumada) {
                                 conteoVeracidadA += resultadosCategorias["VERA"]?.A || 0;
+                                veracidadYaSumada = true;
                             }
                         });
 
@@ -953,4 +956,121 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("resultados").innerHTML = "<p>Ocurrió un error al obtener los resultados: " + error.message + "</p>";
             });
     });
+
+    // Mostrar resultados Gastón
+document.getElementById("testGastonBtn").addEventListener("click", () => {
+    fetch("../Controlador/obtenerResultadosGastonGeneral.php")
+        .then(response => response.json())
+        .then(data => {
+            const contenedor = document.getElementById("resultados");
+
+            if (!data.exito) {
+                contenedor.innerHTML = "<p>Error: " + data.mensaje + "</p>";
+                return;
+            }
+
+            const resultados = data.resultados;
+            contenedor.innerHTML = "<h3>Resultados del Test Gastón:</h3>";
+
+            if (resultados.length === 0) {
+                contenedor.innerHTML += "<p>No se encontraron resultados.</p>";
+                return;
+            }
+
+            const grupos = resultados.map(resultado => [resultado]); // Cada resultado es un grupo
+            const pruebasHTML = [];
+            let pruebaActual = 0;
+
+            const generarHTMLPruebaGaston = (grupo, index) => {
+                const fila = grupo[0];
+                const factores = [
+                    fila.emotividad >= (fila.sexo.toLowerCase() === 'masculino' ? 48 : 51) ? 'Emotivo' : 'No Emotivo',
+                    fila.actividad >= 55 ? 'Activo' : 'No Activo',
+                    fila.resonancia >= 55 ? 'Secundario' : 'Primario'
+                ];
+
+                return `
+                    <div class="card" style="margin-bottom: 20px;">
+                        <div class="card-body">
+                            <h3>🧠 Test N° ${index + 1}</h3>
+                            <p><strong>Fecha:</strong> ${fila.fecha}</p>
+                            <table class="tabla-resultados">
+                                <thead>
+                                    <tr>
+                                        <th>Área</th>
+                                        <th>Puntaje</th>
+                                        <th>Tipo Caracterológico</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Emotividad</td>
+                                        <td>${fila.emotividad}</td>
+                                        <td rowspan="3">${fila.tipo_caracterologico}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Actividad</td>
+                                        <td>${fila.actividad}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Resonancia</td>
+                                        <td>${fila.resonancia}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="tabla-resultados" style="margin-top: 10px;">
+                                <thead>
+                                    <tr>
+                                        <th>LECTURA POR FACTORES</th>
+                                        <th>FÓRMULA CARACTEROLOGICA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>${factores.join(', ')}</td>
+                                        <td>${fila.formula_caracterologica}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            };
+
+            const procesarGruposGaston = () => {
+                for (let index = 0; index < grupos.length; index++) {
+                    const grupo = grupos[index];
+                    const tablaHTML = generarHTMLPruebaGaston(grupo, index);
+                    pruebasHTML[index] = tablaHTML;
+                }
+
+                if (pruebasHTML.length > 0) {
+                    const selectorHTML = `
+                        <select id="selector-pruebas" style="margin-bottom: 10px;">
+                            ${pruebasHTML.map((_, i) => `<option value="${i}">Prueba ${i + 1} (${grupos[i][0].fecha})</option>`).join('')}
+                        </select>
+                    `;
+                    contenedor.innerHTML += selectorHTML;
+                    contenedor.innerHTML += `<div id="prueba-contenido-gaston"></div>`;
+
+                    const pruebaContenido = document.getElementById("prueba-contenido-gaston");
+                    pruebaContenido.innerHTML = pruebasHTML[0];
+
+                    const selector = document.getElementById("selector-pruebas");
+                    selector.addEventListener("change", () => {
+                        pruebaActual = parseInt(selector.value);
+                        pruebaContenido.innerHTML = pruebasHTML[pruebaActual];
+                    });
+                } else {
+                    contenedor.innerHTML += "<p>No hay pruebas válidas para mostrar.</p>";
+                }
+            };
+
+            procesarGruposGaston();
+        })
+        .catch(error => {
+            console.error("Error al obtener resultados Gastón:", error);
+            document.getElementById("resultados").innerHTML = "<p>Error al obtener los resultados: " + error.message + "</p>";
+        });
+});
 });

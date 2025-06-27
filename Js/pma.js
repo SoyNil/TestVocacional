@@ -48,12 +48,40 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log("Fecha de nacimiento:", data.fecha_nacimiento, "Edad calculada:", edad);
                     document.getElementById("edad").value = edad;
                 }
+
+                // Verificar número de intentos del test PMA
+                fetch("../Controlador/obtenerResultadosPMAGeneral.php")
+                    .then(res => res.json())
+                    .then(dataTest => {
+                        if (!dataTest.exito || !Array.isArray(dataTest.resultados)) {
+                            redirigirConModal();
+                            return;
+                        }
+
+                        const intentos = dataTest.resultados.length; // 1 fila por intento en PMA
+                        if (intentos >= 4) {
+                            redirigirConModal();
+                        } else {
+                            console.log("✔️ Acceso permitido al test PMA.");
+                            // Puedes continuar con el flujo normal del test aquí
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error verificando intentos PMA:", error);
+                        redirigirConModal();
+                    });
             }
         })
         .catch(error => {
             console.error("Error verificando sesión:", error);
             window.location.href = "../Vista/principal.html";
         });
+
+    // Función para redirigir y activar modal desde principal.html
+    function redirigirConModal() {
+        localStorage.setItem("mostrarModalLimite", "true");
+        window.location.href = "../Vista/principal.html";
+    }
 
     const datosPersonales = document.getElementById("datosPersonales");
     const cuestionario = document.getElementById("cuestionario");
@@ -323,7 +351,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td>
                     <input type="text" class="factorR-input" data-group="p${pregunta.id}" 
                            maxlength="1" placeholder="A-Z" 
-                           oninput="this.value = this.value.toUpperCase().replace(/[^A-Z]/g, '')">
+                           oninput="this.value = this.value.toUpperCase().replace(/[^A-ZÑ]/g, '')">
                 </td>
             `;
             tablaCuestionario.querySelector("tbody").appendChild(row);

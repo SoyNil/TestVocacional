@@ -457,3 +457,209 @@ Stack trace:
 [22-Jun-2025 06:45:24 Europe/Berlin] ➡️ PMA ID: 2 - Resultados devueltos: {"id":2,"factorV":"0","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"0.00","fecha":"2025-06-21"}
 [22-Jun-2025 06:47:21 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":8,"nombre_usuario":"Luis_1","nombre":"Luis","apellido":"Carlos","correo":"luis@gmail.com","sexo":"Masculino","fecha_nacimiento":"2025-06-04","tipo_cuenta":"Invitacion"},"tests":{"casm83":[{"test_number":1,"fecha":"2025-06-22","id_inicio":326}],"casm85":[{"test_number":1,"fecha":"2025-06-22","id_inicio":21}],"pma":[{"test_number":1,"fecha":"2025-06-22","id_inicio":9}]}}
 [22-Jun-2025 06:47:21 Europe/Berlin] ➡️ PMA ID: 9 - Resultados devueltos: {"id":9,"factorV":"0","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"0.00","fecha":"2025-06-22"}
+[25-Jun-2025 16:44:17 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[{"test_number":1,"fecha":"2025-06-15","id_inicio":157},{"test_number":2,"fecha":"2025-06-18","id_inicio":287},{"test_number":3,"fecha":"2025-06-18","id_inicio":300},{"test_number":4,"fecha":"2025-06-18","id_inicio":313}],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":1},{"test_number":2,"fecha":"2025-06-17","id_inicio":6},{"test_number":3,"fecha":"2025-06-17","id_inicio":11},{"test_number":4,"fecha":"2025-06-17","id_inicio":16}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8}]}}
+[25-Jun-2025 16:44:17 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 16:44:51 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[{"test_number":1,"fecha":"2025-06-15","id_inicio":157},{"test_number":2,"fecha":"2025-06-18","id_inicio":287},{"test_number":3,"fecha":"2025-06-18","id_inicio":300},{"test_number":4,"fecha":"2025-06-18","id_inicio":313}],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":1},{"test_number":2,"fecha":"2025-06-17","id_inicio":6},{"test_number":3,"fecha":"2025-06-17","id_inicio":11},{"test_number":4,"fecha":"2025-06-17","id_inicio":16}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8}]}}
+[25-Jun-2025 16:44:51 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[{"test_number":1,"fecha":"2025-06-15","id_inicio":157},{"test_number":2,"fecha":"2025-06-18","id_inicio":287},{"test_number":3,"fecha":"2025-06-18","id_inicio":300},{"test_number":4,"fecha":"2025-06-18","id_inicio":313}],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":1},{"test_number":2,"fecha":"2025-06-17","id_inicio":6},{"test_number":3,"fecha":"2025-06-17","id_inicio":11},{"test_number":4,"fecha":"2025-06-17","id_inicio":16}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8}]}}
+[25-Jun-2025 16:44:51 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 16:44:51 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 16:45:50 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[{"test_number":1,"fecha":"2025-06-15","id_inicio":157},{"test_number":2,"fecha":"2025-06-18","id_inicio":287},{"test_number":3,"fecha":"2025-06-18","id_inicio":300},{"test_number":4,"fecha":"2025-06-18","id_inicio":313}],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":1},{"test_number":2,"fecha":"2025-06-17","id_inicio":6},{"test_number":3,"fecha":"2025-06-17","id_inicio":11},{"test_number":4,"fecha":"2025-06-17","id_inicio":16}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8}]}}
+[25-Jun-2025 16:45:51 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 16:52:46 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[{"test_number":1,"fecha":"2025-06-15","id_inicio":157},{"test_number":2,"fecha":"2025-06-18","id_inicio":287},{"test_number":3,"fecha":"2025-06-18","id_inicio":300},{"test_number":4,"fecha":"2025-06-18","id_inicio":313}],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":1},{"test_number":2,"fecha":"2025-06-17","id_inicio":6},{"test_number":3,"fecha":"2025-06-17","id_inicio":11},{"test_number":4,"fecha":"2025-06-17","id_inicio":16}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8}]}}
+[25-Jun-2025 16:52:47 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 16:52:52 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[{"test_number":1,"fecha":"2025-06-15","id_inicio":157},{"test_number":2,"fecha":"2025-06-18","id_inicio":287},{"test_number":3,"fecha":"2025-06-18","id_inicio":300},{"test_number":4,"fecha":"2025-06-18","id_inicio":313}],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":1},{"test_number":2,"fecha":"2025-06-17","id_inicio":6},{"test_number":3,"fecha":"2025-06-17","id_inicio":11},{"test_number":4,"fecha":"2025-06-17","id_inicio":16}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8}]}}
+[25-Jun-2025 16:52:52 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 16:56:18 Europe/Berlin] Procesando eliminación de test casm83 con id_inicio: 157 para usuario: admin_jefe
+[25-Jun-2025 16:56:18 Europe/Berlin] Hash input para CCFM: CCFM|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:18 Europe/Berlin] Hash input para CCSS: CCSS|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:18 Europe/Berlin] Hash input para CCNA: CCNA|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:18 Europe/Berlin] Hash input para CCCO: CCCO|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:18 Europe/Berlin] Hash input para ARTE: ARTE|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:18 Europe/Berlin] Hash input para BURO: BURO|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:18 Europe/Berlin] Hash input para CCEP: CCEP|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:18 Europe/Berlin] Hash input para HAA: HAA|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:18 Europe/Berlin] Hash input para FINA: FINA|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:18 Europe/Berlin] Hash input para LING: LING|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:18 Europe/Berlin] Hash input para JURI: JURI|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:18 Europe/Berlin] Hash input para VERA: VERA|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:18 Europe/Berlin] Hash input para CONS: CONS|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:18 Europe/Berlin] Grupo_hash generado para CASM-83: 209a0f6b4bcaf09ee5e343fc2d4343a39d223e9810a09d5288068684ad560183
+[25-Jun-2025 16:56:18 Europe/Berlin] Análisis encontrado para grupo_hash 209a0f6b4bcaf09ee5e343fc2d4343a39d223e9810a09d5288068684ad560183 (CASM-83): Sí
+[25-Jun-2025 16:56:18 Europe/Berlin] Análisis eliminado para grupo_hash: 209a0f6b4bcaf09ee5e343fc2d4343a39d223e9810a09d5288068684ad560183 (CASM-83)
+[25-Jun-2025 16:56:18 Europe/Berlin] Test casm83 y análisis eliminados correctamente para id_inicio: 157
+[25-Jun-2025 16:56:19 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[{"test_number":1,"fecha":"2025-06-18","id_inicio":287},{"test_number":2,"fecha":"2025-06-18","id_inicio":300},{"test_number":3,"fecha":"2025-06-18","id_inicio":313}],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":1},{"test_number":2,"fecha":"2025-06-17","id_inicio":6},{"test_number":3,"fecha":"2025-06-17","id_inicio":11},{"test_number":4,"fecha":"2025-06-17","id_inicio":16}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8}]}}
+[25-Jun-2025 16:56:19 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 16:56:21 Europe/Berlin] Procesando eliminación de test casm83 con id_inicio: 287 para usuario: admin_jefe
+[25-Jun-2025 16:56:21 Europe/Berlin] Hash input para CCFM: CCFM|3|2|1|Desinterés|Masculino|
+[25-Jun-2025 16:56:21 Europe/Berlin] Hash input para CCSS: CCSS|2|1|1|Desinterés|Masculino|
+[25-Jun-2025 16:56:21 Europe/Berlin] Hash input para CCNA: CCNA|2|1|1|Desinterés|Masculino|
+[25-Jun-2025 16:56:21 Europe/Berlin] Hash input para CCCO: CCCO|2|1|1|Desinterés|Masculino|
+[25-Jun-2025 16:56:21 Europe/Berlin] Hash input para ARTE: ARTE|2|1|1|Desinterés|Masculino|
+[25-Jun-2025 16:56:21 Europe/Berlin] Hash input para BURO: BURO|2|1|1|Desinterés|Masculino|
+[25-Jun-2025 16:56:21 Europe/Berlin] Hash input para CCEP: CCEP|2|1|1|Desinterés|Masculino|
+[25-Jun-2025 16:56:21 Europe/Berlin] Hash input para HAA: HAA|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 16:56:21 Europe/Berlin] Hash input para FINA: FINA|2|1|1|Desinterés|Masculino|
+[25-Jun-2025 16:56:21 Europe/Berlin] Hash input para LING: LING|2|1|1|Desinterés|Masculino|
+[25-Jun-2025 16:56:21 Europe/Berlin] Hash input para JURI: JURI|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 16:56:21 Europe/Berlin] Hash input para VERA: VERA|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:21 Europe/Berlin] Hash input para CONS: CONS|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:21 Europe/Berlin] Grupo_hash generado para CASM-83: 8fe2c2e3ace36b9e942d25dcd4f1d665f3530f1c7bfb725634642118dbdc11a9
+[25-Jun-2025 16:56:21 Europe/Berlin] Análisis encontrado para grupo_hash 8fe2c2e3ace36b9e942d25dcd4f1d665f3530f1c7bfb725634642118dbdc11a9 (CASM-83): Sí
+[25-Jun-2025 16:56:21 Europe/Berlin] Análisis eliminado para grupo_hash: 8fe2c2e3ace36b9e942d25dcd4f1d665f3530f1c7bfb725634642118dbdc11a9 (CASM-83)
+[25-Jun-2025 16:56:21 Europe/Berlin] Test casm83 y análisis eliminados correctamente para id_inicio: 287
+[25-Jun-2025 16:56:22 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[{"test_number":1,"fecha":"2025-06-18","id_inicio":300},{"test_number":2,"fecha":"2025-06-18","id_inicio":313}],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":1},{"test_number":2,"fecha":"2025-06-17","id_inicio":6},{"test_number":3,"fecha":"2025-06-17","id_inicio":11},{"test_number":4,"fecha":"2025-06-17","id_inicio":16}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8}]}}
+[25-Jun-2025 16:56:22 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 16:56:23 Europe/Berlin] Procesando eliminación de test casm83 con id_inicio: 300 para usuario: admin_jefe
+[25-Jun-2025 16:56:23 Europe/Berlin] Hash input para CCFM: CCFM|1|1|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:23 Europe/Berlin] Hash input para CCSS: CCSS|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:23 Europe/Berlin] Hash input para CCNA: CCNA|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:23 Europe/Berlin] Hash input para CCCO: CCCO|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:23 Europe/Berlin] Hash input para ARTE: ARTE|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:23 Europe/Berlin] Hash input para BURO: BURO|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:23 Europe/Berlin] Hash input para CCEP: CCEP|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:23 Europe/Berlin] Hash input para HAA: HAA|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:23 Europe/Berlin] Hash input para FINA: FINA|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:23 Europe/Berlin] Hash input para LING: LING|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:23 Europe/Berlin] Hash input para JURI: JURI|7|0|7|Promedio Bajo|Masculino|
+[25-Jun-2025 16:56:23 Europe/Berlin] Hash input para VERA: VERA|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:23 Europe/Berlin] Hash input para CONS: CONS|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:23 Europe/Berlin] Grupo_hash generado para CASM-83: 2ef0b360695477043292fe0c43e02ffbc32887e1c35074d696843037f6909fc8
+[25-Jun-2025 16:56:23 Europe/Berlin] Análisis encontrado para grupo_hash 2ef0b360695477043292fe0c43e02ffbc32887e1c35074d696843037f6909fc8 (CASM-83): Sí
+[25-Jun-2025 16:56:23 Europe/Berlin] Análisis eliminado para grupo_hash: 2ef0b360695477043292fe0c43e02ffbc32887e1c35074d696843037f6909fc8 (CASM-83)
+[25-Jun-2025 16:56:23 Europe/Berlin] Test casm83 y análisis eliminados correctamente para id_inicio: 300
+[25-Jun-2025 16:56:25 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[{"test_number":1,"fecha":"2025-06-18","id_inicio":313}],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":1},{"test_number":2,"fecha":"2025-06-17","id_inicio":6},{"test_number":3,"fecha":"2025-06-17","id_inicio":11},{"test_number":4,"fecha":"2025-06-17","id_inicio":16}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8}]}}
+[25-Jun-2025 16:56:25 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 16:56:28 Europe/Berlin] Procesando eliminación de test casm83 con id_inicio: 313 para usuario: admin_jefe
+[25-Jun-2025 16:56:28 Europe/Berlin] Hash input para CCFM: CCFM|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:28 Europe/Berlin] Hash input para CCSS: CCSS|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:28 Europe/Berlin] Hash input para CCNA: CCNA|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:28 Europe/Berlin] Hash input para CCCO: CCCO|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:28 Europe/Berlin] Hash input para ARTE: ARTE|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:28 Europe/Berlin] Hash input para BURO: BURO|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:28 Europe/Berlin] Hash input para CCEP: CCEP|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:28 Europe/Berlin] Hash input para HAA: HAA|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:28 Europe/Berlin] Hash input para FINA: FINA|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:28 Europe/Berlin] Hash input para LING: LING|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:28 Europe/Berlin] Hash input para JURI: JURI|7|0|7|Promedio Bajo|Masculino|
+[25-Jun-2025 16:56:28 Europe/Berlin] Hash input para VERA: VERA|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:28 Europe/Berlin] Hash input para CONS: CONS|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 16:56:28 Europe/Berlin] Grupo_hash generado para CASM-83: cc5c52fe1eaa623bc8d6dc161995fba8339337bf19702993e6171702fe157424
+[25-Jun-2025 16:56:28 Europe/Berlin] Análisis encontrado para grupo_hash cc5c52fe1eaa623bc8d6dc161995fba8339337bf19702993e6171702fe157424 (CASM-83): Sí
+[25-Jun-2025 16:56:28 Europe/Berlin] Análisis eliminado para grupo_hash: cc5c52fe1eaa623bc8d6dc161995fba8339337bf19702993e6171702fe157424 (CASM-83)
+[25-Jun-2025 16:56:28 Europe/Berlin] Test casm83 y análisis eliminados correctamente para id_inicio: 313
+[25-Jun-2025 16:56:29 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":1},{"test_number":2,"fecha":"2025-06-17","id_inicio":6},{"test_number":3,"fecha":"2025-06-17","id_inicio":11},{"test_number":4,"fecha":"2025-06-17","id_inicio":16}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8}]}}
+[25-Jun-2025 16:56:30 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 16:58:07 Europe/Berlin] Procesando eliminación de test casm85 con id_inicio: 16 para usuario: admin_jefe
+[25-Jun-2025 16:58:07 Europe/Berlin] Grupo_hash generado para CASM-85: f485aa4ebb1b728df1469e42f0ca81929eb16ae627226333790648dbebca6b2a
+[25-Jun-2025 16:58:07 Europe/Berlin] Análisis encontrado para grupo_hash f485aa4ebb1b728df1469e42f0ca81929eb16ae627226333790648dbebca6b2a (CASM-85): Sí
+[25-Jun-2025 16:58:07 Europe/Berlin] Análisis eliminado para grupo_hash: f485aa4ebb1b728df1469e42f0ca81929eb16ae627226333790648dbebca6b2a (CASM-85)
+[25-Jun-2025 16:58:07 Europe/Berlin] Test casm85 y análisis eliminados correctamente para id_inicio: 16
+[25-Jun-2025 16:58:08 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":1},{"test_number":2,"fecha":"2025-06-17","id_inicio":6},{"test_number":3,"fecha":"2025-06-17","id_inicio":11}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8}]}}
+[25-Jun-2025 16:58:08 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 16:58:10 Europe/Berlin] Procesando eliminación de test casm85 con id_inicio: 1 para usuario: admin_jefe
+[25-Jun-2025 16:58:10 Europe/Berlin] Grupo_hash generado para CASM-85: d4bae77f75139b16c002ffdb2320ae35bc81c5f21d885ecd390075ba356e49aa
+[25-Jun-2025 16:58:10 Europe/Berlin] Análisis encontrado para grupo_hash d4bae77f75139b16c002ffdb2320ae35bc81c5f21d885ecd390075ba356e49aa (CASM-85): Sí
+[25-Jun-2025 16:58:10 Europe/Berlin] Análisis eliminado para grupo_hash: d4bae77f75139b16c002ffdb2320ae35bc81c5f21d885ecd390075ba356e49aa (CASM-85)
+[25-Jun-2025 16:58:10 Europe/Berlin] Test casm85 y análisis eliminados correctamente para id_inicio: 1
+[25-Jun-2025 16:58:11 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":6},{"test_number":2,"fecha":"2025-06-17","id_inicio":11}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8}]}}
+[25-Jun-2025 16:58:11 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 16:58:12 Europe/Berlin] Procesando eliminación de test casm85 con id_inicio: 6 para usuario: admin_jefe
+[25-Jun-2025 16:58:12 Europe/Berlin] Grupo_hash generado para CASM-85: 94db6b5d11c5c3db41eb34cb91b4e52469ef9dbd104a331382748ecfef327966
+[25-Jun-2025 16:58:12 Europe/Berlin] Análisis encontrado para grupo_hash 94db6b5d11c5c3db41eb34cb91b4e52469ef9dbd104a331382748ecfef327966 (CASM-85): Sí
+[25-Jun-2025 16:58:12 Europe/Berlin] Análisis eliminado para grupo_hash: 94db6b5d11c5c3db41eb34cb91b4e52469ef9dbd104a331382748ecfef327966 (CASM-85)
+[25-Jun-2025 16:58:12 Europe/Berlin] Test casm85 y análisis eliminados correctamente para id_inicio: 6
+[25-Jun-2025 16:58:13 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":11}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8}]}}
+[25-Jun-2025 16:58:13 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 17:24:04 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[{"test_number":1,"fecha":"2025-06-25","id_inicio":339}],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":11},{"test_number":2,"fecha":"2025-06-25","id_inicio":26}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8},{"test_number":4,"fecha":"2025-06-25","id_inicio":10}]}}
+[25-Jun-2025 17:24:04 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 17:26:00 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[{"test_number":1,"fecha":"2025-06-25","id_inicio":339}],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":11},{"test_number":2,"fecha":"2025-06-25","id_inicio":26}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8},{"test_number":4,"fecha":"2025-06-25","id_inicio":10}]}}
+[25-Jun-2025 17:26:00 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 17:26:06 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[{"test_number":1,"fecha":"2025-06-25","id_inicio":339}],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":11},{"test_number":2,"fecha":"2025-06-25","id_inicio":26}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8},{"test_number":4,"fecha":"2025-06-25","id_inicio":10}]}}
+[25-Jun-2025 17:26:06 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 17:46:28 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[{"test_number":1,"fecha":"2025-06-25","id_inicio":339},{"test_number":2,"fecha":"2025-06-25","id_inicio":352},{"test_number":3,"fecha":"2025-06-25","id_inicio":365},{"test_number":4,"fecha":"2025-06-25","id_inicio":378}],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":11},{"test_number":2,"fecha":"2025-06-25","id_inicio":26}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8},{"test_number":4,"fecha":"2025-06-25","id_inicio":10}]}}
+[25-Jun-2025 17:46:28 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 17:47:34 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[{"test_number":1,"fecha":"2025-06-25","id_inicio":339},{"test_number":2,"fecha":"2025-06-25","id_inicio":352},{"test_number":3,"fecha":"2025-06-25","id_inicio":365},{"test_number":4,"fecha":"2025-06-25","id_inicio":378}],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":11},{"test_number":2,"fecha":"2025-06-25","id_inicio":26}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8},{"test_number":4,"fecha":"2025-06-25","id_inicio":10}]}}
+[25-Jun-2025 17:47:34 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 17:47:40 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[{"test_number":1,"fecha":"2025-06-25","id_inicio":339},{"test_number":2,"fecha":"2025-06-25","id_inicio":352},{"test_number":3,"fecha":"2025-06-25","id_inicio":365},{"test_number":4,"fecha":"2025-06-25","id_inicio":378}],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":11},{"test_number":2,"fecha":"2025-06-25","id_inicio":26}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8},{"test_number":4,"fecha":"2025-06-25","id_inicio":10}]}}
+[25-Jun-2025 17:47:40 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 17:48:03 Europe/Berlin] Procesando eliminación de test casm83 con id_inicio: 339 para usuario: admin_jefe
+[25-Jun-2025 17:48:03 Europe/Berlin] Hash input para CCFM: CCFM|16|10|6|Alto|Masculino|
+[25-Jun-2025 17:48:03 Europe/Berlin] Hash input para CCSS: CCSS|19|8|11|Muy Alto|Masculino|
+[25-Jun-2025 17:48:03 Europe/Berlin] Hash input para CCNA: CCNA|15|6|9|Promedio Alto|Masculino|
+[25-Jun-2025 17:48:03 Europe/Berlin] Hash input para CCCO: CCCO|14|7|7|Alto|Masculino|
+[25-Jun-2025 17:48:03 Europe/Berlin] Hash input para ARTE: ARTE|10|6|4|Indecisión|Masculino|
+[25-Jun-2025 17:48:03 Europe/Berlin] Hash input para BURO: BURO|11|3|8|Promedio Alto|Masculino|
+[25-Jun-2025 17:48:03 Europe/Berlin] Hash input para CCEP: CCEP|15|8|7|Alto|Masculino|
+[25-Jun-2025 17:48:03 Europe/Berlin] Hash input para HAA: HAA|13|7|6|Alto|Masculino|
+[25-Jun-2025 17:48:03 Europe/Berlin] Hash input para FINA: FINA|15|8|7|Alto|Masculino|
+[25-Jun-2025 17:48:03 Europe/Berlin] Hash input para LING: LING|12|5|7|Promedio Alto|Masculino|
+[25-Jun-2025 17:48:03 Europe/Berlin] Hash input para JURI: JURI|5|5|0|Promedio Bajo|Masculino|
+[25-Jun-2025 17:48:03 Europe/Berlin] Hash input para VERA: VERA|5|5|0|Promedio Bajo|Masculino|
+[25-Jun-2025 17:48:03 Europe/Berlin] Hash input para CONS: CONS|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 17:48:03 Europe/Berlin] Grupo_hash generado para CASM-83: 0d66f8c619a17f91865f937291917abb9642763b526ed0e483f6640cbeddd551
+[25-Jun-2025 17:48:03 Europe/Berlin] Análisis encontrado para grupo_hash 0d66f8c619a17f91865f937291917abb9642763b526ed0e483f6640cbeddd551 (CASM-83): Sí
+[25-Jun-2025 17:48:03 Europe/Berlin] Análisis eliminado para grupo_hash: 0d66f8c619a17f91865f937291917abb9642763b526ed0e483f6640cbeddd551 (CASM-83)
+[25-Jun-2025 17:48:03 Europe/Berlin] Test casm83 y análisis eliminados correctamente para id_inicio: 339
+[25-Jun-2025 17:48:05 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[{"test_number":1,"fecha":"2025-06-25","id_inicio":352},{"test_number":2,"fecha":"2025-06-25","id_inicio":365},{"test_number":3,"fecha":"2025-06-25","id_inicio":378}],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":11},{"test_number":2,"fecha":"2025-06-25","id_inicio":26}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8},{"test_number":4,"fecha":"2025-06-25","id_inicio":10}]}}
+[25-Jun-2025 17:48:05 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 17:48:07 Europe/Berlin] Procesando eliminación de test casm83 con id_inicio: 352 para usuario: admin_jefe
+[25-Jun-2025 17:48:07 Europe/Berlin] Hash input para CCFM: CCFM|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 17:48:07 Europe/Berlin] Hash input para CCSS: CCSS|1|1|0|Desinterés|Masculino|
+[25-Jun-2025 17:48:07 Europe/Berlin] Hash input para CCNA: CCNA|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 17:48:07 Europe/Berlin] Hash input para CCCO: CCCO|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 17:48:07 Europe/Berlin] Hash input para ARTE: ARTE|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 17:48:07 Europe/Berlin] Hash input para BURO: BURO|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 17:48:07 Europe/Berlin] Hash input para CCEP: CCEP|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 17:48:07 Europe/Berlin] Hash input para HAA: HAA|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 17:48:07 Europe/Berlin] Hash input para FINA: FINA|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 17:48:07 Europe/Berlin] Hash input para LING: LING|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 17:48:07 Europe/Berlin] Hash input para JURI: JURI|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 17:48:07 Europe/Berlin] Hash input para VERA: VERA|2|2|0|Desinterés|Masculino|
+[25-Jun-2025 17:48:07 Europe/Berlin] Hash input para CONS: CONS|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 17:48:07 Europe/Berlin] Grupo_hash generado para CASM-83: cfed98cdb5a9c3448b8fa6b203d30308ed205e860a9f6ab832590249b479bfe0
+[25-Jun-2025 17:48:07 Europe/Berlin] Análisis encontrado para grupo_hash cfed98cdb5a9c3448b8fa6b203d30308ed205e860a9f6ab832590249b479bfe0 (CASM-83): Sí
+[25-Jun-2025 17:48:07 Europe/Berlin] Análisis eliminado para grupo_hash: cfed98cdb5a9c3448b8fa6b203d30308ed205e860a9f6ab832590249b479bfe0 (CASM-83)
+[25-Jun-2025 17:48:07 Europe/Berlin] Test casm83 y análisis eliminados correctamente para id_inicio: 352
+[25-Jun-2025 17:48:08 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[{"test_number":1,"fecha":"2025-06-25","id_inicio":365},{"test_number":2,"fecha":"2025-06-25","id_inicio":378}],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":11},{"test_number":2,"fecha":"2025-06-25","id_inicio":26}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8},{"test_number":4,"fecha":"2025-06-25","id_inicio":10}]}}
+[25-Jun-2025 17:48:08 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 17:48:09 Europe/Berlin] Procesando eliminación de test casm83 con id_inicio: 365 para usuario: admin_jefe
+[25-Jun-2025 17:48:09 Europe/Berlin] Hash input para CCFM: CCFM|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 17:48:09 Europe/Berlin] Hash input para CCSS: CCSS|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 17:48:09 Europe/Berlin] Hash input para CCNA: CCNA|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 17:48:09 Europe/Berlin] Hash input para CCCO: CCCO|2|1|1|Desinterés|Masculino|
+[25-Jun-2025 17:48:09 Europe/Berlin] Hash input para ARTE: ARTE|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 17:48:09 Europe/Berlin] Hash input para BURO: BURO|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 17:48:09 Europe/Berlin] Hash input para CCEP: CCEP|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 17:48:09 Europe/Berlin] Hash input para HAA: HAA|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 17:48:09 Europe/Berlin] Hash input para FINA: FINA|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 17:48:09 Europe/Berlin] Hash input para LING: LING|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 17:48:09 Europe/Berlin] Hash input para JURI: JURI|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 17:48:10 Europe/Berlin] Hash input para VERA: VERA|3|3|0|Bajo|Masculino|
+[25-Jun-2025 17:48:10 Europe/Berlin] Hash input para CONS: CONS|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 17:48:10 Europe/Berlin] Grupo_hash generado para CASM-83: 305d604937269dea56d231da8ab82524cc8e0e8719ae25634c6043e17effa8b5
+[25-Jun-2025 17:48:10 Europe/Berlin] Análisis encontrado para grupo_hash 305d604937269dea56d231da8ab82524cc8e0e8719ae25634c6043e17effa8b5 (CASM-83): Sí
+[25-Jun-2025 17:48:10 Europe/Berlin] Análisis eliminado para grupo_hash: 305d604937269dea56d231da8ab82524cc8e0e8719ae25634c6043e17effa8b5 (CASM-83)
+[25-Jun-2025 17:48:10 Europe/Berlin] Test casm83 y análisis eliminados correctamente para id_inicio: 365
+[25-Jun-2025 17:48:11 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[{"test_number":1,"fecha":"2025-06-25","id_inicio":378}],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":11},{"test_number":2,"fecha":"2025-06-25","id_inicio":26}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8},{"test_number":4,"fecha":"2025-06-25","id_inicio":10}]}}
+[25-Jun-2025 17:48:11 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 17:48:12 Europe/Berlin] Procesando eliminación de test casm83 con id_inicio: 378 para usuario: admin_jefe
+[25-Jun-2025 17:48:12 Europe/Berlin] Hash input para CCFM: CCFM|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 17:48:12 Europe/Berlin] Hash input para CCSS: CCSS|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 17:48:12 Europe/Berlin] Hash input para CCNA: CCNA|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 17:48:12 Europe/Berlin] Hash input para CCCO: CCCO|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 17:48:12 Europe/Berlin] Hash input para ARTE: ARTE|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 17:48:12 Europe/Berlin] Hash input para BURO: BURO|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 17:48:12 Europe/Berlin] Hash input para CCEP: CCEP|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 17:48:12 Europe/Berlin] Hash input para HAA: HAA|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 17:48:12 Europe/Berlin] Hash input para FINA: FINA|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 17:48:12 Europe/Berlin] Hash input para LING: LING|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 17:48:12 Europe/Berlin] Hash input para JURI: JURI|1|0|1|Desinterés|Masculino|
+[25-Jun-2025 17:48:12 Europe/Berlin] Hash input para VERA: VERA|6|6|0|Promedio Bajo|Masculino|
+[25-Jun-2025 17:48:12 Europe/Berlin] Hash input para CONS: CONS|0|0|0|Desinterés|Masculino|
+[25-Jun-2025 17:48:12 Europe/Berlin] Grupo_hash generado para CASM-83: fc475ea2adf75d1a683625e7fd23b7bd3b56471ff08cfa02e2c8c241834b4778
+[25-Jun-2025 17:48:12 Europe/Berlin] Análisis encontrado para grupo_hash fc475ea2adf75d1a683625e7fd23b7bd3b56471ff08cfa02e2c8c241834b4778 (CASM-83): No
+[25-Jun-2025 17:48:12 Europe/Berlin] Test casm83 y análisis eliminados correctamente para id_inicio: 378
+[25-Jun-2025 17:48:14 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":11},{"test_number":2,"fecha":"2025-06-25","id_inicio":26}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8},{"test_number":4,"fecha":"2025-06-25","id_inicio":10}]}}
+[25-Jun-2025 17:48:14 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}
+[25-Jun-2025 18:03:21 Europe/Berlin] Respuesta enviada: {"exito":true,"paciente":{"id":3,"nombre_usuario":"Nil_14","nombre":"Nilton Fernando","apellido":"Tolentino Rojas","correo":"nilton@gmail.com","sexo":"Masculino","fecha_nacimiento":"2004-04-14","tipo_cuenta":"Libre"},"tests":{"casm83":[{"test_number":1,"fecha":"2025-06-25","id_inicio":391},{"test_number":2,"fecha":"2025-06-25","id_inicio":404},{"test_number":3,"fecha":"2025-06-25","id_inicio":417},{"test_number":4,"fecha":"2025-06-25","id_inicio":430}],"casm85":[{"test_number":1,"fecha":"2025-06-17","id_inicio":11},{"test_number":2,"fecha":"2025-06-25","id_inicio":26}],"pma":[{"test_number":1,"fecha":"2025-06-21","id_inicio":1},{"test_number":2,"fecha":"2025-06-21","id_inicio":2},{"test_number":3,"fecha":"2025-06-22","id_inicio":8},{"test_number":4,"fecha":"2025-06-25","id_inicio":10}]}}
+[25-Jun-2025 18:03:21 Europe/Berlin] ➡️ PMA ID: 1 - Resultados devueltos: {"id":1,"factorV":"2","factorE":"0","factorR":"0","factorN":"0","factorF":"0","puntajeTotal":"3.00","fecha":"2025-06-21"}

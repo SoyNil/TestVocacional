@@ -36,3 +36,12 @@
 [2025-06-22 04:44:37] No se proporcionaron datos para analizar.
 [2025-06-22 04:44:38] No se proporcionaron datos para analizar.
 [2025-06-22 04:44:39] No se proporcionaron datos para analizar.
+[2025-06-25 17:54:05] Error en API. Código HTTP: 503, Respuesta: {
+  "id": "nzZ7DCm-3NKUce-9555a4103a28b50e",
+  "error": {
+    "message": "Service unavailable",
+    "type": "service_unavailable",
+    "param": null,
+    "code": null
+  }
+}
