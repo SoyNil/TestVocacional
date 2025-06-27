@@ -974,6 +974,56 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
                 testsContainer.appendChild(pmaSection);
 
+                // Sección Test Gastón
+                const gastonSection = document.createElement("div");
+                gastonSection.classList.add("test-section");
+                gastonSection.innerHTML = `<h4>Test Gastón</h4>`;
+
+                if (data.tests.gaston && data.tests.gaston.length > 0) {
+                    const count = data.tests.gaston.length;
+                    gastonSection.innerHTML += `<p><strong>Cantidad de tests realizados:</strong> ${count}</p>`;
+
+                    const selectContainer = document.createElement("div");
+                    selectContainer.classList.add("select-container");
+
+                    const select = document.createElement("select");
+                    select.classList.add("select-test", "select-gaston");
+                    select.innerHTML = data.tests.gaston.map((test, index) => `
+                        <option value="${test.id_inicio}">Test ${index + 1} - ${test.fecha}</option>
+                    `).join("");
+
+                    selectContainer.appendChild(select);
+
+                    const eliminarBtn = document.createElement("button");
+                    eliminarBtn.classList.add("btn-eliminar-test");
+                    eliminarBtn.textContent = "Eliminar test";
+                    eliminarBtn.addEventListener("click", () => {
+                        const idTest = select.value;
+                        if (confirm("¿Estás seguro de que deseas eliminar este test Gastón? Esta acción no se puede deshacer.")) {
+                            eliminarTestGaston(idTest, idPaciente, gastonSection);
+                        }
+                    });
+
+                    selectContainer.appendChild(eliminarBtn);
+                    gastonSection.appendChild(selectContainer);
+
+                    const resultadosContainer = document.createElement("div");
+                    resultadosContainer.classList.add("resultados-gaston");
+                    resultadosContainer.id = "resultados-gaston";
+                    gastonSection.appendChild(resultadosContainer);
+
+                    select.addEventListener("change", () => {
+                        const idTest = select.value;
+                        cargarResultadosGaston(idTest, resultadosContainer);
+                    });
+
+                    cargarResultadosGaston(data.tests.gaston[0].id_inicio, resultadosContainer);
+                } else {
+                    gastonSection.innerHTML += `<p>No se encontraron tests Gastón.</p>`;
+                }
+
+                testsContainer.appendChild(gastonSection);
+
                 detalles.appendChild(testsContainer);
             })
             .catch(err => {
@@ -984,21 +1034,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function mostrarModalInforme(idPaciente, tests) {
         console.log("mostrarModalInforme llamado con:", { idPaciente, tests });
-        console.log("tests.casm83:", tests.casm83);
-        console.log("tests.casm85:", tests.casm85);
 
         // Validar tests
-        if (!tests || !Array.isArray(tests.casm83) || !Array.isArray(tests.casm85) || !Array.isArray(tests.pma)) {
+        if (!tests || !Array.isArray(tests.casm83) || !Array.isArray(tests.casm85) || !Array.isArray(tests.pma) || !Array.isArray(tests.gaston)) {
             console.error("Tests inválidos:", tests);
             alert("Error: No se proporcionaron datos válidos de los tests.");
             return;
         }
 
-        // Eliminar modal existente para evitar duplicados
+        // Eliminar modal existente
         let modal = document.getElementById("modal-informe-container");
-        if (modal) {
-            modal.remove();
-        }
+        if (modal) modal.remove();
 
         // Crear modal
         const modalHTML = `
@@ -1008,21 +1054,31 @@ document.addEventListener("DOMContentLoaded", function () {
                     <h3>Generar Informe</h3>
                     <p>Selecciona un intento para cada test:</p>
                     <div id="modal-error-informe" style="color: #a94442; display: none; margin-bottom: 1rem;"></div>
+
                     <label for="select-casm83">CASM-83:</label>
                     <select id="select-casm83" class="modal-select">
                         <option value="">Selecciona un intento</option>
-                        ${tests.casm83.length > 0 ? tests.casm83.map(test => `<option value="${test.id_inicio}">Test ${test.test_number} - ${test.fecha}</option>`).join("") : ''}
+                        ${tests.casm83.map(test => `<option value="${test.id_inicio}">Test ${test.test_number} - ${test.fecha}</option>`).join("")}
                     </select>
+
                     <label for="select-casm85">CASM-85:</label>
                     <select id="select-casm85" class="modal-select">
                         <option value="">Selecciona un intento</option>
-                        ${tests.casm85.length > 0 ? tests.casm85.map(test => `<option value="${test.id_inicio}">Test ${test.test_number} - ${test.fecha}</option>`).join("") : ''}
+                        ${tests.casm85.map(test => `<option value="${test.id_inicio}">Test ${test.test_number} - ${test.fecha}</option>`).join("")}
                     </select>
+
                     <label for="select-pma">PMA:</label>
                     <select id="select-pma" class="modal-select">
                         <option value="">Selecciona un intento</option>
-                        ${tests.pma.length > 0 ? tests.pma.map(test => `<option value="${test.id_inicio}">Test ${test.test_number} - ${test.fecha}</option>`).join("") : ''}
+                        ${tests.pma.map(test => `<option value="${test.id_inicio}">Test ${test.test_number} - ${test.fecha}</option>`).join("")}
                     </select>
+
+                    <label for="select-gaston">Gastón:</label>
+                    <select id="select-gaston" class="modal-select">
+                        <option value="">Selecciona un intento</option>
+                        ${tests.gaston.map(test => `<option value="${test.id_inicio}">Test ${test.test_number} - ${test.fecha}</option>`).join("")}
+                    </select>
+
                     <div class="modal-buttons">
                         <button id="modal-generar-informe-btn" class="modal-button">Generar</button>
                         <button id="modal-cancelar-informe" class="modal-button">Cancelar</button>
@@ -1033,87 +1089,69 @@ document.addEventListener("DOMContentLoaded", function () {
         document.body.insertAdjacentHTML("beforeend", modalHTML);
         modal = document.getElementById("modal-informe-container");
 
-        // Asignar eventos
+        // Elementos
         const closeBtn = document.getElementById("modal-close-informe");
         const generarBtn = document.getElementById("modal-generar-informe-btn");
         const cancelarBtn = document.getElementById("modal-cancelar-informe");
         const select83 = document.getElementById("select-casm83");
         const select85 = document.getElementById("select-casm85");
-        const selectpma = document.getElementById("select-pma");
+        const selectPMA = document.getElementById("select-pma");
+        const selectGaston = document.getElementById("select-gaston");
+        const errorDiv = document.getElementById("modal-error-informe");
 
-        // Verificar que generarBtn es un botón
-        console.log("generarBtn elemento:", generarBtn.tagName);
-
-        // Prevenir propagación en selects
-        select83.addEventListener("change", (e) => {
-            e.stopPropagation();
-            console.log("select-casm83 cambiado a:", select83.value);
-        });
-        select85.addEventListener("change", (e) => {
-            e.stopPropagation();
-            console.log("select-casm85 cambiado a:", select85.value);
-        });
-        selectpma.addEventListener("change", (e) => {
-            e.stopPropagation();
-            console.log("select-pma cambiado a:", selectpma.value);
+        // Eventos de cambio
+        [select83, select85, selectPMA, selectGaston].forEach(select => {
+            select.addEventListener("change", e => e.stopPropagation());
         });
 
-        // Asignar eventos con addEventListener
-        closeBtn.addEventListener("click", () => cerrarModal(modal));
-        cancelarBtn.addEventListener("click", () => cerrarModal(modal));
-        generarBtn.addEventListener("click", (e) => {
+        // Cerrar modal
+        [closeBtn, cancelarBtn].forEach(btn => btn.addEventListener("click", () => cerrarModal(modal)));
+
+        // Botón generar
+        generarBtn.addEventListener("click", e => {
             e.stopPropagation();
             const intento83 = select83.value;
             const intento85 = select85.value;
-            const intentopma = selectpma.value;
-            const errorDiv = document.getElementById("modal-error-informe");
+            const intentoPMA = selectPMA.value;
+            const intentoGaston = selectGaston.value;
 
-            console.log("Botón Generar clicado:", { intento83, intento85 });
-
-            if (!tests.casm83.length || !tests.casm85.length || !tests.pma.length) {
-                errorDiv.textContent = "No hay intentos disponibles para uno o ambos tests.";
-                errorDiv.style.display = "block";
-                return;
-            }
-            if (!intento83 || !intento85 || !intentopma || intentopma==="" ||intento83 === "" || intento85 === "") {
+            if (!intento83 || !intento85 || !intentoPMA || !intentoGaston) {
                 errorDiv.textContent = "Debes seleccionar un intento para cada test.";
                 errorDiv.style.display = "block";
                 return;
             }
 
-            // Convertir a números para comparación
+            // Validar existencia real
             const test83 = tests.casm83.find(t => t.id_inicio === Number(intento83));
             const test85 = tests.casm85.find(t => t.id_inicio === Number(intento85));
-            const testpma = tests.pma.find(t => t.id_inicio === Number(intentopma));
-            console.log("test83 encontrado:", test83);
-            console.log("test85 encontrado:", test85);
-            console.log("testpma encontrado:", testpma);
-            if (!test83 || !test85 || !testpma) {
+            const testPMA = tests.pma.find(t => t.id_inicio === Number(intentoPMA));
+            const testGaston = tests.gaston.find(t => t.id_inicio === Number(intentoGaston));
+
+            if (!test83 || !test85 || !testPMA || !testGaston) {
                 errorDiv.textContent = "Intento seleccionado no válido.";
                 errorDiv.style.display = "block";
                 return;
             }
 
+            // Generar informe
             errorDiv.style.display = "none";
             generarBtn.disabled = true;
             generarBtn.textContent = "Generando...";
-            generarInforme(idPaciente, intento83, intento85, intentopma).finally(() => {
-                generarBtn.disabled = false;
-                generarBtn.textContent = "Generar";
-            });
+
+            generarInforme(idPaciente, intento83, intento85, intentoPMA, intentoGaston)
+                .finally(() => {
+                    generarBtn.disabled = false;
+                    generarBtn.textContent = "Generar";
+                });
+
             cerrarModal(modal);
         });
 
-        // Detectar clics en modal-content-adv
-        modal.querySelector(".modal-content-adv").addEventListener("click", (e) => {
-            console.log("Clic en modal-content-adv, objetivo:", e.target);
+        // Clic fuera del modal
+        modal.addEventListener("click", e => {
+            if (e.target === modal) cerrarModal(modal);
         });
 
-        modal.addEventListener("click", (event) => {
-            if (event.target === modal) cerrarModal(modal);
-        });
-
-        // Mostrar el modal
         modal.style.display = "flex";
         setTimeout(() => modal.classList.add("show"), 10);
     }
@@ -1123,18 +1161,17 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(() => modal.style.display = "none", 300);
     }
 
-    async function generarInforme(idPaciente, idInicio83, idInicio85, idInicioPMA) {
-        console.log("generarInforme llamado con:", { idPaciente, idInicio83, idInicio85, idInicioPMA });
+    async function generarInforme(idPaciente, idInicio83, idInicio85, idInicioPMA, idInicioGaston) {
+        console.log("generarInforme llamado con:", { idPaciente, idInicio83, idInicio85, idInicioPMA, idInicioGaston });
+
         try {
-            // Cargar docx.js
             const { Document, Packer, Paragraph, TextRun, ImageRun, HeadingLevel, AlignmentType, Table, TableRow, TableCell, WidthType, BorderStyle } = await import("https://cdn.jsdelivr.net/npm/docx@8.5.0/+esm");
 
-            // Validar parámetros
-            if (!idPaciente || !idInicio83 || !idInicio85 || !idInicioPMA) {
-                throw new Error("Faltan parámetros requeridos: idPaciente, idInicio83, idInicio85 o idInicioPMA.");
+            if (!idPaciente || !idInicio83 || !idInicio85 || !idInicioPMA || !idInicioGaston) {
+                throw new Error("Faltan parámetros requeridos.");
             }
 
-            // Obtener datos del paciente
+            // Datos del paciente
             const resPaciente = await fetch(`../Controlador/obtenerTestsPaciente.php?id=${idPaciente}`, { credentials: "include" }).then(res => res.json());
             if (!resPaciente.exito) throw new Error(resPaciente.mensaje || "Error al obtener datos del paciente.");
             const paciente = resPaciente.paciente;
@@ -1152,18 +1189,31 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             // Obtener resultados
-            const [res83, res85, respma] = await Promise.all([
+            const [res83, res85, respma, resGaston] = await Promise.all([
                 fetch(`../Controlador/obtenerResultadosCASM83General.php?id_inicio=${idInicio83}`, { credentials: "include" }).then(res => res.json()),
                 fetch(`../Controlador/obtenerResultadosCASM85General.php?id_inicio=${idInicio85}`, { credentials: "include" }).then(res => res.json()),
-                fetch(`../Controlador/obtenerResultadosPMAGeneral.php?id_inicio=${idInicioPMA}`, { credentials: "include" }).then(res => res.json())
+                fetch(`../Controlador/obtenerResultadosPMAGeneral.php?id_inicio=${idInicioPMA}`, { credentials: "include" }).then(res => res.json()),
+                fetch(`../Controlador/obtenerResultadosGastonGeneral.php?id_inicio=${idInicioGaston}`, { credentials: "include" }).then(res => res.json())
             ]);
 
-            if (!res83.exito) throw new Error(res83.mensaje || "Error al obtener resultados de CASM-83.");
-            if (!res85.exito) throw new Error(res85.mensaje || "Error al obtener resultados de CASM-85.");
-            if (!respma.exito) throw new Error(respma.mensaje || "Error al obtener resultados de PMA.");
-            if (!Array.isArray(res83.resultados) || res83.resultados.length === 0) throw new Error("No se encontraron resultados para CASM-83.");
-            if (!Array.isArray(res85.resultados) || res85.resultados.length === 0) throw new Error("No se encontraron resultados para CASM-85.");
-            if (!respma.resultados || Object.keys(respma.resultados).length === 0) throw new Error("No se encontraron resultados para PMA.");
+            // Validar resultados
+            if (!res83.exito || !Array.isArray(res83.resultados) || res83.resultados.length === 0) {
+                throw new Error("No se encontraron resultados para CASM-83.");
+            }
+            if (!res85.exito || !Array.isArray(res85.resultados) || res85.resultados.length === 0) {
+                throw new Error("No se encontraron resultados para CASM-85.");
+            }
+            if (!respma.exito || !respma.resultados || Object.keys(respma.resultados).length === 0) {
+                throw new Error("No se encontraron resultados para PMA.");
+            }
+            if (!resGaston.exito || !resGaston.resultado || Object.keys(resGaston.resultado).length === 0) {
+                throw new Error("No se encontraron resultados para Gastón.");
+            }
+
+            const resultado83 = res83.resultados;
+            const resultado85 = res85.resultados;
+            const resultadoPMA = respma.resultados;
+            const resultadoGaston = resGaston.resultado;
 
             // Procesar resultados CASM-83
             const resultadosCategorias83 = {};
@@ -1195,6 +1245,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const analisis83 = analisisRespuesta83.exito ? analisisRespuesta83.analisis : "No hay análisis vinculados a este intento";
             const analisis85 = analisisRespuesta85.exito ? analisisRespuesta85.analisis : "No hay análisis vinculados a este intento";
             const analisisPMA = analisisRespuestaPMA.exito ? analisisRespuestaPMA.analisis : "No hay análisis vinculados a este intento";
+
 
             // Definir rangos de percentiles para CASM-83 según sexo
             const rangosCASM83 = (res83.resultados[0].sexo === "Masculino" ? [
@@ -1432,6 +1483,77 @@ document.addEventListener("DOMContentLoaded", function () {
                 })
             ];
 
+            const tablaGastonVisual1 = new Table({
+                rows: [
+                    new TableRow({
+                        children: [
+                            new TableCell({ children: [new Paragraph("Área")], columnSpan: 1, borders: {}, }),
+                            new TableCell({ children: [new Paragraph("Puntaje")], columnSpan: 1, borders: {}, }),
+                            new TableCell({ children: [new Paragraph("Tipo Caracterológico")], columnSpan: 1, borders: {}, }),
+                        ]
+                    }),
+                    new TableRow({
+                        children: [
+                            new TableCell({ children: [new Paragraph("Emotividad (1–10)")], borders: {} }),
+                            new TableCell({ children: [new Paragraph((resGaston.resultado.emotividad ?? "").toString())], borders: {} }),
+                            new TableCell({
+                                children: [new Paragraph(resGaston.resultado.tipo_caracterologico ?? "")],
+                                rowSpan: 3,
+                                verticalAlign: "center",
+                                borders: {}
+                            })
+                        ]
+                    }),
+                    new TableRow({
+                        children: [
+                            new TableCell({ children: [new Paragraph("Actividad (11–20)")], borders: {} }),
+                            new TableCell({ children: [new Paragraph((resGaston.resultado.actividad ?? "").toString())], borders: {} }),
+                        ]
+                    }),
+                    new TableRow({
+                        children: [
+                            new TableCell({ children: [new Paragraph("Resonancia S/P (21–30)")], borders: {} }),
+                            new TableCell({ children: [new Paragraph((resGaston.resultado.resonancia ?? "").toString())], borders: {} }),
+                        ]
+                    })
+                ],
+                width: { size: 100, type: WidthType.PERCENTAGE },
+                borders: {
+                    top: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+                    bottom: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+                    left: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+                    right: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+                    insideHorizontal: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+                    insideVertical: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+                }
+            });
+
+            const tablaGastonVisual2 = new Table({
+                rows: [
+                    new TableRow({
+                        children: [
+                            new TableCell({ children: [new Paragraph("LECTURA POR FACTORES")], borders: {} }),
+                            new TableCell({ children: [new Paragraph("FÓRMULA CARACTEROLOGICA")], borders: {} }),
+                        ]
+                    }),
+                    new TableRow({
+                        children: [
+                            new TableCell({ children: [new Paragraph(resGaston.resultado.lectura_factores ?? "")], borders: {} }),
+                            new TableCell({ children: [new Paragraph(resGaston.resultado.formula_caracterologica ?? "")], borders: {} }),
+                        ]
+                    })
+                ],
+                width: { size: 100, type: WidthType.PERCENTAGE },
+                borders: {
+                    top: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+                    bottom: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+                    left: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+                    right: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+                    insideHorizontal: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+                    insideVertical: { style: BorderStyle.SINGLE, size: 1, color: "000000" },
+                }
+            });
+
             // Manejar imagen del encabezado
             let imageData = null;
             try {
@@ -1477,7 +1599,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             spacing: { before: 200 }
                         }),
                         new Paragraph({
-                            text: "Adolescente acude a consulta solicitando una evaluación y orientación vocacional, sin la compañía de un adulto. Refiriendo que aún no ha decidido qué estudiar, pero que entre sus posibilidades se encuentra la administración de empresas ya que su familia tiene una ferretería y una herrería. Comentando que desea estudiar en la Universidad Complutense, y de no lograrlo su otra opción sería estudiar administración en el Instituto Tecnológico, ya que sería más rápido. Cabe resaltar que el menor cuenta con apoyo económico por parte de su familia.",
+                            text: "Completar los motivos de la consulta",
                             spacing: { after: 100 }
                         }),
                         new Paragraph({
@@ -1486,7 +1608,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             spacing: { before: 200 }
                         }),
                         new Paragraph({
-                            text: "El usuario es el tercero de tres hermanos en su familia. Describe su desempeño académico en la primaria como bueno, teniendo en la mayoría de ocasiones calificación de A+. Durante la secundaria, mantuvo un promedio de entre 15 y 16, aunque este descendió en su último año debido a la modalidad virtual. A su vez, manifestó que el curso que más disfrutaba y en el que le iba mejor, en ambos niveles, fue matemática. Además de participar en deportes como el básquetbol y el voleibol, este último lo practica hasta la actualidad, siendo miembro de un club local. En cuanto a sus logros académicos, comentó que fue seleccionado para exponer un proyecto en la feria de ciencia y tecnología, llegando a la etapa regional, y mencionó que no le teme a hablar en público ni a realizar oratoria.",
+                            text: "Completar antecedentes",
                             spacing: { after: 100 }
                         }),
                         new Paragraph({
@@ -1534,7 +1656,22 @@ document.addEventListener("DOMContentLoaded", function () {
                         new Table({
                             rows: tablaPMARows,
                             width: { size: "100%", type: WidthType.PERCENTAGE }
-                        })
+                        }),
+                        new Paragraph({
+                            text: "Características de la Personalidad (Test Gastón)",
+                            heading: HeadingLevel.HEADING_3,
+                            spacing: { before: 200 }
+                        }),
+                        new Paragraph({
+                            text: `Resultados obtenidos el ${resGaston.resultado.fecha ?? "N/A"} - Sexo: ${resGaston.resultado.sexo ?? "N/A"}`,
+                            spacing: { after: 100 }
+                        }),
+                        tablaGastonVisual1,
+                        new Paragraph({
+                            text: "",
+                            spacing: { after: 200 } // 200 equivale a un espacio visual notable
+                        }),
+                        tablaGastonVisual2
                     ]
                 }]
             });
@@ -1557,6 +1694,82 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Error al generar informe:", error);
             alert(`Error al generar el informe: ${error.message}. Intenta de nuevo.`);
         }
+    }
+
+    function cargarResultadosGaston(idTest, container) {
+        console.log("🧪 ID recibido para cargar Gastón:", idTest); // <-- Agregado
+        container.innerHTML = `<p>Cargando resultados...</p>`;
+
+        fetch(`../Controlador/obtenerResultadosGastonGeneral.php?id_inicio=${idTest}`, { credentials: "include" })
+
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Error al obtener resultados: " + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (!data.exito || !data.resultado) {
+                    container.innerHTML = `<p>No se encontraron resultados para este test.</p>`;
+                    return;
+                }
+
+                const r = data.resultado;
+
+                container.innerHTML = `
+                    <div class="card" style="margin: 0; padding: 0; border: none;">
+                        <div class="card-body" style="padding: 0;">
+                            <h3>📋 Resultados del test Gastón</h3>
+                            <table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Área</th>
+                                        <th>Puntaje</th>
+                                        <th>Tipo Caracterológico</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Emotividad</td>
+                                        <td>${r.emotividad}</td>
+                                        <td rowspan="3">${r.tipo_caracterologico}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Actividad</td>
+                                        <td>${r.actividad}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Resonancia</td>
+                                        <td>${r.resonancia}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse; width: 100%; margin-top: 15px;">
+                                <thead>
+                                    <tr>
+                                        <th>Lectura por Factores</th>
+                                        <th>Fórmula Caracterológica</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>${r.lectura_factores}</td>
+                                        <td>${r.formula_caracterologica}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <p><strong>Sexo:</strong> ${r.sexo}</p>
+                            <p><strong>Fecha:</strong> ${r.fecha}</p>
+                        </div>
+                    </div>
+                `;
+            })
+            .catch(error => {
+                console.error("Error al cargar resultados del test Gastón:", error);
+                container.innerHTML = `<p>Error al cargar resultados: ${error.message}</p>`;
+            });
     }
 
     function cargarResultadosPMA(idTest, container) {

@@ -143,13 +143,40 @@
        ];
    }
 
+    // Obtener tests Gastón
+    $sqlGaston = "SELECT id, fecha 
+                FROM test_gaston 
+                WHERE id_usuario = ? 
+                ORDER BY id ASC";
+    $stmtGaston = $conexion->prepare($sqlGaston);
+    if (!$stmtGaston) {
+        error_log("Error al preparar consulta de Gastón: " . $conexion->error);
+        echo json_encode(["exito" => false, "error" => "Error al consultar tests Gastón."]);
+        exit;
+    }
+    $stmtGaston->bind_param("i", $idPaciente);
+    $stmtGaston->execute();
+    $resultadoGaston = $stmtGaston->get_result();
+
+    $gastonTests = [];
+    $testNumber = 0;
+    while ($row = $resultadoGaston->fetch_assoc()) {
+        $testNumber++;
+        $gastonTests[] = [
+            "test_number" => $testNumber,
+            "fecha" => $row["fecha"],
+            "id_inicio" => $row["id"]
+        ];
+    }
+
    $response = [
     "exito" => true,
     "paciente" => $paciente,
     "tests" => [
         "casm83" => $casm83Tests,
         "casm85" => $casm85Tests,
-        "pma" => $pmaTests
+        "pma" => $pmaTests,
+        "gaston" => $gastonTests // ✅ nuevo test añadido
     ]
 ];
 

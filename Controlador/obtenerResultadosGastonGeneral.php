@@ -18,7 +18,7 @@ if (!isset($_SESSION['id_usuario'])) {
 $id_usuario_sesion = $_SESSION['id_usuario'];
 $jerarquia = $_SESSION['jerarquia'] ?? null;
 
-// MODO 1: Obtener resultados propios
+// MODO 1: Obtener resultados propios (sin id_inicio)
 if (!isset($_GET['id_inicio'])) {
     $sql = "SELECT emotividad, actividad, resonancia, tipo_caracterologico, formula_caracterologica, sexo, fecha
             FROM test_gaston
@@ -26,6 +26,12 @@ if (!isset($_GET['id_inicio'])) {
             ORDER BY id ASC";
 
     $stmt = $conexion->prepare($sql);
+    if (!$stmt) {
+        error_log("Error al preparar consulta: " . $conexion->error);
+        echo json_encode(["exito" => false, "mensaje" => "Error al consultar resultados."]);
+        exit;
+    }
+
     $stmt->bind_param("i", $id_usuario_sesion);
     $stmt->execute();
     $resultado = $stmt->get_result();
@@ -43,9 +49,8 @@ if (!isset($_GET['id_inicio'])) {
 
 // MODO 2: Obtener resultados por ID (modo admin/jerarquía)
 $idInicio = (int)$_GET['id_inicio'];
-$idFin = $idInicio + 12;
 
-// Verificar que tenga jerarquía para consultar
+// Verificar jerarquía
 if (!$jerarquia) {
     echo json_encode(["exito" => false, "mensaje" => "No autorizado."]);
     exit;
@@ -54,9 +59,9 @@ if (!$jerarquia) {
 $sql = "SELECT g.emotividad, g.actividad, g.resonancia, g.tipo_caracterologico, g.formula_caracterologica, g.sexo, g.fecha
         FROM test_gaston g
         INNER JOIN usuario u ON g.id_usuario = u.id
-        WHERE g.id BETWEEN ? AND ?
+        WHERE g.id = ?
         AND (u.tipo_cuenta = 'Invitación' OR ? = 'admin')
-        ORDER BY g.id ASC";
+        LIMIT 1";
 
 $stmt = $conexion->prepare($sql);
 if (!$stmt) {
@@ -65,21 +70,29 @@ if (!$stmt) {
     exit;
 }
 
-$stmt->bind_param("iis", $idInicio, $idFin, $jerarquia);
+$stmt->bind_param("is", $idInicio, $jerarquia);
 $stmt->execute();
 $resultado = $stmt->get_result();
 
-$resultados = [];
-while ($row = $resultado->fetch_assoc()) {
-    $resultados[] = $row;
-}
+if ($row = $resultado->fetch_assoc()) {
+    // Calcular lectura por factores
+    $lectura = [];
 
-if (count($resultados) !== 13) {
-    echo json_encode(["exito" => false, "mensaje" => "El test seleccionado no tiene 13 registros."]);
+    if ($row['sexo'] === 'Masculino') {
+        $lectura[] = ($row['emotividad'] >= 48) ? 'Emotivo' : 'No Emotivo';
+    } else {
+        $lectura[] = ($row['emotividad'] >= 51) ? 'Emotivo' : 'No Emotivo';
+    }
+
+    $lectura[] = ($row['actividad'] >= 55) ? 'Activo' : 'No Activo';
+    $lectura[] = ($row['resonancia'] >= 55) ? 'Secundario' : 'Primario';
+
+    $row['lectura_factores'] = implode(', ', $lectura);
+
+    echo json_encode(["exito" => true, "resultado" => $row]);
 } else {
-    echo json_encode(["exito" => true, "resultados" => $resultados]);
+    echo json_encode(["exito" => false, "mensaje" => "No se encontró el test con ese ID."]);
 }
 
 $stmt->close();
 $conexion->close();
-?>
