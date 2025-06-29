@@ -15,7 +15,7 @@ $id_usuario = $_SESSION['id_usuario'];
 $input = json_decode(file_get_contents("php://input"), true);
 
 // Registrar entrada para depuración
-file_put_contents('debug.log', print_r($input, true), FILE_APPEND);
+file_put_contents('debug.log', print_r($input, true) . "\n", FILE_APPEND);
 
 // Validar estructura básica
 if (!$input) {
@@ -32,7 +32,6 @@ try {
         $resonancia = (int)$input['resonancia'];
         $tipo_caracterologico = $input['tipo_caracterologico'];
         $formula_caracterologica = $input['formula_caracterologica'];
-        
         $sexo = strtolower(trim($input['sexo']));
         if ($sexo === 'masculino' || $sexo === 'másculino') {
             $sexo = 'Masculino';
@@ -43,7 +42,6 @@ try {
             echo json_encode(["exito" => false, "mensaje" => "Sexo inválido: debe ser 'Masculino' o 'Femenino'"]);
             exit;
         }
-
         $fecha = $input['fecha'];
 
         // Validar datos
@@ -77,9 +75,10 @@ try {
 
         echo json_encode(["exito" => true, "mensaje" => "Resultados Gastón guardados correctamente"]);
 
-    } elseif (isset($input['sexo']) && isset($input['resultados']) && is_array($input['resultados']) && isset($input['resultados'][array_key_first($input['resultados'])]['total'])) {
+    } elseif (isset($input['sexo'], $input['resultados'], $input['fecha']) && is_array($input['resultados']) && isset($input['resultados'][array_key_first($input['resultados'])]['total'])) {
         // === CASM83 ===
         $sexo = $input['sexo'];
+        $fecha = $input['fecha'];
 
         if (!in_array($sexo, ['Masculino', 'Femenino'])) {
             http_response_code(400);
@@ -87,11 +86,20 @@ try {
             exit;
         }
 
+        if (empty($fecha)) {
+            http_response_code(400);
+            echo json_encode(["exito" => false, "mensaje" => "Fecha inválida"]);
+            exit;
+        }
+
         $stmt = $conexion->prepare("INSERT INTO test_CASM83 (id_usuario, categoria, total, count_a, count_b, sexo, fecha) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        if ($stmt === false) {
+            throw new Exception("Error en preparación de consulta CASM-83: " . $conexion->error);
+        }
 
         foreach ($input['resultados'] as $categoria => $scores) {
             if (!isset($scores['total'], $scores['A'], $scores['B'])) {
-                file_put_contents('debug.log', "Entrada inválida para categoría $categoria: " . print_r($scores, true), FILE_APPEND);
+                file_put_contents('debug.log', "Entrada inválida para categoría $categoria: " . print_r($scores, true) . "\n", FILE_APPEND);
                 continue;
             }
 
@@ -100,14 +108,20 @@ try {
             $count_b = (int)$scores['B'];
 
             $stmt->bind_param("isiiiss", $id_usuario, $categoria, $total, $count_a, $count_b, $sexo, $fecha);
-            $stmt->execute();
+            if (!$stmt->execute()) {
+                file_put_contents('debug.log', "Error al guardar categoría $categoria: " . $stmt->error . "\n", FILE_APPEND);
+            }
         }
 
         echo json_encode(["exito" => true, "mensaje" => "Resultados CASM83 guardados correctamente"]);
 
     } elseif (isset($input['resultados']) && is_array($input['resultados']) && isset($input['resultados'][0]['area'], $input['resultados'][0]['puntaje'], $input['resultados'][0]['categoria'])) {
         // === CASM85 ===
+        $fecha = isset($input['fecha']) ? $input['fecha'] : date('Y-m-d');
         $stmt = $conexion->prepare("INSERT INTO test_CASM85 (id_usuario, area, puntaje, categoria, fecha) VALUES (?, ?, ?, ?, ?)");
+        if ($stmt === false) {
+            throw new Exception("Error en preparación de consulta CASM-85: " . $conexion->error);
+        }
 
         foreach ($input['resultados'] as $resultado) {
             $area = $resultado['area'];
@@ -115,7 +129,9 @@ try {
             $categoria = $resultado['categoria'];
 
             $stmt->bind_param("isiss", $id_usuario, $area, $puntaje, $categoria, $fecha);
-            $stmt->execute();
+            if (!$stmt->execute()) {
+                throw new Exception("Error al guardar resultados CASM-85: " . $stmt->error);
+            }
         }
 
         echo json_encode(["exito" => true, "mensaje" => "Resultados CASM85 guardados correctamente"]);

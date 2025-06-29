@@ -13,7 +13,7 @@ if (!isset($_SESSION["usuario"]) || !isset($_SESSION["jerarquia"])) {
     exit;
 }
 
-if (!isset($_GET["id_inicio"]) || !is_numeric($_GET["id_inicio"]) || !isset($_GET["tipo_test"]) || !in_array($_GET["tipo_test"], ['casm83', 'casm85'])) {
+if (!isset($_GET["id_inicio"]) || !is_numeric($_GET["id_inicio"]) || !isset($_GET["tipo_test"]) || !in_array($_GET["tipo_test"], ['casm83', 'casm85', 'pma', 'gaston'])) {
     error_log("Parámetros inválidos: id_inicio=" . (isset($_GET["id_inicio"]) ? $_GET["id_inicio"] : "No proporcionado") . ", tipo_test=" . (isset($_GET["tipo_test"]) ? $_GET["tipo_test"] : "No proporcionado"));
     echo json_encode(["exito" => false, "mensaje" => "ID de test o tipo de test inválido."]);
     exit;
@@ -163,7 +163,7 @@ try {
         if ($stmtDeleteTest->affected_rows !== 13) {
             throw new Exception("No se eliminaron los 13 registros esperados del test CASM-83. Eliminados: " . $stmtDeleteTest->affected_rows);
         }
-    } else {
+    } elseif ($tipoTest === 'casm85') {
         // Lógica para CASM-85
         $idFin = $idInicio + 4;
         $sqlTest = "SELECT area, puntaje, categoria, fecha 
@@ -172,7 +172,7 @@ try {
                     AND id_usuario IN (
                         SELECT id FROM usuario 
                         WHERE tipo_cuenta = 'Invitación' OR ? = 'admin'
-                    ) 
+                      ) 
                     ORDER BY id ASC";
         $stmtTest = $conexion->prepare($sqlTest);
         if (!$stmtTest) {
@@ -235,20 +235,133 @@ try {
         if ($stmtDeleteTest->affected_rows !== 5) {
             throw new Exception("No se eliminaron los 5 registros esperados del test CASM-85. Eliminados: " . $stmtDeleteTest->affected_rows);
         }
+    } elseif ($tipoTest === 'pma') {
+        // Lógica para PMA
+        $sqlTest = "SELECT id, factorV, factorE, factorR, factorN, factorF, puntajeTotal, fecha
+                    FROM test_pma 
+                    WHERE id = ? 
+                    AND id_usuario IN (
+                        SELECT id FROM usuario 
+                        WHERE tipo_cuenta = 'Invitación' OR ? = 'admin'
+                    )";
+        $stmtTest = $conexion->prepare($sqlTest);
+        if (!$stmtTest) {
+            throw new Exception("Error al preparar consulta de test PMA: " . $conexion->error);
+        }
+        $stmtTest->bind_param("is", $idInicio, $jerarquia);
+        $stmtTest->execute();
+        $resultadoTest = $stmtTest->get_result();
+
+        if ($resultadoTest->num_rows !== 1) {
+            throw new Exception("No se encontró el test PMA con el ID proporcionado.");
+        }
+
+        $row = $resultadoTest->fetch_assoc();
+        $hash_input = "{$row['factorV']}|{$row['factorE']}|{$row['factorR']}|{$row['factorN']}|{$row['factorF']}|{$row['puntajeTotal']}|{$row['fecha']}|";
+        $grupo_hash = hash('sha256', $hash_input);
+        error_log("Grupo_hash generado para PMA: $grupo_hash");
+
+        $sqlCheckAnalisis = "SELECT id FROM analisis_pma WHERE grupo_hash = ?";
+        $stmtCheckAnalisis = $conexion->prepare($sqlCheckAnalisis);
+        if (!$stmtCheckAnalisis) {
+            throw new Exception("Error al preparar verificación de análisis PMA: " . $conexion->error);
+        }
+        $stmtCheckAnalisis->bind_param("s", $grupo_hash);
+        $stmtCheckAnalisis->execute();
+        $resultadoCheck = $stmtCheckAnalisis->get_result();
+        $analisisExiste = $resultadoCheck->num_rows > 0;
+        error_log("Análisis encontrado para grupo_hash $grupo_hash (PMA): " . ($analisisExiste ? "Sí" : "No"));
+
+        if ($analisisExiste) {
+            $sqlDeleteAnalisis = "DELETE FROM analisis_pma WHERE grupo_hash = ?";
+            $stmtDeleteAnalisis = $conexion->prepare($sqlDeleteAnalisis);
+            if (!$stmtDeleteAnalisis) {
+                throw new Exception("Error al preparar eliminación de análisis PMA: " . $conexion->error);
+            }
+            $stmtDeleteAnalisis->bind_param("s", $grupo_hash);
+            if (!$stmtDeleteAnalisis->execute()) {
+                throw new Exception("Error al eliminar análisis PMA: " . $conexion->error);
+            }
+            error_log("Análisis PMA eliminado para grupo_hash: $grupo_hash");
+        }
+
+        $sqlDeleteTest = "DELETE FROM test_pma 
+                        WHERE id = ? 
+                        AND id_usuario IN (
+                            SELECT id FROM usuario 
+                            WHERE tipo_cuenta = 'Invitación' OR ? = 'admin'
+                        )";
+        $stmtDeleteTest = $conexion->prepare($sqlDeleteTest);
+        if (!$stmtDeleteTest) {
+            throw new Exception("Error al preparar eliminación de test PMA: " . $conexion->error);
+        }
+        $stmtDeleteTest->bind_param("is", $idInicio, $jerarquia);
+        if (!$stmtDeleteTest->execute()) {
+            throw new Exception("Error al eliminar test PMA: " . $conexion->error);
+        }
+
+        if ($stmtDeleteTest->affected_rows !== 1) {
+            throw new Exception("No se eliminó el test PMA. Verifica permisos o ID.");
+        }
+
+        error_log("Test PMA eliminado correctamente para id_inicio: $idInicio");
+
+    } elseif ($tipoTest === 'gaston') {
+        // Lógica para Gastón
+        $sqlTest = "SELECT id, id_usuario, fecha 
+                    FROM test_gaston 
+                    WHERE id = ? 
+                    AND id_usuario IN (
+                        SELECT id FROM usuario 
+                        WHERE tipo_cuenta = 'Invitación' OR ? = 'admin'
+                    )";
+        $stmtTest = $conexion->prepare($sqlTest);
+        if (!$stmtTest) {
+            throw new Exception("Error al preparar consulta de test Gastón: " . $conexion->error);
+        }
+        $stmtTest->bind_param("is", $idInicio, $jerarquia);
+        $stmtTest->execute();
+        $resultadoTest = $stmtTest->get_result();
+
+        if ($resultadoTest->num_rows !== 1) {
+            throw new Exception("No se encontró el test Gastón con el ID proporcionado.");
+        }
+
+        $sqlDeleteTest = "DELETE FROM test_gaston 
+                          WHERE id = ? 
+                          AND id_usuario IN (
+                              SELECT id FROM usuario 
+                              WHERE tipo_cuenta = 'Invitación' OR ? = 'admin'
+                          )";
+        $stmtDeleteTest = $conexion->prepare($sqlDeleteTest);
+        if (!$stmtDeleteTest) {
+            throw new Exception("Error al preparar eliminación de test Gastón: " . $conexion->error);
+        }
+        $stmtDeleteTest->bind_param("is", $idInicio, $jerarquia);
+        if (!$stmtDeleteTest->execute()) {
+            throw new Exception("Error al eliminar test Gastón: " . $conexion->error);
+        }
+
+        if ($stmtDeleteTest->affected_rows !== 1) {
+            throw new Exception("No se eliminó el test Gastón. Verifica permisos o ID.");
+        }
+
+        error_log("Test Gastón eliminado correctamente para id_inicio: $idInicio");
     }
 
     $conexion->commit();
-    error_log("Test $tipoTest y análisis eliminados correctamente para id_inicio: $idInicio");
-    echo json_encode(["exito" => true, "mensaje" => "Test y análisis eliminados correctamente."]);
+    error_log("Test $tipoTest eliminado correctamente para id_inicio: $idInicio");
+    echo json_encode(["exito" => true, "mensaje" => "Test eliminado correctamente."]);
+    
 } catch (Exception $e) {
     $conexion->rollback();
     error_log("Error al eliminar test $tipoTest: " . $e->getMessage());
     echo json_encode(["exito" => false, "mensaje" => $e->getMessage()]);
 }
 
-$stmtTest->close();
+if (isset($stmtTest)) $stmtTest->close();
 if (isset($stmtCheckAnalisis)) $stmtCheckAnalisis->close();
 if (isset($stmtDeleteAnalisis)) $stmtDeleteAnalisis->close();
-$stmtDeleteTest->close();
+if (isset($stmtDeleteTest)) $stmtDeleteTest->close();
 $conexion->close();
 ?>

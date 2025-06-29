@@ -222,6 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <p><strong>Sexo:</strong> ${datosUsuario.sexo.charAt(0).toUpperCase() + datosUsuario.sexo.slice(1)}</p>
             <p><strong>Edad:</strong> ${datosUsuario.edad}</p>
             <p><strong>Grado de Estudio:</strong> ${datosUsuario.gradoEstudio}</p>
+            <p style="margin-top: 20px;">Si quieres volver a ver tus resultados ve a "Ver Perfil" o presione <a href="../Vista/perfil.html" style="color: #2944ff;">aquí</a></p>
             <table class="tabla-resultados">
                 <thead>
                     <tr>

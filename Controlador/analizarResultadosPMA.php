@@ -32,7 +32,13 @@ if (!isset($resultados['factorV'], $resultados['factorE'], $resultados['factorR'
     exit;
 }
 
-// Crear string para tabla y hash
+// Normalizar el formato de fecha a YYYY-MM-DD
+$fecha = date('Y-m-d', strtotime($resultados['fecha']));
+
+// Redondear puntajeTotal a 2 decimales
+$puntajeTotal = number_format((float)$resultados['puntajeTotal'], 2, '.', '');
+
+// Crear string para tabla
 $datos_tabla = "Resultados del Test PMA:\n\n";
 $datos_tabla .= "Factor\tPuntaje\tMáximo\n";
 $datos_tabla .= "Comprensión Verbal (V)\t{$resultados['factorV']}\t50\n";
@@ -40,10 +46,11 @@ $datos_tabla .= "Razonamiento Espacial (E)\t{$resultados['factorE']}\t20\n";
 $datos_tabla .= "Razonamiento (R)\t{$resultados['factorR']}\t30\n";
 $datos_tabla .= "Cálculo Numérico (N)\t{$resultados['factorN']}\t70\n";
 $datos_tabla .= "Fluidez Verbal (F)\t{$resultados['factorF']}\t75\n";
-$datos_tabla .= "Puntuación Total\t{$resultados['puntajeTotal']}\t-\n";
-$datos_tabla .= "Fecha\t{$resultados['fecha']}\n";
+$datos_tabla .= "Puntuación Total\t{$puntajeTotal}\t-\n";
 
-$hash_input = "{$resultados['factorV']}|{$resultados['factorE']}|{$resultados['factorR']}|{$resultados['factorN']}|{$resultados['factorF']}|{$resultados['puntajeTotal']}|{$resultados['fecha']}";
+// Crear hash con fecha normalizada y puntajeTotal redondeado
+$hash_input = "{$resultados['factorV']}|{$resultados['factorE']}|{$resultados['factorR']}|{$resultados['factorN']}|{$resultados['factorF']}|{$puntajeTotal}|$fecha|";
+logError("Hash_input para PMA: $hash_input");
 $grupo_hash = hash('sha256', $hash_input);
 
 // Consultar si el análisis ya existe
@@ -85,7 +92,7 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
     "Content-Type: application/json",
-    "Authorization: Bearer $together_api_key"
+    "Authorization: Bearer " . $together_api_key
 ]);
 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 

@@ -1,3 +1,4 @@
+import tiposCaracterologicos from './infoGaston.js';
 document.addEventListener("DOMContentLoaded", () => {
     // Verificar la sesión al inicio
     fetch("../Controlador/verificarSesionJSON.php")
@@ -297,7 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         let tabla = `
                             <div class="card" style="margin: 0; padding: 0; border: none;">
                                 <div class="card-body" style="padding: 0;">
-                                    <h3>📈 Resultados del test N° ${index + 1}</h4>
+                                    <h3>Resultados del Intento N° ${index + 1}</h3>
                                     <table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse; width: 100%;">
                                         <thead>
                                             <tr>
@@ -339,7 +340,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         if (pruebasHTML.length > 0) {
                             const selectorHTML = `
                                 <select id="selector-pruebas" style="margin-bottom: 10px;">
-                                    ${pruebasHTML.map((_, i) => `<option value="${i}">Prueba ${i + 1} (${grupos[i][0].fecha})</option>`).join('')}
+                                    ${pruebasHTML.map((_, i) => `<option value="${i}">Intento ${i + 1} (${grupos[i][0].fecha})</option>`).join('')}
                                 </select>
                             `;
                             contenedor.innerHTML += selectorHTML;
@@ -696,7 +697,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         return `
                             <div class="card" style="margin: 0; padding: 0; border: none;">
                                 <div class="card-body" style="padding: 0;">
-                                    <h3 class="card-title" style="margin: 10px 0;">📈 Resultados del test N° ${index + 1} (${sexo})</h3>
+                                    <h3 class="card-title" style="margin: 10px 0;">Resultados del Intento N° ${index + 1} (${sexo})</h3>
                                     <div class="contenedor-tabla" style="position: relative; overflow-x: auto; margin: 0; padding: 0;">
                                         <svg id="svg-lineas-${index}" style="position: absolute; top: 0; left: 0; pointer-events: none; z-index: 10;"></svg>
                                         <table border="1" cellspacing="0" cellpadding="5" style="border-collapse: collapse; text-align: center; width: 100%; margin: 0;">
@@ -731,7 +732,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         for (let index = 0; index < grupos.length; index++) {
                             const grupo = grupos[index];
                             if (grupo.length !== 13) {
-                                pruebasHTML.push(`<p>Grupo ${index + 1} incompleto (${grupo.length} categorías en lugar de 13).</p>`);
+                                pruebasHTML.push(`<p>Intento ${index + 1} incompleto (${grupo.length} categorías en lugar de 13).</p>`);
                                 pruebasDatos.push(null);
                                 continue;
                             }
@@ -756,7 +757,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         if (pruebasHTML.length > 0) {
                             const selectorHTML = `
                                 <select id="selector-pruebas" style="margin-bottom: 10px;">
-                                    ${pruebasHTML.map((_, i) => `<option value="${i}">Prueba ${i + 1} (${grupos[i][0].fecha})</option>`).join('')}
+                                    ${pruebasHTML.map((_, i) => `<option value="${i}">Intento ${i + 1} (${grupos[i][0].fecha})</option>`).join('')}
                                 </select>
                             `;
                             contenedor.innerHTML += selectorHTML;
@@ -820,7 +821,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     });
 
-    // Mostrar resultados PMA
     document.getElementById("testPMABtn").addEventListener("click", () => {
         fetch("../Controlador/obtenerResultadosPMAGeneral.php")
             .then(response => response.json())
@@ -842,12 +842,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     const enviarSolicitudConReintentos = async (grupo, index, intentos = 3, esperaInicial = 1000) => {
                         try {
+                            // Redondear puntajeTotal a 2 decimales
+                            const resultadosRedondeados = {
+                                ...grupo[0],
+                                puntajeTotal: Number(parseFloat(grupo[0].puntajeTotal).toFixed(2))
+                            };
                             const response = await fetch("../Controlador/analizarResultadosPMA.php", {
                                 method: "POST",
                                 headers: {
                                     "Content-Type": "application/json"
                                 },
-                                body: JSON.stringify({ resultados: grupo[0] }) // Enviar solo el objeto del test
+                                body: JSON.stringify({ resultados: resultadosRedondeados })
                             });
                             const data = await response.json();
                             const analisisSpan = document.getElementById(`analisis-${index}`);
@@ -877,7 +882,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         let tabla = `
                             <div class="card" style="margin: 0; padding: 0; border: none;">
                                 <div class="card-body" style="padding: 0;">
-                                    <h3>📈 Resultados del test N° ${index + 1}</h3>
+                                    <h3>Resultados del Intento N° ${index + 1}</h3>
                                     <table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse; width: 100%;">
                                         <thead>
                                             <tr>
@@ -895,7 +900,6 @@ document.addEventListener("DOMContentLoaded", () => {
                                             <tr><td><strong>Puntuación Total</strong></td><td><strong>${parseFloat(fila.puntajeTotal).toFixed(2)}</strong></td><td>-</td></tr>
                                         </tbody>
                                     </table>
-                                    <p><strong>Fecha:</strong> ${fila.fecha}</p>
                                     <p><strong>Análisis de resultados:</strong> <span id="analisis-${index}" class="loading">Cargando análisis</span></p>
                                 </div>
                             </div>
@@ -913,7 +917,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         if (pruebasHTML.length > 0) {
                             const selectorHTML = `
                                 <select id="selector-pruebas" style="margin-bottom: 10px;">
-                                    ${pruebasHTML.map((_, i) => `<option value="${i}">Prueba ${i + 1} (${grupos[i][0].fecha})</option>`).join('')}
+                                    ${pruebasHTML.map((_, i) => `<option value="${i}">Intento ${i + 1} (${grupos[i][0].fecha})</option>`).join('')}
                                 </select>
                             `;
                             contenedor.innerHTML += selectorHTML;
@@ -958,119 +962,166 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Mostrar resultados Gastón
-document.getElementById("testGastonBtn").addEventListener("click", () => {
-    fetch("../Controlador/obtenerResultadosGastonGeneral.php")
-        .then(response => response.json())
-        .then(data => {
-            const contenedor = document.getElementById("resultados");
+    document.getElementById("testGastonBtn").addEventListener("click", function () {
+        fetch("../Controlador/obtenerResultadosGastonGeneral.php")
+            .then(response => response.json())
+            .then(data => {
+                const contenedor = document.getElementById("resultados");
 
-            if (!data.exito) {
-                contenedor.innerHTML = "<p>Error: " + data.mensaje + "</p>";
-                return;
-            }
+                if (!data.exito) {
+                    contenedor.innerHTML = "<p>Error: " + data.mensaje + "</p>";
+                    return;
+                }
 
-            const resultados = data.resultados;
-            contenedor.innerHTML = "<h3>Resultados del Test Gastón:</h3>";
+                const resultados = data.resultados;
+                contenedor.innerHTML = "<h3>Resultados del Test Gastón:</h3>";
 
-            if (resultados.length === 0) {
-                contenedor.innerHTML += "<p>No se encontraron resultados.</p>";
-                return;
-            }
+                if (resultados.length === 0) {
+                    contenedor.innerHTML += "<p>No se encontraron resultados.</p>";
+                    return;
+                }
 
-            const grupos = resultados.map(resultado => [resultado]); // Cada resultado es un grupo
-            const pruebasHTML = [];
-            let pruebaActual = 0;
+                const grupos = resultados.map(resultado => [resultado]);
+                const pruebasHTML = [];
+                let pruebaActual = 0;
 
-            const generarHTMLPruebaGaston = (grupo, index) => {
-                const fila = grupo[0];
-                const factores = [
-                    fila.emotividad >= (fila.sexo.toLowerCase() === 'masculino' ? 48 : 51) ? 'Emotivo' : 'No Emotivo',
-                    fila.actividad >= 55 ? 'Activo' : 'No Activo',
-                    fila.resonancia >= 55 ? 'Secundario' : 'Primario'
-                ];
+                const generarHTMLPruebaGaston = (grupo, index) => {
+                    const fila = grupo[0];
+                    const factores = [
+                        fila.emotividad >= (fila.sexo.toLowerCase() === 'masculino' ? 48 : 51) ? 'Emotivo' : 'No Emotivo',
+                        fila.actividad >= 55 ? 'Activo' : 'No Activo',
+                        fila.resonancia >= 55 ? 'Secundario' : 'Primario'
+                    ];
+                    const tipo = fila.tipo_caracterologico;
+                    const info = tiposCaracterologicos[tipo] || {
+                        id: "Desconocido",
+                        formula: "Desconocida",
+                        caracteristicasGenerales: "No disponible",
+                        aspectosPositivos: "No disponible",
+                        aspectosNegativos: "No disponible",
+                        normasAutoeducativas: "No disponible"
+                    };
 
-                return `
-                    <div class="card" style="margin-bottom: 20px;">
-                        <div class="card-body">
-                            <h3>🧠 Test N° ${index + 1}</h3>
-                            <p><strong>Fecha:</strong> ${fila.fecha}</p>
-                            <table class="tabla-resultados">
-                                <thead>
-                                    <tr>
-                                        <th>Área</th>
-                                        <th>Puntaje</th>
-                                        <th>Tipo Caracterológico</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Emotividad</td>
-                                        <td>${fila.emotividad}</td>
-                                        <td rowspan="3">${fila.tipo_caracterologico}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Actividad</td>
-                                        <td>${fila.actividad}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Resonancia</td>
-                                        <td>${fila.resonancia}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table class="tabla-resultados" style="margin-top: 10px;">
-                                <thead>
-                                    <tr>
-                                        <th>LECTURA POR FACTORES</th>
-                                        <th>FÓRMULA CARACTEROLOGICA</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>${factores.join(', ')}</td>
-                                        <td>${fila.formula_caracterologica}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    return `
+                        <div class="card" style="margin: 0; padding: 0; border: none;">
+                            <div class="card-body">
+                                <h3>Resultados del Intento N° ${index + 1}</h3>
+                                <table class="tabla-resultados">
+                                    <thead>
+                                        <tr>
+                                            <th>Área</th>
+                                            <th>Puntaje</th>
+                                            <th>Tipo Caracterológico</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Emotividad</td>
+                                            <td>${fila.emotividad}</td>
+                                            <td rowspan="3">${fila.tipo_caracterologico}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Actividad</td>
+                                            <td>${fila.actividad}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Resonancia</td>
+                                            <td>${fila.resonancia}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="tabla-resultados" style="margin-top: 10px;">
+                                    <thead>
+                                        <tr>
+                                            <th>LECTURA POR FACTORES</th>
+                                            <th>FÓRMULA CARACTEROLOGICA</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>${factores.join(', ')}</td>
+                                            <td>${fila.formula_caracterologica}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div style="margin-top: 20px;">
+                                    <label for="selector-detalles">Detalles del tipo caracterológico:</label>
+                                    <select id="selector-detalles" style="margin-bottom: 10px;">
+                                        <option value="caracteristicasGenerales">Características Generales</option>
+                                        <option value="aspectosPositivos">Aspectos Tendenciales Positivos</option>
+                                        <option value="aspectosNegativos">Aspectos Tendenciales Negativos</option>
+                                        <option value="normasAutoeducativas">Normas Autoeducativas</option>
+                                    </select>
+                                    <div id="detalles-contenido">${info.caracteristicasGenerales}</div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                `;
-            };
-
-            const procesarGruposGaston = () => {
-                for (let index = 0; index < grupos.length; index++) {
-                    const grupo = grupos[index];
-                    const tablaHTML = generarHTMLPruebaGaston(grupo, index);
-                    pruebasHTML[index] = tablaHTML;
-                }
-
-                if (pruebasHTML.length > 0) {
-                    const selectorHTML = `
-                        <select id="selector-pruebas" style="margin-bottom: 10px;">
-                            ${pruebasHTML.map((_, i) => `<option value="${i}">Prueba ${i + 1} (${grupos[i][0].fecha})</option>`).join('')}
-                        </select>
                     `;
-                    contenedor.innerHTML += selectorHTML;
-                    contenedor.innerHTML += `<div id="prueba-contenido-gaston"></div>`;
+                };
 
-                    const pruebaContenido = document.getElementById("prueba-contenido-gaston");
-                    pruebaContenido.innerHTML = pruebasHTML[0];
+                const procesarGruposGaston = () => {
+                    for (let index = 0; index < grupos.length; index++) {
+                        const grupo = grupos[index];
+                        const tablaHTML = generarHTMLPruebaGaston(grupo, index);
+                        pruebasHTML[index] = tablaHTML;
+                    }
 
-                    const selector = document.getElementById("selector-pruebas");
-                    selector.addEventListener("change", () => {
-                        pruebaActual = parseInt(selector.value);
-                        pruebaContenido.innerHTML = pruebasHTML[pruebaActual];
-                    });
-                } else {
-                    contenedor.innerHTML += "<p>No hay pruebas válidas para mostrar.</p>";
-                }
-            };
+                    if (pruebasHTML.length > 0) {
+                        const selectorHTML = `
+                            <select id="selector-pruebas" style="margin-bottom: 10px;">
+                                ${pruebasHTML.map((_, i) => `<option value="${i}">Intento ${i + 1} (${grupos[i][0].fecha})</option>`).join('')}
+                            </select>
+                        `;
+                        contenedor.innerHTML += selectorHTML;
+                        contenedor.innerHTML += `<div id="prueba-contenido-gaston"></div>`;
 
-            procesarGruposGaston();
-        })
-        .catch(error => {
-            console.error("Error al obtener resultados Gastón:", error);
-            document.getElementById("resultados").innerHTML = "<p>Error al obtener los resultados: " + error.message + "</p>";
-        });
-});
+                        const pruebaContenido = document.getElementById("prueba-contenido-gaston");
+                        pruebaContenido.innerHTML = pruebasHTML[0];
+
+                        const selector = document.getElementById("selector-pruebas");
+                        selector.addEventListener("change", () => {
+                            pruebaActual = parseInt(selector.value);
+                            pruebaContenido.innerHTML = pruebasHTML[pruebaActual];
+                            const selectorDetalles = document.getElementById("selector-detalles");
+                            const detallesContenido = document.getElementById("detalles-contenido");
+                            const tipo = grupos[pruebaActual][0].tipo_caracterologico;
+                            const info = tiposCaracterologicos[tipo] || {
+                                id: "Desconocido",
+                                caracteristicasGenerales: "No disponible",
+                                aspectosPositivos: "No disponible",
+                                aspectosNegativos: "No disponible",
+                                normasAutoeducativas: "No disponible"
+                            };
+                            detallesContenido.innerHTML = info[selectorDetalles.value];
+                            selectorDetalles.addEventListener("change", () => {
+                                detallesContenido.innerHTML = info[selectorDetalles.value];
+                            });
+                        });
+
+                        const selectorDetalles = document.getElementById("selector-detalles");
+                        const detallesContenido = document.getElementById("detalles-contenido");
+                        const tipo = grupos[0][0].tipo_caracterologico;
+                        const info = tiposCaracterologicos[tipo] || {
+                            id: "Desconocido",
+                            caracteristicasGenerales: "No disponible",
+                            aspectosPositivos: "No disponible",
+                            aspectosNegativos: "No disponible",
+                            normasAutoeducativas: "No disponible"
+                        };
+                        detallesContenido.innerHTML = info.caracteristicasGenerales;
+                        selectorDetalles.addEventListener("change", () => {
+                            detallesContenido.innerHTML = info[selectorDetalles.value];
+                        });
+                    } else {
+                        contenedor.innerHTML += "<p>No hay pruebas válidas para mostrar.</p>";
+                    }
+                };
+
+                procesarGruposGaston();
+            })
+            .catch(error => {
+                console.error("Error al obtener resultados Gastón:", error);
+                document.getElementById("resultados").innerHTML = "<p>Error al obtener los resultados: " + error.message + "</p>";
+            });
+    });
 });

@@ -579,11 +579,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const gradoEstudio = document.getElementById("gradoEstudio").value || "Sin especificar";
     const fechaActual = new Date().toISOString().split('T')[0];
 
-    const puntuacionTotal = (1.5 * (puntajes.factorV || 0)) + 
-                           (puntajes.factorE || 0) + 
-                           (2 * (puntajes.factorR || 0)) + 
-                           (puntajes.factorN || 0) + 
-                           (puntajes.factorF || 0);
+    const puntuacionTotal = Number(((1.5 * (puntajes.factorV || 0)) + 
+                               (puntajes.factorE || 0) + 
+                               (2 * (puntajes.factorR || 0)) + 
+                               (puntajes.factorN || 0) + 
+                               (puntajes.factorF || 0)).toFixed(2));
 
     let resultadosHTML = `
         <h2>Resultados del Test PMA</h2>
@@ -630,79 +630,79 @@ document.addEventListener("DOMContentLoaded", function () {
         fecha: fechaActual
     };
 
-    console.log("Datos enviados a guardarResultadosTest.php:", JSON.stringify({ resultados: resultadosParaEnviar }, null, 2));
+        console.log("Datos enviados a guardarResultadosTest.php:", JSON.stringify({ resultados: resultadosParaEnviar }, null, 2));
 
-    // Enviar resultados al backend para guardar
-    fetch("../Controlador/guardarResultadosTest.php", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ resultados: resultadosParaEnviar })
-    })
-    .then(response => response.text())
-    .then(text => {
-        let data;
-        try {
-            data = JSON.parse(text);
-        } catch (e) {
-            console.error("Respuesta no es JSON válido:", text);
-            document.getElementById("analisis").innerHTML = `Error al guardar resultados: Respuesta del servidor no válida (${text})`;
-            return;
-        }
-        console.log("Respuesta del servidor (guardar):", data);
-        if (!data.exito) {
-            const mensajeError = data.mensaje || "Error desconocido al guardar los resultados";
-            console.error("Error al guardar resultados:", mensajeError);
-            document.getElementById("analisis").innerHTML = `Error al guardar resultados: ${mensajeError}`;
-            return;
-        }
-
-        // Enviar solicitud de análisis
-        const enviarSolicitudConReintentos = async (resultados, intentos = 3, esperaInicial = 1000) => {
+        // Enviar resultados al backend para guardar
+        fetch("../Controlador/guardarResultadosTest.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ resultados: resultadosParaEnviar })
+        })
+        .then(response => response.text())
+        .then(text => {
+            let data;
             try {
-                const response = await fetch("../Controlador/analizarResultadosPMA.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ resultados })
-                });
-                const data = await response.json();
-                const analisisSpan = document.getElementById("analisis");
-                if (!analisisSpan) {
-                    console.error("No se encontró el elemento analisis en el DOM");
-                    return;
-                }
-                if (data.exito) {
-                    analisisSpan.innerHTML = data.analisis;
-                } else if (data.mensaje.includes("Límite de solicitudes alcanzado") && intentos > 0) {
-                    console.log(`Límite de solicitudes alcanzado. Reintentando en ${esperaInicial}ms... (${intentos} intentos restantes)`);
-                    await new Promise(resolve => setTimeout(resolve, esperaInicial));
-                    return enviarSolicitudConReintentos(resultados, intentos - 1, esperaInicial * 2);
-                } else {
-                    const mensajeError = data.mensaje || "Error desconocido al obtener el análisis";
-                    analisisSpan.innerHTML = `Error: ${mensajeError}`;
-                }
-            } catch (error) {
-                console.error("Error al obtener análisis:", error);
-                const analisisSpan = document.getElementById("analisis");
-                if (analisisSpan) {
-                    analisisSpan.innerHTML = `Error al obtener el análisis: ${error.message}`;
-                }
+                data = JSON.parse(text);
+            } catch (e) {
+                console.error("Respuesta no es JSON válido:", text);
+                document.getElementById("analisis").innerHTML = `Error al guardar resultados: Respuesta del servidor no válida (${text})`;
+                return;
             }
-        };
+            console.log("Respuesta del servidor (guardar):", data);
+            if (!data.exito) {
+                const mensajeError = data.mensaje || "Error desconocido al guardar los resultados";
+                console.error("Error al guardar resultados:", mensajeError);
+                document.getElementById("analisis").innerHTML = `Error al guardar resultados: ${mensajeError}`;
+                return;
+            }
 
-        setTimeout(() => {
-            enviarSolicitudConReintentos(resultadosParaEnviar);
-        }, 0);
-    })
-    .catch(error => {
-        console.error("Error al guardar los resultados:", error);
-        document.getElementById("analisis").innerHTML = `Error al guardar los resultados: ${error.message}`;
-    });
+            // Enviar solicitud de análisis
+            const enviarSolicitudConReintentos = async (resultados, intentos = 3, esperaInicial = 1000) => {
+                try {
+                    const response = await fetch("../Controlador/analizarResultadosPMA.php", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ resultados })
+                    });
+                    const data = await response.json();
+                    const analisisSpan = document.getElementById("analisis");
+                    if (!analisisSpan) {
+                        console.error("No se encontró el elemento analisis en el DOM");
+                        return;
+                    }
+                    if (data.exito) {
+                        analisisSpan.innerHTML = data.analisis;
+                    } else if (data.mensaje.includes("Límite de solicitudes alcanzado") && intentos > 0) {
+                        console.log(`Límite de solicitudes alcanzado. Reintentando en ${esperaInicial}ms... (${intentos} intentos restantes)`);
+                        await new Promise(resolve => setTimeout(resolve, esperaInicial));
+                        return enviarSolicitudConReintentos(resultados, intentos - 1, esperaInicial * 2);
+                    } else {
+                        const mensajeError = data.mensaje || "Error desconocido al obtener el análisis";
+                        analisisSpan.innerHTML = `Error: ${mensajeError}`;
+                    }
+                } catch (error) {
+                    console.error("Error al obtener análisis:", error);
+                    const analisisSpan = document.getElementById("analisis");
+                    if (analisisSpan) {
+                        analisisSpan.innerHTML = `Error al obtener el análisis: ${error.message}`;
+                    }
+                }
+            };
 
-    console.log('Mostrando resultados:', puntajes, `Puntuación Total: ${puntuacionTotal}`);
-    desplazarArriba();
-}
+            setTimeout(() => {
+                enviarSolicitudConReintentos(resultadosParaEnviar);
+            }, 0);
+        })
+        .catch(error => {
+            console.error("Error al guardar los resultados:", error);
+            document.getElementById("analisis").innerHTML = `Error al guardar los resultados: ${error.message}`;
+        });
+
+        console.log('Mostrando resultados:', puntajes, `Puntuación Total: ${puntuacionTotal}`);
+        desplazarArriba();
+    }
 });

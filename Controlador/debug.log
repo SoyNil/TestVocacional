@@ -1395,3 +1395,421 @@ Array
     [sexo] => masculino
     [fecha] => 2025-06-26
 )
+Array
+(
+    [resultados] => Array
+        (
+            [factorV] => 3
+            [factorE] => 0
+            [factorR] => 0
+            [factorN] => 0
+            [factorF] => 0
+            [puntajeTotal] => 4.5
+            [fecha] => 2025-06-29
+        )
+
+)
+Array
+(
+    [resultados] => Array
+        (
+            [factorV] => 30
+            [factorE] => 0
+            [factorR] => 0
+            [factorN] => 0
+            [factorF] => 0
+            [puntajeTotal] => 45
+            [fecha] => 2025-06-29
+        )
+
+)
+Array
+(
+    [resultados] => Array
+        (
+            [factorV] => 0
+            [factorE] => 0
+            [factorR] => 0
+            [factorN] => 0
+            [factorF] => 0
+            [puntajeTotal] => 0
+            [fecha] => 2025-06-29
+        )
+
+)
+Array
+(
+    [resultados] => Array
+        (
+            [factorV] => 4
+            [factorE] => 0
+            [factorR] => 0
+            [factorN] => 0
+            [factorF] => 0
+            [puntajeTotal] => 6
+            [fecha] => 2025-06-29
+        )
+
+)
+Array
+(
+    [id_usuario] => 
+    [emotividad] => 50
+    [actividad] => 18
+    [resonancia] => 62
+    [tipo_caracterologico] => Sentimental
+    [formula_caracterologica] => ENAS
+    [sexo] => masculino
+    [fecha] => 2025-06-29
+)
+Array
+(
+    [id_usuario] => 
+    [emotividad] => 42
+    [actividad] => 90
+    [resonancia] => 34
+    [tipo_caracterologico] => Sanguíneo
+    [formula_caracterologica] => NEAP
+    [sexo] => masculino
+    [fecha] => 2025-06-29
+)
+Array
+(
+    [id_usuario] => 
+    [emotividad] => 50
+    [actividad] => 58
+    [resonancia] => 34
+    [tipo_caracterologico] => Colérico
+    [formula_caracterologica] => EAP
+    [sexo] => masculino
+    [fecha] => 2025-06-29
+)
+Array
+(
+    [resultados] => Array
+        (
+            [CCFM] => Array
+                (
+                    [total] => 3
+                    [A] => 1
+                    [B] => 2
+                )
+
+            [CCSS] => Array
+                (
+                    [total] => 1
+                    [A] => 1
+                    [B] => 0
+                )
+
+            [CCNA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCCO] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [ARTE] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [BURO] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCEP] => Array
+                (
+                    [total] => 1
+                    [A] => 1
+                    [B] => 0
+                )
+
+            [HAA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [FINA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [LING] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [JURI] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [VERA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CONS] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+        )
+
+    [sexo] => Masculino
+)
+Array
+(
+    [resultados] => Array
+        (
+            [CCFM] => Array
+                (
+                    [total] => 6
+                    [A] => 0
+                    [B] => 6
+                )
+
+            [CCSS] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCNA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCCO] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [ARTE] => Array
+                (
+                    [total] => 1
+                    [A] => 1
+                    [B] => 0
+                )
+
+            [BURO] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCEP] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [HAA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [FINA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [LING] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [JURI] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [VERA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CONS] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+        )
+
+    [sexo] => Masculino
+)
+Array
+(
+    [resultados] => Array
+        (
+            [CCFM] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCSS] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCNA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCCO] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [ARTE] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [BURO] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCEP] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [HAA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [FINA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [LING] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [JURI] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [VERA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CONS] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+        )
+
+    [sexo] => Masculino
+    [fecha] => 2025-06-29
+)
+
+Array
+(
+    [resultados] => Array
+        (
+            [factorV] => 0
+            [factorE] => 0
+            [factorR] => 0
+            [factorN] => 2
+            [factorF] => 0
+            [puntajeTotal] => 2
+            [fecha] => 2025-06-29
+        )
+
+)
+
+Array
+(
+    [resultados] => Array
+        (
+            [factorV] => 0
+            [factorE] => 0
+            [factorR] => 0
+            [factorN] => 0
+            [factorF] => 0
+            [puntajeTotal] => 0
+            [fecha] => 2025-06-29
+        )
+
+)
+

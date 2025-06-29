@@ -383,8 +383,11 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        // Agregar fecha actual
+        const fechaActual = new Date().toISOString().split('T')[0]; // Formato YYYY-MM-DD
+
         // Enviar resultados para guardarlos
-        const payload = { resultados: resultadosCategorias, sexo: sexo };
+        const payload = { resultados: resultadosCategorias, sexo: sexo, fecha: fechaActual };
         fetch('../Controlador/guardarResultadosTest.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -392,16 +395,16 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(response => response.json())
         .then(data => {
-            if (data.message) {
-                console.log('Resultados guardados:', data.message);
+            if (data.exito) { // Cambié data.message a data.exito para alinearse con el PHP
+                console.log('Resultados guardados:', data.mensaje);
             } else {
-                console.error('Error al guardar:', data.error);
-                alert('Error al guardar los resultados: ' + (data.error || 'Desconocido'));
+                console.error('Error al guardar:', data.mensaje);
+                alert('Error al guardar los resultados: ' + (data.mensaje || 'Desconocido'));
             }
         })
         .catch(error => {
             console.error('Error al enviar los datos:', error);
-            alert('Error al guardar los resultados');
+            alert('Error al guardar los resultados: ' + error.message);
         });
 
         const tablaResumen = document.getElementById("tablaResumen");

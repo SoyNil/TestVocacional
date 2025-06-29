@@ -1717,7 +1717,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const r = data.resultado;
 
                 container.innerHTML = `
-                    <div class="card" style="margin: 0; padding: 0; border: none;">
+                    <div class="card-table" style="margin: 0; padding: 0; border: none;">
                         <div class="card-body" style="padding: 0;">
                             <h3>📋 Resultados del test Gastón</h3>
                             <table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse; width: 100%;">
@@ -1761,7 +1761,6 @@ document.addEventListener("DOMContentLoaded", function () {
                             </table>
 
                             <p><strong>Sexo:</strong> ${r.sexo}</p>
-                            <p><strong>Fecha:</strong> ${r.fecha}</p>
                         </div>
                     </div>
                 `;
@@ -1811,7 +1810,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     <tr><td>Razonamiento (R)</td><td>${resultados.factorR}</td><td>30</td></tr>
                                     <tr><td>Cálculo Numérico (N)</td><td>${resultados.factorN}</td><td>70</td></tr>
                                     <tr><td>Fluidez Verbal (F)</td><td>${resultados.factorF}</td><td>75</td></tr>
-                                    <tr><td><strong>Puntaje Total</strong></td><td><strong>${resultados.puntajeTotal}</strong></td><td>-</td></tr>
+                                    <tr><td><strong>Puntaje Total</strong></td><td><strong>${parseFloat(resultados.puntajeTotal).toFixed(2)}</strong></td><td>-</td></tr>
                                 </tbody>
                             </table>
                             <p><strong>Fecha:</strong> ${resultados.fecha}</p>
@@ -1820,11 +1819,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
                 `;
 
+                // Redondear puntajeTotal a 2 decimales
+                const resultadosRedondeados = {
+                    ...resultados,
+                    puntajeTotal: Number(parseFloat(resultados.puntajeTotal).toFixed(2))
+                };
+
                 // Cargar análisis
                 fetch("../Controlador/analizarResultadosPMA.php", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ resultados })
+                    body: JSON.stringify({ resultados: resultadosRedondeados })
                 })
                     .then(res => res.json())
                     .then(analisisData => {
@@ -1839,7 +1844,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         container.querySelector("#analisis-pma").innerHTML = `Error al cargar análisis: ${err.message}`;
                     });
             })
-            
             .catch(err => {
                 container.innerHTML = `<p>Error al cargar resultados: ${err.message}</p>`;
             });
@@ -2178,6 +2182,46 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("Error al eliminar el test CASM-85:", error);
                 alert("Ocurrió un error al eliminar el test.");
             });
+    }
+
+    function eliminarTestPMA(idInicio, idPaciente, pmaSection) {
+        fetch(`../Controlador/eliminarTest.php?id_inicio=${idInicio}&tipo_test=pma`, {
+            method: "POST",
+            credentials: "include"
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.exito) {
+                alert(data.mensaje);
+                verPaciente(idPaciente);
+            } else {
+                alert(`Error al eliminar el test PMA: ${data.mensaje}`);
+            }
+        })
+        .catch(error => {
+            console.error("Error al eliminar el test PMA:", error);
+            alert("Ocurrió un error al eliminar el test.");
+        });
+    }
+
+    function eliminarTestGaston(idInicio, idPaciente, gastonSection) {
+        fetch(`../Controlador/eliminarTest.php?id_inicio=${idInicio}&tipo_test=gaston`, {
+            method: "POST",
+            credentials: "include"
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.exito) {
+                alert(data.mensaje);
+                verPaciente(idPaciente);
+            } else {
+                alert(`Error al eliminar el test Gastón: ${data.mensaje}`);
+            }
+        })
+        .catch(error => {
+            console.error("Error al eliminar el test Gastón:", error);
+            alert("Ocurrió un error al eliminar el test.");
+        });
     }
 
     function generarCodigoInvitacion() {
