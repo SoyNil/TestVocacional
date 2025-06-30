@@ -131,4 +131,62 @@
     "total_tokens": 1176,
     "cached_tokens": 0
   }
+}{
+  "id": "o19FZk1-4Yz4kd-957a7d6f58a4e7ac",
+  "object": "chat.completion",
+  "created": 1751253230,
+  "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+  "prompt": [],
+  "choices": [
+    {
+      "finish_reason": "length",
+      "seed": 10301659009647944000,
+      "logprobs": null,
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "Basado en la conclusión proporcionada, se pueden generar las siguientes recomendaciones vocacionales para el participante:\n\n1. **Carreras relacionadas con la búsqueda de la verdad y la autenticidad**: Debido a su interés en áreas relacionadas con la veracidad, podría considerar carreras en campos como la investigación científica, la criminología, la auditoría, o incluso la filosofía, donde la búsqueda de la verdad y la autenticidad sean fundamentales.\n\n2. **Desarrollo de habilidades en comunicación y lenguaje**: Con una fortaleza notable en la comprensión verbal, el participante podría explorar carreras en áreas como la escritura creativa, la edición, la traducción, o incluso la enseñanza de lenguas, donde sus habilidades verbales sean valoradas.\n\n3. **Exploración de carreras en arte y oficios administrativos**: Aunque sus intereses son dispersos, el arte y los oficios administrativos podrían ofrecer un buen punto de partida. Carreras como la gestión de proyectos de arte, la administración de empresas creativas, o incluso el diseño gráfico, podrían combinar sus intereses de manera efectiva.\n\n4. **Evaluación y mejora de habilidades numéricas y espaciales**: Dado que los puntajes en cálculo numérico y razonamiento espacial son cero, sería beneficioso para el participante buscar evaluaciones adicionales o talleres que ayuden a desarrollar sus habilidades en estas áreas. Esto podría abrir más puertas en términos de carreras que requieren habilidades analíticas y de resolución de problemas.\n\n5. **Desarrollo de la perseverancia y la organización**: Para superar su tendencia a la falta de constancia, sería recomendable que el participante trabajara en desarrollar habilidades de organización y planeación. Esto podría incluir la creación de horarios de estudio, la práctica de técnicas de gestión del tiempo, y el establecimiento de metas a corto y largo plazo.\n\n6. **Entornos de trabajo que fomenten la creatividad**: Debido a su personalidad nerviosa y su tendencia a la reactividad, el participante podría prosperar en entornos de trabajo que valoran",
+        "tool_calls": []
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 680,
+    "completion_tokens": 500,
+    "total_tokens": 1180,
+    "cached_tokens": 0
+  }
+}{
+  "id": "o19GJ2Y-4Yz4kd-957a80ea8d8be7a7",
+  "error": {
+    "message": "You have reached the rate limit specific to this model meta-llama/Llama-3.3-70B-Instruct-Turbo-Free. The maximum rate limit for this model is 6.0 queries and 60000 tokens per minute. This limit differs from the general rate limits published at Together AI rate limits documentation (https://docs.together.ai/docs/rate-limits). For inquiries about increasing your model-specific rate limit, please contact our sales team (https://www.together.ai/forms/contact-sales)",
+    "type": "model_rate_limit",
+    "param": null,
+    "code": null
+  }
+}{
+  "id": "o19Gubs-4Yz4kd-957a83d5cf81e9a5",
+  "object": "chat.completion",
+  "created": 1751253492,
+  "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+  "prompt": [],
+  "choices": [
+    {
+      "finish_reason": "length",
+      "seed": 2226179445110092800,
+      "logprobs": null,
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "Basándonos en la conclusión sobre el perfil vocacional del participante, se generan las siguientes recomendaciones vocacionales específicas y prácticas:\n\n**Carreras y Áreas Profesionales Recomendadas:**\n\n1. **Letras y Lingüística**: Debido a su fortaleza en Comprensión Verbal, el participante podría destacar en carreras relacionadas con el lenguaje, la literatura y la comunicación.\n2. **Diseño y Arte**: Su inclinación hacia el área de ARTE y su tipo caracterológico que valora la creatividad espontánea, sugieren oportunidades en carreras relacionadas con el diseño gráfico, la pintura, la escultura, la fotografía, entre otras.\n3. **Comunicación y Periodismo**: La combinación de su Comprensión Verbal y su interés en áreas como LING y JURI, podría llevarlo a carreras en comunicación, periodismo, relaciones públicas o marketing.\n4. **Educación y Docencia**: Su disciplina y dedicación al aprendizaje, así como su capacidad para comprender y manejar el lenguaje, lo hacen apto para carreras en educación, donde podría enseñar lenguas, literatura o comunicación.\n\n**Trayectorias Educativas:**\n\n1. **Licenciatura en Letras**: Esta carrera le permitiría profundizar en su comprensión del lenguaje y la literatura, preparándolo para carreras en educación, comunicación o escritura.\n2. **Diplomado en Diseño Gráfico**: Un diplomado en diseño gráfico podría ser una excelente opción para desarrollar sus habilidades creativas y técnicas en el área del diseño.\n3. **Certificación en Comunicación**: Una certificación en comunicación podría ser beneficiosa para aquellos interesados en periodismo, marketing o relaciones públicas, permitiéndole desarrollar habilidades específicas en estas áreas.\n\n**Sugerencias para Mejorar Áreas Débiles:**\n\n1. **Desarrollo de Habilidades Numéricas**: Se recomienda que el participante trabaje en mejorar sus habilidades en cálculo numérico y razonamiento espacial a través de cursos o ejercicios prácticos.\n2. **Téc",
+        "tool_calls": []
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 680,
+    "completion_tokens": 500,
+    "total_tokens": 1180,
+    "cached_tokens": 0
+  }
 }

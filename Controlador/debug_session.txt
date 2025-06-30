@@ -348,3 +348,66 @@ Cookies recibidas: Array
 
 PHPSESSID: 2n2ofu6gomvvetd37hhatouqm7
 2025-06-30 04:06:11
+Sesión iniciada: Array
+(
+    [tipo_usuario] => psicologo
+    [id_usuario] => 2
+    [usuario] => admin_jefe
+    [nombre] => Nilton
+    [apellido] => Rojas
+    [correo] => admin@centropsico.com
+    [sexo] => Masculino
+    [fecha_nacimiento] => 1999-05-20
+    [jerarquia] => admin
+    [foto_perfil] => /TestVocacional/Modelo/img/perfiles/perfil_684ca608dfed8.jpg
+)
+
+Cookies recibidas: Array
+(
+    [PHPSESSID] => 2n2ofu6gomvvetd37hhatouqm7
+)
+
+PHPSESSID: 2n2ofu6gomvvetd37hhatouqm7
+2025-06-30 05:13:32
+Sesión iniciada: Array
+(
+    [tipo_usuario] => psicologo
+    [id_usuario] => 2
+    [usuario] => admin_jefe
+    [nombre] => Nilton
+    [apellido] => Rojas
+    [correo] => admin@centropsico.com
+    [sexo] => Masculino
+    [fecha_nacimiento] => 1999-05-20
+    [jerarquia] => admin
+    [foto_perfil] => /TestVocacional/Modelo/img/perfiles/perfil_684ca608dfed8.jpg
+)
+
+Cookies recibidas: Array
+(
+    [PHPSESSID] => 2n2ofu6gomvvetd37hhatouqm7
+)
+
+PHPSESSID: 2n2ofu6gomvvetd37hhatouqm7
+2025-06-30 05:16:12
+Sesión iniciada: Array
+(
+    [tipo_usuario] => psicologo
+    [id_usuario] => 2
+    [usuario] => admin_jefe
+    [nombre] => Nilton
+    [apellido] => Rojas
+    [correo] => admin@centropsico.com
+    [sexo] => Masculino
+    [fecha_nacimiento] => 1999-05-20
+    [jerarquia] => admin
+    [foto_perfil] => /TestVocacional/Modelo/img/perfiles/perfil_684ca608dfed8.jpg
+)
+
+Cookies recibidas: Array
+(
+    [PHPSESSID] => 2n2ofu6gomvvetd37hhatouqm7
+)
+
+PHPSESSID: 2n2ofu6gomvvetd37hhatouqm7
+2025-06-30 05:18:01

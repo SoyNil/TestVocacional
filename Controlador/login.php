@@ -7,8 +7,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $contrasena = $_POST['contrasena'];
 
     // Función para intentar login en una tabla
-    function intentarLogin($conexion, $tabla, $usuario_o_correo, $contrasena) {
-        $sql = "SELECT * FROM $tabla WHERE nombre_usuario = ? OR correo = ?";
+    function intentarLogin($conexion, $tabla, $usuario_o_correo, $contrasena, $campo_usuario, $campo_correo) {
+        $sql = "SELECT * FROM $tabla WHERE $campo_usuario = ? OR $campo_correo = ?";
         $stmt = $conexion->prepare($sql);
         $stmt->bind_param("ss", $usuario_o_correo, $usuario_o_correo);
         $stmt->execute();
@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Intentar login como usuario
-    $usuario = intentarLogin($conexion, 'usuario', $usuario_o_correo, $contrasena);
+    $usuario = intentarLogin($conexion, 'usuario', $usuario_o_correo, $contrasena, 'nombre_usuario', 'correo');
     if ($usuario) {
         $_SESSION['tipo_usuario'] = 'usuario';
         $_SESSION['id_usuario'] = $usuario['id'];
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Intentar login como psicólogo
-    $psicologo = intentarLogin($conexion, 'psicologos', $usuario_o_correo, $contrasena);
+    $psicologo = intentarLogin($conexion, 'psicologos', $usuario_o_correo, $contrasena, 'nombre_usuario', 'correo');
     if ($psicologo) {
         $_SESSION['tipo_usuario'] = 'psicologo';
         $_SESSION['id_usuario'] = $psicologo['id'];
@@ -53,6 +53,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION['jerarquia'] = $psicologo['jerarquia'] ?? '';
         $_SESSION['foto_perfil'] = $psicologo['foto_perfil'] ?? '';
         header("Location: ../Vista/principalpsicologo.html");
+        exit();
+    }
+
+    // Intentar login como institución
+    $institucion = intentarLogin($conexion, 'institucion', $usuario_o_correo, $contrasena, 'nombre_usuario', 'Correo_Apoderado');
+    if ($institucion) {
+        $_SESSION['tipo_usuario'] = 'institucion';
+        $_SESSION['id_usuario'] = $institucion['id'];
+        $_SESSION['usuario'] = $institucion['nombre_usuario'];
+        $_SESSION['nombre'] = $institucion['Nombre'];
+        $_SESSION['apellido'] = $institucion['Apellido'] ?? '';
+        $_SESSION['correo'] = $institucion['Correo_Apoderado'] ?? '';
+        $_SESSION['sexo'] = $institucion['Sexo'] ?? '';
+        $_SESSION['fecha_nacimiento'] = $institucion['Fecha_Nacimiento'] ?? '';
+        $_SESSION['institucion'] = $institucion['Institucion'] ?? '';
+        $_SESSION['nombre_apoderado'] = $institucion['Nombre_Apoderado'] ?? '';
+        $_SESSION['telefono_apoderado'] = $institucion['Telefono_Apoderado'] ?? '';
+        header("Location: ../Vista/principal.html");
         exit();
     }
 

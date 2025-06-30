@@ -200,9 +200,9 @@ document.addEventListener("DOMContentLoaded", function () {
     function mostrarImportarDatos() {
         contenido.innerHTML = `
             <div class="card">
-                <h2>Importar Datos</h2>
+                <h2>Importar Datos de Institución</h2>
                 <form id="form-importar-datos">
-                    <label for="archivo-datos">Seleccione un archivo CSV:</label>
+                    <label for="archivo-datos">Seleccione un archivo CSV (Nombre, Apellido, DNI, Fecha_Nacimiento, Sexo, Institucion, Nombre_Apoderado, Telefono_Apoderado, Correo_Apoderado):</label>
                     <input type="file" id="archivo-datos" name="archivo-datos" accept=".csv" required />
                     <button type="submit">Importar</button>
                 </form>
@@ -210,8 +210,30 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
 
         const formImportarDatos = document.getElementById("form-importar-datos");
+        const loadingModal = document.getElementById('loadingModal');
+        const loadingMessage = document.getElementById('loadingMessage');
+
         formImportarDatos.addEventListener("submit", (e) => {
             e.preventDefault();
+
+            // Validar que se haya seleccionado un archivo
+            const fileInput = document.getElementById('archivo-datos');
+            if (!fileInput.files || fileInput.files.length === 0) {
+                alert("Por favor, seleccione un archivo CSV.");
+                return;
+            }
+
+            // Validar extensión del archivo
+            const fileName = fileInput.files[0].name;
+            if (!fileName.endsWith('.csv')) {
+                alert("El archivo debe tener extensión .csv");
+                return;
+            }
+
+            // Mostrar modal de carga
+            loadingModal.style.display = 'flex';
+            loadingMessage.textContent = 'Importando datos...';
+
             const formData = new FormData(formImportarDatos);
             fetch("../Controlador/importarDatos.php", {
                 method: "POST",
@@ -223,16 +245,21 @@ document.addEventListener("DOMContentLoaded", function () {
                     return res.json();
                 })
                 .then(data => {
+                    loadingModal.style.display = 'none';
                     if (data.exito) {
-                        alert("Datos importados correctamente.");
+                        alert(data.mensaje);
                         formImportarDatos.reset();
                     } else {
-                        alert(`Error: ${data.mensaje}`);
+                        alert(data.mensaje);
                     }
                 })
                 .catch(err => {
                     console.error("Error al importar datos:", err);
-                    alert("Error al importar datos: " + err.message);
+                    loadingMessage.textContent = `Error al importar datos: ${err.message}`;
+                    loadingMessage.style.color = 'red';
+                    setTimeout(() => {
+                        loadingModal.style.display = 'none';
+                    }, 3000);
                 });
         });
     }
@@ -1171,7 +1198,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("generarInforme llamado con:", { idPaciente, idInicio83, idInicio85, idInicioPMA, idInicioGaston });
 
         try {
-            const { Document, Packer, Paragraph, TextRun, ImageRun, HeadingLevel, AlignmentType, Table, TableRow, TableCell, WidthType, BorderStyle } = await import("https://cdn.jsdelivr.net/npm/docx@8.5.0/+esm");
+            const { Document, Packer, Paragraph, TextRun, ImageRun, HeadingLevel, AlignmentType, Table, TableRow, TableCell, WidthType, BorderStyle, Header } = await import("https://cdn.jsdelivr.net/npm/docx@8.5.0/+esm");
 
             if (!idPaciente || !idInicio83 || !idInicio85 || !idInicioPMA || !idInicioGaston) {
                 throw new Error("Faltan parámetros requeridos.");
@@ -1599,17 +1626,25 @@ document.addEventListener("DOMContentLoaded", function () {
             // Crear documento
             const doc = new Document({
                 sections: [{
+                    ...(imageData && {
+                        headers: {
+                            default: new Header({
+                                children: [
+                                    new Paragraph({
+                                        children: [
+                                            new ImageRun({
+                                                data: imageData,
+                                                transformation: { width: 600, height: 100 }
+                                            })
+                                        ],
+                                        alignment: AlignmentType.CENTER
+                                    })
+                                ]
+                            })
+                        }
+                    }),
                     properties: {},
                     children: [
-                        ...(imageData ? [new Paragraph({
-                            children: [
-                                new ImageRun({
-                                    data: imageData,
-                                    transformation: { width: 600, height: 100 }
-                                })
-                            ],
-                            alignment: AlignmentType.CENTER
-                        })] : []),
                         new Paragraph({
                             text: "Informe de Orientación Vocacional",
                             heading: HeadingLevel.HEADING_1,

@@ -349,7 +349,6 @@ input:focus, select:focus {
 
 #tablaCuestionario {
     width: 100%;
-    border-seeking: collapse;
     margin-top: 25px;
     background-color: #2a2a2a;
     border-radius: 10px;

@@ -65,3 +65,4 @@ Cookies: Array
 [2025-06-30 01:20:35] Falta el parámetro id_inicio83.
 [2025-06-30 01:39:53] Método no permitido: GET
 ------[2025-06-30 04:03:51] Error en la solicitud a la API (recomendaciones): HTTP 429, Error: 
+[2025-06-30 05:16:21] Error en la solicitud a la API (recomendaciones): HTTP 429, Error: 
