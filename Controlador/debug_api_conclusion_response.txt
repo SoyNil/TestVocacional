@@ -1,0 +1,151 @@
+{
+  "id": "o18cCdZ-4Yz4kd-9579cb73b8a5cdc9",
+  "object": "chat.completion",
+  "created": 1751245940,
+  "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+  "prompt": [],
+  "choices": [
+    {
+      "finish_reason": "length",
+      "seed": 6314368445602003000,
+      "logprobs": null,
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "El participante, un hombre, muestra una serie de intereses y fortalezas que pueden guiar su orientación vocacional y personal. En cuanto a los intereses vocacionales, destaca una tendencia hacia áreas como la veraz (VERA) con un puntaje significativamente más alto que en las demás categorías, lo que sugiere una inclinación hacia la búsqueda de la verdad y la exactitud. Aunque los puntajes en otras áreas como arte, burocracia, ciencias económicas y políticas, humanidades, artes y ciencias, finanzas, lingüística, y jurídica son bajos pero presentes, indican una cierta curiosidad y apertura hacia diversas disciplinas.\n\nEn términos de hábitos de estudio, el participante obtiene puntajes muy positivos en cómo estudia, hace tareas, prepara exámenes y escucha clases, lo que refleja una actitud proactiva y responsable hacia el aprendizaje. Sin embargo, la acompañante de sus momentos de estudio recibe una calificación positiva pero menos destacada, lo que podría sugerir áreas de mejora en la concentración o el manejo del tiempo.\n\nLas aptitudes mentales primarias muestran una fortaleza notable en la comprensión verbal, con un puntaje de 30 sobre 50, lo que indica una buena capacidad para entender y procesar información lingüística. Sin embargo, los puntajes en razonamiento espacial, razonamiento, cálculo numérico y fluidez verbal son muy bajos, lo que podría indicar debilidades en la resolución de problemas espaciales, la lógica, las matemáticas y la generación de ideas verbales.\n\nEn cuanto a la personalidad, el participante es catalogado como un tipo nervioso, caracterizado por una gran emotividad y una tendencia a ser reactivo e impulsivo. Aunque esto puede ser beneficioso en entornos que requieren creatividad espontánea, también sugiere que el participante podría beneficiarse del desarrollo de habilidades para gestionar su emotividad y mejorar su constancia y perseverancia.\n\nEn resumen, el participante tiene una base sólida en comprensión verbal y muestra una actitud positiva hacia el estudio. Sin embargo, enfrent",
+        "tool_calls": []
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 943,
+    "completion_tokens": 500,
+    "total_tokens": 1443,
+    "cached_tokens": 0
+  }
+}{
+  "id": "o18hgY4-4Yz4kd-9579e58bfcb3e7a7",
+  "object": "chat.completion",
+  "created": 1751247009,
+  "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+  "prompt": [],
+  "choices": [
+    {
+      "finish_reason": "length",
+      "seed": 17457048477931560000,
+      "logprobs": null,
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "El participante, un hombre, presenta una variedad de intereses vocacionales dispersos, con un ligero énfasis en áreas como VERA, que sugiere una inclinación hacia campos que involucran la creatividad y la expresión. Sin embargo, es notable que none de las categorías del CASM-83 obtuvo un puntaje muy alto, lo que podría indicar una exploración aún en curso de sus intereses profesionales.\n\nEn cuanto a sus hábitos de estudio, el participante muestra una actitud muy positiva hacia el estudio, la realización de tareas y la preparación para exámenes. Esto sugiere que es alguien responsable y comprometido con su educación. La única área donde su puntaje es ligeramente menor es en lo que acompaña sus momentos de estudio, lo que podría indicar que aún necesita trabajar en crear un entorno de estudio óptimo.\n\nDesde el punto de vista de las aptitudes mentales, el participante presenta un perfil desigual. Destaca en comprensión verbal, lo que sugiere fuertes habilidades lingüísticas y de comunicación. Sin embargo, sus puntajes en razonamiento espacial, razonamiento, cálculo numérico y fluidez verbal son significativamente más bajos, lo que podría indicar áreas donde necesita mejorar o buscar apoyo adicional.\n\nEn términos de personalidad, según el test de Gastón, el participante se identifica como un tipo caracterológico \"Nervioso\". Esto significa que tiende a ser reactivo e impulsivo, con una gran capacidad para experimentar emociones intensas. Aunque esto puede ser beneficioso en entornos que requieren creatividad y espontaneidad, también sugiere que el participante podría beneficiarse del desarrollo de habilidades para manejar el estrés y mejorar su constancia y perseverancia.\n\nEn resumen, el participante presenta una combinación de fortalezas y debilidades que pueden guiar su desarrollo personal y profesional. Con una base sólida en hábitos de estudio y comprensión verbal, pero con áreas de mejora en aptitudes mentales y manejo de la personalidad, es crucial que busque entornos y oportunidades que aprovechen al máximo sus puntos fuertes mientras trabaja en sus aspectos de crecimiento",
+        "tool_calls": []
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 943,
+    "completion_tokens": 500,
+    "total_tokens": 1443,
+    "cached_tokens": 0
+  }
+}{
+  "id": "o18pfiZ-4Yz4kd-957a06d6ea343d82",
+  "object": "chat.completion",
+  "created": 1751248373,
+  "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+  "prompt": [],
+  "choices": [
+    {
+      "finish_reason": "length",
+      "seed": 1015672524318991700,
+      "logprobs": null,
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "El participante, un hombre, presenta una combinación única de intereses vocacionales, hábitos de estudio, aptitudes mentales y características de personalidad. En cuanto a los intereses vocacionales, muestra una leve inclinación hacia diversas áreas, como arte, oficios, ciencias contables y financieras, aunque no destaca significativamente en ninguna categoría específica, excepto por una ligera preferencia hacia actividades más verbales y creativas, como se sugiere por su puntaje en VERA.\n\nEn el ámbito de los hábitos de estudio, se comporta de manera muy positiva, demostrando una gran eficacia en cómo estudia, realiza tareas, prepara exámenes y escucha clases. Esto indica una excelente capacidad para manejar el tiempo y las responsabilidades académicas de forma efectiva. Sin embargo, cuando se trata de lo que acompaña sus momentos de estudio, su puntaje es ligeramente más bajo, lo que podría sugerir una pequeña área de mejora en términos de concentración o ambiente de estudio.\n\nEn lo que respecta a las aptitudes mentales, el participante muestra una mayor fortaleza en la comprensión verbal, con un puntaje de 30 sobre 50, lo que sugiere una buena capacidad para entender y procesar información verbal. Sin embargo, sus puntajes en razonamiento espacial, razonamiento, cálculo numérico y fluidez verbal son significativamente más bajos, indicando posibles áreas de debilidad en la resolución de problemas espaciales, numéricos y en la generación de ideas verbales.\n\nFinalmente, su tipo caracterológico se define como \"Nervioso\", según el test de Gastón, lo que implica una personalidad reactiva e impulsiva, con una tendencia a experimentar emociones intensas. Aunque esto puede ser beneficioso en entornos que requieren creatividad espontánea, también sugiere la necesidad de trabajar en la organización y la perseverancia para alcanzar metas a largo plazo.\n\nEn resumen, el participante muestra fortalezas en sus hábitos de estudio y una comprensión verbal adecuada, pero también enfrenta desafíos en términos de aptitudes mentales en áreas como el razon",
+        "tool_calls": []
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 943,
+    "completion_tokens": 500,
+    "total_tokens": 1443,
+    "cached_tokens": 0
+  }
+}{
+  "id": "o18r82n-4Yz4kd-957a0dc56c04cdc9",
+  "object": "chat.completion",
+  "created": 1751248656,
+  "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+  "prompt": [],
+  "choices": [
+    {
+      "finish_reason": "length",
+      "seed": 4537242801964670000,
+      "logprobs": null,
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "El participante, un hombre, muestra una clara inclinación hacia intereses vocacionales en la categoría CCFM, con un puntaje notable de 24, lo que sugiere una fuerte afinidad por carreras relacionadas con la ciencia, la tecnología, la ingeniería y las matemáticas. Esta inclinación se ve reflejada en su capacidad para abordar tareas y proyectos de manera estructurada y lógica.\n\nEn cuanto a sus hábitos de estudio, el participante demuestra una actitud muy positiva en casi todas las áreas evaluadas. Su capacidad para estudiar de manera efectiva, completar tareas y prepararse para exámenes de forma organizada indica una gran disciplina y responsabilidad en su enfoque académico. Sin embargo, presenta un puntaje ligeramente menor en lo que respecta a qué acompaña sus momentos de estudio, lo que podría sugerir una leve distracción o falta de concentración en determinados momentos.\n\nDesde el punto de vista de las aptitudes mentales, el participante muestra una fortaleza notable en la comprensión verbal, con un puntaje de 30 sobre 50. Esto indica una excelente capacidad para entender y procesar información verbal, lo que es fundamental para el éxito en muchas áreas académicas y profesionales. Sin embargo, no se tienen datos sobre otras aptitudes mentales como el razonamiento espacial, el cálculo numérico y la fluidez verbal, lo que limita la visión completa de sus habilidades cognitivas.\n\nEn términos de personalidad, el participante se identifica como un tipo caracterológico \"Nervioso\" según el test de Gastón. Esto significa que tiende a ser reactivo e impulsivo, con una gran emotividad pero también con una tendencia a carecer de constancia en sus esfuerzos. Aunque esta característica puede hacerlo ideal para entornos que requieren creatividad espontánea, también sugiere que podría beneficiarse del desarrollo de habilidades para mejorar su organización y perseverancia.\n\nEn resumen, el participante presenta una combinación única de intereses vocacionales en áreas científicas y tecnológicas, hábitos de estudio muy positivos, una notable comprensión verbal y un tipo de personalidad que, aunque tiene sus",
+        "tool_calls": []
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 943,
+    "completion_tokens": 500,
+    "total_tokens": 1443,
+    "cached_tokens": 0
+  }
+}{
+  "id": "o18sx3w-4Yz4kd-957a1676cb7eb4da",
+  "object": "chat.completion",
+  "created": 1751249013,
+  "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+  "prompt": [],
+  "choices": [
+    {
+      "finish_reason": "length",
+      "seed": 15451967157285612000,
+      "logprobs": null,
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "El participante, un hombre, presenta una variedad de intereses vocacionales dispersos, con un enfoque particular en áreas como el arte, la oficina y la expresión verbal, según se desprende de sus resultados en el CASM-83. Si bien no hay un interés dominante, esta diversidad sugiere una personalidad curiosa y abierta a diferentes campos. Sin embargo, es importante destacar que sus puntajes más altos se encuentran en áreas como VERA, lo que podría indicar una inclinación hacia la creatividad y la expresión personal.\n\nEn cuanto a sus hábitos de estudio, evaluados mediante el CASM-85, el participante muestra un patrón muy positivo en cómo aborda el estudio, la realización de tareas y la preparación para exámenes. Esta actitud proactiva y enfocada hacia el aprendizaje es un activo significativo, sugiriendo que tiene las herramientas necesarias para enfrentar desafíos académicos con eficacia. La única área con un puntaje ligeramente más bajo se refiere a lo que acompaña sus momentos de estudio, categorizado como \"positivo\", lo que podría indicar algunas distracciones o falta de concentración en ciertos momentos.\n\nLos resultados del PMA revelan una distribución desigual de las aptitudes mentales primarias. Con un puntaje notable en Comprensión Verbal, pero puntajes significativamente más bajos en otras áreas como Razonamiento Espacial, Razonamiento, Cálculo Numérico y Fluidez Verbal, se sugiere que el participante tiene fortalezas en el entendimiento y procesamiento de información verbal, pero podría necesitar trabajar en el desarrollo de otras habilidades cognitivas para alcanzar un desempeño más equilibrado.\n\nFinalmente, según el test de Gastón, el participante tiene un tipo caracterológico clasificado como \"Nervioso\", caracterizado por una combinación de emotividad, baja actividad y resonancia primaria. Esto lo hace reactivo e impulsivo, con tendencias hacia la experimentación de emociones intensas, pero también con desafíos potenciales en términos de constancia y perseverancia. Su ideal entorno laboral o de estudio sería aquel que valoriza la creat",
+        "tool_calls": []
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 943,
+    "completion_tokens": 500,
+    "total_tokens": 1443,
+    "cached_tokens": 0
+  }
+}{
+  "id": "o18tipR-4Yz4kd-957a1a24ea88b531",
+  "object": "chat.completion",
+  "created": 1751249163,
+  "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+  "prompt": [],
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "seed": 13218239619492340000,
+      "logprobs": null,
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "El participante, un hombre, presenta un perfil interesante en términos de intereses vocacionales, hábitos de estudio, aptitudes mentales y características de personalidad. En cuanto a sus intereses vocacionales, se observa una tendencia hacia diversas áreas, con puntajes bajos pero consistentes en la mayoría de las categorías del CASM-83, excepto en \"VERA\" donde muestra un puntaje ligeramente más alto. Esto sugiere una curiosidad y apertura hacia múltiples campos, sin una inclinación marcada hacia alguna área en particular. \n\nEn lo que respecta a sus hábitos de estudio, el participante demuestra una actitud muy positiva hacia el estudio, la realización de tareas y la preparación para exámenes, lo que indica disciplina y responsabilidad en su enfoque académico. Sin embargo, el acompañamiento en sus momentos de estudio es calificado como positivo, lo que podría sugerir una oportunidad para mejorar la concentración o el ambiente de estudio.\n\nLos resultados de las aptitudes mentales primarias (PMA) arrojan puntajes de 0 en todas las categorías, lo que podría indicar áreas donde el participante necesita desarrollar habilidades o donde podría requerir apoyo adicional para mejorar su desempeño.\n\nFinalmente, su tipo caracterológico según el test de Gastón es Colérico, lo que lo define como apasionado, impulsivo y con fuertes inclinaciones hacia el liderazgo. Estas características pueden ser ventajosas en entornos dinámicos y que requieren iniciativa, pero también sugieren que el participante debe trabajar en la gestión de sus emociones para mejorar sus relaciones interpersonales y evitar reacciones intensas ante la frustración.\n\nEn resumen, el participante muestra una personalidad dinámica y líder, con una actitud positiva hacia el estudio y el aprendizaje, pero con áreas de mejora en términos de aptitudes mentales y gestión emocional. Con el desarrollo de estas habilidades y la conciencia de su propio perfil, tiene el potencial para desempeñarse exitosamente en diversas áreas, siempre y cuando encuentre un equilibrio entre su impulsividad y la necesidad de gestión emocional.",
+        "tool_calls": []
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 972,
+    "completion_tokens": 497,
+    "total_tokens": 1469,
+    "cached_tokens": 0
+  }
+}

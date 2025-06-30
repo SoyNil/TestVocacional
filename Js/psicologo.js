@@ -1,3 +1,4 @@
+import tiposCaracterologicos from './infoGaston.js';
 document.addEventListener("DOMContentLoaded", function () {
     let intervaloReloj = null;
     let mostrandoCodigos = false;
@@ -1162,6 +1163,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     async function generarInforme(idPaciente, idInicio83, idInicio85, idInicioPMA, idInicioGaston) {
+        // Mostrar modal de carga
+        const loadingModal = document.getElementById('loadingModal');
+        const loadingMessage = document.getElementById('loadingMessage');
+        loadingModal.style.display = 'flex';
+        loadingMessage.textContent = 'Generando informe...';
         console.log("generarInforme llamado con:", { idPaciente, idInicio83, idInicio85, idInicioPMA, idInicioGaston });
 
         try {
@@ -1224,28 +1230,54 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             // Obtener análisis
-            const [analisisRespuesta83, analisisRespuesta85, analisisRespuestaPMA] = await Promise.all([
+            const [analisisRespuesta83, analisisRespuesta85, analisisRespuestaPMA, analisisConclusiones] = await Promise.all([
                 fetch("../Controlador/analizarResultadosCASM83.php", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ resultados: resultadosCategorias83, sexo: res83.resultados[0].sexo || "Desconocido" })
+                    body: JSON.stringify({ resultados: resultadosCategorias83, sexo: res83.resultados[0].sexo || "Desconocido" }),
+                    credentials: "include"
                 }).then(res => res.json()),
                 fetch("../Controlador/analizarResultados.php", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ resultados: res85.resultados })
+                    body: JSON.stringify({ resultados: res85.resultados }),
+                    credentials: "include"
                 }).then(res => res.json()),
                 fetch("../Controlador/analizarResultadosPMA.php", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ resultados: respma.resultados })
+                    body: JSON.stringify({ resultados: respma.resultados }),
+                    credentials: "include"
+                }).then(res => res.json()),
+                fetch("../Controlador/analizarConclusiones.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        resultados83: res83.resultados,
+                        resultados85: res85.resultados,
+                        resultadosPMA: respma.resultados,
+                        resultadoGaston: resGaston.resultado
+                    }),
+                    credentials: "include"
                 }).then(res => res.json())
             ]);
 
             const analisis83 = analisisRespuesta83.exito ? analisisRespuesta83.analisis : "No hay análisis vinculados a este intento";
             const analisis85 = analisisRespuesta85.exito ? analisisRespuesta85.analisis : "No hay análisis vinculados a este intento";
             const analisisPMA = analisisRespuestaPMA.exito ? analisisRespuestaPMA.analisis : "No hay análisis vinculados a este intento";
+            const conclusion = analisisConclusiones.exito ? analisisConclusiones.conclusion : "No se pudo generar la conclusión";
+            const recomendaciones = analisisConclusiones.exito ? analisisConclusiones.recomendaciones : "No se pudieron generar las recomendaciones";
 
+            // Obtener característica general para Gastón
+            const tipoGaston = resultadoGaston.tipo_caracterologico || "Desconocido";
+            const infoGaston = tiposCaracterologicos[tipoGaston] || {
+                formula: "Desconocida",
+                caracteristicasGenerales: "No disponible",
+                aspectosPositivos: "No disponible",
+                aspectosNegativos: "No disponible",
+                normasAutoeducativas: "No disponible"
+            };
+            const caracteristicaGeneral = infoGaston.caracteristicasGenerales;
 
             // Definir rangos de percentiles para CASM-83 según sexo
             const rangosCASM83 = (res83.resultados[0].sexo === "Masculino" ? [
@@ -1487,9 +1519,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 rows: [
                     new TableRow({
                         children: [
-                            new TableCell({ children: [new Paragraph("Área")], columnSpan: 1, borders: {}, }),
-                            new TableCell({ children: [new Paragraph("Puntaje")], columnSpan: 1, borders: {}, }),
-                            new TableCell({ children: [new Paragraph("Tipo Caracterológico")], columnSpan: 1, borders: {}, }),
+                            new TableCell({ children: [new Paragraph("Área")], columnSpan: 1, borders: {} }),
+                            new TableCell({ children: [new Paragraph("Puntaje")], columnSpan: 1, borders: {} }),
+                            new TableCell({ children: [new Paragraph("Tipo Caracterológico")], columnSpan: 1, borders: {} }),
                         ]
                     }),
                     new TableRow({
@@ -1623,6 +1655,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         new Paragraph("- Inventario de hábitos de estudio CASM-85"),
                         new Paragraph("- Inventario de intereses vocacionales CASM-83"),
                         new Paragraph("- Test de Aptitudes Mentales Primarias (PMA)"),
+                        new Paragraph("- Test Gastón"),
                         new Paragraph({
                             text: "V. Resultados Obtenidos",
                             heading: HeadingLevel.HEADING_2,
@@ -1632,27 +1665,41 @@ document.addEventListener("DOMContentLoaded", function () {
                             text: "Hábitos de Estudio (CASM-85)",
                             heading: HeadingLevel.HEADING_3
                         }),
-                        new Paragraph(analisis85),
+                        new Paragraph({
+                            text: analisis85,
+                            spacing: { after: 100 },
+                            alignment: AlignmentType.JUSTIFIED
+                        }),
                         new Table({
                             rows: tablaCASM85Rows,
-                            width: { size: "100%", type: WidthType.PERCENTAGE }
+                            width: { size: "100%", type: WidthType.PERCENTAGE },
+                            alignment: AlignmentType.JUSTIFIED
                         }),
                         new Paragraph({
                             text: "Intereses Vocacionales y Ocupacionales (CASM-83)",
                             heading: HeadingLevel.HEADING_3,
                             spacing: { before: 200 }
                         }),
-                        new Paragraph(analisis83),
+                        new Paragraph({
+                            text: analisis83,
+                            spacing: { after: 100 },
+                            alignment: AlignmentType.JUSTIFIED
+                        }),
                         new Table({
                             rows: tablaCASM83Rows,
-                            width: { size: "100%", type: WidthType.PERCENTAGE }
+                            width: { size: "100%", type: WidthType.PERCENTAGE },
+                            alignment: AlignmentType.JUSTIFIED
                         }),
                         new Paragraph({
                             text: "Aptitudes Mentales Primarias (PMA)",
                             heading: HeadingLevel.HEADING_3,
                             spacing: { before: 200 }
                         }),
-                        new Paragraph(analisisPMA),
+                        new Paragraph({
+                            text: analisisPMA,
+                            spacing: { after: 100 },
+                            alignment: AlignmentType.JUSTIFIED
+                        }),
                         new Table({
                             rows: tablaPMARows,
                             width: { size: "100%", type: WidthType.PERCENTAGE }
@@ -1663,15 +1710,36 @@ document.addEventListener("DOMContentLoaded", function () {
                             spacing: { before: 200 }
                         }),
                         new Paragraph({
-                            text: `Resultados obtenidos el ${resGaston.resultado.fecha ?? "N/A"} - Sexo: ${resGaston.resultado.sexo ?? "N/A"}`,
-                            spacing: { after: 100 }
+                            text: caracteristicaGeneral,
+                            spacing: { after: 100 },
+                            alignment: AlignmentType.JUSTIFIED
                         }),
                         tablaGastonVisual1,
                         new Paragraph({
                             text: "",
-                            spacing: { after: 200 } // 200 equivale a un espacio visual notable
+                            spacing: { after: 100 }
                         }),
-                        tablaGastonVisual2
+                        tablaGastonVisual2,
+                        new Paragraph({
+                            text: "VI. Conclusión",
+                            heading: HeadingLevel.HEADING_2,
+                            spacing: { before: 200 }
+                        }),
+                        new Paragraph({
+                            text: conclusion,
+                            spacing: { after: 100 },
+                            alignment: AlignmentType.JUSTIFIED
+                        }),
+                        new Paragraph({
+                            text: "VII. Recomendaciones",
+                            heading: HeadingLevel.HEADING_2,
+                            spacing: { before: 200 }
+                        }),
+                        new Paragraph({
+                            text: recomendaciones,
+                            spacing: { after: 100 },
+                            alignment: AlignmentType.JUSTIFIED
+                        })
                     ]
                 }]
             });
@@ -1690,18 +1758,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
             }
+
+            loadingModal.style.display = 'none';
         } catch (error) {
-            console.error("Error al generar informe:", error);
-            alert(`Error al generar el informe: ${error.message}. Intenta de nuevo.`);
+            console.error("Error al generar el informe:", error);
+            // Mostrar mensaje de error en el modal
+            loadingMessage.textContent = `Error al generar el informe: ${error.message}`;
+            loadingMessage.style.color = 'red';
+            // Ocultar modal después de 3 segundos
+            setTimeout(() => {
+                loadingModal.style.display = 'none';
+            }, 3000);
         }
     }
 
     function cargarResultadosGaston(idTest, container) {
-        console.log("🧪 ID recibido para cargar Gastón:", idTest); // <-- Agregado
+        console.log("🧪 ID recibido para cargar Gastón:", idTest);
         container.innerHTML = `<p>Cargando resultados...</p>`;
 
         fetch(`../Controlador/obtenerResultadosGastonGeneral.php?id_inicio=${idTest}`, { credentials: "include" })
-
             .then(response => {
                 if (!response.ok) {
                     throw new Error("Error al obtener resultados: " + response.status);
@@ -1715,6 +1790,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 const r = data.resultado;
+                const tipo = r.tipo_caracterologico;
+                const info = tiposCaracterologicos[tipo] || {
+                    formula: "Desconocida",
+                    caracteristicasGenerales: "No disponible",
+                    aspectosPositivos: "No disponible",
+                    aspectosNegativos: "No disponible",
+                    normasAutoeducativas: "No disponible"
+                };
+
+                const factores = [
+                    r.emotividad >= (r.sexo.toLowerCase() === 'masculino' ? 48 : 51) ? 'Emotivo' : 'No Emotivo',
+                    r.actividad >= 55 ? 'Activo' : 'No Activo',
+                    r.resonancia >= 55 ? 'Secundario' : 'Primario'
+                ];
 
                 container.innerHTML = `
                     <div class="card-table" style="margin: 0; padding: 0; border: none;">
@@ -1744,7 +1833,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                     </tr>
                                 </tbody>
                             </table>
-
                             <table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse; width: 100%; margin-top: 15px;">
                                 <thead>
                                     <tr>
@@ -1754,16 +1842,31 @@ document.addEventListener("DOMContentLoaded", function () {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>${r.lectura_factores}</td>
+                                        <td>${factores.join(', ')}</td>
                                         <td>${r.formula_caracterologica}</td>
                                     </tr>
                                 </tbody>
                             </table>
-
                             <p><strong>Sexo:</strong> ${r.sexo}</p>
+                            <div style="margin-top: 20px;">
+                                <label for="selector-detalles">Detalles del tipo caracterológico:</label>
+                                <select id="selector-detalles" class ="selector-detalles" style="margin-bottom: 10px;">
+                                    <option value="caracteristicasGenerales">Características Generales</option>
+                                    <option value="aspectosPositivos">Aspectos Tendenciales Positivos</option>
+                                    <option value="aspectosNegativos">Aspectos Tendenciales Negativos</option>
+                                    <option value="normasAutoeducativas">Normas Autoeducativas</option>
+                                </select>
+                                <div id="detalles-contenido">${info.caracteristicasGenerales}</div>
+                            </div>
                         </div>
                     </div>
                 `;
+
+                const selectorDetalles = container.querySelector("#selector-detalles");
+                const detallesContenido = container.querySelector("#detalles-contenido");
+                selectorDetalles.addEventListener("change", () => {
+                    detallesContenido.innerHTML = info[selectorDetalles.value];
+                });
             })
             .catch(error => {
                 console.error("Error al cargar resultados del test Gastón:", error);

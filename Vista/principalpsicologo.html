@@ -6,7 +6,7 @@
     <title>Panel de control</title>
     <link rel="stylesheet" href="../Modelo/estiloPsicologo.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <script src="../Js/psicologo.js" defer></script>
+    <script type="module" src="../Js/psicologo.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
 </head>
 <body>
@@ -16,6 +16,13 @@
             <span class="logo-text">IllaVocacional</span>
         </div>
     </header>
+    <!-- Modal de carga -->
+<div id="loadingModal" class="modal_spinner" style="display: none;">
+    <div class="modal-content_spinner">
+        <div class="spinner"></div>
+        <p id="loadingMessage">Generando informe...</p>
+    </div>
+</div>
 
     <div class="main-container">
         <aside class="sidebar">

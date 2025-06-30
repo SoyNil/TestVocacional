@@ -1,0 +1,134 @@
+{
+  "id": "o18cL4z-4Yz4kd-9579cc13eb0dcdc9",
+  "object": "chat.completion",
+  "created": 1751245965,
+  "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+  "prompt": [],
+  "choices": [
+    {
+      "finish_reason": "length",
+      "seed": 17352953416034890000,
+      "logprobs": null,
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "Basado en la conclusión sobre el perfil vocacional del participante, se generan las siguientes recomendaciones vocacionales:\n\n**Carreras y áreas profesionales recomendadas:**\n\n1. **Investigación y análisis**: Debido a su inclinación hacia la búsqueda de la verdad y la exactitud, el participante podría destacar en carreras relacionadas con la investigación y el análisis en diversas áreas, como la ciencia, la historia o la filosofía.\n2. **Comunicación y escritura**: Su fortaleza en comprensión verbal y su capacidad para procesar información lingüística lo hacen apto para carreras en comunicación, escritura, edición o periodismo.\n3. **Educación**: Su actitud proactiva y responsable hacia el aprendizaje lo convierten en un candidato ideal para una carrera en educación, donde podría compartir su conocimiento y pasión por el aprendizaje con otros.\n\n**Áreas de mejora y sugerencias:**\n\n1. **Desarrollo de habilidades de resolución de problemas**: Para superar sus debilidades en razonamiento espacial y cálculo numérico, se sugiere que el participante busque oportunidades para desarrollar estas habilidades a través de cursos, talleres o proyectos que impliquen resolución de problemas.\n2. **Mejora de la concentración y el manejo del tiempo**: Para optimizar su proceso de estudio, se recomienda que el participante trabaje en mejorar su concentración y manejo del tiempo, estableciendo metas y objetivos claros, y utilizando técnicas de gestión del tiempo efectivas.\n3. **Gestión de la emotividad y desarrollo de la constancia**: Debido a su personalidad nerviosa y reactiva, se sugiere que el participante busque estrategias para gestionar su emotividad y mejorar su constancia, como la meditación, el ejercicio físico o la terapia.\n4. **Exploración de intereses**: Aunque el participante tiene una inclinación hacia la veraz, se recomienda que explore otras áreas de interés, como el arte, la lingüística o las ciencias, para descubrir nuevas pasiones y talentos.\n\n**Trayectorias educativas recomendadas:**\n\n1. **Licenciatura en Filosofía",
+        "tool_calls": []
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 680,
+    "completion_tokens": 500,
+    "total_tokens": 1180,
+    "cached_tokens": 0
+  }
+}{
+  "id": "o18hjnv-4Yz4kd-9579e5d7cf2fe7dc",
+  "object": "chat.completion",
+  "created": 1751247020,
+  "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+  "prompt": [],
+  "choices": [
+    {
+      "finish_reason": "length",
+      "seed": 7765909105249200000,
+      "logprobs": null,
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "Basándonos en la conclusión sobre el perfil vocacional del participante, podemos generar recomendaciones vocacionales específicas y prácticas para ayudarle a encontrar un camino profesional que se alinee con sus fortalezas, intereses, aptitudes, hábitos de estudio y personalidad.\n\n**Recomendaciones vocacionales:**\n\n1. **Carreras creativas y de expresión:** Considerando su inclinación hacia la creatividad y la expresión, el participante podría explorar carreras en áreas como:\n * Artes visuales (pintura, escultura, fotografía)\n * Música (composición, interpretación)\n * Literatura (escritura creativa, periodismo)\n * Teatro o cine (actuación, dirección)\n * Diseño gráfico o de interiores\n2. **Comunicación y lingüística:** Debido a sus fuertes habilidades lingüísticas y de comunicación, el participante podría considerar carreras en:\n * Periodismo\n * Relaciones públicas\n * Marketing y publicidad\n * Traducción o interpretación\n * Enseñanza de lenguas\n3. **Desarrollo de habilidades:** Para mejorar en áreas como el razonamiento espacial, el cálculo numérico y la fluidez verbal, el participante podría:\n * Participar en cursos o talleres de desarrollo de habilidades cognitivas\n * Practicar ejercicios de lógica y resolución de problemas\n * Leer libros o artículos que desafíen su comprensión y análisis\n\n**Áreas profesionales:**\n\n1. **Industria creativa:** El participante podría explorar oportunidades en la industria creativa, como:\n * Empresas de publicidad y marketing\n * Estudios de diseño o producción de contenido\n * Empresas de tecnología y desarrollo de software\n2. **Educación y capacitación:** Debido a su actitud positiva hacia el estudio y la preparación, el participante podría considerar carreras en:\n * Enseñanza en escuelas o universidades\n * Capacitación y desarrollo de habilidades en empresas\n * Creación de contenido educativo en línea\n\n**Trayectorias educativas:**\n\n1. **Licenciaturas en artes y humanidades:** El participante podría consider",
+        "tool_calls": []
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 680,
+    "completion_tokens": 500,
+    "total_tokens": 1180,
+    "cached_tokens": 0
+  }
+}{
+  "id": "o18ppeo-4Yz4kd-957a07953940484e",
+  "object": "chat.completion",
+  "created": 1751248403,
+  "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+  "prompt": [],
+  "choices": [
+    {
+      "finish_reason": "length",
+      "seed": 4357542138817779000,
+      "logprobs": null,
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "Basado en la conclusión proporcionada, te ofrezco las siguientes recomendaciones vocacionales:\n\n**Carreras y áreas profesionales recomendadas:**\n\n1. **Comunicación y Arte**: Considerando tu inclinación hacia actividades verbales y creativas, carreras en comunicación, periodismo, publicidad, diseño gráfico o arte podrían ser una buena opción. Estas áreas te permitirán expresar tu creatividad y habilidades verbales.\n2. **Finanzas y Contabilidad**: Aunque no destacas significativamente en estas áreas, tu interés en ciencias contables y financieras sugiere que podrías encontrar un buen ajuste en carreras como contabilidad, finanzas, economía o administración de empresas.\n3. **Oficios y Diseño**: Tu interés en oficios y actividades manuales podría llevar-te a considerar carreras en diseño de interiores, arquitectura, ingeniería o artes visuales.\n\n** Trayectorias educativas recomendadas:**\n\n1. **Cursos de comunicación y expresión verbal**: Para fortalecer tus habilidades verbales y creativas, considera tomar cursos de comunicación, escritura creativa, oratoria o teatro.\n2. **Cursos de finanzas y contabilidad**: Si decides explorar carreras en finanzas y contabilidad, considera tomar cursos de contabilidad, finanzas, economía o administración de empresas para desarrollar tus habilidades en estas áreas.\n3. **Cursos de diseño y oficios**: Si te interesa el diseño y los oficios, considera tomar cursos de diseño gráfico, diseño de interiores, arquitectura o artes visuales para desarrollar tus habilidades en estas áreas.\n\n**Sugerencias para mejorar áreas débiles:**\n\n1. **Desarrollar habilidades de concentración y ambiente de estudio**: Para mejorar tus hábitos de estudio, considera crear un espacio de estudio tranquilo y libre de distracciones, y establecer un horario de estudio regular.\n2. **Practicar razonamiento espacial y numérico**: Para mejorar tus aptitudes mentales en razonamiento espacial y numérico, considera practicar ejercicios de lógica, rompecabezas o juegos de estrategia.\n3. **Trabajar en",
+        "tool_calls": []
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 681,
+    "completion_tokens": 500,
+    "total_tokens": 1181,
+    "cached_tokens": 0
+  }
+}{
+  "id": "o18rDWN-4Yz4kd-957a0e34d981b4ef",
+  "object": "chat.completion",
+  "created": 1751248675,
+  "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+  "prompt": [],
+  "choices": [
+    {
+      "finish_reason": "length",
+      "seed": 15293778359012460000,
+      "logprobs": null,
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "Basándonos en la conclusión sobre el perfil vocacional del participante, se generan las siguientes recomendaciones vocacionales específicas y prácticas:\n\n1. **Carreras en Ciencia, Tecnología, Ingeniería y Matemáticas (STEM):** Debido a su fuerte afinidad por estas áreas, se sugiere explorar carreras como Ingeniería en Computación, Ciencias de la Computación, Física, Matemáticas Aplicadas, Ingeniería Mecánica, Ingeniería Eléctrica, o Biología. Estas carreras aprovechan su capacidad para abordar tareas de manera estructurada y lógica.\n\n2. **Desarrollo de Habilidades para Mejorar la Concentración y la Organización:** Para abordar la leve distracción o falta de concentración en momentos de estudio, sería beneficioso que el participante desarrolle estrategias para mejorar su enfoque, como la técnica Pomodoro, el uso de aplicaciones para bloquear redes sociales durante el estudio, o la creación de un entorno de estudio libre de distracciones.\n\n3. **Cursos de Mejora en Aptitudes Mentales:** Aunque muestra una fortaleza en la comprensión verbal, sería útil que explore cursos o actividades que mejoren otras aptitudes mentales como el razonamiento espacial, el cálculo numérico y la fluidez verbal. Esto podría incluir puzzles, juegos de estrategia, cursos en línea de matemáticas y lógica, o participación en competencias de debate para mejorar la fluidez verbal.\n\n4. **Programas de Desarrollo de Habilidades Personales:** Considerando su tipo de personalidad \"Nervioso\" según el test de Gastón, sería beneficioso que participe en programas o talleres diseñados para mejorar la organización, la perseverancia y el control de la impulsividad. Esto podría incluir coaching personal, talleres de gestión del estrés, o programas de desarrollo de habilidades para el liderazgo.\n\n5. **Prácticas y Proyectos:** Se recomienda que participe en prácticas profesionales, proyectos de investigación o trabajos de verano en áreas STEM para aplicar sus conocimientos y habilidades en entornos prácticos. Esto",
+        "tool_calls": []
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 680,
+    "completion_tokens": 500,
+    "total_tokens": 1180,
+    "cached_tokens": 0
+  }
+}{
+  "id": "o18szwc-4Yz4kd-957a16b70a05b53e",
+  "error": {
+    "message": "You have reached the rate limit specific to this model meta-llama/Llama-3.3-70B-Instruct-Turbo-Free. The maximum rate limit for this model is 6.0 queries and 60000 tokens per minute. This limit differs from the general rate limits published at Together AI rate limits documentation (https://docs.together.ai/docs/rate-limits). For inquiries about increasing your model-specific rate limit, please contact our sales team (https://www.together.ai/forms/contact-sales)",
+    "type": "model_rate_limit",
+    "param": null,
+    "code": null
+  }
+}{
+  "id": "o18tqdf-4Yz4kd-957a1ab59ee1cdcd",
+  "object": "chat.completion",
+  "created": 1751249186,
+  "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+  "prompt": [],
+  "choices": [
+    {
+      "finish_reason": "length",
+      "seed": 7823058952453925000,
+      "logprobs": null,
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "Basándonos en el perfil vocacional del participante, se pueden generar las siguientes recomendaciones vocacionales específicas y prácticas:\n\n1.  **Exploración de Carreras**: Debido a la curiosidad y apertura hacia múltiples campos, sería beneficioso para el participante explorar carreras que involucren variedad y dinamismo. Áreas como la Gestión de Proyectos, el Desarrollo de Negocios, la Consultoría o incluso carreras en Ciencias Sociales como la Psicología o la Sociología podrían ser de interés.\n\n2.  **Desarrollo de Aptitudes Mentales**: Para mejorar en áreas como la resolución de problemas, el razonamiento lógico y la comprensión de conceptos complejos, se sugiere que el participante busque cursos o talleres que enfoquen el desarrollo de habilidades específicas. Esto podría incluir talleres de pensamiento crítico, cursos de lógica o incluso actividades extracurriculares que promuevan el desarrollo cognitivo.\n\n3.  **Mejora de Hábitos de Estudio**: Aunque el participante muestra una actitud positiva hacia el estudio, sería beneficioso trabajar en la creación de un ambiente de estudio más enfocado y con menor distracción. Esto podría lograrse mediante la implementación de técnicas de gestión del tiempo, la creación de un espacio de estudio dedicado o el uso de herramientas para minimizar las distracciones.\n\n4.  **Gestión Emocional y Liderazgo**: Considerando el tipo caracterológico Colérico, es importante que el participante trabaje en la gestión de sus emociones para mejorar sus relaciones interpersonales y evitar reacciones intensas. Cursos o talleres sobre inteligencia emocional, liderazgo efectivo y comunicación asertiva podrían ser de gran valor.\n\n5.  **Experiencia Laboral y Práctica**: Buscar oportunidades de prácticas, pasantías o incluso voluntariado en áreas de interés puede proporcionar al participante una visión más clara de sus fortalezas y debilidades en entornos profesionales. Esto también puede ayudar a desarrollar habilidades prácticas y a construir una red de contact",
+        "tool_calls": []
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 676,
+    "completion_tokens": 500,
+    "total_tokens": 1176,
+    "cached_tokens": 0
+  }
+}

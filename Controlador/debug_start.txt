@@ -1,0 +1,13 @@
+Inicio de analizarConclusiones.php: 2025-06-30 01:07:37
+Session Cookie: PHPSESSID=i18c6bngpqj2f3hsfa3ip228gp
+IDs: 391, 26, 24, 1
+Jerarquía: admin
+Inicio de analizarConclusiones.php: 2025-06-30 01:16:42
+Session Cookie: PHPSESSID=ulfg1kq3eam2hsn2si220fod85
+IDs: 391, 26, 12, 5
+Jerarquía: admin
+Inicio de analizarConclusiones.php: 2025-06-30 01:20:43
+Session Cookie: PHPSESSID=j5us8k51bote4frf08tsqnf7af
+IDs: 391, 26, 12, 5
+Jerarquía: admin
+------
