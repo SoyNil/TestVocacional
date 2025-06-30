@@ -1,28 +1,28 @@
 <?php
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 ini_set('error_log', 'php_errors.log');
 error_reporting(E_ALL);
 
 session_start();
 header('Content-Type: application/json');
-
 require_once 'conexion.php';
 
 // Validar sesión
-if (!isset($_SESSION['id_usuario'])) {
+if (!isset($_SESSION['id_usuario'], $_SESSION['tipo_usuario'])) {
     echo json_encode(["exito" => false, "mensaje" => "No ha iniciado sesión"]);
     exit;
 }
 
 $id_usuario_sesion = $_SESSION['id_usuario'];
+$tipo_usuario = $_SESSION['tipo_usuario'];
 $jerarquia = $_SESSION['jerarquia'] ?? null;
 
-// MODO 1: Obtener resultados propios (sin id_inicio)
+// Modo 1: obtener resultados propios
 if (!isset($_GET['id_inicio'])) {
-    $sql = "SELECT emotividad, actividad, resonancia, tipo_caracterologico, formula_caracterologica, sexo, fecha
+    $sql = "SELECT emotividad, actividad, resonancia, tipo_caracterologico, formula_caracterologica, sexo, fecha, tipo_usuario
             FROM test_gaston
-            WHERE id_usuario = ?
+            WHERE id_usuario = ? AND tipo_usuario = ?
             ORDER BY id ASC";
 
     $stmt = $conexion->prepare($sql);
@@ -32,7 +32,7 @@ if (!isset($_GET['id_inicio'])) {
         exit;
     }
 
-    $stmt->bind_param("i", $id_usuario_sesion);
+    $stmt->bind_param("is", $id_usuario_sesion, $tipo_usuario);
     $stmt->execute();
     $resultado = $stmt->get_result();
 
@@ -47,20 +47,26 @@ if (!isset($_GET['id_inicio'])) {
     exit;
 }
 
-// MODO 2: Obtener resultados por ID (modo admin/jerarquía)
+// Modo 2: obtener resultados por ID (modo admin/jerarquía)
 $idInicio = (int)$_GET['id_inicio'];
 
 // Verificar jerarquía
-if (!$jerarquia) {
+if (!isset($jerarquia)) {
     echo json_encode(["exito" => false, "mensaje" => "No autorizado."]);
     exit;
 }
 
-$sql = "SELECT g.emotividad, g.actividad, g.resonancia, g.tipo_caracterologico, g.formula_caracterologica, g.sexo, g.fecha
+$sql = "SELECT g.emotividad, g.actividad, g.resonancia, g.tipo_caracterologico, g.formula_caracterologica, g.sexo, g.fecha, g.tipo_usuario
         FROM test_gaston g
-        INNER JOIN usuario u ON g.id_usuario = u.id
-        WHERE g.id = ?
+        INNER JOIN usuario u ON g.id_usuario = u.id AND g.tipo_usuario = 'usuario'
+        WHERE g.id = ? AND g.tipo_usuario = 'usuario'
         AND (u.tipo_cuenta = 'Invitación' OR ? = 'admin')
+        UNION
+        SELECT g.emotividad, g.actividad, g.resonancia, g.tipo_caracterologico, g.formula_caracterologica, g.sexo, g.fecha, g.tipo_usuario
+        FROM test_gaston g
+        INNER JOIN institucion i ON g.id_usuario = i.id AND g.tipo_usuario = 'institucion'
+        WHERE g.id = ? AND g.tipo_usuario = 'institucion'
+        AND ? = 'admin'
         LIMIT 1";
 
 $stmt = $conexion->prepare($sql);
@@ -70,7 +76,7 @@ if (!$stmt) {
     exit;
 }
 
-$stmt->bind_param("is", $idInicio, $jerarquia);
+$stmt->bind_param("isis", $idInicio, $jerarquia, $idInicio, $jerarquia);
 $stmt->execute();
 $resultado = $stmt->get_result();
 
@@ -96,3 +102,4 @@ if ($row = $resultado->fetch_assoc()) {
 
 $stmt->close();
 $conexion->close();
+?>

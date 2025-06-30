@@ -1,4 +1,6 @@
 let respuestas = {}; // Almacena las respuestas seleccionadas
+let tipoUsuario = null; // Variable global para almacenar tipo_usuario
+
 function toggleTachado(checkbox) {
     const span = checkbox.nextElementSibling;
     span.classList.toggle("tachado", checkbox.checked);
@@ -35,9 +37,12 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(data => {
             if (!data.logueado) {
                 window.location.href = "../Vista/principal.html";
-            } else if (data.tipo_usuario !== 'usuario') {
+            } else if (data.tipo_usuario !== 'usuario' && data.tipo_usuario !== 'institucion') {
                 window.location.href = "../Vista/principalpsicologo.html";
             } else {
+                // Almacenar tipo_usuario globalmente
+                tipoUsuario = data.tipo_usuario;
+
                 // Cargar datos del usuario
                 document.getElementById("nombre").value = data.nombre || '';
                 document.getElementById("sexo").value = data.sexo || '';
@@ -60,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 // Verificar número de intentos del CASM83
-                fetch("../Controlador/obtenerResultadosCASM83General.php")
+                fetch(`../Controlador/obtenerResultadosCASM83General.php?tipo_usuario=${data.tipo_usuario}`)
                     .then(res => res.json())
                     .then(dataTest => {
                         if (!dataTest.exito || !Array.isArray(dataTest.resultados)) {
@@ -73,7 +78,6 @@ document.addEventListener("DOMContentLoaded", function () {
                             redirigirConModal();
                         } else {
                             console.log("✔️ Acceso permitido al CASM83.");
-                            // Puedes continuar con el flujo normal del test aquí si es necesario
                         }
                     })
                     .catch(error => {
@@ -383,11 +387,10 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Agregar fecha actual
+        // Agregar fecha actual y tipo_usuario
         const fechaActual = new Date().toISOString().split('T')[0]; // Formato YYYY-MM-DD
+        const payload = { resultados: resultadosCategorias, sexo: sexo, fecha: fechaActual, tipo_usuario: tipoUsuario };
 
-        // Enviar resultados para guardarlos
-        const payload = { resultados: resultadosCategorias, sexo: sexo, fecha: fechaActual };
         fetch('../Controlador/guardarResultadosTest.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -395,7 +398,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(response => response.json())
         .then(data => {
-            if (data.exito) { // Cambié data.message a data.exito para alinearse con el PHP
+            if (data.exito) {
                 console.log('Resultados guardados:', data.mensaje);
             } else {
                 console.error('Error al guardar:', data.mensaje);

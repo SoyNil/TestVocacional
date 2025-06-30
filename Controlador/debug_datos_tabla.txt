@@ -394,3 +394,113 @@ PMA (Aptitudes Mentales Primarias):
 Gastón (Características de Personalidad):
 - Tipo Caracterológico: Nervioso
 - Características Generales: El Nervioso combina emotividad con una baja actividad y resonancia primaria, lo que lo hace reactivo e impulsivo. Tiende a experimentar emociones intensas, pero puede carecer de constancia en sus esfuerzos. Es ideal para entornos que requieren creatividad espontánea, pero debe trabajar en la organización y la perseverancia.
+Resultados de los tests:
+
+CASM-83 (Intereses Vocacionales):
+- CCFM: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- CCSS: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- CCNA: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- CCCO: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- ARTE: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- BURO: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- CCEP: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- HAA: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- FINA: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- LING: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- JURI: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- VERA: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- CONS: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+Sexo: Masculino
+
+CASM-85 (Hábitos de Estudio):
+- ¿CÓMO ESTUDIA USTED?: Puntaje 8, Categoría POSITIVO
+- ¿CÓMO HACE UD. SUS TAREAS?: Puntaje 8, Categoría POSITIVO
+- ¿CÓMO PREPARA SUS EXÁMENES?: Puntaje 4, Categoría TENDENCIA NEGATIVA
+- ¿CÓMO ESCUCHA LAS CLASES?: Puntaje 4, Categoría TENDENCIA NEGATIVA
+- ¿QUÉ ACOMPAÑA SUS MOMENTOS DE ESTUDIO?: Puntaje 6, Categoría POSITIVO
+
+PMA (Aptitudes Mentales Primarias):
+- Comprensión Verbal (V): 1 (Máximo 50)
+- Razonamiento Espacial (E): 0 (Máximo 20)
+- Razonamiento (R): 0 (Máximo 30)
+- Cálculo Numérico (N): 1 (Máximo 70)
+- Fluidez Verbal (F): 0 (Máximo 75)
+- Puntaje Total: 2.50
+
+Gastón (Características de Personalidad):
+- Tipo Caracterológico: Nervioso
+- Características Generales: El Nervioso combina emotividad con una baja actividad y resonancia primaria, lo que lo hace reactivo e impulsivo. Tiende a experimentar emociones intensas, pero puede carecer de constancia en sus esfuerzos. Es ideal para entornos que requieren creatividad espontánea, pero debe trabajar en la organización y la perseverancia.
+Resultados de los tests:
+
+CASM-83 (Intereses Vocacionales):
+- CCFM: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- CCSS: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- CCNA: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- CCCO: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- ARTE: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- BURO: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- CCEP: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- HAA: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- FINA: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- LING: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- JURI: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- VERA: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- CONS: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+Sexo: Masculino
+
+CASM-85 (Hábitos de Estudio):
+- ¿CÓMO ESTUDIA USTED?: Puntaje 8, Categoría POSITIVO
+- ¿CÓMO HACE UD. SUS TAREAS?: Puntaje 8, Categoría POSITIVO
+- ¿CÓMO PREPARA SUS EXÁMENES?: Puntaje 4, Categoría TENDENCIA NEGATIVA
+- ¿CÓMO ESCUCHA LAS CLASES?: Puntaje 4, Categoría TENDENCIA NEGATIVA
+- ¿QUÉ ACOMPAÑA SUS MOMENTOS DE ESTUDIO?: Puntaje 6, Categoría POSITIVO
+
+PMA (Aptitudes Mentales Primarias):
+- Comprensión Verbal (V): 1 (Máximo 50)
+- Razonamiento Espacial (E): 0 (Máximo 20)
+- Razonamiento (R): 0 (Máximo 30)
+- Cálculo Numérico (N): 1 (Máximo 70)
+- Fluidez Verbal (F): 0 (Máximo 75)
+- Puntaje Total: 2.50
+
+Gastón (Características de Personalidad):
+- Tipo Caracterológico: Nervioso
+- Características Generales: El Nervioso combina emotividad con una baja actividad y resonancia primaria, lo que lo hace reactivo e impulsivo. Tiende a experimentar emociones intensas, pero puede carecer de constancia en sus esfuerzos. Es ideal para entornos que requieren creatividad espontánea, pero debe trabajar en la organización y la perseverancia.
+Resultados de los tests:
+
+CASM-83 (Intereses Vocacionales):
+- CCFM: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- CCSS: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- CCNA: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- CCCO: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- ARTE: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- BURO: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- CCEP: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- HAA: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- FINA: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- LING: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- JURI: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- VERA: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+- CONS: Puntaje 0, Respuestas A: 0, Respuestas B: 0
+Sexo: Masculino
+
+CASM-85 (Hábitos de Estudio):
+- ¿CÓMO ESTUDIA USTED?: Puntaje 8, Categoría POSITIVO
+- ¿CÓMO HACE UD. SUS TAREAS?: Puntaje 8, Categoría POSITIVO
+- ¿CÓMO PREPARA SUS EXÁMENES?: Puntaje 4, Categoría TENDENCIA NEGATIVA
+- ¿CÓMO ESCUCHA LAS CLASES?: Puntaje 4, Categoría TENDENCIA NEGATIVA
+- ¿QUÉ ACOMPAÑA SUS MOMENTOS DE ESTUDIO?: Puntaje 6, Categoría POSITIVO
+
+PMA (Aptitudes Mentales Primarias):
+- Comprensión Verbal (V): 1 (Máximo 50)
+- Razonamiento Espacial (E): 0 (Máximo 20)
+- Razonamiento (R): 0 (Máximo 30)
+- Cálculo Numérico (N): 1 (Máximo 70)
+- Fluidez Verbal (F): 0 (Máximo 75)
+- Puntaje Total: 2.50
+
+Gastón (Características de Personalidad):
+- Tipo Caracterológico: Nervioso
+- Características Generales: El Nervioso combina emotividad con una baja actividad y resonancia primaria, lo que lo hace reactivo e impulsivo. Tiende a experimentar emociones intensas, pero puede carecer de constancia en sus esfuerzos. Es ideal para entornos que requieren creatividad espontánea, pero debe trabajar en la organización y la perseverancia.
+
+---

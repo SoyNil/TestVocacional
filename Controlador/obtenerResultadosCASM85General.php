@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 ini_set('error_log', 'php_errors.log');
 error_reporting(E_ALL);
@@ -8,23 +8,29 @@ session_start();
 header('Content-Type: application/json');
 require_once 'conexion.php';
 
-// Validar si hay sesión iniciada
-if (!isset($_SESSION['id_usuario'])) {
+// Validar sesión
+if (!isset($_SESSION['id_usuario'], $_SESSION['tipo_usuario'])) {
     echo json_encode(["exito" => false, "mensaje" => "No ha iniciado sesión"]);
     exit;
 }
 
 $id_usuario_sesion = $_SESSION['id_usuario'];
+$tipo_usuario = $_SESSION['tipo_usuario'];
 $jerarquia = $_SESSION['jerarquia'] ?? null;
 
-// Si no hay parámetro GET, devolver resultados del usuario actual
+// Modo 1: obtener resultados propios
 if (!isset($_GET['id_inicio'])) {
-    $sql = "SELECT area, puntaje, categoria, fecha 
+    $sql = "SELECT area, puntaje, categoria, fecha, tipo_usuario 
             FROM test_casm85 
-            WHERE id_usuario = ? 
+            WHERE id_usuario = ? AND tipo_usuario = ?
             ORDER BY id ASC";
     $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("i", $id_usuario_sesion);
+    if (!$stmt) {
+        error_log("Error al preparar consulta: " . $conexion->error);
+        echo json_encode(["exito" => false, "mensaje" => "Error al consultar los resultados."]);
+        exit;
+    }
+    $stmt->bind_param("is", $id_usuario_sesion, $tipo_usuario);
     $stmt->execute();
     $resultado = $stmt->get_result();
 
@@ -39,21 +45,22 @@ if (!isset($_GET['id_inicio'])) {
     exit;
 }
 
-// Si hay parámetro GET, verificar permiso de jerarquía
+// Modo 2: obtener resultados por ID de test (rango de 5)
 if (!isset($jerarquia)) {
     echo json_encode(["exito" => false, "mensaje" => "No autorizado."]);
     exit;
 }
 
 $idInicio = (int)$_GET['id_inicio'];
-$idFin = $idInicio + 4; // 5 resultados consecutivos
+$idFin = $idInicio + 4; // 5 resultados por test
 
-$sql = "SELECT area, puntaje, categoria, fecha 
+$sql = "SELECT area, puntaje, categoria, fecha, tipo_usuario 
         FROM test_casm85 
         WHERE id BETWEEN ? AND ? 
         AND id_usuario IN (
-            SELECT id FROM usuario 
-            WHERE tipo_cuenta = 'Invitación' OR ? = 'admin'
+            SELECT id FROM usuario WHERE tipo_cuenta = 'Invitación' OR ? = 'admin'
+            UNION
+            SELECT id FROM institucion WHERE ? = 'admin'
         )
         ORDER BY id ASC";
 
@@ -64,7 +71,7 @@ if (!$stmt) {
     exit;
 }
 
-$stmt->bind_param("iis", $idInicio, $idFin, $jerarquia);
+$stmt->bind_param("iiss", $idInicio, $idFin, $jerarquia, $jerarquia);
 $stmt->execute();
 $resultado = $stmt->get_result();
 
@@ -74,7 +81,7 @@ while ($row = $resultado->fetch_assoc()) {
 }
 
 if (count($resultados) !== 5) {
-    echo json_encode(["exito" => false, "mensaje" => "Resultados incompletos para el test seleccionado."]);
+    echo json_encode(["exito" => false, "mensaje" => "El test seleccionado no tiene 5 registros."]);
 } else {
     echo json_encode(["exito" => true, "resultados" => $resultados]);
 }

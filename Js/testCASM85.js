@@ -1,3 +1,5 @@
+let tipoUsuario = null; // Variable global para tipo_usuario
+
 document.addEventListener("DOMContentLoaded", function () {
     const menuToggle = document.getElementById("menu-toggle");
     const nav = document.getElementById("main-nav");
@@ -32,9 +34,12 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(data => {
             if (!data.logueado) {
                 window.location.href = "../Vista/principal.html";
-            } else if (data.tipo_usuario !== 'usuario') {
+            } else if (data.tipo_usuario !== 'usuario' && data.tipo_usuario !== 'institucion') {
                 window.location.href = "../Vista/principalpsicologo.html";
             } else {
+                // Asignar tipo_usuario globalmente
+                tipoUsuario = data.tipo_usuario;
+
                 // Rellenar los campos de nombre y sexo
                 document.getElementById("nombre").value = data.nombre || '';
                 document.getElementById("sexo").value = data.sexo || '';
@@ -73,7 +78,6 @@ document.addEventListener("DOMContentLoaded", function () {
                             redirigirConModal();
                         } else {
                             console.log("✔️ Acceso permitido al CASM85.");
-                            // Puedes continuar con el flujo normal del test aquí si es necesario
                         }
                     })
                     .catch(error => {
@@ -356,7 +360,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // Depuración
-        console.log("Datos enviados a analizarResultados.php:", JSON.stringify({ resultados: resultadosParaEnviar }, null, 2));
+        console.log("Datos enviados a guardarResultadosTest.php:", JSON.stringify({ resultados: resultadosParaEnviar, tipo_usuario: tipoUsuario }, null, 2));
 
         // Validar que haya 5 áreas
         if (resultadosParaEnviar.length !== 5) {
@@ -371,15 +375,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                resultados: resultadosParaEnviar
+                resultados: resultadosParaEnviar,
+                tipo_usuario: tipoUsuario
             })
         })
-        .then(response => response.text())
+        .then(response => response.json())
         .then(data => {
             console.log("Respuesta del servidor (guardar):", data);
+            if (!data.exito) {
+                console.error("Error al guardar resultados:", data.mensaje);
+                document.getElementById("analisis-casm85").innerHTML = `Error al guardar resultados: ${data.mensaje || "Desconocido"}`;
+            }
         })
         .catch(error => {
             console.error("Error al guardar los resultados:", error);
+            document.getElementById("analisis-casm85").innerHTML = `Error al guardar los resultados: ${error.message}`;
         });
 
         // Solicitar análisis
@@ -421,4 +431,4 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     }
-});
+    });

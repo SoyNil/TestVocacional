@@ -717,9 +717,28 @@ document.addEventListener("DOMContentLoaded", function () {
             intervaloReloj = null;
         }
 
-        contenido.innerHTML = `<h2>Lista de Pacientes</h2><div id="lista-pacientes">Cargando...</div>`;
+        contenido.innerHTML = `<h2>Lista de Pacientes</h2>
+                            <div>
+                                <label>Filtrar por tipo:</label>
+                                <select id="filtro-tipo-usuario" class="selector-detalles">
+                                    <option value="">Todos</option>
+                                    <option value="usuario">Usuarios</option>
+                                    <option value="institucion">Instituciones</option>
+                                </select>
+                            </div>
+                            <div id="lista-pacientes">Cargando...</div>`;
 
-        fetch("../Controlador/obtenerUsuarios.php", { credentials: "include" })
+        const filtroTipoUsuario = document.getElementById("filtro-tipo-usuario");
+        filtroTipoUsuario.addEventListener("change", () => {
+            cargarPacientes(filtroTipoUsuario.value);
+        });
+
+        cargarPacientes("");
+    }
+
+    function cargarPacientes(tipoUsuario) {
+        const url = tipoUsuario ? `../Controlador/obtenerUsuarios.php?tipo_usuario=${tipoUsuario}` : "../Controlador/obtenerUsuarios.php";
+        fetch(url, { credentials: "include" })
             .then(res => {
                 if (!res.ok) throw new Error("Error en la respuesta del servidor: " + res.status);
                 return res.text();
@@ -746,26 +765,31 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <th>Nombre</th>
                                 <th>Apellido</th>
                                 <th>Correo</th>
+                                <th>Tipo</th>
                                 <th>Acción</th>
                             </tr>
                         </thead>
                         <tbody>
-                            ${data.usuarios.map(user => `
-                                <tr>
-                                    <td>${user.nombre_usuario}</td>
-                                    <td>${user.nombre}</td>
-                                    <td>${user.apellido}</td>
-                                    <td>${user.correo}</td>
-                                    <td>
-                                        <button class="btn-ver-paciente" data-id="${user.id}" title="Ver paciente">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                        <button class="btn-eliminar-usuario" data-id="${user.id}" title="Eliminar usuario">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            `).join("")}
+                            ${data.usuarios.map(user => {
+                                const tipoUsuario = user.tipo_cuenta === "Institucion" ? "institucion" : "usuario";
+                                return `
+                                    <tr>
+                                        <td>${user.nombre_usuario}</td>
+                                        <td>${user.nombre}</td>
+                                        <td>${user.apellido}</td>
+                                        <td>${user.correo}</td>
+                                        <td>${user.tipo_cuenta}</td>
+                                        <td>
+                                            <button class="btn-ver-paciente" data-id="${user.id}" data-tipo="${tipoUsuario}" title="Ver paciente">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn-eliminar-usuario" data-id="${user.id}" data-tipo="${tipoUsuario}" title="Eliminar usuario">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                `;
+                            }).join("")}
                         </tbody>
                     `;
 
@@ -777,7 +801,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.querySelectorAll(".btn-ver-paciente").forEach(boton => {
                         boton.addEventListener("click", () => {
                             const idPaciente = boton.getAttribute("data-id");
-                            verPaciente(idPaciente);
+                            const tipoUsuario = boton.getAttribute("data-tipo");
+                            console.log("Ver paciente - ID:", idPaciente, "Tipo:", tipoUsuario); // Depuración
+                            verPaciente(idPaciente, tipoUsuario);
                         });
                     });
 
@@ -785,23 +811,25 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.querySelectorAll(".btn-eliminar-usuario").forEach(boton => {
                         boton.addEventListener("click", () => {
                             const idUsuario = boton.getAttribute("data-id");
-                            if (confirm(`¿Estás seguro de eliminar al usuario con ID ${idUsuario}? Esta acción eliminará su cuenta, tests y análisis asociados.`)) {
-                                fetch(`../Controlador/eliminarUsuario.php?id_usuario=${idUsuario}`, {
+                            const tipoUsuario = boton.getAttribute("data-tipo");
+                            console.log("Eliminar - ID:", idUsuario, "Tipo:", tipoUsuario); // Depuración
+                            if (confirm(`¿Estás seguro de eliminar al ${tipoUsuario === 'institucion' ? 'institución' : 'usuario'} con ID ${idUsuario}? Esta acción eliminará su cuenta, tests y análisis asociados.`)) {
+                                fetch(`../Controlador/eliminarUsuario.php?id_usuario=${idUsuario}&tipo_usuario=${tipoUsuario}`, {
                                     method: "GET",
                                     credentials: "include"
                                 })
                                     .then(res => res.json())
                                     .then(data => {
                                         if (data.exito) {
-                                            alert("Usuario eliminado correctamente.");
-                                            mostrarPacientes(); // Refrescar la tabla
+                                            alert(`${tipoUsuario === 'institucion' ? 'Institución' : 'Usuario'} eliminado correctamente.`);
+                                            cargarPacientes(filtroTipoUsuario.value);
                                         } else {
                                             alert(`Error: ${data.mensaje}`);
                                         }
                                     })
                                     .catch(err => {
-                                        console.error("Error al eliminar usuario:", err);
-                                        alert("Error al eliminar usuario.");
+                                        console.error("Error al eliminar:", err);
+                                        alert("Error al eliminar.");
                                     });
                             }
                         });
@@ -817,11 +845,12 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    function verPaciente(idPaciente) {
+    function verPaciente(idPaciente, tipoUsuario) {
         const contenido = document.getElementById("contenido");
         contenido.innerHTML = `<h2>Detalles del Paciente</h2><div id="detalles-paciente">Cargando...</div>`;
 
-        fetch(`../Controlador/obtenerTestsPaciente.php?id=${idPaciente}`, { credentials: "include" })
+        const url = `../Controlador/obtenerTestsPaciente.php?id=${idPaciente}&tipo_usuario=${tipoUsuario}`;
+        fetch(url, { credentials: "include" })
             .then(res => {
                 if (!res.ok) throw new Error("Error en la respuesta del servidor: " + res.status);
                 return res.json();
@@ -843,7 +872,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <p><strong>Nombre:</strong> ${paciente.nombre} ${paciente.apellido}</p>
                     <p><strong>Correo:</strong> ${paciente.correo}</p>
                     <p><strong>Sexo:</strong> ${paciente.sexo}</p>
-                    <p><strong>Fecha de Nacimiento:</strong> ${paciente.fecha_nacimiento}</p>
+                    <p><strong>Fecha de Nacimiento:</strong> ${paciente.fecha_nacimiento || 'No disponible'}</p>
                     <p><strong>Tipo de Cuenta:</strong> ${paciente.tipo_cuenta}</p>
                 `;
                 detalles.appendChild(infoPaciente);
@@ -861,7 +890,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const informeBtn = document.createElement("button");
                 informeBtn.classList.add("btn-informe", "modal-button");
                 informeBtn.textContent = "Generar Informe";
-                informeBtn.addEventListener("click", () => mostrarModalInforme(idPaciente, data.tests));
+                informeBtn.addEventListener("click", () => mostrarModalInforme(idPaciente, data.tests, tipoUsuario));
 
                 botonesDiv.appendChild(volverBtn);
                 botonesDiv.appendChild(informeBtn);
@@ -1060,8 +1089,8 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    function mostrarModalInforme(idPaciente, tests) {
-        console.log("mostrarModalInforme llamado con:", { idPaciente, tests });
+    function mostrarModalInforme(idPaciente, tests, tipoUsuario) {
+        console.log("mostrarModalInforme llamado con:", { idPaciente, tests, tipoUsuario });
 
         // Validar tests
         if (!tests || !Array.isArray(tests.casm83) || !Array.isArray(tests.casm85) || !Array.isArray(tests.pma) || !Array.isArray(tests.gaston)) {
@@ -1166,7 +1195,7 @@ document.addEventListener("DOMContentLoaded", function () {
             generarBtn.disabled = true;
             generarBtn.textContent = "Generando...";
 
-            generarInforme(idPaciente, intento83, intento85, intentoPMA, intentoGaston)
+            generarInforme(idPaciente, intento83, intento85, intentoPMA, intentoGaston, tipoUsuario)
                 .finally(() => {
                     generarBtn.disabled = false;
                     generarBtn.textContent = "Generar";
@@ -1189,23 +1218,23 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(() => modal.style.display = "none", 300);
     }
 
-    async function generarInforme(idPaciente, idInicio83, idInicio85, idInicioPMA, idInicioGaston) {
+    async function generarInforme(idPaciente, idInicio83, idInicio85, idInicioPMA, idInicioGaston, tipoUsuario) {
         // Mostrar modal de carga
         const loadingModal = document.getElementById('loadingModal');
         const loadingMessage = document.getElementById('loadingMessage');
         loadingModal.style.display = 'flex';
         loadingMessage.textContent = 'Generando informe...';
-        console.log("generarInforme llamado con:", { idPaciente, idInicio83, idInicio85, idInicioPMA, idInicioGaston });
+        console.log("generarInforme llamado con:", { idPaciente, idInicio83, idInicio85, idInicioPMA, idInicioGaston, tipoUsuario  });
 
         try {
             const { Document, Packer, Paragraph, TextRun, ImageRun, HeadingLevel, AlignmentType, Table, TableRow, TableCell, WidthType, BorderStyle, Header } = await import("https://cdn.jsdelivr.net/npm/docx@8.5.0/+esm");
 
-            if (!idPaciente || !idInicio83 || !idInicio85 || !idInicioPMA || !idInicioGaston) {
+            if (!idPaciente || !idInicio83 || !idInicio85 || !idInicioPMA || !idInicioGaston || !tipoUsuario) {
                 throw new Error("Faltan parámetros requeridos.");
             }
 
             // Datos del paciente
-            const resPaciente = await fetch(`../Controlador/obtenerTestsPaciente.php?id=${idPaciente}`, { credentials: "include" }).then(res => res.json());
+            const resPaciente = await fetch(`../Controlador/obtenerTestsPaciente.php?id=${idPaciente}&tipo_usuario=${tipoUsuario}`, { credentials: "include" }).then(res => res.json());
             if (!resPaciente.exito) throw new Error(resPaciente.mensaje || "Error al obtener datos del paciente.");
             const paciente = resPaciente.paciente;
             if (!paciente || !paciente.nombre || !paciente.apellido || !paciente.sexo || !paciente.fecha_nacimiento) {

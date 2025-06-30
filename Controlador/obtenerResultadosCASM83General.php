@@ -10,22 +10,23 @@ header('Content-Type: application/json');
 require_once 'conexion.php';
 
 // Validar sesión
-if (!isset($_SESSION['id_usuario'])) {
+if (!isset($_SESSION['id_usuario'], $_SESSION['tipo_usuario'])) {
     echo json_encode(["exito" => false, "mensaje" => "No ha iniciado sesión"]);
     exit;
 }
 
 $id_usuario_sesion = $_SESSION['id_usuario'];
+$tipo_usuario = $_SESSION['tipo_usuario'];
 $jerarquia = $_SESSION['jerarquia'] ?? null;
 
 // Modo 1: obtener resultados propios
 if (!isset($_GET['id_inicio'])) {
     $sql = "SELECT categoria, total, count_a, count_b, sexo, fecha 
             FROM test_casm83 
-            WHERE id_usuario = ? 
+            WHERE id_usuario = ? AND tipo_usuario = ?
             ORDER BY id ASC";
     $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("i", $id_usuario_sesion);
+    $stmt->bind_param("is", $id_usuario_sesion, $tipo_usuario);
     $stmt->execute();
     $resultado = $stmt->get_result();
 
@@ -54,9 +55,10 @@ $sql = "SELECT categoria, total, count_a, count_b, sexo, fecha
         FROM test_casm83 
         WHERE id BETWEEN ? AND ? 
         AND id_usuario IN (
-            SELECT id FROM usuario 
-            WHERE tipo_cuenta = 'Invitación' OR ? = 'admin'
-        ) 
+            SELECT id FROM usuario WHERE tipo_cuenta = 'Invitación' OR ? = 'admin'
+            UNION
+            SELECT id FROM institucion WHERE ? = 'admin'
+        )
         ORDER BY id ASC";
 $stmt = $conexion->prepare($sql);
 if (!$stmt) {
@@ -65,7 +67,7 @@ if (!$stmt) {
     exit;
 }
 
-$stmt->bind_param("iis", $idInicio, $idFin, $jerarquia);
+$stmt->bind_param("iiss", $idInicio, $idFin, $jerarquia, $jerarquia);
 $stmt->execute();
 $resultado = $stmt->get_result();
 

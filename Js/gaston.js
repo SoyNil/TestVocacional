@@ -1,5 +1,7 @@
 import { preguntasGaston } from "./preguntasGaston.js";
 
+let tipoUsuario = null; // Variable global para tipo_usuario
+
 document.addEventListener("DOMContentLoaded", () => {
     // Elementos del DOM
     const menuToggle = document.getElementById("menu-toggle");
@@ -39,9 +41,12 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             if (!data.logueado) {
                 window.location.href = "../Vista/principal.html";
-            } else if (data.tipo_usuario !== 'usuario') {
+            } else if (data.tipo_usuario !== 'usuario' && data.tipo_usuario !== 'institucion') {
                 window.location.href = "../Vista/principalpsicologo.html";
             } else {
+                // Asignar tipo_usuario globalmente
+                tipoUsuario = data.tipo_usuario;
+
                 // Rellenar datos personales
                 document.getElementById("nombre").value = data.nombre || '';
                 document.getElementById("sexo").value = data.sexo || '';
@@ -71,7 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
                             redirigirConModal();
                         } else {
                             console.log("✔️ Acceso permitido al test Gastón.");
-                            // Puedes continuar con el flujo normal del test aquí
                         }
                     })
                     .catch(error => {
@@ -273,9 +277,12 @@ document.addEventListener("DOMContentLoaded", () => {
             resonancia: resultadosTest.resonancia,
             tipo_caracterologico: resultadosTest.tipoCaracterologico,
             formula_caracterologica: resultadosTest.formula,
-            sexo: datosUsuario.sexo, // ✅ agregar sexo
-            fecha: new Date().toISOString().split('T')[0]
+            sexo: datosUsuario.sexo,
+            fecha: new Date().toISOString().split('T')[0],
+            tipo_usuario: tipoUsuario
         };
+
+        console.log("Datos enviados a guardarResultadosTest.php:", JSON.stringify(datos, null, 2));
 
         fetch("../Controlador/guardarResultadosTest.php", {
             method: "POST",
@@ -285,11 +292,14 @@ document.addEventListener("DOMContentLoaded", () => {
         })
             .then(res => res.json())
             .then(data => {
+                console.log("Respuesta del servidor (guardar):", data);
                 if (!data.exito) {
                     console.error("Error al guardar resultados:", data.mensaje);
                 }
             })
-            .catch(err => console.error("Error al guardar resultados:", err));
+            .catch(err => {
+                console.error("Error al guardar resultados:", err);
+            });
     }
 
     // Manejar formulario de datos personales

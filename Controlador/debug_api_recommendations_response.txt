@@ -189,4 +189,80 @@
     "total_tokens": 1180,
     "cached_tokens": 0
   }
+}{
+  "id": "o1DysLa-4Yz4kd-957f98168da03c1b",
+  "object": "chat.completion",
+  "created": 1751306750,
+  "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+  "prompt": [],
+  "choices": [
+    {
+      "finish_reason": "length",
+      "seed": 964118889000835600,
+      "logprobs": null,
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "Basándonos en el perfil vocacional del participante, se sugieren las siguientes recomendaciones:\n\n1. **Exploración Vocacional Profunda**: Dado que no se observan preferencias claras en las 13 categorías evaluadas, es fundamental realizar una exploración más profunda para descubrir sus verdaderas inclinaciones profesionales. Esto podría incluir entrevistas con profesionales de diferentes campos, participación en talleres o cursos de introducción a diversas carreras, y la realización de más pruebas vocacionales para identificar patrones o intereses específicos que puedan haber pasado desapercibidos.\n\n2. **Desarrollo de Hábitos de Estudio**: Para mejorar en áreas como la preparación para exámenes y la atención durante las clases, se recomienda al participante trabajar en estrategias específicas. Esto podría incluir la creación de un plan de estudio estructurado, el uso de técnicas de concentración y atención (como la técnica Pomodoro), y la práctica de métodos de revisión y evaluación efectivos para los exámenes.\n\n3. **Mejora de Aptitudes Mentales**: Dado que los puntajes en comprensión verbal, razonamiento espacial, razonamiento, cálculo numérico y fluidez verbal son relativamente bajos, se sugiere al participante buscar oportunidades para desarrollar estas habilidades. Esto podría lograrse a través de cursos en línea, talleres, o práctica individual con ejercicios y problemas diseñados para mejorar estas aptitudes. La resolución de puzzles, la lectura de textos complejos, y la participación en debates o discusiones grupales podrían ser Activities útiles.\n\n4. **Cultivo de la Organización y la Perseverancia**: Considerando el tipo caracterológico nervioso del participante, es crucial trabajar en desarrollar su organización y perseverancia. Esto podría implicar la creación de un calendario o planner para mantenerse organizado, el establecimiento de metas a corto y largo plazo con pasos concretos para alcanzarlas, y la búsqueda de un mentor o compañero de estudio que pueda ofrecer apoyo y motivación. La práctica de la autoevaluación regular y la celebración de logros pequeños",
+        "tool_calls": []
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 680,
+    "completion_tokens": 500,
+    "total_tokens": 1180,
+    "cached_tokens": 0
+  }
+}{
+  "id": "o1E2pjy-4Yz4kd-957fa628ff3fa9ea",
+  "object": "chat.completion",
+  "created": 1751307327,
+  "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+  "prompt": [],
+  "choices": [
+    {
+      "finish_reason": "length",
+      "seed": 13576368724904292000,
+      "logprobs": null,
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "Basado en la evaluación del participante, se pueden generar las siguientes recomendaciones vocacionales:\n\n1. **Exploración de intereses vocacionales**: Dado que no se observan preferencias claras en las 13 categorías evaluadas, se sugiere que el participante explore diferentes áreas y campos para descubrir sus verdaderos intereses y pasiones. Esto podría lograrse a través de talleres, cursos, prácticas o voluntariados en diversas áreas, como arte, tecnología, ciencias, humanidades, entre otros.\n\n2. **Desarrollo de habilidades académicas**: Para mejorar su preparación para exámenes y atención durante las clases, se recomienda que el participante busque estrategias y técnicas de estudio efectivas, como la creación de horarios de estudio, la práctica de preguntas y respuestas, y la búsqueda de recursos adicionales para reforzar su comprensión de los temas. La búsqueda de tutorías o asesoramiento académico también podría ser beneficiosa.\n\n3. **Fortalecimiento de aptitudes mentales**: Dado que los puntajes en comprensión verbal y cálculo numérico son los más altos, aunque aún así están por debajo de los máximos esperados, se sugiere que el participante se enfoque en desarrollar estas áreas a través de prácticas y ejercicios específicos. La resolución de problemas verbales y numéricos, la lectura de textos complejos y la participación en actividades que requieran cálculo y análisis podrían ser actividades útiles.\n\n4. **Trabajo en la personalidad y hábitos**: Para aprovechar al máximo sus capacidades y superar los desafíos derivados de su tipo caracterológico \"Nervioso\", se recomienda que el participante trabaje en mejorar su organización y capacidad para mantener el esfuerzo a lo largo del tiempo. Esto podría lograrse a través de técnicas de gestión del tiempo, establecimiento de metas a corto y largo plazo, y la búsqueda de apoyo en terapias cognitivo-conductuales o coaching personal para manejar la emotividad y mejorar la constancia y perseverancia.\n\n5. **Carreras y trayectorias educativas**: Considerando las fortalezas y",
+        "tool_calls": []
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 680,
+    "completion_tokens": 500,
+    "total_tokens": 1180,
+    "cached_tokens": 0
+  }
+}{
+  "id": "o1E7bnA-4Yz4kd-957fbce99a6ecdca",
+  "object": "chat.completion",
+  "created": 1751308259,
+  "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+  "prompt": [],
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "seed": 1946327372116746200,
+      "logprobs": null,
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "Considerando el perfil vocacional del participante, se sugieren las siguientes recomendaciones:\n\n1.  **Exploración vocacional**: Debido a la falta de direccionalidad vocacional específica, se recomienda participar en talleres, asesorías o programas de exploración de carreras que le permitan descubrir sus intereses y aptitudes. Esto podría incluir prácticas, pasantías o voluntariados en diferentes áreas para obtener experiencia práctica y clarificar sus objetivos profesionales.\n2.  **Desarrollo de habilidades cognitivas**: Para mejorar las aptitudes mentales primarias, como la comprensión verbal, el razonamiento espacial y el cálculo numérico, se sugiere buscar apoyo en tutorías o cursos de capacitación que se centren en el desarrollo de estas habilidades. Esto podría incluir programas de entrenamiento cognitivo, talleres de resolución de problemas o actividades que fomenten el pensamiento crítico y la resolución de problemas.\n3.  **Estrategias de estudio efectivas**: Para mejorar la preparación para exámenes y la participación en clase, se recomienda trabajar en el desarrollo de estrategias de estudio más efectivas. Esto podría incluir la creación de horarios de estudio personalizados, la práctica de técnicas de memorización y repaso, y la participación activa en discusiones de clase y actividades de aprendizaje colaborativo.\n4.  **Desarrollo de la organización y la perseverancia**: Considerando el tipo caracterológico nervioso del participante, se sugiere trabajar en el desarrollo de habilidades de organización y perseverancia. Esto podría incluir la creación de planes de acción y metas a corto y largo plazo, la práctica de técnicas de gestión del tiempo y la búsqueda de apoyo en talleres o programas que fomenten el desarrollo de la disciplina y la responsabilidad.\n5.  **Apoyo emocional y desarrollo de la autoconciencia**: Finalmente, se recomienda buscar apoyo emocional y trabajar en el desarrollo de la autoconciencia para manejar la emotividad y la impulsividad. Esto podría incluir la participación en terapias o talleres que fomenten el desarrollo de la inteligencia emocional, la práctica de técnicas de relajación y la búsqueda de apoyo en redes de amigos y familiares.",
+        "tool_calls": []
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 702,
+    "completion_tokens": 522,
+    "total_tokens": 1224,
+    "cached_tokens": 0
+  }
 }
+---

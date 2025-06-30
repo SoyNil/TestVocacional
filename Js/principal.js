@@ -24,12 +24,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 const tipo = tipoUsuarioElement.dataset.tipo;
                 if (tipo === "psicologo") {
                     window.location.href = "principalpsicologo.html";
-                } else if (tipo === "usuario") {
-                    // Abrir modal automáticamente para usuarios logueados
+                } else if (tipo === "usuario" || tipo === "institucion") {
                     modal.style.display = "block";
                     setTimeout(() => {
                         modal.classList.add("show");
-                        cargarContenido("test"); // Cargar tests por defecto
+                        cargarContenido("test");
                     }, 10);
                 }
             }
@@ -168,8 +167,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     mostrarModalLogin();
                     return;
                 }
-                if (data.tipo_usuario !== 'usuario') {
-                    mostrarMensaje("Solo los usuarios pueden acceder a los tests.", false);
+                if (data.tipo_usuario !== 'usuario' && data.tipo_usuario !== 'institucion') {
+                    mostrarMensaje("Solo los usuarios e instituciones pueden acceder a los tests.", false);
                     window.location.href = "../Vista/principalpsicologo.html";
                     return;
                 }
@@ -178,16 +177,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 let endpoint = "";
                 let categoriasPorTest = 1;
                 if (urlTest.includes("testCASM83.html")) {
-                    endpoint = "../Controlador/obtenerResultadosCASM83General.php";
+                    endpoint = `../Controlador/obtenerResultadosCASM83General.php?tipo_usuario=${data.tipo_usuario}`;
                     categoriasPorTest = 13;
                 } else if (urlTest.includes("testCASM85.html")) {
-                    endpoint = "../Controlador/obtenerResultadosCASM85General.php";
+                    endpoint = `../Controlador/obtenerResultadosCASM85General.php?tipo_usuario=${data.tipo_usuario}`;
                     categoriasPorTest = 5;
                 } else if (urlTest.includes("testPMA.html")) {
-                    endpoint = "../Controlador/obtenerResultadosPMAGeneral.php";
+                    endpoint = `../Controlador/obtenerResultadosPMAGeneral.php?tipo_usuario=${data.tipo_usuario}`;
                     categoriasPorTest = 1;
                 } else if (urlTest.includes("testGaston.html")) {
-                    endpoint = "../Controlador/obtenerResultadosGastonGeneral.php";
+                    endpoint = `../Controlador/obtenerResultadosGastonGeneral.php?tipo_usuario=${data.tipo_usuario}`;
                     categoriasPorTest = 1;
                 }
 

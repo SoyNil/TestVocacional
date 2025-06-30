@@ -223,4 +223,80 @@
     "total_tokens": 1443,
     "cached_tokens": 0
   }
+}{
+  "id": "o1Dynht-4Yz4kd-957f97b08fd3cdc9",
+  "object": "chat.completion",
+  "created": 1751306734,
+  "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+  "prompt": [],
+  "choices": [
+    {
+      "finish_reason": "length",
+      "seed": 7756012149565083000,
+      "logprobs": null,
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "Basándonos en los resultados de los tests, podemos concluir que el participante, un hombre, presenta una serie de características y tendencias que definen su perfil vocacional, de estudio y personal. \n\nEn cuanto a sus intereses vocacionales, no se observan preferencias claras en ninguna de las 13 categorías evaluadas, lo que sugiere una exploración más profunda para descubrir sus verdaderas inclinaciones profesionales. \n\nEn el ámbito de los hábitos de estudio, el participante muestra una tendencia generalmente positiva en cómo aborda el estudio y la realización de tareas, indicando una buena base para el aprendizaje. Sin embargo, presenta áreas de mejora en la preparación para exámenes y en la atención durante las clases, donde se observa una tendencia negativa. Esto sugiere que podría beneficiarse de estrategias para mejorar su foco y preparación para evaluaciones.\n\nEn términos de aptitudes mentales, los puntajes obtenidos son relativamente bajos en comparación con los máximos posibles, lo que podría indicar áreas donde el participante necesita desarrollar sus habilidades, especialmente en comprensión verbal, razonamiento espacial, razonamiento, cálculo numérico y fluidez verbal. \n\nFinalmente, según el test de Gastón, el participante tiene un tipo caracterológico nervioso, caracterizado por una combinación de emotividad, baja actividad y resonancia primaria. Esto lo hace reactivo e impulsivo, con tendencia a experimentar emociones intensas pero con posible falta de constancia en sus esfuerzos. Este perfil sugiere que el participante podría destacar en entornos que valoran la creatividad espontánea, pero necesitará trabajar en desarrollar su organización y perseverancia para alcanzar sus objetivos de manera efectiva.\n\nEn resumen, el participante presenta un perfil complejo que requiere exploración vocacional adicional, mejora en hábitos de estudio específicos, desarrollo de aptitudes mentales y un enfoque en cultivar la organización y la perseverancia para complementar su creatividad y emotividad. Con el adecuado apoyo y orientación, tiene el potencial para identificar y prosperar en carreras que se alineen con",
+        "tool_calls": []
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 943,
+    "completion_tokens": 500,
+    "total_tokens": 1443,
+    "cached_tokens": 0
+  }
+}{
+  "id": "o1E2kir-4Yz4kd-957fa5d38f5c12b3",
+  "object": "chat.completion",
+  "created": 1751307313,
+  "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+  "prompt": [],
+  "choices": [
+    {
+      "finish_reason": "length",
+      "seed": 6851051256699020000,
+      "logprobs": null,
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "El participante, un hombre, presenta una serie de características y tendencias en diversos aspectos de su personalidad, intereses y habilidades. En cuanto a los intereses vocacionales, no se observan preferencias claras en ninguna de las 13 categorías evaluadas, lo que podría sugerir una exploración aún en curso o una falta de identificación con las opciones presentadas.\n\nEn el ámbito de los hábitos de estudio, se destacan algunas fortalezas, como la forma en que aborda el estudio y la realización de tareas, donde obtiene puntajes positivos. Sin embargo, muestra áreas de mejora en la preparación para exámenes y en la atención durante las clases, donde se observa una tendencia negativa. Esto indica que, aunque tiene algunas buenas prácticas, podría beneficiarse de estrategias para mejorar su foco y preparación académica.\n\nEn términos de aptitudes mentales, los puntajes obtenidos son relativamente bajos en comparación con los máximos posibles, lo que podría sugerir áreas donde se requiere desarrollo o práctica adicional. La comprensión verbal y el cálculo numérico son las áreas con los puntajes más altos, aunque aún así están por debajo de los máximos esperados.\n\nLa evaluación de la personalidad, según el test de Gastón, revela que el participante tiene un tipo caracterológico \"Nervioso\". Esto se caracteriza por una combinación de emotividad, baja actividad y resonancia primaria, lo que lo hace reactivo e impulsivo. Aunque puede experimentar emociones intensas y tiene potencial para la creatividad espontánea, enfrenta desafíos en términos de constancia y perseverancia. Para aprovechar al máximo sus capacidades, sería beneficioso que trabajara en mejorar su organización y capacidad para mantener el esfuerzo a lo largo del tiempo.\n\nEn resumen, el participante muestra una mezcla de fortalezas y debilidades en diferentes áreas. Mientras que tiene algunas buenas prácticas de estudio y potencial creativo, también enfrenta desafíos en términos de identificación de intereses vocacionales, aptitudes mentales y consistencia en sus esfuerzos. Un enfoque en el",
+        "tool_calls": []
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 943,
+    "completion_tokens": 500,
+    "total_tokens": 1443,
+    "cached_tokens": 0
+  }
+}{
+  "id": "o1E7Xqg-4Yz4kd-957fbc94ca2812b3",
+  "object": "chat.completion",
+  "created": 1751308245,
+  "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+  "prompt": [],
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "seed": 8477411349017827000,
+      "logprobs": null,
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "El participante, un hombre, presenta un perfil interesante según los resultados de los tests administrados. En cuanto a sus intereses vocacionales, según el CASM-83, no se observan preferencias claras en ninguna de las 13 categorías evaluadas, lo que sugiere una falta de direccionalidad vocacional específica o la necesidad de una exploración más profunda para identificar áreas de interés.\n\nEn relación con sus hábitos de estudio, evaluados por el CASM-85, se destaca que tiene una forma positiva de abordar el estudio y la realización de tareas, lo que indica una base sólida para el aprendizaje y la gestión del tiempo. Sin embargo, muestra tendencias negativas en la preparación para exámenes y en la manera de escuchar las clases, lo que podría mejorar con estrategias de estudio más efectivas y una mayor participación activa en el aula.\n\nLos resultados del PMA revelan aptitudes mentales primarias relativamente bajas en comparación con los máximos posibles, especialmente en comprensión verbal, razonamiento espacial, razonamiento, cálculo numérico y fluidez verbal. Estos hallazgos sugieren áreas donde podría ser beneficioso recibir apoyo o capacitación adicional para mejorar sus habilidades cognitivas.\n\nFinalmente, según el test de Gastón, el participante tiene un tipo caracterológico nervioso, caracterizado por una gran emotividad, baja actividad y resonancia primaria, lo que lo hace reactivo e impulsivo. Aunque puede ser ideal para entornos que valoran la creatividad espontánea, es crucial que trabaje en desarrollar su organización y perseverancia para alcanzar el éxito a largo plazo.\n\nEn resumen, el participante presenta una combinación de fortalezas y debilidades. Mientras que muestra una buena actitud hacia el estudio y la realización de tareas, también enfrenta desafíos en términos de direccionalidad vocacional, preparación para exámenes, participación en clase, aptitudes mentales y manejo de la emotividad y la impulsividad. Con apoyo y estrategias adecuadas, puede superar estas barreras y desarrollar las habilidades y la personalidad necesarias para alcanzar sus objetivos.",
+        "tool_calls": []
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 954,
+    "completion_tokens": 508,
+    "total_tokens": 1462,
+    "cached_tokens": 0
+  }
 }
+---

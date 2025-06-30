@@ -1,5 +1,7 @@
 import { preguntasPMA } from './preguntasPMA.js';
 
+let tipoUsuario = null; // Variable global para tipo_usuario
+
 document.addEventListener("DOMContentLoaded", function () {
     const menuToggle = document.getElementById("menu-toggle");
     const nav = document.getElementById("main-nav");
@@ -31,9 +33,12 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(data => {
             if (!data.logueado) {
                 window.location.href = "../Vista/principal.html";
-            } else if (data.tipo_usuario !== 'usuario') {
+            } else if (data.tipo_usuario !== 'usuario' && data.tipo_usuario !== 'institucion') {
                 window.location.href = "../Vista/principalpsicologo.html";
             } else {
+                // Asignar tipo_usuario globalmente
+                tipoUsuario = data.tipo_usuario;
+
                 // Rellenar datos personales
                 document.getElementById("nombre").value = data.nombre || '';
                 document.getElementById("sexo").value = data.sexo || '';
@@ -63,7 +68,6 @@ document.addEventListener("DOMContentLoaded", function () {
                             redirigirConModal();
                         } else {
                             console.log("✔️ Acceso permitido al test PMA.");
-                            // Puedes continuar con el flujo normal del test aquí
                         }
                     })
                     .catch(error => {
@@ -569,68 +573,68 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function mostrarResultados() {
-    cuestionario.style.display = "none";
-    resultados.style.display = "block";
-    iconoInstrucciones.style.display = "none";
+        cuestionario.style.display = "none";
+        resultados.style.display = "block";
+        iconoInstrucciones.style.display = "none";
 
-    const nombre = document.getElementById("nombre").value || "Sin nombre";
-    const edad = document.getElementById("edad").value || "Sin edad";
-    const sexo = document.getElementById("sexo").value || "Sin especificar";
-    const gradoEstudio = document.getElementById("gradoEstudio").value || "Sin especificar";
-    const fechaActual = new Date().toISOString().split('T')[0];
+        const nombre = document.getElementById("nombre").value || "Sin nombre";
+        const edad = document.getElementById("edad").value || "Sin edad";
+        const sexo = document.getElementById("sexo").value || "Sin especificar";
+        const gradoEstudio = document.getElementById("gradoEstudio").value || "Sin especificar";
+        const fechaActual = new Date().toISOString().split('T')[0];
 
-    const puntuacionTotal = Number(((1.5 * (puntajes.factorV || 0)) + 
-                               (puntajes.factorE || 0) + 
-                               (2 * (puntajes.factorR || 0)) + 
-                               (puntajes.factorN || 0) + 
-                               (puntajes.factorF || 0)).toFixed(2));
+        const puntuacionTotal = Number(((1.5 * (puntajes.factorV || 0)) + 
+                                   (puntajes.factorE || 0) + 
+                                   (2 * (puntajes.factorR || 0)) + 
+                                   (puntajes.factorN || 0) + 
+                                   (puntajes.factorF || 0)).toFixed(2));
 
-    let resultadosHTML = `
-        <h2>Resultados del Test PMA</h2>
-        <div style="display: flex; justify-content: space-between; gap: 40px; align-items: flex-start;">
-            <div style="flex: 1;">
-                <p><strong>Nombre:</strong> ${nombre}</p>
-                <p><strong>Edad:</strong> ${edad}</p>
-                <p><strong>Sexo:</strong> ${sexo}</p>
-                <p><strong>Grado de Estudio:</strong> ${gradoEstudio}</p>
-                <p><strong>Fecha:</strong> ${fechaActual}</p>
+        let resultadosHTML = `
+            <h2>Resultados del Test PMA</h2>
+            <div style="display: flex; justify-content: space-between; gap: 40px; align-items: flex-start;">
+                <div style="flex: 1;">
+                    <p><strong>Nombre:</strong> ${nombre}</p>
+                    <p><strong>Edad:</strong> ${edad}</p>
+                    <p><strong>Sexo:</strong> ${sexo}</p>
+                    <p><strong>Grado de Estudio:</strong> ${gradoEstudio}</p>
+                    <p><strong>Fecha:</strong> ${fechaActual}</p>
+                </div>
             </div>
-        </div>
-        <p style="margin-top: 20px;">Si quieres volver a ver tus resultados ve a "Ver Perfil" o presione <a href="../Vista/perfil.html" style="color: #2944ff;">aquí</a></p>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>FACTOR</th>
-                    <th>PUNTAJE</th>
-                    <th>MÁXIMO</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>Comprensión Verbal (V)</td><td>${puntajes.factorV || 0}</td><td>50</td></tr>
-                <tr><td>Razonamiento Espacial (E)</td><td>${puntajes.factorE || 0}</td><td>20</td></tr>
-                <tr><td>Razonamiento (R)</td><td>${puntajes.factorR || 0}</td><td>30</td></tr>
-                <tr><td>Cálculo Numérico (N)</td><td>${puntajes.factorN || 0}</td><td>70</td></tr>
-                <tr><td>Fluidez Verbal (F)</td><td>${puntajes.factorF || 0}</td><td>75</td></tr>
-                <tr><td><strong>Puntuación Total</strong></td><td><strong>${puntuacionTotal.toFixed(2)}</strong></td><td>-</td></tr>
-            </tbody>
-        </table>
-        <p><strong>Análisis de resultados:</strong> <span id="analisis" class="loading">Cargando análisis</span></p>
-    `;
+            <p style="margin-top: 20px;">Si quieres volver a ver tus resultados ve a "Ver Perfil" o presione <a href="../Vista/perfil.html" style="color: #2944ff;">aquí</a></p>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>FACTOR</th>
+                        <th>PUNTAJE</th>
+                        <th>MÁXIMO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Comprensión Verbal (V)</td><td>${puntajes.factorV || 0}</td><td>50</td></tr>
+                    <tr><td>Razonamiento Espacial (E)</td><td>${puntajes.factorE || 0}</td><td>20</td></tr>
+                    <tr><td>Razonamiento (R)</td><td>${puntajes.factorR || 0}</td><td>30</td></tr>
+                    <tr><td>Cálculo Numérico (N)</td><td>${puntajes.factorN || 0}</td><td>70</td></tr>
+                    <tr><td>Fluidez Verbal (F)</td><td>${puntajes.factorF || 0}</td><td>75</td></tr>
+                    <tr><td><strong>Puntuación Total</strong></td><td><strong>${puntuacionTotal.toFixed(2)}</strong></td><td>-</td></tr>
+                </tbody>
+            </table>
+            <p><strong>Análisis de resultados:</strong> <span id="analisis" class="loading">Cargando análisis</span></p>
+        `;
 
-    document.getElementById("resultadosContenido").innerHTML = resultadosHTML;
+        document.getElementById("resultadosContenido").innerHTML = resultadosHTML;
 
-    // Preparar resultados para enviar
-    const resultadosParaEnviar = {
-        factorV: puntajes.factorV || 0,
-        factorE: puntajes.factorE || 0,
-        factorR: puntajes.factorR || 0,
-        factorN: puntajes.factorN || 0,
-        factorF: puntajes.factorF || 0,
-        puntajeTotal: puntuacionTotal,
-        fecha: fechaActual
-    };
+        // Preparar resultados para enviar
+        const resultadosParaEnviar = {
+            factorV: puntajes.factorV || 0,
+            factorE: puntajes.factorE || 0,
+            factorR: puntajes.factorR || 0,
+            factorN: puntajes.factorN || 0,
+            factorF: puntajes.factorF || 0,
+            puntajeTotal: puntuacionTotal,
+            fecha: fechaActual
+        };
 
-        console.log("Datos enviados a guardarResultadosTest.php:", JSON.stringify({ resultados: resultadosParaEnviar }, null, 2));
+        console.log("Datos enviados a guardarResultadosTest.php:", JSON.stringify({ resultados: resultadosParaEnviar, tipo_usuario: tipoUsuario }, null, 2));
 
         // Enviar resultados al backend para guardar
         fetch("../Controlador/guardarResultadosTest.php", {
@@ -638,23 +642,14 @@ document.addEventListener("DOMContentLoaded", function () {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ resultados: resultadosParaEnviar })
+            body: JSON.stringify({ resultados: resultadosParaEnviar, tipo_usuario: tipoUsuario })
         })
-        .then(response => response.text())
-        .then(text => {
-            let data;
-            try {
-                data = JSON.parse(text);
-            } catch (e) {
-                console.error("Respuesta no es JSON válido:", text);
-                document.getElementById("analisis").innerHTML = `Error al guardar resultados: Respuesta del servidor no válida (${text})`;
-                return;
-            }
+        .then(response => response.json())
+        .then(data => {
             console.log("Respuesta del servidor (guardar):", data);
             if (!data.exito) {
-                const mensajeError = data.mensaje || "Error desconocido al guardar los resultados";
-                console.error("Error al guardar resultados:", mensajeError);
-                document.getElementById("analisis").innerHTML = `Error al guardar resultados: ${mensajeError}`;
+                console.error("Error al guardar resultados:", data.mensaje);
+                document.getElementById("analisis").innerHTML = `Error al guardar resultados: ${data.mensaje || "Desconocido"}`;
                 return;
             }
 

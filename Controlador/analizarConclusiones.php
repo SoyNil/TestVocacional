@@ -164,7 +164,7 @@ try {
     $datos_tabla .= "- Características Generales: $caracteristicaGeneral\n";
 
     // Depuración: Guardar los datos enviados a la API
-    file_put_contents('C:\xampp\htdocs\TestVocacional\Controlador\debug_datos_tabla.txt', $datos_tabla, FILE_APPEND);
+    file_put_contents('C:\xampp\htdocs\TestVocacional\Controlador\debug_datos_tabla.txt', $datos_tabla . "\n---\n", FILE_APPEND);
 
     // Configurar solicitud a la API de Together para la conclusión
     $together_api_key = "d285b1cfe48c461f457e1a3d0241826e4f17d04bc98e5dead7d48c9107912a4e";
@@ -175,7 +175,7 @@ try {
         "messages" => [
             [
                 "role" => "system",
-                "content" => "Eres un asistente especializado en análisis vocacional. Recibes resultados de cuatro tests: CASM-83 (intereses vocacionales, 13 categorías con puntajes 0-22, respuestas A y B, y sexo del participante), CASM-85 (hábitos de estudio, áreas con puntajes y categorías), PMA (aptitudes mentales en cinco factores con puntajes y máximos), y Gastón (tipo caracterológico con características generales). Genera una conclusión en prosa clara, concisa y en español, integrando los resultados para ofrecer una visión holística de las fortalezas, debilidades, intereses, hábitos, aptitudes y personalidad del participante. No menciones la falta de acceso a datos ni incluyas explicaciones técnicas."
+                "content" => "Eres un asistente especializado en análisis vocacional. Recibes resultados de cuatro tests: CASM-83 (intereses vocacionales, 13 categorías con puntajes 0-22, respuestas A y B, y sexo del participante), CASM-85 (hábitos de estudio, áreas con puntajes y categorías), PMA (aptitudes mentales en cinco factores con puntajes y máximos), y Gastón (tipo caracterológico con características generales). Genera una conclusión en prosa clara, concisa y en español, integrando los resultados para ofrecer una visión holística de las fortalezas, debilidades, intereses, hábitos, aptitudes y personalidad del participante. Limita la respuesta a 300-400 palabras. No menciones la falta de acceso a datos ni incluyas explicaciones técnicas."
             ],
             [
                 "role" => "user",
@@ -183,10 +183,10 @@ try {
             ]
         ],
         "temperature" => 0.7,
-        "max_tokens" => 500
+        "max_tokens" => 1000
     ];
 
-    file_put_contents('C:\xampp\htdocs\TestVocacional\Controlador\debug_api_conclusion_request.txt', json_encode($data_conclusion, JSON_PRETTY_PRINT), FILE_APPEND);
+    file_put_contents('C:\xampp\htdocs\TestVocacional\Controlador\debug_api_conclusion_request.txt', json_encode($data_conclusion, JSON_PRETTY_PRINT) . "\n---\n", FILE_APPEND);
 
     $ch = curl_init($together_api_url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -204,7 +204,8 @@ try {
     curl_close($ch);
 
     // Depuración: Guardar la respuesta de la API para la conclusión
-    file_put_contents('C:\xampp\htdocs\TestVocacional\Controlador\debug_api_conclusion_response.txt', $response, FILE_APPEND);
+    file_put_contents('C:\xampp\htdocs\TestVocacional\Controlador\debug_api_conclusion_response.txt', $response . "\n---\n", FILE_APPEND);
+    file_put_contents('C:\xampp\htdocs\TestVocacional\Controlador\debug_api_conclusion_length.txt', "Longitud de la respuesta (conclusión): " . strlen($response) . " caracteres\n", FILE_APPEND);
 
     if ($response === false || $http_code !== 200) {
         logError("Error en la solicitud a la API (conclusión): HTTP $http_code, Error: $error");
@@ -227,7 +228,7 @@ try {
         "messages" => [
             [
                 "role" => "system",
-                "content" => "Eres un asistente especializado en orientación vocacional. Basándote en una conclusión sobre el perfil vocacional de un participante, genera recomendaciones vocacionales específicas, prácticas y en español. Las recomendaciones deben incluir carreras, áreas profesionales o trayectorias educativas que se alineen con las fortalezas, intereses, aptitudes, hábitos de estudio y personalidad del participante, además de sugerencias para mejorar áreas débiles. Escribe en prosa clara y concisa, evitando referencias a la falta de datos o explicaciones técnicas."
+                "content" => "Eres un asistente especializado en orientación vocacional. Basándote en una conclusión sobre el perfil vocacional de un participante, genera recomendaciones vocacionales específicas, prácticas y en español. Incluye 4-5 recomendaciones que cubran carreras, áreas profesionales o trayectorias educativas alineadas con las fortalezas, intereses, aptitudes, hábitos de estudio y personalidad del participante, además de sugerencias para mejorar áreas débiles. Limita la respuesta a 300-400 palabras. Escribe en prosa clara y concisa, evitando referencias a la falta de datos o explicaciones técnicas."
             ],
             [
                 "role" => "user",
@@ -235,10 +236,10 @@ try {
             ]
         ],
         "temperature" => 0.7,
-        "max_tokens" => 500
+        "max_tokens" => 1000
     ];
 
-    file_put_contents('C:\xampp\htdocs\TestVocacional\Controlador\debug_api_recommendations_request.txt', json_encode($data_recommendations, JSON_PRETTY_PRINT), FILE_APPEND);
+    file_put_contents('C:\xampp\htdocs\TestVocacional\Controlador\debug_api_recommendations_request.txt', json_encode($data_recommendations, JSON_PRETTY_PRINT) . "\n---\n", FILE_APPEND);
 
     $ch = curl_init($together_api_url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -256,7 +257,8 @@ try {
     curl_close($ch);
 
     // Depuración: Guardar la respuesta de la API para las recomendaciones
-    file_put_contents('C:\xampp\htdocs\TestVocacional\Controlador\debug_api_recommendations_response.txt', $response, FILE_APPEND);
+    file_put_contents('C:\xampp\htdocs\TestVocacional\Controlador\debug_api_recommendations_response.txt', $response . "\n---\n", FILE_APPEND);
+    file_put_contents('C:\xampp\htdocs\TestVocacional\Controlador\debug_api_recommendations_length.txt', "Longitud de la respuesta (recomendaciones): " . strlen($response) . " caracteres\n", FILE_APPEND);
 
     if ($response === false || $http_code !== 200) {
         logError("Error en la solicitud a la API (recomendaciones): HTTP $http_code, Error: $error");

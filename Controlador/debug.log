@@ -1813,3 +1813,706 @@ Array
 
 )
 
+Array
+(
+    [resultados] => Array
+        (
+            [CCFM] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCSS] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCNA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCCO] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [ARTE] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [BURO] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCEP] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [HAA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [FINA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [LING] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [JURI] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [VERA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CONS] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+        )
+
+    [sexo] => Masculino
+    [fecha] => 2025-06-30
+    [tipo_usuario] => usuario
+)
+
+Array
+(
+    [resultados] => Array
+        (
+            [CCFM] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCSS] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCNA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCCO] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [ARTE] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [BURO] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCEP] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [HAA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [FINA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [LING] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [JURI] => Array
+                (
+                    [total] => 1
+                    [A] => 0
+                    [B] => 1
+                )
+
+            [VERA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CONS] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+        )
+
+    [sexo] => Masculino
+    [fecha] => 2025-06-30
+    [tipo_usuario] => institucion
+)
+
+Array
+(
+    [resultados] => Array
+        (
+            [CCFM] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCSS] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCNA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCCO] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [ARTE] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [BURO] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCEP] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [HAA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [FINA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [LING] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [JURI] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [VERA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CONS] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+        )
+
+    [sexo] => Masculino
+    [fecha] => 2025-06-30
+    [tipo_usuario] => institucion
+)
+
+Array
+(
+    [resultados] => Array
+        (
+            [CCFM] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCSS] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCNA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCCO] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [ARTE] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [BURO] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCEP] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [HAA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [FINA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [LING] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [JURI] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [VERA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CONS] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+        )
+
+    [sexo] => Masculino
+    [fecha] => 2025-06-30
+    [tipo_usuario] => institucion
+)
+
+Array
+(
+    [resultados] => Array
+        (
+            [0] => Array
+                (
+                    [area] => ¿CÓMO ESTUDIA USTED?
+                    [puntaje] => 8
+                    [categoria] => POSITIVO
+                    [fecha] => 2025-06-30
+                )
+
+            [1] => Array
+                (
+                    [area] => ¿CÓMO HACE UD. SUS TAREAS?
+                    [puntaje] => 8
+                    [categoria] => POSITIVO
+                    [fecha] => 2025-06-30
+                )
+
+            [2] => Array
+                (
+                    [area] => ¿CÓMO PREPARA SUS EXÁMENES?
+                    [puntaje] => 4
+                    [categoria] => TENDENCIA NEGATIVA
+                    [fecha] => 2025-06-30
+                )
+
+            [3] => Array
+                (
+                    [area] => ¿CÓMO ESCUCHA LAS CLASES?
+                    [puntaje] => 4
+                    [categoria] => TENDENCIA NEGATIVA
+                    [fecha] => 2025-06-30
+                )
+
+            [4] => Array
+                (
+                    [area] => ¿QUÉ ACOMPAÑA SUS MOMENTOS DE ESTUDIO?
+                    [puntaje] => 6
+                    [categoria] => POSITIVO
+                    [fecha] => 2025-06-30
+                )
+
+        )
+
+    [tipo_usuario] => institucion
+)
+
+Array
+(
+    [resultados] => Array
+        (
+            [CCFM] => Array
+                (
+                    [total] => 6
+                    [A] => 1
+                    [B] => 5
+                )
+
+            [CCSS] => Array
+                (
+                    [total] => 1
+                    [A] => 1
+                    [B] => 0
+                )
+
+            [CCNA] => Array
+                (
+                    [total] => 1
+                    [A] => 1
+                    [B] => 0
+                )
+
+            [CCCO] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [ARTE] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [BURO] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCEP] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [HAA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [FINA] => Array
+                (
+                    [total] => 1
+                    [A] => 1
+                    [B] => 0
+                )
+
+            [LING] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [JURI] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [VERA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CONS] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+        )
+
+    [sexo] => Masculino
+    [fecha] => 2025-06-30
+    [tipo_usuario] => usuario
+)
+
+Array
+(
+    [id_usuario] => 
+    [emotividad] => 50
+    [actividad] => 42
+    [resonancia] => 26
+    [tipo_caracterologico] => Nervioso
+    [formula_caracterologica] => ENAP
+    [sexo] => masculino
+    [fecha] => 2025-06-30
+    [tipo_usuario] => institucion
+)
+
+Array
+(
+    [resultados] => Array
+        (
+            [factorV] => 1
+            [factorE] => 0
+            [factorR] => 0
+            [factorN] => 1
+            [factorF] => 0
+            [puntajeTotal] => 2.5
+            [fecha] => 2025-06-30
+        )
+
+    [tipo_usuario] => institucion
+)
+
+Array
+(
+    [resultados] => Array
+        (
+            [CCFM] => Array
+                (
+                    [total] => 2
+                    [A] => 1
+                    [B] => 1
+                )
+
+            [CCSS] => Array
+                (
+                    [total] => 1
+                    [A] => 1
+                    [B] => 0
+                )
+
+            [CCNA] => Array
+                (
+                    [total] => 2
+                    [A] => 0
+                    [B] => 2
+                )
+
+            [CCCO] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [ARTE] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [BURO] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCEP] => Array
+                (
+                    [total] => 1
+                    [A] => 1
+                    [B] => 0
+                )
+
+            [HAA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [FINA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [LING] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [JURI] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [VERA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CONS] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+        )
+
+    [sexo] => Masculino
+    [fecha] => 2025-06-30
+    [tipo_usuario] => usuario
+)
+
+Array
+(
+    [id_usuario] => 
+    [emotividad] => 26
+    [actividad] => 26
+    [resonancia] => 22
+    [tipo_caracterologico] => Amorfo
+    [formula_caracterologica] => NENAP
+    [sexo] => masculino
+    [fecha] => 2025-06-30
+    [tipo_usuario] => usuario
+)
+
