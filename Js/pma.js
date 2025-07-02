@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Crear ícono de instrucciones
     const iconoInstrucciones = document.createElement("button");
     iconoInstrucciones.id = "iconoInstrucciones";
-    iconoInstrucciones.textContent = "❓";
+    iconoInstrucciones.textContent = "Instrucciones";
     document.body.appendChild(iconoInstrucciones);
 
     // Crear contenedor de temporizador

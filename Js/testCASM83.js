@@ -126,8 +126,25 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    function cargarCuestionario(){
+    function cargarCuestionario() {
         const tabla = document.getElementById("tablaCuestionario");
+
+        // Agregar contenedor y modal de instrucciones
+        const instruccionesHTML = `
+            <div class="instrucciones-container">
+                <button id="btnInstrucciones" class="modal-button">Instrucciones</button>
+                <div id="modal-instrucciones" class="modal-instrucciones">
+                    <div class="modal-content-instrucciones">
+                        <span id="modal-close-instrucciones" class="modal-close">×</span>
+                        <h3>Instrucciones del Test CASM-83</h3>
+                        <p>El test CASM-83 evalúa tus preferencias y habilidades. Para cada pregunta, selecciona la opción (a o b) que mejor refleje tu elección marcando el checkbox correspondiente. Puedes seleccionar una o ambas opciones si aplica, pero responde con honestidad para obtener resultados precisos. Una vez completado, haz clic en "Enviar" para procesar tus respuestas.</p>
+                        <button id="modal-cerrar-instrucciones" class="modal-button">Cerrar</button>
+                    </div>
+                </div>
+            </div>`;
+
+        // Insertar el contenedor de instrucciones antes de la tabla
+        tabla.insertAdjacentHTML('beforebegin', instruccionesHTML);
 
         preguntasCASM83.forEach((pregunta, index) => {
             const numero = pregunta.numero;
@@ -188,6 +205,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
             tabla.appendChild(fila1);
             tabla.appendChild(fila2);
+        });
+
+        // Configurar eventos del modal
+        const btnInstrucciones = document.getElementById("btnInstrucciones");
+        const modalInstrucciones = document.getElementById("modal-instrucciones");
+        const closeBtn = document.getElementById("modal-close-instrucciones");
+        const cerrarBtn = document.getElementById("modal-cerrar-instrucciones");
+
+        // Mostrar el modal automáticamente al cargar el cuestionario
+        modalInstrucciones.style.display = "flex";
+        setTimeout(() => modalInstrucciones.classList.add("show"), 10);
+
+        btnInstrucciones.addEventListener("click", () => {
+            modalInstrucciones.style.display = "flex";
+            setTimeout(() => modalInstrucciones.classList.add("show"), 10);
+        });
+
+        [closeBtn, cerrarBtn].forEach(btn => {
+            btn.addEventListener("click", () => {
+                modalInstrucciones.classList.remove("show");
+                setTimeout(() => modalInstrucciones.style.display = "none", 300);
+            });
+        });
+
+        modalInstrucciones.addEventListener("click", (e) => {
+            if (e.target === modalInstrucciones) {
+                modalInstrucciones.classList.remove("show");
+                setTimeout(() => modalInstrucciones.style.display = "none", 300);
+            }
         });
     }
 

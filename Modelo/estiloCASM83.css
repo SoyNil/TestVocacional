@@ -166,6 +166,112 @@ nav ul li a:hover {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
 }
 
+.instrucciones-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.modal-instrucciones {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-instrucciones.show {
+    display: flex;
+}
+
+.modal-content-instrucciones {
+    background-color: #171717;
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.modal-instrucciones.show .modal-content-instrucciones {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.modal-content-instrucciones h3 {
+    color: #2944ff;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.modal-content-instrucciones p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.modal-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.75rem;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.modal-close:hover {
+    color: #6679ff;
+}
+
+.modal-button {
+    padding: 10px 15px;
+    border: 1px solid #454545;
+    cursor: pointer;
+    background: #171717;
+    color: white;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.modal-button:hover {
+    border-color: #747474;
+    background-color: #252525;
+}
+
+@media (max-width: 768px) {
+    .modal-content-instrucciones {
+        padding: 15px;
+        width: 95%;
+    }
+
+    .modal-content-instrucciones h3 {
+        font-size: 1.3rem;
+    }
+
+    .modal-content-instrucciones p {
+        font-size: 0.95rem;
+    }
+
+    .modal-button {
+        padding: 8px 12px;
+        font-size: 0.95rem;
+    }
+}
+
 /* Cuestionario y Resultados */
 #seccionCuestionario, #seccionResultados {
     display: none;
@@ -451,7 +557,7 @@ button:hover {
     .menu-toggle {
         order: 3;
         display: flex;
-        justify-content: flex-end;
+        justify-content: flex-end; /* Lo coloca en el extremo derecho */
     }
 
     #main-nav {

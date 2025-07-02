@@ -233,6 +233,32 @@ nav ul li a:hover {
     background-color: transparent;
 }
 
+.terminos-condiciones {
+    margin: 15px 0;
+}
+
+.terminos-condiciones label {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espacio entre el checkbox y el texto */
+    font-size: 0.9em;
+    color: white;
+}
+
+.terminos-condiciones input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+}
+
+.terminos-condiciones a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.terminos-condiciones a:hover {
+    text-decoration: underline;
+}
+
 /* MEDIA QUERIES - Responsive */
 @media (max-width: 768px) {
     .nav-container {

@@ -192,7 +192,19 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch("../Js/preguntasCASM85.json")
             .then(response => response.json())
             .then(data => {
-                let cuestionarioHTML = "";
+                let cuestionarioHTML = `
+                    <div class="instrucciones-container">
+                        <button id="btnInstrucciones" class="modal-button">Instrucciones</button>
+                        <div id="modal-instrucciones" class="modal-instrucciones">
+                            <div class="modal-content-instrucciones">
+                                <span id="modal-close-instrucciones" class="modal-close">×</span>
+                                <h3>Instrucciones del Test CASM-85</h3>
+                                <p>El test CASM-85 evalúa tus hábitos de estudio. Lee cada pregunta cuidadosamente y selecciona la opción que mejor refleje tu comportamiento: "SIEMPRE" si la afirmación es siempre cierta para ti, o "NUNCA" si nunca lo es. Responde con honestidad para obtener resultados precisos. Una vez completado, haz clic en "Enviar" para procesar tus respuestas.</p>
+                                <button id="modal-cerrar-instrucciones" class="modal-button">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>`;
+                
                 let tablaCuestionario = document.querySelector("#tablaCuestionario tbody");
                 if (!data.secciones) {
                     console.error("El JSON no tiene la estructura esperada");
@@ -236,6 +248,35 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
 
                 tablaCuestionario.innerHTML = cuestionarioHTML;
+
+                // Configurar eventos del modal
+                const btnInstrucciones = document.getElementById("btnInstrucciones");
+                const modalInstrucciones = document.getElementById("modal-instrucciones");
+                const closeBtn = document.getElementById("modal-close-instrucciones");
+                const cerrarBtn = document.getElementById("modal-cerrar-instrucciones");
+
+                // Mostrar el modal automáticamente al cargar el cuestionario
+                modalInstrucciones.style.display = "flex";
+                setTimeout(() => modalInstrucciones.classList.add("show"), 10);
+
+                btnInstrucciones.addEventListener("click", () => {
+                    modalInstrucciones.style.display = "flex";
+                    setTimeout(() => modalInstrucciones.classList.add("show"), 10);
+                });
+
+                [closeBtn, cerrarBtn].forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        modalInstrucciones.classList.remove("show");
+                        setTimeout(() => modalInstrucciones.style.display = "none", 300);
+                    });
+                });
+
+                modalInstrucciones.addEventListener("click", (e) => {
+                    if (e.target === modalInstrucciones) {
+                        modalInstrucciones.classList.remove("show");
+                        setTimeout(() => modalInstrucciones.style.display = "none", 300);
+                    }
+                });
             })
             .catch(error => console.error("Error al cargar las preguntas:", error));
     }
@@ -431,4 +472,4 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     }
-    });
+});

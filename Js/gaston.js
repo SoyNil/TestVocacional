@@ -131,10 +131,28 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Generar preguntas en la tabla
     function cargarPreguntas() {
+        const tablaCuestionario = document.getElementById("tablaCuestionario");
         const tbody = tablaCuestionario.querySelector("tbody");
         tbody.innerHTML = "";
+
+        // Agregar contenedor y modal de instrucciones
+        const instruccionesHTML = `
+            <div class="instrucciones-container">
+                <button id="btnInstrucciones" class="modal-button">Instrucciones</button>
+                <div id="modal-instrucciones" class="modal-instrucciones">
+                    <div class="modal-content-instrucciones">
+                        <span id="modal-close-instrucciones" class="modal-close">×</span>
+                        <h3>Instrucciones del Test Gaston Berger</h3>
+                        <p>El test Gaston Berger evalúa tus intereses y preferencias. Para cada pregunta, selecciona una opción ingresando el número correspondiente (1 o 9, y para la pregunta 26 también 5) en el campo de texto. Asegúrate de ingresar solo los valores indicados y responde con honestidad para obtener resultados precisos. Una vez completado, haz clic en "Enviar" para procesar tus respuestas.</p>
+                        <button id="modal-cerrar-instrucciones" class="modal-button">Cerrar</button>
+                    </div>
+                </div>
+            </div>`;
+
+        // Insertar el contenedor de instrucciones antes de la tabla
+        tablaCuestionario.insertAdjacentHTML('beforebegin', instruccionesHTML);
+
         preguntasGaston.forEach(pregunta => {
             const isPregunta26 = pregunta.numero === 26;
             const rowCount = isPregunta26 ? 3 : 2;
@@ -145,9 +163,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td>${pregunta.opciones[0].puntaje}</td>
                 <td rowspan="${rowCount}">
                     <input type="text" name="respuesta${pregunta.numero}" 
-                           pattern="${isPregunta26 ? '[1,5,9]' : '[1,9]'}" 
-                           placeholder="${isPregunta26 ? '1, 5 o 9' : '1 o 9'}" 
-                           maxlength="1">
+                        pattern="${isPregunta26 ? '[1,5,9]' : '[1,9]'}" 
+                        placeholder="${isPregunta26 ? '1, 5 o 9' : '1 o 9'}" 
+                        maxlength="1">
                 </td>
             `;
             tbody.appendChild(row);
@@ -163,6 +181,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const input = row.querySelector(`input[name="respuesta${pregunta.numero}"]`);
             restrictInput(input, isPregunta26);
+        });
+
+        // Configurar eventos del modal
+        const btnInstrucciones = document.getElementById("btnInstrucciones");
+        const modalInstrucciones = document.getElementById("modal-instrucciones");
+        const closeBtn = document.getElementById("modal-close-instrucciones");
+        const cerrarBtn = document.getElementById("modal-cerrar-instrucciones");
+
+        // Mostrar el modal automáticamente al cargar el cuestionario
+        modalInstrucciones.style.display = "flex";
+        setTimeout(() => modalInstrucciones.classList.add("show"), 10);
+
+        btnInstrucciones.addEventListener("click", () => {
+            modalInstrucciones.style.display = "flex";
+            setTimeout(() => modalInstrucciones.classList.add("show"), 10);
+        });
+
+        [closeBtn, cerrarBtn].forEach(btn => {
+            btn.addEventListener("click", () => {
+                modalInstrucciones.classList.remove("show");
+                setTimeout(() => modalInstrucciones.style.display = "none", 300);
+            });
+        });
+
+        modalInstrucciones.addEventListener("click", (e) => {
+            if (e.target === modalInstrucciones) {
+                modalInstrucciones.classList.remove("show");
+                setTimeout(() => modalInstrucciones.style.display = "none", 300);
+            }
         });
     }
 
