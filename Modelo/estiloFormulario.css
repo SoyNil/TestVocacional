@@ -335,3 +335,60 @@ nav ul li a:hover {
 }
 
 /* FIN DE ESTILOS HEADER */
+
+.footer {
+    background-color: #1a1a1a;
+    color: #ccc;
+    padding: 40px 20px 20px;
+    font-size: 14px;
+}
+
+.footer-contenido {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.footer-columna {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 20px;
+}
+
+.footer-columna h4 {
+    color: #fff;
+    margin-bottom: 15px; /* antes estaba en 10px */
+    font-size: 16px;
+    border-bottom: 1px solid #444;
+    padding-bottom: 5px;
+}
+
+.footer-columna ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-columna ul li {
+    margin-bottom: 15px; /* aumentamos de 8px a 15px */
+    text-align: justify;
+}
+
+.footer-columna ul li a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-columna ul li a:hover {
+    color: #fff;
+}
+
+.footer-copy {
+    text-align: center;
+    color: #888;
+    border-top: 1px solid #333;
+    padding-top: 15px;
+    font-size: 12px;
+}

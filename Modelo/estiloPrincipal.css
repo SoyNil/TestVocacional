@@ -742,7 +742,7 @@ main .seccion-bienvenida h1 {
 
 .footer-columna h4 {
     color: #fff;
-    margin-bottom: 10px;
+    margin-bottom: 15px; /* antes estaba en 10px */
     font-size: 16px;
     border-bottom: 1px solid #444;
     padding-bottom: 5px;
@@ -754,7 +754,8 @@ main .seccion-bienvenida h1 {
 }
 
 .footer-columna ul li {
-    margin-bottom: 8px;
+    margin-bottom: 15px; /* aumentamos de 8px a 15px */
+    text-align: justify;
 }
 
 .footer-columna ul li a {

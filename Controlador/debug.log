@@ -2516,3 +2516,29 @@ Array
     [tipo_usuario] => usuario
 )
 
+Array
+(
+    [id_usuario] => 
+    [emotividad] => 90
+    [actividad] => 10
+    [resonancia] => 90
+    [tipo_caracterologico] => Sentimental
+    [formula_caracterologica] => ENAS
+    [sexo] => masculino
+    [fecha] => 2025-07-04
+    [tipo_usuario] => usuario
+)
+
+Array
+(
+    [id_usuario] => 
+    [emotividad] => 90
+    [actividad] => 10
+    [resonancia] => 10
+    [tipo_caracterologico] => Nervioso
+    [formula_caracterologica] => ENAP
+    [sexo] => masculino
+    [fecha] => 2025-07-04
+    [tipo_usuario] => usuario
+)
+
