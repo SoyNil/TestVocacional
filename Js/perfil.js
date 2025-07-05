@@ -675,9 +675,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             ["HAA", "0-3", "4-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
                             ["FINA", "0-2", "3-4", "5-6", "7-10", "11-12", "13-16", "17-22"],
                             ["LING", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
-                            ["JURI", "0-2", "3-4", "5-6", "7-10", "11-13", "14-16", "17-22"],
-                            ["VERA", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
-                            ["CONS", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"]
+                            ["JURI", "0-2", "3-4", "5-6", "7-10", "11-13", "14-16", "17-22"]
                         ] : [
                             ["CCFM", "0-2", "3-4", "5-6", "7-11", "12-14", "15-17", "18-22"],
                             ["CCSS", "0-4", "5-7", "8-9", "10-14", "15-16", "17-19", "20-22"],
@@ -689,9 +687,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             ["HAA", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
                             ["FINA", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
                             ["LING", "0-2", "3-5", "6-7", "8-12", "13-14", "15-17", "18-22"],
-                            ["JURI", "0-2", "3-4", "5-6", "7-11", "12-13", "14-16", "17-22"],
-                            ["VERA", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"],
-                            ["CONS", "0-2", "3-4", "5-6", "7-9", "10-12", "13-15", "16-22"]
+                            ["JURI", "0-2", "3-4", "5-6", "7-11", "12-13", "14-16", "17-22"]
                         ];
 
                         return `
@@ -701,7 +697,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                     <div class="contenedor-tabla" style="position: relative; overflow-x: auto; margin: 0; padding: 0;">
                                         <svg id="svg-lineas-${index}" style="position: absolute; top: 0; left: 0; pointer-events: none; z-index: 10;"></svg>
                                         <table border="1" cellspacing="0" cellpadding="5" style="border-collapse: collapse; text-align: center; width: 100%; margin: 0;">
-                                            <tr><th colspan="9">${sexo}</th></tr>
+                                            <tr><th colspan="9" style="text-align:center;">${sexo}</th></tr>
                                             <tr>${encabezados.map(h => `<th>${h}</th>`).join('')}</tr>
                                             ${categorias.map(fila => `
                                                 <tr>
@@ -1052,7 +1048,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                         <option value="aspectosNegativos">Aspectos Tendenciales Negativos</option>
                                         <option value="normasAutoeducativas">Normas Autoeducativas</option>
                                     </select>
-                                    <div id="detalles-contenido">${info.caracteristicasGenerales}</div>
+                                    <div id="detalles-contenido" class="loading">${info.caracteristicasGenerales}</div>
                                 </div>
                             </div>
                         </div>

@@ -737,6 +737,7 @@ main .seccion-bienvenida h1 {
 .footer-columna {
     flex: 1;
     min-width: 200px;
+    max-width: 250px;
     margin-bottom: 20px;
 }
 

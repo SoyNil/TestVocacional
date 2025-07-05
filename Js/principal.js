@@ -155,7 +155,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
             `;
         } else {
-            // contenido general
+            let contenido = "";
+            switch (tipo) {
+                case "consejos":
+                    contenido = "<h2>Consejos</h2><p>Algunos consejos para elegir una carrera profesional adecuada.</p>";
+                    break;
+                case "orientacion":
+                    contenido = "<h2>Orientación Vocacional</h2><p>Información sobre orientación vocacional y cómo puede ayudarte.</p>";
+                    break;
+            }
+            contenidoTab.innerHTML = contenido;
         }
     }
 

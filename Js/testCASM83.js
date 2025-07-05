@@ -129,22 +129,24 @@ document.addEventListener("DOMContentLoaded", function () {
     function cargarCuestionario() {
         const tabla = document.getElementById("tablaCuestionario");
 
-        // Agregar contenedor y modal de instrucciones
-        const instruccionesHTML = `
-            <div class="instrucciones-container">
-                <button id="btnInstrucciones" class="modal-button">Instrucciones</button>
-                <div id="modal-instrucciones" class="modal-instrucciones">
-                    <div class="modal-content-instrucciones">
-                        <span id="modal-close-instrucciones" class="modal-close">×</span>
-                        <h3>Instrucciones del Test CASM-83</h3>
-                        <p>El test CASM-83 evalúa tus preferencias y habilidades. Para cada pregunta, selecciona la opción (a o b) que mejor refleje tu elección marcando el checkbox correspondiente. Puedes seleccionar una o ambas opciones si aplica, pero responde con honestidad para obtener resultados precisos. Una vez completado, haz clic en "Enviar" para procesar tus respuestas.</p>
-                        <button id="modal-cerrar-instrucciones" class="modal-button">Cerrar</button>
-                    </div>
+        // Crear modal de instrucciones
+        const modalHTML = `
+            <div id="modal-instrucciones" class="modal-instrucciones">
+                <div class="modal-content-instrucciones">
+                    <span id="modal-close-instrucciones" class="modal-close">×</span>
+                    <h3>Instrucciones del Test CASM-83</h3>
+                    <p>El test CASM-83 evalúa tus preferencias y habilidades. Para cada pregunta, selecciona la opción (a o b) que mejor refleje tu elección marcando el checkbox correspondiente. Puedes seleccionar una o ambas opciones si aplica, pero responde con honestidad para obtener resultados precisos. Una vez completado, haz clic en "Enviar" para procesar tus respuestas.</p>
+                    <button id="modal-cerrar-instrucciones" class="modal-button">Cerrar</button>
                 </div>
             </div>`;
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
 
-        // Insertar el contenedor de instrucciones antes de la tabla
-        tabla.insertAdjacentHTML('beforebegin', instruccionesHTML);
+        // Crear botón de instrucciones
+        const btnInstrucciones = document.createElement("button");
+        btnInstrucciones.id = "btnInstrucciones";
+        btnInstrucciones.className = "modal-button";
+        btnInstrucciones.textContent = "Instrucciones";
+        document.body.appendChild(btnInstrucciones);
 
         preguntasCASM83.forEach((pregunta, index) => {
             const numero = pregunta.numero;
@@ -208,16 +210,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // Configurar eventos del modal
-        const btnInstrucciones = document.getElementById("btnInstrucciones");
+        const btnInstruccionesElement = document.getElementById("btnInstrucciones");
         const modalInstrucciones = document.getElementById("modal-instrucciones");
         const closeBtn = document.getElementById("modal-close-instrucciones");
         const cerrarBtn = document.getElementById("modal-cerrar-instrucciones");
 
-        // Mostrar el modal automáticamente al cargar el cuestionario
         modalInstrucciones.style.display = "flex";
         setTimeout(() => modalInstrucciones.classList.add("show"), 10);
 
-        btnInstrucciones.addEventListener("click", () => {
+        btnInstruccionesElement.addEventListener("click", () => {
             modalInstrucciones.style.display = "flex";
             setTimeout(() => modalInstrucciones.classList.add("show"), 10);
         });
@@ -349,6 +350,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function verResultados() {
+        const nombre = document.getElementById("nombre").value || "Sin nombre";
+        const edad = document.getElementById("edad").value || "Sin edad";
+        const gradoEstudio = document.getElementById("gradoEstudio").value || "Sin especificar";
         document.getElementById("seccionCuestionario").style.display = "none";
         document.getElementById("seccionResultados").style.display = "block";
         const resultados = document.getElementById("resultados");
@@ -460,6 +464,15 @@ document.addEventListener("DOMContentLoaded", function () {
         let tablaHTML = `
             <div class="card" style="margin: 0; padding: 0; border: none;">
                 <div class="card-body" style="padding: 0;">
+                    <div style="display: flex; justify-content: space-between; gap: 40px; align-items: flex-start;">
+                        <div style="flex: 1;">
+                            <p><strong>Nombre:</strong> ${nombre}</p>
+                            <p><strong>Edad:</strong> ${edad}</p>
+                            <p><strong>Sexo:</strong> ${sexo}</p>
+                            <p><strong>Grado de Estudio:</strong> ${gradoEstudio}</p>
+                            <p><strong>Fecha:</strong> ${fechaActual}</p>
+                        </div>
+                    </div>
                     <p style="margin: 20px 0;">Si quieres volver a ver tus resultados ve a "Ver Perfil" en la ventana de inicio o presione <a href="../Vista/perfil.html" style="color: #2944ff;">aquí</a></p>
                     <h3 class="card-title" style="margin: 10px 0;">📈 Tabla de Percentiles (${sexo})</h3>
                     <div class="contenedor-tabla" style="position: relative; overflow-x: auto; margin: 0; padding: 0;">

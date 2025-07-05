@@ -136,22 +136,24 @@ document.addEventListener("DOMContentLoaded", () => {
         const tbody = tablaCuestionario.querySelector("tbody");
         tbody.innerHTML = "";
 
-        // Agregar contenedor y modal de instrucciones
-        const instruccionesHTML = `
-            <div class="instrucciones-container">
-                <button id="btnInstrucciones" class="modal-button">Instrucciones</button>
-                <div id="modal-instrucciones" class="modal-instrucciones">
-                    <div class="modal-content-instrucciones">
-                        <span id="modal-close-instrucciones" class="modal-close">×</span>
-                        <h3>Instrucciones del Test Gaston Berger</h3>
-                        <p>El test Gaston Berger evalúa tus intereses y preferencias. Para cada pregunta, selecciona una opción ingresando el número correspondiente (1 o 9, y para la pregunta 26 también 5) en el campo de texto. Asegúrate de ingresar solo los valores indicados y responde con honestidad para obtener resultados precisos. Una vez completado, haz clic en "Enviar" para procesar tus respuestas.</p>
-                        <button id="modal-cerrar-instrucciones" class="modal-button">Cerrar</button>
-                    </div>
+        // Crear modal de instrucciones
+        const modalHTML = `
+            <div id="modal-instrucciones" class="modal-instrucciones">
+                <div class="modal-content-instrucciones">
+                    <span id="modal-close-instrucciones" class="modal-close">×</span>
+                    <h3>Instrucciones del Test Gaston Berger</h3>
+                    <p>El test Gaston Berger evalúa tus intereses y preferencias. Para cada pregunta, selecciona una opción ingresando el número correspondiente (1 o 9, y para la pregunta 26 también 5) en el campo de texto. Asegúrate de ingresar solo los valores indicados y responde con honestidad para obtener resultados precisos. Una vez completado, haz clic en "Enviar" para procesar tus respuestas.</p>
+                    <button id="modal-cerrar-instrucciones" class="modal-button">Cerrar</button>
                 </div>
             </div>`;
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
 
-        // Insertar el contenedor de instrucciones antes de la tabla
-        tablaCuestionario.insertAdjacentHTML('beforebegin', instruccionesHTML);
+        // Crear botón de instrucciones
+        const btnInstrucciones = document.createElement("button");
+        btnInstrucciones.id = "btnInstrucciones";
+        btnInstrucciones.className = "modal-button";
+        btnInstrucciones.textContent = "Instrucciones";
+        document.body.appendChild(btnInstrucciones);
 
         preguntasGaston.forEach(pregunta => {
             const isPregunta26 = pregunta.numero === 26;
@@ -184,16 +186,15 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         // Configurar eventos del modal
-        const btnInstrucciones = document.getElementById("btnInstrucciones");
+        const btnInstruccionesElement = document.getElementById("btnInstrucciones");
         const modalInstrucciones = document.getElementById("modal-instrucciones");
         const closeBtn = document.getElementById("modal-close-instrucciones");
         const cerrarBtn = document.getElementById("modal-cerrar-instrucciones");
 
-        // Mostrar el modal automáticamente al cargar el cuestionario
         modalInstrucciones.style.display = "flex";
         setTimeout(() => modalInstrucciones.classList.add("show"), 10);
 
-        btnInstrucciones.addEventListener("click", () => {
+        btnInstruccionesElement.addEventListener("click", () => {
             modalInstrucciones.style.display = "flex";
             setTimeout(() => modalInstrucciones.classList.add("show"), 10);
         });

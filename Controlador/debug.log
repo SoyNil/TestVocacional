@@ -2542,3 +2542,105 @@ Array
     [tipo_usuario] => usuario
 )
 
+Array
+(
+    [resultados] => Array
+        (
+            [CCFM] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCSS] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCNA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCCO] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [ARTE] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [BURO] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CCEP] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [HAA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [FINA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [LING] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [JURI] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [VERA] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+            [CONS] => Array
+                (
+                    [total] => 0
+                    [A] => 0
+                    [B] => 0
+                )
+
+        )
+
+    [sexo] => Masculino
+    [fecha] => 2025-07-05
+    [tipo_usuario] => usuario
+)
+
