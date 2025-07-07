@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Arial:wght@300..900&display=swap');
 
 * {
-    font-family: "Arial", sans-serif;
+    font-family: "Figtree", sans-serif;
     box-sizing: border-box;
 }
 
@@ -411,6 +411,8 @@ input:focus, select:focus {
     cursor: pointer;
     margin: 4px;
     transition: border 0.3s ease, transform 0.3s ease;
+    object-fit: contain;
+    aspect-ratio: 1/1;
 }
 
 .factorE-img:hover {
@@ -827,4 +829,11 @@ input:focus, select:focus {
     border-top: 1px solid #333;
     padding-top: 15px;
     font-size: 12px;
+}
+
+.factorN-checkbox {
+    margin-right: 10px;
+}
+.factorN-checkbox + label {
+    margin-right: 20px;
 }

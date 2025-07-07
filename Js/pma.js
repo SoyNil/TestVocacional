@@ -1,6 +1,9 @@
 import { preguntasPMA } from './preguntasPMA.js';
 
 let tipoUsuario = null; // Variable global para tipo_usuario
+let temporizadorInterval = null; // Variable global para el temporizador
+let tiempoRestante; // Variable para almacenar el tiempo restante
+let callbackFinal; // Callback para cuando el temporizador llegue a 0
 
 document.addEventListener("DOMContentLoaded", function () {
     const menuToggle = document.getElementById("menu-toggle");
@@ -36,10 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
             } else if (data.tipo_usuario !== 'usuario' && data.tipo_usuario !== 'institucion') {
                 window.location.href = "../Vista/principalpsicologo.html";
             } else {
-                // Asignar tipo_usuario globalmente
                 tipoUsuario = data.tipo_usuario;
-
-                // Rellenar datos personales
                 document.getElementById("nombre").value = data.nombre || '';
                 document.getElementById("sexo").value = data.sexo || '';
                 if (data.fecha_nacimiento) {
@@ -54,7 +54,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.getElementById("edad").value = edad;
                 }
 
-                // Verificar número de intentos del test PMA
                 fetch("../Controlador/obtenerResultadosPMAGeneral.php")
                     .then(res => res.json())
                     .then(dataTest => {
@@ -63,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             return;
                         }
 
-                        const intentos = dataTest.resultados.length; // 1 fila por intento en PMA
+                        const intentos = dataTest.resultados.length;
                         if (intentos >= 4) {
                             redirigirConModal();
                         } else {
@@ -81,7 +80,6 @@ document.addEventListener("DOMContentLoaded", function () {
             window.location.href = "../Vista/principal.html";
         });
 
-    // Función para redirigir y activar modal desde principal.html
     function redirigirConModal() {
         localStorage.setItem("mostrarModalLimite", "true");
         window.location.href = "../Vista/principal.html";
@@ -96,7 +94,6 @@ document.addEventListener("DOMContentLoaded", function () {
     resultadosBtn.textContent = "Siguiente sección";
     let respuestasUsuario = {};
     let puntajes = {};
-    let temporizadorInterval;
     let letraFactorF;
 
     // Crear modal de instrucciones
@@ -142,20 +139,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Cerrar modal
-    function cerrarModal() {
-        modal.style.display = "none";
-    }
-
-    // Iniciar temporizador
-    function iniciarTemporizador(tiempoLimite, callbackFinal) {
-        let tiempoRestante = tiempoLimite;
-        temporizador.textContent = `Tiempo restante: ${Math.floor(tiempoRestante / 60)}:${(tiempoRestante % 60).toString().padStart(2, '0')}`;
-        notificacion.style.display = "none";
-
+    // Iniciar temporizador con control de pausa
+    function iniciarTemporizador(tiempoLimite, callback) {
+        tiempoRestante = tiempoLimite;
+        callbackFinal = callback;
+        actualizarTemporizador();
         temporizadorInterval = setInterval(() => {
+            if (modal.style.display === "flex") return; // Pausar si el modal está abierto
             tiempoRestante--;
-            temporizador.textContent = `Tiempo restante: ${Math.floor(tiempoRestante / 60)}:${(tiempoRestante % 60).toString().padStart(2, '0')}`;
+            actualizarTemporizador();
             if (tiempoRestante === 30) {
                 notificacion.textContent = "¡Quedan 30 segundos!";
                 notificacion.style.display = "block";
@@ -165,9 +157,23 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             if (tiempoRestante <= 0) {
                 clearInterval(temporizadorInterval);
+                temporizadorInterval = null;
                 callbackFinal();
             }
         }, 1000);
+    }
+
+    // Actualizar visualización del temporizador
+    function actualizarTemporizador() {
+        temporizador.textContent = `Tiempo restante: ${Math.floor(tiempoRestante / 60)}:${(tiempoRestante % 60).toString().padStart(2, '0')}`;
+    }
+
+    // Cerrar modal y reanudar temporizador si está activo
+    function cerrarModal() {
+        modal.style.display = "none";
+        if (temporizadorInterval) {
+            actualizarTemporizador();
+        }
     }
 
     // Desplazar al inicio del contenedor
@@ -188,7 +194,8 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         modal.style.display = "flex";
         iconoInstrucciones.style.display = "block";
-        document.getElementById("cerrarModal").addEventListener("click", cerrarModal);
+        const cerrarModalBtn = document.getElementById("cerrarModal");
+        cerrarModalBtn.addEventListener("click", cerrarModal);
         iconoInstrucciones.addEventListener("click", () => modal.style.display = "flex");
 
         cuestionario.querySelector("h2").textContent = "Cuestionario - Factor V: Comprensión Verbal";
@@ -232,6 +239,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Evaluar Factor V
     function evaluarFactorV() {
         clearInterval(temporizadorInterval);
+        temporizadorInterval = null;
         let puntaje = 0;
         preguntasPMA.factorV.forEach(pregunta => {
             if (respuestasUsuario[`p${pregunta.id}`] === pregunta.respuestaCorrecta) {
@@ -257,7 +265,8 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         modal.style.display = "flex";
         iconoInstrucciones.style.display = "block";
-        document.getElementById("cerrarModal").addEventListener("click", cerrarModal);
+        const cerrarModalBtn = document.getElementById("cerrarModal");
+        cerrarModalBtn.addEventListener("click", cerrarModal);
         iconoInstrucciones.addEventListener("click", () => modal.style.display = "flex");
 
         cuestionario.querySelector("h2").textContent = "Cuestionario - Factor E: Razonamiento Espacial";
@@ -307,6 +316,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Evaluar Factor E
     function evaluarFactorE() {
         clearInterval(temporizadorInterval);
+        temporizadorInterval = null;
         let aciertos = 0;
         let errores = 0;
         preguntasPMA.factorE.forEach(pregunta => {
@@ -343,7 +353,8 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         modal.style.display = "flex";
         iconoInstrucciones.style.display = "block";
-        document.getElementById("cerrarModal").addEventListener("click", cerrarModal);
+        const cerrarModalBtn = document.getElementById("cerrarModal");
+        cerrarModalBtn.addEventListener("click", cerrarModal);
         iconoInstrucciones.addEventListener("click", () => modal.style.display = "flex");
 
         cuestionario.querySelector("h2").textContent = "Cuestionario - Factor R: Razonamiento";
@@ -377,6 +388,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Evaluar Factor R
     function evaluarFactorR() {
         clearInterval(temporizadorInterval);
+        temporizadorInterval = null;
         let puntaje = 0;
         preguntasPMA.factorR.forEach(pregunta => {
             if (respuestasUsuario[`p${pregunta.id}`] === pregunta.respuestaCorrecta) {
@@ -401,7 +413,8 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         modal.style.display = "flex";
         iconoInstrucciones.style.display = "block";
-        document.getElementById("cerrarModal").addEventListener("click", cerrarModal);
+        const cerrarModalBtn = document.getElementById("cerrarModal");
+        cerrarModalBtn.addEventListener("click", cerrarModal);
         iconoInstrucciones.addEventListener("click", () => modal.style.display = "flex");
 
         cuestionario.querySelector("h2").textContent = "Cuestionario - Factor N: Cálculo Numérico";
@@ -437,6 +450,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Evaluar Factor N
     function evaluarFactorN() {
         clearInterval(temporizadorInterval);
+        temporizadorInterval = null;
         let aciertos = 0;
         let errores = 0;
         preguntasPMA.factorN.forEach(pregunta => {
@@ -465,7 +479,8 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         modal.style.display = "flex";
         iconoInstrucciones.style.display = "block";
-        document.getElementById("cerrarModal").addEventListener("click", cerrarModal);
+        const cerrarModalBtn = document.getElementById("cerrarModal");
+        cerrarModalBtn.addEventListener("click", cerrarModal);
         iconoInstrucciones.addEventListener("click", () => modal.style.display = "flex");
 
         cuestionario.querySelector("h2").textContent = "Cuestionario - Factor F: Fluidez Verbal";
@@ -556,6 +571,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Evaluar Factor F
     function evaluarFactorF() {
         clearInterval(temporizadorInterval);
+        temporizadorInterval = null;
         let puntaje = 0;
         const palabrasVistas = new Set();
         for (let i = 1; i <= 75; i++) {
@@ -623,7 +639,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         document.getElementById("resultadosContenido").innerHTML = resultadosHTML;
 
-        // Preparar resultados para enviar
         const resultadosParaEnviar = {
             factorV: puntajes.factorV || 0,
             factorE: puntajes.factorE || 0,
@@ -636,7 +651,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         console.log("Datos enviados a guardarResultadosTest.php:", JSON.stringify({ resultados: resultadosParaEnviar, tipo_usuario: tipoUsuario }, null, 2));
 
-        // Enviar resultados al backend para guardar
         fetch("../Controlador/guardarResultadosTest.php", {
             method: "POST",
             headers: {
@@ -653,7 +667,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            // Enviar solicitud de análisis
             const enviarSolicitudConReintentos = async (resultados, intentos = 3, esperaInicial = 1000) => {
                 try {
                     const response = await fetch("../Controlador/analizarResultadosPMA.php", {
